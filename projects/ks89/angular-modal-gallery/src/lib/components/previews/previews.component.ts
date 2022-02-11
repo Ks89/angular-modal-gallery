@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -66,6 +66,15 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   @Input()
   images: InternalLibImage[] | undefined;
+
+  /**
+   * Optional template reference for the rendering of previews.
+   * Template may access following context variables:
+   * - preview: the `Image` object
+   * - defaultTemplate: the template used by default to render the preview (in case the need is to wrap it)
+   */
+  @Input()
+  customTemplate?: TemplateRef<HTMLElement>;
 
   /**
    * Output to emit the clicked preview. The payload contains the `ImageEvent` associated to the clicked preview.
@@ -194,6 +203,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * @param Action action that triggered the source event or `Action.NORMAL` if not specified
    */
   onImageEvent(preview: InternalLibImage, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
+    // It's suggested to stop propagation of the event, so the
+    // Cdk background will not catch a click and close the modal (like it does on Windows Chrome/FF).
+    event?.stopPropagation();
     if (!this.id || !this.images) {
       throw new Error('Internal library error - id and images must be defined');
     }
