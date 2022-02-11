@@ -22,6 +22,8 @@
  SOFTWARE.
  */
 
+import { TemplateRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -46,6 +48,12 @@ import * as libConfigs from './libconfigs';
   styleUrls: ['./modal-gallery.scss']
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
+  /**
+   * A custom template to illustrate the customization of previews rendering.
+   */
+  @ViewChild('previewsTemplate')
+  previewsTemplate?: TemplateRef<HTMLElement>;
+
   imageIndex = 0;
   galleryId = 1;
   isPlaying = true;
@@ -512,7 +520,8 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       id,
       images: imagesArrayToUse,
       currentImage: imageToShow,
-      libConfig
+      libConfig,
+      previewsTemplate: this.previewsTemplate,
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 

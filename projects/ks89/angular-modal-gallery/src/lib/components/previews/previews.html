@@ -14,7 +14,9 @@
     </a>
 
     <ng-container *ngFor="let preview of previews; trackBy: trackById; let index = index">
-      <img *ngIf="preview?.modal?.img"
+
+      <ng-template #defaultTemplate>
+        <img *ngIf="preview?.modal?.img"
            class="inside preview-image {{isActive(preview) ? 'active' : ''}}{{!previewConfig?.clickable ? ' unclickable' : ''}}"
            [src]="preview.plain?.img ? preview.plain?.img! : preview.modal.img"
            ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
@@ -24,7 +26,18 @@
            [title]="(preview.modal.title || preview.modal.title === '') ? preview.modal.title : ''"
            alt="{{preview.modal.alt ? preview.modal.alt : ''}}"
            [tabIndex]="0" role="img"
-           (click)="onImageEvent(preview, $event, clickAction)" (keyup)="onImageEvent(preview, $event, keyboardAction)"/>
+        />
+      </ng-template>
+
+      <div
+        (click)="onImageEvent(preview, $event, clickAction)"
+        (keyup)="onImageEvent(preview, $event, keyboardAction)"
+      >
+        <ng-container 
+          *ngTemplateOutlet="!customTemplate ? defaultTemplate : customTemplate ; context:{preview, defaultTemplate}">
+        </ng-container>
+      </div>
+
     </ng-container>
 
 

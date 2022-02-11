@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, ViewChild, TemplateRef
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -83,6 +85,12 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    * Array of `InternalLibImage` representing the model of this library with all images, thumbs and so on.
    */
   images: InternalLibImage[];
+
+  /**
+   * Optional template reference to use to render previews.
+   */
+  customPreviewsTemplate?: TemplateRef<HTMLElement>;
+
   /**
    * `Image` that is visible right now.
    */
@@ -123,6 +131,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     this.images = (this.dialogContent as ModalGalleryConfig).images as InternalLibImage[];
     this.currentImage = (this.dialogContent as ModalGalleryConfig).currentImage as InternalLibImage;
     this.libConfig = (this.dialogContent as ModalGalleryConfig).libConfig;
+    this.customPreviewsTemplate = (this.dialogContent as ModalGalleryConfig).previewsTemplate;
     this.configService.setConfig(this.id, this.libConfig);
 
     this.updateImagesSubscription = this.modalGalleryService.updateImages$.subscribe((images: Image[]) => {

@@ -22,6 +22,7 @@
  SOFTWARE.
  */
 
+import { TemplateRef } from '@angular/core';
 import { Image } from './image.class';
 import { ModalLibConfig } from './lib-config.interface';
 
@@ -30,4 +31,11 @@ export interface ModalGalleryConfig {
   images: Image[];
   currentImage: Image;
   libConfig?: ModalLibConfig;
+  /**
+   * Optional template reference for the rendering of previews.
+   * Template may access following context variables:
+   * - "preview": the `Image` object of the preview
+   * - "defaultTemplate": the template used by default to render the preview (in case the need is to augment it)
+   */
+  previewsTemplate?: TemplateRef<HTMLElement>;
 }

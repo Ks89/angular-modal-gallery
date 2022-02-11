@@ -1,6 +1,15 @@
 <h2 class="title">Modal Gallery</h2>
 <br>
 
+<ng-template #previewsTemplate let-preview="preview" let-defaultTemplate="defaultTemplate">
+  <div class="preview-block">
+    <div class="preview-description">{{preview?.modal?.description ?? '&nbsp;'}}</div>
+    <div class="preview-default">
+      <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+    </div>
+  </div>
+</ng-template>
+
 <p>If you want, you can <b>add a random image</b> to every example
   <button (click)="addRandomImage()"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add image</button>
 </p>
