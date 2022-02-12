@@ -520,8 +520,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       id,
       images: imagesArrayToUse,
       currentImage: imageToShow,
-      libConfig,
-      previewsTemplate: this.previewsTemplate,
+      libConfig
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
@@ -704,6 +703,25 @@ export class ModalGalleryExampleComponent implements OnDestroy {
         console.log('image updated successfully!');
       }, 4000);
     });
+  }
+
+  openModalWithPreviewsTemplate(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
+    if(imagesArrayToUse.length === 0) {
+      console.error('Cannot open modal-gallery because images array cannot be empty');
+      return;
+    }
+    if(imageIndex > imagesArrayToUse.length - 1) {
+      console.error('Cannot open modal-gallery because imageIndex must be valid');
+      return;
+    }
+    const imageToShow: Image = imagesArrayToUse[imageIndex];
+    const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
+      id,
+      images: imagesArrayToUse,
+      currentImage: imageToShow,
+      libConfig,
+      previewsTemplate: this.previewsTemplate,
+    } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
   autoPlayButton(config: ModalLibConfig): boolean {

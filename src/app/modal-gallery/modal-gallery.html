@@ -1,15 +1,6 @@
 <h2 class="title">Modal Gallery</h2>
 <br>
 
-<ng-template #previewsTemplate let-preview="preview" let-defaultTemplate="defaultTemplate">
-  <div class="preview-block">
-    <div class="preview-description">{{preview?.modal?.description ?? '&nbsp;'}}</div>
-    <div class="preview-default">
-      <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
-    </div>
-  </div>
-</ng-template>
-
 <p>If you want, you can <b>add a random image</b> to every example
   <button (click)="addRandomImage()"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add image</button>
 </p>
@@ -323,4 +314,17 @@
 <section>
   <h3>F2 - (id=901) - Experimental demo - an array of Images with the same source file (different classes/ids and paths with appended '?imageIndex' to prevent caching issues)</h3>
   <button (click)="openModal(901, sameImages, 0)">Open modalgallery</button>
+</section>
+
+<ng-template #previewsTemplate let-preview="preview" let-defaultTemplate="defaultTemplate">
+  <div class="preview-block">
+    <div class="preview-description">{{preview?.modal?.description ?? '&nbsp;'}}</div>
+    <div class="preview-default">
+      <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+    </div>
+  </div>
+</ng-template>
+<section>
+  <h3>F3 - (id=902) - Experimental demo - modal gallery with customized previews</h3>
+  <button (click)="openModalWithPreviewsTemplate(902, images, imageIndex)">Open modalgallery at index={{imageIndex}}</button>
 </section>
