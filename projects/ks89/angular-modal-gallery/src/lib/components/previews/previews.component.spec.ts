@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
+import { Component, DebugElement, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import 'hammerjs';
 import 'mousetrap';
-
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DebugElement, SimpleChanges } from '@angular/core';
-import { By } from '@angular/platform-browser';
-
-import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../../components/accessibility-default';
-import { InternalLibImage } from '../../model/image-internal.class';
-import { PreviewsComponent } from './previews.component';
-import { PreviewConfig } from '../../model/preview-config.interface';
-import { SlideConfig } from '../../model/slide-config.interface';
-import { Size } from '../../model/size.interface';
-import { ImageModalEvent, ModalImage, PlainImage } from '../../model/image.class';
-import { SizeDirective } from '../../directives/size.directive';
-import { KS_DEFAULT_SIZE } from '../upper-buttons/upper-buttons-default';
-import { Action } from '../../model/action.enum';
-import { ConfigService } from '../../services/config.service';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { SizeDirective } from '../../directives/size.directive';
+import { AccessibilityConfig } from '../../model/accessibility.interface';
+import { Action } from '../../model/action.enum';
+import { InternalLibImage } from '../../model/image-internal.class';
+import { ImageModalEvent, ModalImage, PlainImage } from '../../model/image.class';
+import { PreviewConfig } from '../../model/preview-config.interface';
+import { Size } from '../../model/size.interface';
+import { SlideConfig } from '../../model/slide-config.interface';
+import { ConfigService } from '../../services/config.service';
+import { KS_DEFAULT_SIZE } from '../upper-buttons/upper-buttons-default';
+import { PreviewsComponent } from './previews.component';
+
+
 
 interface NavigationTestData {
   initial: {
@@ -238,9 +238,45 @@ function checkPreviewStateAfterClick(previews: DebugElement[], prevValue: Intern
   expect(comp.previews).toEqual(IMAGES.slice(start, end));
 }
 
+/**
+ * A template-providing component to test the template-driven previews customization.
+ */
+ @Component({
+  template: `
+    <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
+      <div class="my-own-template">example</div>
+    </ng-template>
+`,
+})
+class PreviewsTemplateComponent0 {
+  @ViewChild('template') templateRef?: TemplateRef<HTMLElement>;
+}
+
+/**
+ * A template-providing component to test the template-driven previews customization (using default template).
+ */
+@Component({
+  template: `
+    <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
+      <div>
+        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+      </div>
+    </ng-template>
+`,
+})
+class PreviewsTemplateComponent1 {
+  @ViewChild('template') templateRef?: TemplateRef<HTMLElement>;
+}
+
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [PreviewsComponent, SizeDirective, FallbackImageDirective]
+    declarations: [
+      PreviewsComponent, 
+      SizeDirective, 
+      FallbackImageDirective, 
+      PreviewsTemplateComponent0, 
+      PreviewsTemplateComponent1,
+    ]
   }).overrideComponent(PreviewsComponent, {
     set: {
       providers: [
@@ -743,6 +779,79 @@ describe('PreviewsComponent', () => {
         previews[2].nativeElement.click();
         checkPreviewStateAfterClick(previews, IMAGES[4], IMAGES[4], 2, 5, 5);
       }));
+    });
+
+    it(`should use a custom template to render the previews`, () => {
+      const templateComponentFixture = TestBed.createComponent<PreviewsTemplateComponent0>(PreviewsTemplateComponent0);
+      const templateComponent = templateComponentFixture.debugElement.componentInstance as PreviewsTemplateComponent0;
+      templateComponentFixture.detectChanges();
+      const templateRef = templateComponent.templateRef;
+      const initialActiveImage = 0;
+      const numOfPreviews = 3;
+      const configService = fixture.debugElement.injector.get(ConfigService);
+      configService.setConfig(GALLERY_ID, {
+        previewConfig: PREVIEWS_CONFIG_VISIBLE,
+        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+        slideConfig: SLIDE_CONFIG
+      });
+      comp.id = GALLERY_ID;
+      comp.currentImage = IMAGES[initialActiveImage];
+      comp.images = IMAGES;
+      comp.customTemplate = templateRef;
+      comp.ngOnInit();
+      fixture.detectChanges();
+
+      const element: DebugElement = fixture.debugElement;
+
+      const arrows: DebugElement[] = element.queryAll(By.css('a'));
+      checkArrows(arrows, true, false);
+
+      const previewsContainer: DebugElement = element.query(By.css('nav.previews-container'));
+      expect(previewsContainer.name).toBe('nav');
+      expect(previewsContainer.attributes['aria-label']).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.previewsContainerAriaLabel);
+      expect(previewsContainer.properties.title).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.previewsContainerTitle);
+      const previews: DebugElement[] = element.queryAll(By.css('.my-own-template'));
+      expect(previews.length).toBe(numOfPreviews);
+    });
+
+    it(`should use a custom template to render the previews (using default template)`, () => {
+      const templateComponentFixture = TestBed.createComponent<PreviewsTemplateComponent1>(PreviewsTemplateComponent1);
+      const templateComponent = templateComponentFixture.debugElement.componentInstance as PreviewsTemplateComponent1;
+      templateComponentFixture.detectChanges();
+      const templateRef = templateComponent.templateRef;
+      const initialActiveImage = 0;
+      const numOfPreviews = 3;
+      const configService = fixture.debugElement.injector.get(ConfigService);
+      configService.setConfig(GALLERY_ID, {
+        previewConfig: PREVIEWS_CONFIG_VISIBLE,
+        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+        slideConfig: SLIDE_CONFIG
+      });
+      comp.id = GALLERY_ID;
+      comp.currentImage = IMAGES[initialActiveImage];
+      comp.images = IMAGES;
+      comp.customTemplate = templateRef;
+      comp.ngOnInit();
+      fixture.detectChanges();
+
+      const element: DebugElement = fixture.debugElement;
+
+      const arrows: DebugElement[] = element.queryAll(By.css('a'));
+      checkArrows(arrows, true, false);
+
+      const previewsContainer: DebugElement = element.query(By.css('nav.previews-container'));
+      expect(previewsContainer.name).toBe('nav');
+      expect(previewsContainer.attributes['aria-label']).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.previewsContainerAriaLabel);
+      expect(previewsContainer.properties.title).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.previewsContainerTitle);
+
+      const previews: DebugElement[] = element.queryAll(By.css('img'));
+      expect(previews.length).toBe(numOfPreviews);
+
+      const previewImages: InternalLibImage[] = IMAGES.slice(initialActiveImage, numOfPreviews);
+
+      for (let i = 0; i < previewImages.length; i++) {
+        checkPreview(previews[i], previewImages[i], i === 0, DEFAULT_PREVIEW_SIZE);
+      }
     });
   });
 
