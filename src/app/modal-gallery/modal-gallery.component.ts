@@ -516,13 +516,11 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       return;
     }
     const imageToShow: Image = imagesArrayToUse[imageIndex];
-    const previewsTemplate = (id === 902 ? this.previewsTemplate : undefined);
     const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
       id,
       images: imagesArrayToUse,
       currentImage: imageToShow,
       libConfig,
-      previewsTemplate,
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
@@ -717,6 +715,25 @@ export class ModalGalleryExampleComponent implements OnDestroy {
 
   trackById(index: number, item: Image): number {
     return item.id;
+  }
+
+  openModalWithPreviewsTemplate(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
+    if(imagesArrayToUse.length === 0) {
+      console.error('Cannot open modal-gallery because images array cannot be empty');
+      return;
+    }
+    if(imageIndex > imagesArrayToUse.length - 1) {
+      console.error('Cannot open modal-gallery because imageIndex must be valid');
+      return;
+    }
+    const imageToShow: Image = imagesArrayToUse[imageIndex];
+    const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
+      id,
+      images: imagesArrayToUse,
+      currentImage: imageToShow,
+      libConfig,
+      previewsTemplate: this.previewsTemplate,
+    } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
   ngOnDestroy(): void {
