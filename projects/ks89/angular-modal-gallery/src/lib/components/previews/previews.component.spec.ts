@@ -956,6 +956,41 @@ describe('PreviewsComponent', () => {
       
     });
 
+    it('should always display previews navigation arrows, in infinite sliding mode (nbPreviews < nbImages)', () => {
+      const configService = fixture.debugElement.injector.get(ConfigService);
+      configService.setConfig(GALLERY_ID, {
+        previewConfig: PREVIEWS_CONFIG_VISIBLE,
+        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+        slideConfig: SLIDE_CONFIG_INFINITE
+      });
+      comp.id = GALLERY_ID;
+      comp.currentImage = IMAGES[0];
+      comp.images = IMAGES;
+      comp.ngOnInit();
+      fixture.detectChanges();
+      const element: DebugElement = fixture.debugElement;
+      const leftArrow = element.query(By.css('a.nav-left')).nativeElement as HTMLAnchorElement;
+      const rightArrow = element.query(By.css('a.nav-right')).nativeElement as HTMLAnchorElement;
+      let leftArrowDiv = element.query(By.css('a.nav-left > div')).nativeElement as HTMLAnchorElement;
+      let rightArrowDiv = element.query(By.css('a.nav-right > div')).nativeElement as HTMLAnchorElement;
+      // check that arrows are initially visible
+      expect(leftArrowDiv.classList).toContain('left-arrow-preview-image');
+      expect(rightArrowDiv.classList).toContain('right-arrow-preview-image');
+      // click right until the last preview is reached, each time check that arrows are visible
+      rightArrow.click();
+      fixture.detectChanges();
+      leftArrowDiv = element.query(By.css('a.nav-left > div')).nativeElement as HTMLAnchorElement;
+      rightArrowDiv = element.query(By.css('a.nav-right > div')).nativeElement as HTMLAnchorElement;
+      expect(leftArrowDiv.classList).toContain('left-arrow-preview-image');
+      expect(rightArrowDiv.classList).toContain('right-arrow-preview-image');
+      rightArrow.click();
+      fixture.detectChanges();
+      leftArrowDiv = element.query(By.css('a.nav-left > div')).nativeElement as HTMLAnchorElement;
+      rightArrowDiv = element.query(By.css('a.nav-right > div')).nativeElement as HTMLAnchorElement;
+      expect(leftArrowDiv.classList).toContain('left-arrow-preview-image');
+      expect(rightArrowDiv.classList).toContain('right-arrow-preview-image');
+    });
+
   });
 
   describe('---NO---', () => {
