@@ -229,6 +229,30 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   }
 
   /**
+   * Indicates if the previews 'left arrow' should be displayed or not.
+   * @returns 
+   */
+  displayLeftPreviewsArrow(): boolean {
+    // Don't show arrows if requested previews number equals or is greated than total number of imgaes
+    if(this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+      return false;
+    }
+    return (this.previewConfig?.arrows && this.start > 0) || !!this.slideConfig?.infinite;
+  }
+
+  /**
+   * Indicates if the previews 'right arrow' should be displayed or not.
+   * @returns 
+   */
+  displayRightPreviewsArrow(): boolean {
+    // Don't show arrows if requested previews number equals or is greated than total number of imgaes
+    if(this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+      return false;
+    }
+    return (this.previewConfig?.arrows && this.images && this.end < this.images.length) || !!this.slideConfig?.infinite;
+  }
+
+  /**
    * Private method to init previews based on the currentImage and the full array of images.
    * The current image in mandatory to show always the current preview (as highlighted).
    * @param InternalLibImage currentImage to decide how to show previews, because I always want to see the current image as highlighted
