@@ -112,12 +112,12 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   previews: InternalLibImage[] = [];
   /**
-   * Start index of the input images used to display previews.
+   * Start index (included) of the input images used to display previews.
    */
     // @ts-ignore
   start: number;
   /**
-   * End index of the input images used to display previews.
+   * End index (excluded) of the input images used to display previews.
    */
     // @ts-ignore
   end: number;
@@ -170,28 +170,12 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const images: SimpleChange = changes.images;
-    const currentImage: SimpleChange = changes.currentImage;
 
-    let prev;
-    let current;
+    let currentImage = changes.currentImage?.currentValue ?? this.currentImage;
+    let images = changes.images?.currentValue ?? this.images;
 
-    if (currentImage) {
-      prev = currentImage.previousValue;
-      current = currentImage.currentValue;
-    } else {
-      current = this.currentImage;
-    }
-
-    if (current && images && images.previousValue && images.currentValue) {
-      // I'm in this if statement, if input images are changed (for instance, because I removed one of them with the 'delete button',
-      // or because users changed the images array while modal gallery is still open).
-      // In this case, I have to re-init previews, because the input array of images is changed.
-      this.initPreviews(current, images.currentValue);
-    }
-
-    if (prev && current && prev.id !== current.id) {
-      this.updatePreviews(prev, current);
+    if(this.previewConfig && currentImage && images) {
+      this.initPreviews( currentImage, images);
     }
   }
 
@@ -251,80 +235,51 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * @param InternalLibImage[] images is the array of all images.
    */
   private initPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
-    let index: number;
-    try {
-      index = getIndex(currentImage, images);
-    } catch (err) {
-      throw err;
-    }
-    switch (index) {
-      case 0:
-        // first image
-        this.setBeginningIndexesPreviews();
-        break;
-      case images.length - 1:
-        // last image
-        this.setEndIndexesPreviews();
-        break;
-      default:
-        // other images
-        this.setIndexesPreviews();
-        break;
-    }
+    this.setIndexesPreviews(currentImage, images);
     this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
-  }
-
-  /**
-   * Private method to init both `start` and `end` to the beginning.
-   */
-  private setBeginningIndexesPreviews(): void {
-    if (!this.previewConfig || !this.images) {
-      throw new Error('Internal library error - previewConfig and images must be defined');
-    }
-    this.start = 0;
-    this.end = Math.min(this.previewConfig.number as number, this.images.length);
-  }
-
-  /**
-   * Private method to init both `start` and `end` to the end.
-   */
-  private setEndIndexesPreviews(): void {
-    if (!this.previewConfig || !this.images) {
-      throw new Error('Internal library error - previewConfig and images must be defined');
-    }
-    this.start = this.images.length - 1 - ((this.previewConfig.number as number) - 1);
-    this.end = this.images.length;
   }
 
   /**
    * Private method to update both `start` and `end` based on the currentImage.
    */
-  private setIndexesPreviews(): void {
-    if (!this.previewConfig || !this.images || !this.currentImage) {
+  private setIndexesPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
+    if (!this.previewConfig || !images || !currentImage) {
       throw new Error('Internal library error - previewConfig, currentImage and images must be defined');
     }
-    this.start = getIndex(this.currentImage, this.images) - Math.floor((this.previewConfig.number as number) / 2);
-    this.end = getIndex(this.currentImage, this.images) + Math.floor((this.previewConfig.number as number) / 2) + 1;
+    const previewsNumber = this.previewConfig.number as number;
+    let start = getIndex(currentImage, images) - Math.floor(previewsNumber / 2);
+    // start is, at a minimum, the first index
+    if(start < 0) start = 0;
+    // end index
+    let end = start + previewsNumber;
+    // end is, at a maximum, the last index
+    if(end > images.length) {
+      start -= end - images.length;
+      if(start < 0) start = 0; // start is, at a minimum, the first index
+      end = images.length;
+    }
+    this.start = start;
+    this.end = end;
   }
 
   /**
    * Private method to update the visible previews navigating to the right (next).
    */
   private next(): void {
-    if (!this.images) {
+    if (!this.images || !this.previewConfig) {
       throw new Error('Internal library error - images must be defined');
     }
-    // check if nextImage should be blocked
-    if (this.isPreventSliding(this.images.length - 1)) {
-      return;
+    if(this.end >= this.images.length) {
+      // check if nextImage should be blocked
+      const preventSliding = !!this.slideConfig && this.slideConfig.infinite === false;
+      if(preventSliding) {
+        return;
+      }
+      this.start = 0;
+    } else {
+      this.start++;
     }
-
-    if (this.end === this.images.length) {
-      return;
-    }
-
-    this.start++;
-    this.end = Math.min(this.end + 1, this.images.length);
+    this.end = this.start + Math.min((this.previewConfig.number as number), this.images.length);
 
     this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
@@ -333,74 +288,22 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Private method to update the visible previews navigating to the left (previous).
    */
   private previous(): void {
-    if (!this.images) {
+    if (!this.images || !this.previewConfig) {
       throw new Error('Internal library error - images must be defined');
     }
-    // check if prevImage should be blocked
-    if (this.isPreventSliding(0)) {
-      return;
+    if(this.start <= 0) {
+      // check if prevImage should be blocked
+      const preventSliding = !!this.slideConfig && this.slideConfig.infinite === false;
+      if(preventSliding) {
+        return;
+      }
+      this.end = this.images.length;
+    } else {
+      this.end--;
     }
-
-    if (this.start === 0) {
-      return;
-    }
-
-    this.start = Math.max(this.start - 1, 0);
-    this.end = Math.min(this.end - 1, this.images.length);
+    this.start = this.end - Math.min((this.previewConfig.number as number), this.images.length);
 
     this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
 
-  /**
-   * Private method to block/permit sliding between previews.
-   * @param number boundaryIndex is the first or the last index of `images` input array
-   * @returns boolean if true block sliding, otherwise not
-   */
-  private isPreventSliding(boundaryIndex: number): boolean {
-    if (!this.images || !this.currentImage) {
-      throw new Error('Internal library error - images and currentImage must be defined');
-    }
-    return !!this.slideConfig && this.slideConfig.infinite === false && getIndex(this.currentImage, this.images) === boundaryIndex;
-  }
-
-  /**
-   * Private method to handle navigation changing the previews array and other variables.
-   */
-  private updatePreviews(prev: InternalLibImage, current: InternalLibImage): void {
-    if (!this.images) {
-      throw new Error('Internal library error - images must be defined');
-    }
-    // to manage infinite sliding I have to reset both `start` and `end` at the beginning
-    // to show again previews from the first image.
-    // This happens when you navigate over the last image to return to the first one
-    let prevIndex: number;
-    let currentIndex: number;
-    try {
-      prevIndex = getIndex(prev, this.images);
-      currentIndex = getIndex(current, this.images);
-    } catch (err) {
-      console.error('Cannot get previous and current image indexes in previews');
-      throw err;
-    }
-    if (prevIndex === this.images.length - 1 && currentIndex === 0) {
-      // first image
-      this.setBeginningIndexesPreviews();
-      this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
-      return;
-    }
-    // the same for the opposite case, when you navigate back from the fist image to go to the last one.
-    if (prevIndex === 0 && currentIndex === this.images.length - 1) {
-      // last image
-      this.setEndIndexesPreviews();
-      this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
-      return;
-    }
-
-    // otherwise manage standard scenarios
-    if (prevIndex > currentIndex) {
-      this.previous();
-    } else if (prevIndex < currentIndex) {
-      this.next();
-    }
-  }
 }

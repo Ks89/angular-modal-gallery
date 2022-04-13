@@ -738,7 +738,15 @@ describe('PreviewsComponent', () => {
 
         previews = element.queryAll(By.css('img'));
 
-        previews[1].nativeElement.click();
+        // previews[1].nativeElement.click();
+        comp.ngOnChanges({
+          currentImage: {
+            previousValue: IMAGES[0],
+            currentValue: IMAGES[1],
+            firstChange: false,
+            isFirstChange: () => false
+          }
+        } as SimpleChanges);
         checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[1], 0, 3, 1);
         // images = IMAGES.slice(0, 3);
         // for (let i = 0; i < images.length; i++) {
@@ -853,6 +861,101 @@ describe('PreviewsComponent', () => {
         checkPreview(previews[i], previewImages[i], i === 0, DEFAULT_PREVIEW_SIZE);
       }
     });
+
+    [4, 5].forEach((previewNumber: number) => {
+      it(`should display a constant number of previews (${previewNumber}), independent of current image index`, waitForAsync(() => {
+        const configService = fixture.debugElement.injector.get(ConfigService);
+        const previewConfig = Object.assign({}, PREVIEWS_CONFIG_VISIBLE, { number: previewNumber }) as PreviewConfig;
+        configService.setConfig(GALLERY_ID, {
+          previewConfig,
+          accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+          slideConfig: SLIDE_CONFIG
+        });
+        comp.id = GALLERY_ID;
+        comp.currentImage = IMAGES[0];
+        comp.images = IMAGES;
+        comp.ngOnInit();
+        expect(comp.previews.length).toBe(previewNumber);
+
+        // click on the second picture
+        comp.currentImage = IMAGES[1]; // set component input
+        comp.ngOnChanges({ // trigger changes manually (not done automatically in tests)
+          currentImage: {
+            previousValue: IMAGES[0],
+            currentValue: IMAGES[1],
+            firstChange: false,
+            isFirstChange: () => false
+          }
+        } as SimpleChanges);
+        // at the time of writing this test, a change is detected within 'images', yet with the same value
+        comp.ngOnChanges({
+          images: {
+            previousValue: IMAGES,
+            currentValue: IMAGES,
+            firstChange: false,
+            isFirstChange: () => false
+          }
+        } as SimpleChanges);
+        expect(comp.previews.length).toBe(previewNumber);
+
+        // click on the third picture
+        comp.currentImage = IMAGES[2]; // set component input
+        comp.ngOnChanges({ // trigger changes manually (not done automatically in tests)
+          currentImage: {
+            previousValue: IMAGES[1],
+            currentValue: IMAGES[2],
+            firstChange: false,
+            isFirstChange: () => false
+          }
+        } as SimpleChanges);
+        // at the time of writing this test, a change is detected within 'images', yet with the same value
+        comp.ngOnChanges({
+          images: {
+            previousValue: IMAGES,
+            currentValue: IMAGES,
+            firstChange: false,
+            isFirstChange: () => false
+          }
+        } as SimpleChanges);
+        expect(comp.previews.length).toBe(previewNumber);
+      }));
+    });
+
+    it('should allow to navigate previews from first to last and back', () => {
+      const configService = fixture.debugElement.injector.get(ConfigService);
+      configService.setConfig(GALLERY_ID, {
+        previewConfig: PREVIEWS_CONFIG_VISIBLE,
+        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+        slideConfig: SLIDE_CONFIG
+      });
+      comp.id = GALLERY_ID;
+      comp.currentImage = IMAGES[0];
+      comp.images = IMAGES;
+      comp.ngOnInit();
+      fixture.detectChanges();
+      const element: DebugElement = fixture.debugElement;
+      let previews: DebugElement[] = element.queryAll(By.css('img'));
+
+      const leftArrow = element.query(By.css('a.nav-left')).nativeElement as HTMLAnchorElement;
+      const rightArrow = element.query(By.css('a.nav-right')).nativeElement as HTMLAnchorElement;
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 0, 3, 0);
+
+      // click right until the last preview is reached
+      rightArrow.click();
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 1, 4, 0);
+      rightArrow.click();
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 2, 5, 0);
+      // click left until the first preview is reached
+      leftArrow.click();
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 1, 4, 0);
+      leftArrow.click();
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 0, 3, 0);
+      // click right again and check previews have changed accordingly
+      rightArrow.click();
+      checkPreviewStateAfterClick(previews, IMAGES[0], IMAGES[0], 1, 4, 0);
+      
+    });
+
   });
 
   describe('---NO---', () => {
