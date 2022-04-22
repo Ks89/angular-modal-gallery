@@ -315,3 +315,16 @@
   <h3>F2 - (id=901) - Experimental demo - an array of Images with the same source file (different classes/ids and paths with appended '?imageIndex' to prevent caching issues)</h3>
   <button (click)="openModal(901, sameImages, 0)">Open modalgallery</button>
 </section>
+<section>
+  <h3>F3 - (id=902) - Experimental demo - 'previews' rendering customization (via Angular templates)</h3>
+  <ng-template #previewsTemplate let-preview="preview" let-defaultTemplate="defaultTemplate">
+    <div class="preview-block">
+      <div class="preview-description">{{preview?.modal?.description ?? '&nbsp;'}}</div>
+      <div class="preview-default">
+        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+      </div>
+    </div>
+  </ng-template>
+  <button (click)="openModalWithPreviewsTemplate(902, images, imageIndex)">Open modalgallery</button>
+</section>
+

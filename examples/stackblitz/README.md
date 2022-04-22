@@ -1,8 +1,7 @@
 # angular-modal-gallery stackblitz.com demo
 
-angular-modal-gallery 8.x.x official stackblitz demo (NOT WORKING PROPERLY)
-- full size live demo [HERE](https://angular-modal-gallery-v8.stackblitz.io) 
-- editor view [HERE](https://stackblitz.com/edit/angular-modal-gallery-v8)
+angular-modal-gallery 8.x.x and 9.x.x official stackblitz demos
+- not available because stackblitz is not working properly with modal-gallery component
 
 angular-modal-gallery 7.x.x official stackblitz demo
 - full size live demo [HERE](https://angular-modal-gallery-v7.stackblitz.io) 

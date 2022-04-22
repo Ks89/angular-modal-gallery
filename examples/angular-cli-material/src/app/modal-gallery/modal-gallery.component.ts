@@ -22,6 +22,8 @@
  SOFTWARE.
  */
 
+import { TemplateRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -46,6 +48,12 @@ import * as libConfigs from './libconfigs';
   styleUrls: ['./modal-gallery.scss']
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
+  /**
+   * A custom template to illustrate the customization of previews rendering.
+   */
+  @ViewChild('previewsTemplate')
+  previewsTemplate?: TemplateRef<HTMLElement>;
+
   imageIndex = 0;
   galleryId = 1;
   isPlaying = true;
@@ -707,6 +715,25 @@ export class ModalGalleryExampleComponent implements OnDestroy {
 
   trackById(index: number, item: Image): number {
     return item.id;
+  }
+
+  openModalWithPreviewsTemplate(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
+    if(imagesArrayToUse.length === 0) {
+      console.error('Cannot open modal-gallery because images array cannot be empty');
+      return;
+    }
+    if(imageIndex > imagesArrayToUse.length - 1) {
+      console.error('Cannot open modal-gallery because imageIndex must be valid');
+      return;
+    }
+    const imageToShow: Image = imagesArrayToUse[imageIndex];
+    const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
+      id,
+      images: imagesArrayToUse,
+      currentImage: imageToShow,
+      libConfig,
+      previewsTemplate: this.previewsTemplate,
+    } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
   ngOnDestroy(): void {

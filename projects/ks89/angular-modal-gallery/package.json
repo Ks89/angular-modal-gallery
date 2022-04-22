@@ -1,6 +1,6 @@
 {
   "name": "@ks89/angular-modal-gallery",
-  "version": "9.0.0",
+  "version": "9.1.0-beta.1",
   "description": "Image gallery for Angular",
   "license": "MIT",
   "author": "Stefano Cappa",
@@ -8,7 +8,7 @@
     "node": ">=16.3.0",
     "npm": ">=7.16.0"
   },
-  "homepage": "https://ks89.github.io/angular-modal-gallery-2020-v8.github.io/",
+  "homepage": "https://ks89.github.io/angular-modal-gallery-2021-v9.github.io/",
   "dependencies": {
     "tslib": ">=2.3.0"
   },
