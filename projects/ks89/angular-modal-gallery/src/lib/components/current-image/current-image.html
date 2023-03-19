@@ -47,8 +47,9 @@
          [tabIndex]="0" role="img"
          (load)="onImageLoad($event)"
          (click)="onImageEvent($event, clickAction)" (keyup)="onImageEvent($event, keyboardAction)"
-         (swipeleft)="swipe($event.type)"
-         (swiperight)="swipe($event.type)"/>
+         ksSwipe
+         (swipeLeft)="swipe('swipeleft')"
+         (swipeRight)="swipe('swiperight')"/>
     <figcaption *ngIf="getDescriptionToDisplay() !== ''"
                 class="inside description"
                 ksDescription [description]="currentImageConfig?.description"

@@ -16,7 +16,6 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import 'hammerjs';
 import 'mousetrap';
 import { AccessibleComponent } from './accessible.component';
 import {

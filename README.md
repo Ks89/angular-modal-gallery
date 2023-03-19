@@ -170,10 +170,12 @@ You can use all default features without font-awesome. For more info, check offi
 | Angular 13 |         &gt;= 9.0.0         | optional     |
 | Angular 14 |         &gt;= 9.0.0         | optional     |
 | Angular 15 |        &gt;= 10.0.0         | optional     |
+| Angular 16 |        &gt;= 11.0.0         | optional     |
 
 *Version 8.0.0 requires at least Angular 12.*
 *Version 9.0.0 requires at least Angular 13.*
 *Version 10.0.0 requires at least Angular 15.*
+*Version 11.0.0 requires at least Angular 16.*
 
 <br>
 
@@ -181,6 +183,7 @@ You can use all default features without font-awesome. For more info, check offi
 
 **More than 100 releases in two years**, and more to come... :)
 
+- ??/??/2023 - 11.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 11/18/2022 - 10.0.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 11/17/2022 - 10.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 08/03/2022 - 10.0.0-rc.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
@@ -262,7 +265,7 @@ In this way, [prettier](https://prettier.io/) will run using my configuration, a
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2022 Stefano Cappa (Ks89)
+Copyright (c) 2017-2023 Stefano Cappa (Ks89)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

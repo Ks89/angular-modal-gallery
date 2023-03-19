@@ -179,16 +179,6 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   private stop$ = new Subject<void>();
 
   /**
-   * Private object without type to define all swipe actions used by hammerjs.
-   */
-  private SWIPE_ACTION = {
-    LEFT: 'swipeleft',
-    RIGHT: 'swiperight',
-    UP: 'swipeup',
-    DOWN: 'swipedown'
-  };
-
-  /**
    * Listener to stop the gallery when the mouse pointer is over the current image.
    */
   @HostListener('mouseenter')
@@ -462,10 +452,10 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   }
 
   /**
-   * Method used by Hammerjs to support touch gestures (you can also invert the swipe direction with configCurrentImage.invertSwipe).
+   * Method used by SwipeDirective to support touch gestures (you can also invert the swipe direction with configCurrentImage.invertSwipe).
    * @param action String that represent the direction of the swipe action. 'swiperight' by default.
    */
-  swipe(action = this.SWIPE_ACTION.RIGHT): void {
+  swipe(action = 'swiperight'): void {
     if (this.id === null || this.id === undefined) {
       throw new Error('Internal library error - id must be defined');
     }
@@ -475,14 +465,14 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
     }
     const configCurrentImageCarousel: CarouselImageConfig = libConfig.carouselImageConfig;
     switch (action) {
-      case this.SWIPE_ACTION.RIGHT:
+      case 'swiperight':
         if (configCurrentImageCarousel.invertSwipe) {
           this.prevImage(Action.SWIPE);
         } else {
           this.nextImage(Action.SWIPE);
         }
         break;
-      case this.SWIPE_ACTION.LEFT:
+      case 'swipeleft':
         if (configCurrentImageCarousel.invertSwipe) {
           this.nextImage(Action.SWIPE);
         } else {

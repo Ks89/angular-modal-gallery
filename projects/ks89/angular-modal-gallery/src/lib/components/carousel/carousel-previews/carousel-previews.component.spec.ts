@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import 'hammerjs';
 import 'mousetrap';
 
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';

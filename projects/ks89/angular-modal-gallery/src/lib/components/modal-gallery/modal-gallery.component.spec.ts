@@ -22,7 +22,6 @@
  SOFTWARE.
  */
 
-import 'hammerjs';
 import 'mousetrap';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';

@@ -19,7 +19,6 @@ import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick
 import { DebugElement, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import 'hammerjs';
 import 'mousetrap';
 
 import { CarouselComponent } from './carousel.component';

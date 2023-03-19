@@ -33,8 +33,7 @@
               "src/styles.scss"
             ],
             "allowedCommonJsDependencies": [
-              "mousetrap",
-              "hammerjs"
+              "mousetrap"
             ]
           },
           "configurations": {

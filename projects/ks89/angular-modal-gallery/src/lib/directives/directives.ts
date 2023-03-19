@@ -32,6 +32,7 @@ import { DescriptionDirective } from './description.directive';
 import { MarginDirective } from './margin.directive';
 import { MaxSizeDirective } from './max-size.directive';
 import { FallbackImageDirective } from './fallback-image.directive';
+import { SwipeDirective } from './swipe.directive';
 
 /**
  * Array of all directives.
@@ -46,5 +47,6 @@ export const DIRECTIVES = [
   DescriptionDirective,
   MarginDirective,
   MaxSizeDirective,
-  FallbackImageDirective
+  FallbackImageDirective,
+  SwipeDirective
 ];

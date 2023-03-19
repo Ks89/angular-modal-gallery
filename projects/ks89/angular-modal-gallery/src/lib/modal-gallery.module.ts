@@ -22,27 +22,13 @@
  SOFTWARE.
  */
 
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
-
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { COMPONENTS, CarouselComponent } from './components/components';
 import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.component';
 import { DIRECTIVES } from './directives/directives';
-
-// to prevent bad scrolling behaviour on mobile phone with carousels.
-// From @mohaxspb (https://github.com/Ks89/angular-modal-gallery/pull/187)
-@Injectable()
-export class KsHammerGestureConfig extends HammerGestureConfig {
-  // tslint:disable-next-line:typedef
-  override buildHammer(element: HTMLElement) {
-    return new Hammer(element, {
-      touchAction: 'pan-y'
-    });
-  }
-}
 
 /**
  * Module to import it in the root module of your application.
@@ -50,12 +36,6 @@ export class KsHammerGestureConfig extends HammerGestureConfig {
 @NgModule({
   imports: [CommonModule, OverlayModule],
   declarations: [COMPONENTS, DIRECTIVES],
-  exports: [PlainGalleryComponent, CarouselComponent],
-  providers: [
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: KsHammerGestureConfig
-    }
-  ]
+  exports: [PlainGalleryComponent, CarouselComponent]
 })
 export class GalleryModule {}

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import 'hammerjs';
 import 'mousetrap';
 
 import { DebugElement } from '@angular/core';

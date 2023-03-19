@@ -46,7 +46,6 @@ import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 
 import { AccessibleComponent } from '../accessible.component';
-
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Action } from '../../model/action.enum';
 import { DescriptionStrategy } from '../../model/description.interface';
@@ -55,7 +54,6 @@ import { InternalLibImage } from '../../model/image-internal.class';
 import { Keyboard } from '../../model/keyboard.enum';
 import { KeyboardConfig } from '../../model/keyboard-config.interface';
 import { SlideConfig } from '../../model/slide-config.interface';
-
 import { NEXT, PREV } from '../../utils/user-input.util';
 import { getIndex } from '../../utils/image.util';
 import { CurrentImageConfig } from '../../model/current-image-config.interface';
@@ -183,16 +181,6 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * True by default
    */
   loading = true;
-
-  /**
-   * Private object without type to define all swipe actions used by hammerjs.
-   */
-  private SWIPE_ACTION = {
-    LEFT: 'swipeleft',
-    RIGHT: 'swiperight',
-    UP: 'swipeup',
-    DOWN: 'swipedown'
-  };
 
   // use public ChangeDetectorRef to be able to call it from spec files to trigger change detection
   // tslint:disable-next-line:no-any
@@ -513,22 +501,22 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method used by Hammerjs to support touch gestures (you can also invert the swipe direction with configCurrentImage.invertSwipe).
+   * Method used by SwipeDirective to support touch gestures (you can also invert the swipe direction with configCurrentImage.invertSwipe).
    * @param action String that represent the direction of the swipe action. 'swiperight' by default.
    */
-  swipe(action = this.SWIPE_ACTION.RIGHT): void {
+  swipe(action = 'swiperight'): void {
     if (!this.currentImageConfig) {
       throw new Error('Internal library error - currentImageConfig must be defined');
     }
     switch (action) {
-      case this.SWIPE_ACTION.RIGHT:
+      case 'swiperight':
         if (this.currentImageConfig.invertSwipe) {
           this.prevImage(Action.SWIPE);
         } else {
           this.nextImage(Action.SWIPE);
         }
         break;
-      case this.SWIPE_ACTION.LEFT:
+      case 'swipeleft':
         if (this.currentImageConfig.invertSwipe) {
           this.nextImage(Action.SWIPE);
         } else {

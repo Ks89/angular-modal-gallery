@@ -8,8 +8,7 @@
     "inlineSources": true,
     "types": [
       "node",
-      "mousetrap",
-      "hammerjs"
+      "mousetrap"
     ]
   },
   "exclude": [

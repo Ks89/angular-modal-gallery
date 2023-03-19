@@ -1,3 +1,10 @@
+# 11.0.0
+
+### Features
+
+- remove `hammerjs` dependency (because deprecated) to mange swipe events preferring a custom directive
+
+
 # 10.0.1
 
 ### Bugfixes
