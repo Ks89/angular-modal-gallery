@@ -32,10 +32,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
-            "allowedCommonJsDependencies": [
-              "mousetrap"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {

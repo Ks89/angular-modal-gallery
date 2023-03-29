@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import 'mousetrap';
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';

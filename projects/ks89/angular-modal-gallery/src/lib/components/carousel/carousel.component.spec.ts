@@ -19,8 +19,6 @@ import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick
 import { DebugElement, SimpleChanges } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-import 'mousetrap';
-
 import { CarouselComponent } from './carousel.component';
 import { CarouselPreviewsComponent } from './carousel-previews/carousel-previews.component';
 import { SizeDirective } from '../../directives/size.directive';

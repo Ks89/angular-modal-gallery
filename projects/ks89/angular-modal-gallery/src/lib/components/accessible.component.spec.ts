@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import 'mousetrap';
 import { AccessibleComponent } from './accessible.component';
 import {
   DIRECTION_LEFT,

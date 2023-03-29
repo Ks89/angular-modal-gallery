@@ -31,9 +31,6 @@
             ],
             "styles": [
               "src/styles.scss"
-            ],
-            "allowedCommonJsDependencies": [
-              "mousetrap"
             ]
           },
           "configurations": {

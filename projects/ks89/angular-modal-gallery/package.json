@@ -17,7 +17,6 @@
     "@angular/common": ">=15.0.0",
     "@angular/core": ">=15.0.0",
     "@angular/cdk": ">=15.0.0",
-    "mousetrap": ">=1.6.5",
     "rxjs": ">=7.5.0"
   },
   "keywords": [

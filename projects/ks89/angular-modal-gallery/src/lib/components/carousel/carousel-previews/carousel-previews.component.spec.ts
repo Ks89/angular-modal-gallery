@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import 'mousetrap';
-
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { DebugElement, SimpleChanges } from '@angular/core';
 import { By, SafeResourceUrl } from '@angular/platform-browser';

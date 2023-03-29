@@ -17,7 +17,7 @@
 import { Component, DebugElement, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import 'mousetrap';
+
 import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../../components/accessibility-default';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
 import { SizeDirective } from '../../directives/size.directive';
