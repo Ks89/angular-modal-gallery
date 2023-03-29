@@ -129,7 +129,7 @@ Despite its name, this library is more than for modal galleries, because I'm int
 - configurable side-previews (visible only on bigger screen)
 - configurable dots navigation (visible only on bigger screen)
 - configurable previews (visible only on bigger screen)
-- and many more... (check the official documentation [HERE](https://ks89.github.io/angular-modal-gallery-2022-v10.github.io/))
+- and many more... (check the official documentation [HERE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/))
 
 <br>
 
@@ -140,7 +140,7 @@ Despite its name, this library is more than for modal galleries, because I'm int
 - `npm install --save-dev @types/mousetrap @types/hammerjs`
 
 From version @ks89/angular-modal-gallery >= 5.0.0, **font-awesome isn't a mandatory dependency**.
-You can use all default features without font-awesome. For more info, check official [documentation website](https://ks89.github.io/angular-modal-gallery-2022-v10.github.io/).
+You can use all default features without font-awesome. For more info, check official [documentation website](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/).
 
 <br>
 
@@ -148,7 +148,7 @@ You can use all default features without font-awesome. For more info, check offi
 
 *Image loading could be slow, because this website is hosted on Github pages*
 
-[OFFICIAL DOCUMENTATION WEBSITE](https://ks89.github.io/angular-modal-gallery-2022-v10.github.io/)
+[OFFICIAL DOCUMENTATION WEBSITE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/)
 
 <br>
 
@@ -222,12 +222,12 @@ You can use all default features without font-awesome. For more info, check offi
 1. Question: **I have this error: `Cannot find name 'MousetrapInstance'`. What can I do?**<br>
    **Answer**: Simply run `npm i --save-dev @types/mousetrap`
 2. Question: **I have this error: `Error: No provider for KeyboardService`. What can I do?**<br>
-   **Answer**: You forgot to add .forRoot(), so KeyboardService will be never available as a service. Please read section "Installation" [HERE](https://ks89.github.io/angular-modal-gallery-2022-v10.github.io/gettingStarted).
+   **Answer**: You forgot to add .forRoot(), so KeyboardService will be never available as a service. Please read section "Installation" [HERE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/gettingStarted).
    This is a common design pattern for Angular libraries. For more info check also [this issue](https://github.com/Ks89/angular-modal-gallery/issues/94).
 3. Question: **How can I remove images using DELETE button without issues?**<br>
    **Answer**: **You cannot change the input image array. Instead, you should reassign it with a newer array** without the deleted element.
    In other words, **you must think in a functional way**, without changing the input array of images.
-   For more information check this official demo [HERE](https://ks89.github.io/angular-modal-gallery-2022-v10.github.io/demo/buttons-strategies).
+   For more information check this official demo [HERE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/demo/buttons-strategies).
 
 <br>
 

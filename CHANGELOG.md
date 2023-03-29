@@ -1,8 +1,12 @@
 # 11.0.0
 
+**Migrate from 10.0.0 to 11.0.0 - Check the official guide [HERE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/)**
+
 ### Features
 
-- remove `hammerjs` dependency (because deprecated) to mange swipe events preferring a custom directive
+- remove `hammerjs` dependency (because deprecated) to mange swipe events preferring a custom directive #218 **(BREAKING CHANGE)**
+- remove `mousetrap` dependency to manage ctrl+s/meta+s event to save the current image in modal-gallery component.
+  This in a very important change, because from now you won't be able to customize ctrl+s/meta+s shortcuts #237 **(BREAKING CHANGE)**
 
 
 # 10.0.1

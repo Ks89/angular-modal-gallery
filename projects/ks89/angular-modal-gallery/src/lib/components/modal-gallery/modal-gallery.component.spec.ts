@@ -41,7 +41,6 @@ import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive'
 import { ConfigService } from '../../services/config.service';
 import { ModalGalleryService } from './modal-gallery.service';
 import { IdValidatorService } from '../../services/id-validator.service';
-import { KeyboardService } from '../../services/keyboard.service';
 import { ModalGalleryConfig } from '../../model/modal-gallery-config.interface';
 import { DIALOG_DATA } from './modal-gallery.tokens';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -161,19 +160,6 @@ const base64GreenString =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIAgMAAADQNkYNAAAADFBMVEUAAAAy/ysy/ysy/ysyTcibAAAAA3RSTlMA2r/af0d' +
   'WAAAAQUlEQVRo3u3YMREAMAzEsJAMyZJsMXy3XORdBFySJK3qxFXH1Y1DEARBEARBEARBEARBEARBkNmk436mvSRJ0o4eOKL2P81eyn8AAAAASUVORK5CYII=';
 
-class KeyboardServiceMock {
-  init(config: LibConfig): Promise<void> {
-    return new Promise(resolve => resolve());
-  }
-
-  // tslint:disable-next-line:no-any
-  add(onBind: (e: KeyboardEvent, combo: string) => any, config: LibConfig): void {
-  }
-
-  reset(config: LibConfig): void {
-  }
-}
-
 function initTestBed(): void {
   TestBed.configureTestingModule({
     imports: [OverlayModule],
@@ -191,10 +177,6 @@ function initTestBed(): void {
         {
           provide: ModalGalleryService,
           useClass: ModalGalleryService
-        },
-        {
-          provide: KeyboardService,
-          useClass: KeyboardServiceMock
         },
         {
           provide: IdValidatorService,

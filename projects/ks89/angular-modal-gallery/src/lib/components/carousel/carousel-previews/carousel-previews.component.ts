@@ -203,7 +203,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Method ´ngOnInit´ to build `configPreview` applying a default value and also to
    * init the `previews` array.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -263,7 +263,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Method ´ngOnChanges´ to update `previews` array.
    * Also, both `start` and `end` local variables will be updated accordingly.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -426,7 +426,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to cleanup resources. In fact, it cleans breakpointSubscription.
-   * This is an Angular's lifecycle hook that is called when this component is destroyed.
+   * This is an angular lifecycle hook that is called when this component is destroyed.
    */
   ngOnDestroy(): void {
     if (this.breakpointSubscription) {

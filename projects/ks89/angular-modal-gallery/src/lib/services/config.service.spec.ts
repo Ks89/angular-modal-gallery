@@ -35,7 +35,6 @@ import {
   DEFAULT_CURRENT_IMAGE_CONFIG,
   DEFAULT_DESCRIPTION,
   DEFAULT_DESCRIPTION_STYLE,
-  DEFAULT_KEYBOARD_SERVICE_CONFIG,
   DEFAULT_LAYOUT,
   DEFAULT_LOADING,
   DEFAULT_PLAIN_CONFIG,
@@ -52,7 +51,6 @@ import { DotsConfig } from '../model/dots-config.interface';
 import { KeyboardConfig } from '../model/keyboard-config.interface';
 import { CarouselConfig } from '../model/carousel-config.interface';
 import { PlayConfig } from '../model/play-config.interface';
-import { KeyboardServiceConfig } from '../model/keyboard-service-config.interface';
 import { CarouselPreviewConfig } from '../model/carousel-preview-config.interface';
 import { CarouselImageConfig } from '../model/carousel-image-config.interface';
 import { Description, DescriptionStrategy, DescriptionStyle } from '../model/description.interface';
@@ -752,34 +750,6 @@ describe('ConfigService', () => {
             service.setConfig(1, inputConfig);
             const result: LibConfig | undefined = service.getConfig(1);
             expect(result?.carouselDotsConfig).toEqual(inputConfig.carouselDotsConfig);
-          })
-        );
-      });
-
-      describe('keyboardServiceConfig', () => {
-
-        it(`should call setConfig to update the library configuration with an undefined keyboardServiceConfig`,
-          inject([ConfigService], (service: ConfigService) => {
-            const inputConfig: LibConfig = {
-              keyboardServiceConfig: undefined
-            };
-            service.setConfig(1, inputConfig);
-            const result: LibConfig | undefined = service.getConfig(1);
-            expect(result?.keyboardServiceConfig).toEqual(DEFAULT_KEYBOARD_SERVICE_CONFIG);
-          })
-        );
-
-        it(`should call setConfig to update the library configuration with a custom keyboardServiceConfig`,
-          inject([ConfigService], (service: ConfigService) => {
-            const inputConfig: LibConfig = {
-              keyboardServiceConfig: {
-                shortcuts: ['ctrl+s'],
-                disableSsrWorkaround: true
-              } as KeyboardServiceConfig
-            };
-            service.setConfig(1, inputConfig);
-            const result: LibConfig | undefined = service.getConfig(1);
-            expect(result?.keyboardServiceConfig).toEqual(inputConfig.keyboardServiceConfig);
           })
         );
       });

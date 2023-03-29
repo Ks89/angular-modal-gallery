@@ -56,7 +56,7 @@ export class MarginDirective implements OnInit, OnChanges {
 
   /**
    * Method ´ngOnInit´ to apply the style of this directive.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class MarginDirective implements OnInit, OnChanges {
 
   /**
    * Method ´ngOnChanges´ to apply the style of this directive.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(): void {

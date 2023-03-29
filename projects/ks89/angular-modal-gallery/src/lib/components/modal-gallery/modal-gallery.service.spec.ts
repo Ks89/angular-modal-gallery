@@ -30,7 +30,6 @@ import { ConfigService } from '../../services/config.service';
 import { Image, ImageModalEvent } from '../../model/image.class';
 import { ModalGalleryRef } from './modal-gallery-ref';
 import { Action } from '../../model/action.enum';
-import { KeyboardService } from '../../services/keyboard.service';
 import { ButtonConfig, ButtonEvent, ButtonType } from '../../model/buttons-config.interface';
 import { InternalLibImage } from '../../model/image-internal.class';
 
@@ -96,10 +95,6 @@ describe('ModalGalleryService', () => {
           {
             provide: Overlay,
             useClass: Overlay
-          },
-          {
-            provide: KeyboardService,
-            useValue: jasmine.createSpyObj('KeyboardService', ['reset'])
           }
         ]
       });

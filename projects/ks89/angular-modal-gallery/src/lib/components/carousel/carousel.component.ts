@@ -614,7 +614,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
   /**
    * Method to cleanup resources. In fact, this will stop the carousel.
-   * This is an Angular's lifecycle hook that is called when this component is destroyed.
+   * This is an angular lifecycle hook that is called when this component is destroyed.
    */
   ngOnDestroy(): void {
     this.stopCarousel();

@@ -88,7 +88,6 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   CONFIG523: ModalLibConfig = libConfigs.LIBCONFIG_523;
   CONFIG524: ModalLibConfig = libConfigs.LIBCONFIG_524;
   CONFIG525: ModalLibConfig = libConfigs.LIBCONFIG_525;
-  CONFIG526: ModalLibConfig = libConfigs.LIBCONFIG_526;
   // Examples C
   CONFIG600: ModalLibConfig = libConfigs.LIBCONFIG_600;
   CONFIG601: ModalLibConfig = libConfigs.LIBCONFIG_601;

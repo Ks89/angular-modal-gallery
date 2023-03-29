@@ -34,7 +34,6 @@ import { CarouselConfig } from './carousel-config.interface';
 import { CarouselImageConfig } from './carousel-image-config.interface';
 import { CarouselPreviewConfig } from './carousel-preview-config.interface';
 import { PlayConfig } from './play-config.interface';
-import { KeyboardServiceConfig } from './keyboard-service-config.interface';
 
 export interface AccessibleLibConfig {
   accessibilityConfig?: AccessibilityConfig;
@@ -46,11 +45,7 @@ export interface CommonLibConfig {
   slideConfig?: SlideConfig;
 }
 
-export interface KeyboardServiceLibConfig {
-  keyboardServiceConfig?: KeyboardServiceConfig;
-}
-
-export interface CarouselLibConfig extends CommonLibConfig, AccessibleLibConfig, KeyboardServiceLibConfig {
+export interface CarouselLibConfig extends CommonLibConfig, AccessibleLibConfig {
   carouselConfig?: CarouselConfig;
   carouselImageConfig?: CarouselImageConfig;
   carouselPreviewsConfig?: CarouselPreviewConfig;
@@ -59,7 +54,7 @@ export interface CarouselLibConfig extends CommonLibConfig, AccessibleLibConfig,
   carouselSlideInfinite?: boolean;
 }
 
-export interface ModalLibConfig extends CommonLibConfig, AccessibleLibConfig, KeyboardServiceLibConfig {
+export interface ModalLibConfig extends CommonLibConfig, AccessibleLibConfig {
   enableCloseOutside?: boolean;
   keyboardConfig?: KeyboardConfig;
   currentImageConfig?: CurrentImageConfig;

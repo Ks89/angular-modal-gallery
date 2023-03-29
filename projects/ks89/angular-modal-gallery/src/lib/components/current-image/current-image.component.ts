@@ -221,7 +221,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
   /**
    * Method ´ngOnInit´ to init configuration.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -238,7 +238,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Method ´ngOnChanges´ to update `loading` status and emit events.
    * If the gallery is open, then it will also manage boundary arrows and sliding.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -262,7 +262,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    */
   ngAfterContentInit(): void {
     // interval doesn't play well with SSR and protractor,
@@ -555,7 +555,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
   /**
    * Method to cleanup resources. In fact, this will stop the modal gallery.
-   * This is an Angular's lifecycle hook that is called when this component is destroyed.
+   * This is an angular lifecycle hook that is called when this component is destroyed.
    */
   ngOnDestroy(): void {
     this.stopCarousel();

@@ -38,7 +38,6 @@ import { KeyboardNavigationDirective } from '../../directives/keyboard-navigatio
 import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive';
 import { WrapDirective } from '../../directives/wrap.directive';
 import { DirectionDirective } from '../../directives/direction.directive';
-import { KeyboardService } from '../../services/keyboard.service';
 import { IdValidatorService } from '../../services/id-validator.service';
 import { Image } from '../../model/image.class';
 import { CarouselConfig } from '../../model/carousel-config.interface';
@@ -224,10 +223,6 @@ function initTestBed(): void {
   }).overrideComponent(CarouselComponent, {
     set: {
       providers: [
-        {
-          provide: KeyboardService,
-          useClass: KeyboardService
-        },
         {
           provide: ConfigService,
           useClass: ConfigService

@@ -93,7 +93,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
 
   /**
    * Method ´ngOnInit´ to build `configDots` applying a default value.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -110,7 +110,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
 
   /**
    * Method ´ngOnChanges´ to change `configDots` if the input dotsConfig is changed.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    */
   ngOnChanges(changes: SimpleChanges): void {
     const dotsConfigChanges: SimpleChange = changes.dotsConfig;

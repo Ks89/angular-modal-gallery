@@ -37,7 +37,6 @@ import { Description, DescriptionStrategy, DescriptionStyle } from '../model/des
 import { CarouselConfig } from '../model/carousel-config.interface';
 import { CarouselImageConfig } from '../model/carousel-image-config.interface';
 import { BreakpointsConfig, CarouselPreviewConfig } from '../model/carousel-preview-config.interface';
-import { KeyboardServiceConfig } from '../model/keyboard-service-config.interface';
 import { LibConfig } from '../model/lib-config.interface';
 
 export const DEFAULT_PREVIEW_SIZE: Size = { height: '50px', width: 'auto' };
@@ -105,10 +104,6 @@ export const DEFAULT_CAROUSEL_PREVIEWS_CONFIG: CarouselPreviewConfig = {
   maxHeight: '200px',
   breakpoints: DEFAULT_CAROUSEL_BREAKPOINTS
 };
-export const DEFAULT_KEYBOARD_SERVICE_CONFIG: KeyboardServiceConfig = {
-  shortcuts: ['ctrl+s', 'meta+s'],
-  disableSsrWorkaround: false
-};
 export const DEFAULT_SLIDE_CONFIG: SlideConfig = {
   infinite: false,
   playConfig: { autoPlay: false, interval: 5000, pauseOnHover: true } as PlayConfig,
@@ -137,8 +132,7 @@ const DEFAULT_CONFIG: LibConfig = Object.freeze({
   carouselPlayConfig: DEFAULT_CURRENT_CAROUSEL_PLAY,
   carouselDotsConfig: { visible: true } as DotsConfig,
   carouselSlideInfinite: true,
-  enableCloseOutside: true,
-  keyboardServiceConfig: DEFAULT_KEYBOARD_SERVICE_CONFIG
+  enableCloseOutside: true
 });
 
 /**
@@ -351,9 +345,6 @@ export class ConfigService {
       newConfig.enableCloseOutside = DEFAULT_CONFIG.enableCloseOutside;
     } else {
       newConfig.enableCloseOutside = obj.enableCloseOutside;
-    }
-    if (obj.keyboardServiceConfig) {
-      newConfig.keyboardServiceConfig = Object.assign({}, DEFAULT_KEYBOARD_SERVICE_CONFIG, obj.keyboardServiceConfig);
     }
     this.configMap.set(id, newConfig);
   }

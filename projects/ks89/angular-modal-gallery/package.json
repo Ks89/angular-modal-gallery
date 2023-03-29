@@ -8,7 +8,7 @@
     "node": ">=18.12.1",
     "npm": ">=8.19.2"
   },
-  "homepage": "https://ks89.github.io/angular-modal-gallery-2021-v9.github.io/",
+  "homepage": "https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/",
   "dependencies": {
     "tslib": ">=2.3.0"
   },

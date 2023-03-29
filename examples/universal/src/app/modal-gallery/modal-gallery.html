@@ -87,89 +87,84 @@
   <button (click)="openModal(507, images, imageIndex, CONFIG507)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B7bis - (id=508) - Simple demo - download with both button and keyboard with custom keyboard config</h3>
-  <p><i>Open modal gallery and press 'alt+s' or 'shift+s' on your keyboard to download the image (instead of ctrl+s or meta+s)</i></p>
+  <h3>B8 - (id=508) - Simple demo - infinite sliding but NO side previews</h3>
   <button (click)="openModal(508, images, imageIndex, CONFIG508)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B8 - (id=509) - Simple demo - infinite sliding but NO side previews</h3>
+  <h3>B9 - (id=509) - Simple demo - infinite sliding and side previews</h3>
   <button (click)="openModal(509, images, imageIndex, CONFIG509)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B9 - (id=510) - Simple demo - infinite sliding and side previews</h3>
-  <button (click)="openModal(510, images, imageIndex, CONFIG510)">Open modalgallery at index={{imageIndex}}</button>
+  <h3>B10 - (id=510) - Simple demo - disable loading spinner</h3>
+  <button (click)="openModal(510, imagesForLoadingSpinner, imageIndex, CONFIG510)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B10 - (id=511) - Simple demo - disable loading spinner</h3>
+  <h3>B11 - (id=511) - Simple demo - loading spinner of type Standard</h3>
   <button (click)="openModal(511, imagesForLoadingSpinner, imageIndex, CONFIG511)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B11 - (id=512) - Simple demo - loading spinner of type Standard</h3>
+  <h3>B12 - (id=512) - Simple demo - loading spinner of type Circular</h3>
   <button (click)="openModal(512, imagesForLoadingSpinner, imageIndex, CONFIG512)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B12 - (id=513) - Simple demo - loading spinner of type Circular</h3>
+  <h3>B13 - (id=513) - Simple demo - loading spinner of type Bars</h3>
   <button (click)="openModal(513, imagesForLoadingSpinner, imageIndex, CONFIG513)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B13 - (id=514) - Simple demo - loading spinner of type Bars</h3>
+  <h3>B14 - (id=514) - Simple demo - loading spinner of type Dots</h3>
   <button (click)="openModal(514, imagesForLoadingSpinner, imageIndex, CONFIG514)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B14 - (id=515) - Simple demo - loading spinner of type Dots</h3>
+  <h3>B15 - (id=515) - Simple demo - loading spinner of type Cube Flipping</h3>
   <button (click)="openModal(515, imagesForLoadingSpinner, imageIndex, CONFIG515)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B15 - (id=516) - Simple demo - loading spinner of type Cube Flipping</h3>
+  <h3>B16 - (id=516) - Simple demo - loading spinner of type Circles</h3>
   <button (click)="openModal(516, imagesForLoadingSpinner, imageIndex, CONFIG516)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B16 - (id=517) - Simple demo - loading spinner of type Circles</h3>
+  <h3>B17 - (id=517) - Simple demo - loading spinner of type Explosing Squares</h3>
   <button (click)="openModal(517, imagesForLoadingSpinner, imageIndex, CONFIG517)">Open modalgallery at index={{imageIndex}}</button>
-</section>
-<section>
-  <h3>B17 - (id=518) - Simple demo - loading spinner of type Explosing Squares</h3>
-  <button (click)="openModal(518, imagesForLoadingSpinner, imageIndex, CONFIG518)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 
 <section>
-  <h3>B18 - (id=519) - Simple demo - buttons config DEFAULT strategy (only close)</h3>
+  <h3>B18 - (id=518) - Simple demo - buttons config DEFAULT strategy (only close)</h3>
+  <button (click)="openModal(518, images, imageIndex, CONFIG518)">Open modalgallery at index={{imageIndex}}</button>
+</section>
+<section>
+  <h3>B19 - (id=519) - Simple demo - buttons config SIMPLE strategy (close and download)</h3>
   <button (click)="openModal(519, images, imageIndex, CONFIG519)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B19 - (id=520) - Simple demo - buttons config SIMPLE strategy (close and download)</h3>
+  <h3>B20 - (id=520) - Simple demo - buttons config ADVANCED strategy (close, download and exturl in the current
+    tab)</h3>
   <button (click)="openModal(520, images, imageIndex, CONFIG520)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B20 - (id=521) - Simple demo - buttons config ADVANCED strategy (close, download and exturl in the current
-    tab)</h3>
-  <button (click)="openModal(521, images, imageIndex, CONFIG521)">Open modalgallery at index={{imageIndex}}</button>
-</section>
-<section>
-  <h3>B21 - (id=522) - Simple demo - buttons config FULL strategy (all buttons)</h3>
+  <h3>B21 - (id=521) - Simple demo - buttons config FULL strategy (all buttons)</h3>
   <p><i>I added also 'openModalWithDeleteButton()' public method to support delete button</i></p>
-  <button (click)="openModalWithDeleteButton(522, images, imageIndex, CONFIG522)">Open modalgallery at index={{imageIndex}}</button>
+  <button (click)="openModalWithDeleteButton(521, images, imageIndex, CONFIG521)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B22 - (id=523) - Simple demo - buttons config CUSTOM strategy with exturl in ANOTHER TAB ('_blank')</h3>
-  <button (click)="openModal(523, images, imageIndex, CONFIG523)">Open modalgallery at index={{imageIndex}}</button>
+  <h3>B22 - (id=522) - Simple demo - buttons config CUSTOM strategy with exturl in ANOTHER TAB ('_blank')</h3>
+  <button (click)="openModal(522, images, imageIndex, CONFIG522)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B23 - (id=524) - Simple demo - buttons config CUSTOM but with all default buttons already included in the library</h3>
+  <h3>B23 - (id=523) - Simple demo - buttons config CUSTOM but with all default buttons already included in the library</h3>
   <p><i>I added also 'openModalWithDeleteButton()' public method to support delete button</i></p>
-  <button (click)="openModalWithDeleteButton(524, images, imageIndex, CONFIG524)">Open modalgallery at index={{imageIndex}}</button>
+  <button (click)="openModalWithDeleteButton(523, images, imageIndex, CONFIG523)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B24 - (id=525) - Simple demo - buttons config CUSTOM strategy with <a href="https://fontawesome.com/">Font Awesome 5</a></h3>
+  <h3>B24 - (id=524) - Simple demo - buttons config CUSTOM strategy with <a href="https://fontawesome.com/">Font Awesome 5</a></h3>
   <p><i>I added also 'openModalWithAddButton()' public method to support delete button</i></p>
   <br>
-  <button (click)="openModalWithAddButton(525, images, imageIndex, CONFIG525)">Open modalgallery at index={{imageIndex}}</button>
+  <button (click)="openModalWithAddButton(524, images, imageIndex, CONFIG524)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <section>
-  <h3>B25 - (id=526) - Previews visible on mobile screen</h3>
+  <h3>B25 - (id=525) - Previews visible on mobile screen</h3>
   <p><i>Added PreviewConfig.mobileVisible configuration param</i></p>
   <br>
-  <button (click)="openModal(526, images, imageIndex, CONFIG526)">Open modalgallery at index={{imageIndex}}</button>
+  <button (click)="openModal(525, images, imageIndex, CONFIG525)">Open modalgallery at index={{imageIndex}}</button>
 </section>
 <br>
 <hr>

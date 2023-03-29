@@ -15,7 +15,6 @@ import { ButtonConfig, ButtonEvent, ButtonsConfig, ButtonType } from '../../mode
 import { InternalLibImage } from '../../model/image-internal.class';
 import { Action } from '../../model/action.enum';
 import { CurrentImageComponent, ImageLoadEvent } from '../current-image/current-image.component';
-import { KeyboardService } from '../../services/keyboard.service';
 import { IdValidatorService } from '../../services/id-validator.service';
 import { KeyboardConfig } from '../../model/keyboard-config.interface';
 import { PreviewConfig } from '../../model/preview-config.interface';
@@ -111,15 +110,22 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    * This prevents weired behaviour about scrolling.
    * Added to fix this issue: https://github.com/Ks89/angular-modal-gallery/issues/159
    */
-  @HostListener('window:popstate', ['$event'])
-  onPopState(e: Event): void {
+  @HostListener('window:popstate')
+  onPopState(): void {
     this.closeGallery();
+  }
+
+  // inspiration from https://netbasal.com/add-keyboard-shortcuts-to-your-angular-app-9bf2e89862b3
+  @HostListener('document:keydown.code.control.keyS', ['$event']) // windows
+  @HostListener('document:keydown.code.meta.keyS', ['$event']) // macOS
+  onSaveListener(event: KeyboardEvent): void {
+    event.preventDefault();
+    this.downloadImage();
   }
 
   constructor(
     @Inject(DIALOG_DATA) private dialogContent: ModalGalleryConfig,
     private modalGalleryService: ModalGalleryService,
-    private keyboardService: KeyboardService,
     // tslint:disable-next-line:ban-types
     @Inject(PLATFORM_ID) private platformId: Object,
     private changeDetectorRef: ChangeDetectorRef,
@@ -151,7 +157,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
 
   /**
    * Method ´ngOnInit´ to init images calling `initImages()`.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -171,8 +177,6 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     }
 
     this.dotsConfig = libConfig.dotsConfig;
-
-    this.registerKeyboardService();
 
     setTimeout(() => {
       this.initImages();
@@ -332,7 +336,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method called by CurrentImageComponent and triggered via KeyboardService.
+   * Method called by CurrentImageComponent.
    * @param event ImageModalEvent event payload
    * @param action Action that triggered the close method. `Action.NORMAL` by default
    */
@@ -352,7 +356,6 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
 
   /**
    * Method to close the modal gallery specifying the action.
-   * It also reset the `keyboardService` to prevent multiple listeners.
    * @param action Action action type. `Action.NORMAL` by default
    * @param clickOutside boolean that is true if called clicking on the modal background. False by default.
    */
@@ -363,7 +366,6 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     }
 
     this.modalGalleryService.emitClose(new ImageModalEvent(this.id, action, true));
-    this.keyboardService.reset(libConfig);
     this.modalGalleryService.close(this.id, clickOutside);
   }
 
@@ -429,49 +431,14 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method to cleanup resources. In fact, this will reset keyboard's service.
-   * This is an Angular's lifecycle hook that is called when this component is destroyed.
+   * Method to cleanup resources.
+   * This is an angular lifecycle hook that is called when this component is destroyed.
    */
   ngOnDestroy(): void {
-    if (this.keyboardService) {
-      const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
-      if (this.id && libConfig) {
-        this.keyboardService.reset(libConfig);
-      }
-    }
     if (this.updateImagesSubscription) {
       this.updateImagesSubscription.unsubscribe();
     }
     this.idValidatorService.remove(this.id);
-  }
-
-  /**
-   * Method to show the modal gallery displaying the currentImage.
-   * It will also register a new `keyboardService` to catch keyboard's events to download the current
-   * image with keyboard's shortcuts. This service, will be removed either when modal gallery component
-   * will be destroyed or when the gallery is closed invoking the `closeGallery` method.
-   * @private
-   */
-  private registerKeyboardService(): void {
-    if (this.id === null || this.id === undefined) {
-      throw new Error('Internal library error - id must be defined');
-    }
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
-    if (!libConfig) {
-      throw new Error('Internal library error - libConfig must be defined');
-    }
-
-    this.keyboardService.init(libConfig).then(() => {
-      this.keyboardService.add((event: KeyboardEvent, combo: string) => {
-        if (event.preventDefault) {
-          event.preventDefault();
-        } else {
-          // internet explorer
-          event.returnValue = false;
-        }
-        this.downloadImage();
-      }, libConfig);
-    });
   }
 
   /**

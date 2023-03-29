@@ -131,7 +131,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Method ´ngOnInit´ to build `configPreview` applying a default value and also to
    * init the `previews` array.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -166,7 +166,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Method ´ngOnChanges´ to update `previews` array.
    * Also, both `start` and `end` local variables will be updated accordingly.
-   * This is an Angular's lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so its called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
