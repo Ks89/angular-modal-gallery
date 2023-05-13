@@ -136,7 +136,6 @@
       }
     }
   },
-  "defaultProject": "angular-modal-gallery",
   "cli": {
     "analytics": false
   }

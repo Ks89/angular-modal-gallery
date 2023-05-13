@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -58,9 +58,8 @@ dom.watch(); // Kicks off the process of finding <i> tags and replacing with <sv
     IntroHeaderComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     FormsModule,
-    HammerModule,
 
     AppRoutingModule,
 
