@@ -51,24 +51,24 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * the service to call modal gallery.
    */
   @Input()
-  id: number | undefined;
+  id!: number;
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
   @Input()
-  currentImage: InternalLibImage | undefined;
+  currentImage!: InternalLibImage;
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
   @Input()
-  images: InternalLibImage[] | undefined;
+  images!: InternalLibImage[];
   /**
    * Object of type `DotsConfig` to init DotsComponent's features.
    * For instance, it contains a param to show/hide this component.
    */
   @Input()
-  dotsConfig: DotsConfig | undefined;
+  dotsConfig!: DotsConfig;
 
   /**
    * Output to emit clicks on dots. The payload contains a number that represent
@@ -97,9 +97,6 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    if (this.id === null || this.id === undefined) {
-      throw new Error('Internal library error - id must be defined');
-    }
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
@@ -126,9 +123,6 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * @returns boolean true if is active (and input params are valid), false otherwise
    */
   isActive(index: number): boolean {
-    if (!this.currentImage || !this.images || this.images.length === 0) {
-      return false;
-    }
     let imageIndex: number;
     try {
       imageIndex = getIndex(this.currentImage, this.images);

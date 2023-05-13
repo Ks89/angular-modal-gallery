@@ -63,6 +63,7 @@ import { CarouselImageConfig } from '../../model/carousel-image-config.interface
 import { ConfigService } from '../../services/config.service';
 import { ModalGalleryService } from '../modal-gallery/modal-gallery.service';
 import { CarouselLibConfig, LibConfig } from '../../model/lib-config.interface';
+import { InternalLibImage } from '../../model/image-internal.class';
 
 /**
  * Component with configurable inline/plain carousel.
@@ -157,7 +158,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * `Image` that is visible right now.
    */
-  currentImage: Image | undefined;
+  currentImage: InternalLibImage | undefined;
   /**
    * Boolean that it's true when you are watching the first image (currently visible).
    * False by default
@@ -275,7 +276,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
       throw new Error('Internal library error - libConfig must be defined');
     }
 
-    this.currentImage = this.images[0];
+    this.currentImage = this.images[0] as InternalLibImage;
     this.carouselDotsConfig = libConfig.carouselDotsConfig;
     this.accessibilityConfig = libConfig.accessibilityConfig;
     this.carouselSlideInfinite = libConfig.carouselSlideInfinite;
@@ -378,7 +379,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * @param number index of the clicked dot
    */
   onClickDot(index: number): void {
-    this.changeCurrentImage(this.images[index], Action.NORMAL);
+    this.changeCurrentImage(this.images[index] as InternalLibImage, Action.NORMAL);
   }
 
   /**
@@ -535,7 +536,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * @param event an ImageEvent object with the relative action and the index of the clicked preview.
    */
   onClickPreview(event: ImageEvent): void {
-    const imageFound: Image = this.images[event.result as number];
+    const imageFound: InternalLibImage = this.images[event.result as number] as InternalLibImage;
     if (!!imageFound) {
       this.manageSlideConfig();
       this.changeCurrentImage(imageFound, event.action);
@@ -625,7 +626,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * @param image an Image object that represents the new image to set as current.
    * @param action Enum of type `Action` that represents the source action that triggered the change.
    */
-  private changeCurrentImage(image: Image, action: Action): void {
+  private changeCurrentImage(image: InternalLibImage, action: Action): void {
     if (this.id === null || this.id === undefined) {
       throw new Error('Internal library error - id must be defined');
     }
@@ -644,7 +645,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * This is necessary because at the end, when you call next again, you'll go to the first image.
    * That happens because all modal images are shown like in a circle.
    */
-  private getNextImage(): Image {
+  private getNextImage(): InternalLibImage {
     if (!this.currentImage) {
       throw new Error('Internal library error - currentImage must be defined');
     }
@@ -655,7 +656,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
     } else {
       newIndex = 0; // start from the first index
     }
-    return this.images[newIndex];
+    return this.images[newIndex] as InternalLibImage;
   }
 
   /**
@@ -663,7 +664,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * This is necessary because at index 0, when you call prev again, you'll go to the last image.
    * That happens because all modal images are shown like in a circle.
    */
-  private getPrevImage(): Image {
+  private getPrevImage(): InternalLibImage {
     if (!this.currentImage) {
       throw new Error('Internal library error - currentImage must be defined');
     }
@@ -674,7 +675,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
     } else {
       newIndex = this.images.length - 1; // start from the last index
     }
-    return this.images[newIndex];
+    return this.images[newIndex] as InternalLibImage;
   }
 
   /**

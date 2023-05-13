@@ -86,21 +86,18 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    * TODO write doc
    */
   @Input()
-  // @ts-ignore
-  id: number;
+  id!: number;
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
   @Input()
-  // @ts-ignore
-  currentImage: InternalLibImage;
+  currentImage!: InternalLibImage;
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
   @Input()
-  // @ts-ignore
-  images: InternalLibImage[];
+  images!: InternalLibImage[];
 
   /**
    * Output to emit the clicked preview. The payload contains the `InternalLibImage` associated to the clicked preview.

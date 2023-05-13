@@ -85,28 +85,24 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * the service to call modal gallery without open it manually.
    */
   @Input()
-    // @ts-ignore
-  id: number;
+  id!: number;
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
   @Input()
-    // @ts-ignore
-  currentImage: InternalLibImage;
+  currentImage!: InternalLibImage;
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
   @Input()
-    // @ts-ignore
-  images: InternalLibImage[];
+  images!: InternalLibImage[];
   /**
    * Boolean that it is true if the modal gallery is visible.
    * If yes, also this component should be visible.
    */
   @Input()
-    // @ts-ignore
-  isOpen: boolean;
+  isOpen: boolean = false;
 
   /**
    * Output to emit an event when images are loaded. The payload contains an `ImageLoadEvent`.

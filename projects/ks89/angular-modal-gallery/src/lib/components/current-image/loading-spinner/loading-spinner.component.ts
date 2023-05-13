@@ -50,13 +50,13 @@ export class LoadingSpinnerComponent {
    * It contains a field to choose a loading spinner.
    */
   @Input()
-  loadingConfig: LoadingConfig | undefined;
+  loadingConfig!: LoadingConfig;
   /**
    * Object of type `AccessibilityConfig` to init custom accessibility features.
    * For instance, it contains titles, alt texts, aria-labels and so on.
    */
   @Input()
-  accessibilityConfig: AccessibilityConfig | undefined;
+  accessibilityConfig!: AccessibilityConfig;
 
   /**
    * Enum of type `LoadingType` to choose the standard loading spinner.

@@ -115,7 +115,10 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     this.closeGallery();
   }
 
-  // inspiration from https://netbasal.com/add-keyboard-shortcuts-to-your-angular-app-9bf2e89862b3
+  /**
+   * HostListener to catch ctrl+s/meta+s and download the current image.
+   * Inspired by https://netbasal.com/add-keyboard-shortcuts-to-your-angular-app-9bf2e89862b3
+   */
   @HostListener('document:keydown.code.control.keyS', ['$event']) // windows
   @HostListener('document:keydown.code.meta.keyS', ['$event']) // macOS
   onSaveListener(event: KeyboardEvent): void {
