@@ -1,0 +1,202 @@
+<h2 class="title">Carousel</h2>
+<br>
+
+<h3>Basic examples</h3>
+<br>
+<section>
+  <h3>A1 - (id=100) - carousel example (minimal with all defaults) without content projection</h3>
+  <br>
+  <ks-carousel [id]="100" [images]="imagesRect"></ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A2 - (id=101) - carousel example (minimal with all defaults)</h3>
+  <br>
+  <ks-carousel [id]="101" [images]="imagesRect">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A3 - (id=102) - carousel example without previews</h3>
+  <br>
+  <ks-carousel [id]="102" [images]="imagesRect" [config]="LIBCONFIG102">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A4 - (id=103) - carousel example without infinite sliding</h3>
+  <br>
+  <ks-carousel [id]="103" [images]="imagesRect" [config]="LIBCONFIG103">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A5 - (id=104) - carousel example without dots</h3>
+  <br>
+  <ks-carousel [id]="104" [images]="imagesRect" [config]="LIBCONFIG104">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A6 - (id=105) - carousel example without auto-play (but all other playConfig properties have default values)</h3>
+  <br>
+  <ks-carousel [id]="105" [images]="imagesRect" [config]="LIBCONFIG105">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A7 - (id=106) - carousel example with a custom playConfig (10s of interval and pauseOnHover disabled)</h3>
+  <br>
+  <ks-carousel [id]="106" [images]="imagesRect" [config]="LIBCONFIG106">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A8 - (id=107) - carousel example with a custom previewConfig (7 previews with 'auto' width and 100px of height)</h3>
+  <br>
+  <ks-carousel [id]="107" [images]="imagesRect" [config]="LIBCONFIG107">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A9 - (id=108) - carousel example with buttons to enable/disable autoplay, arrows and other properties</h3>
+  <p>Autoplay: <button class="btn btn-primary" (click)="onChangeAutoPlay()">{{autoPlay ? 'disable autoplay' : 'enable autoplay'}}</button></p>
+  <p>Show Arrows: <button class="btn btn-primary" (click)="onChangeShowArrows()">{{showArrows ? 'Hide Arrows' : 'Show Arrows'}}</button></p>
+  <p>Show Dots: <button class="btn btn-primary" (click)="onChangeShowDots()">{{showDots ? 'Hide Dots' : 'Show Dots'}}</button></p>
+  <br>
+  <ks-carousel [id]="108" [images]="imagesRect" [config]="getLibConfig108(autoPlay, showArrows, showDots)">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A10 - (id=109) - carousel example (minimal with all defaults) with outputs</h3>
+  <br>
+  <ks-carousel [id]="109" [images]="imagesRect"
+    (changeImage)="onShow($event)"
+    (firstImage)="onFirstImage($event)"
+    (lastImage)="onLastImage($event)"></ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A11 - (id=110) - carousel example with fallback images when it's not possible to load normal images (to fix issue #194)</h3>
+  <br>
+  <ks-carousel [id]="110" [images]="fallbackRectImages"></ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A12 - (id=111) - carousel example without <a href="https://www.w3schools.com/tags/att_title.asp">title attribute</a> on images</h3>
+  <br>
+  <ks-carousel [id]="111" [images]="imagesRectNoTitles"></ks-carousel>
+</section>
+<br>
+<section>
+  <h3>A13 - (id=112) - carousel example with an empty images array.</h3>
+  <p>Carousel component doesn't support empty images arrays! To prevent runtime errors, you should use an *ngIf to remove the carousel when there are no images.</p>
+  <br>
+  <ks-carousel *ngIf="emptyImagesArray.length !== 0"
+               [id]="112" [images]="emptyImagesArray"></ks-carousel>
+</section>
+<br>
+<br>
+
+<h3>Examples with custom style</h3>
+<section>
+  <h3>B1 - (id=113) - carousel example with fixed maxWidth (766px) and custom previews</h3>
+  <p>By default, on bigger screen, previews will have height = 200px. If you want you can customize it or also change all breakpoint widths.</p>
+  <br>
+  <ks-carousel [id]="113" [images]="imagesRect" [config]="LIBCONFIG113">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>B2 - (id=114) - carousel example with fixed maxWidth (766px), custom previews and open modal on click</h3>
+  <br>
+  <ks-carousel [id]="114" [images]="imagesRect" [config]="LIBCONFIG114" (clickImage)="openModal($event, 114)">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>B3 - (id=115) - carousel example with fixed maxWidth (766px), custom previews and keyboard navigation disabled (for example left/right arrows)</h3>
+  <br>
+  <ks-carousel [id]="115" [images]="imagesRect" [config]="LIBCONFIG115">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>B4 - (id=116) - carousel example with 7 images and unclickable previews</h3>
+  <br>
+  <ks-carousel [id]="116" [images]="imagesRect" [config]="LIBCONFIG116">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<br>
+
+<h3>Examples with custom current image</h3>
+<section>
+  <h3>C1 - (id=117) - carousel example with invert swipe on touchscreen devices</h3>
+  <br>
+  <ks-carousel [id]="117" [images]="imagesRect" [config]="LIBCONFIG117">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>C2 - (id=118) - carousel example with description</h3>
+  <br>
+  <ks-carousel [id]="118" [images]="imagesRect" [config]="LIBCONFIG118">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+
+
+<h3>Examples with custom previews height</h3>
+<p>I know that these examples look bad, but the purpose is to show only how the library handles heights.
+  In both examples I didn't set breakpoints, so it will be used default values, but with the maxHeight specified</p>
+<p>If F1, the maxHeight is 200px, but also the default breakpoints has 200px as maximum size, so the result will be very bad on bigger screen.
+  In F2, I'm using a smaller maxHeight, so previews won't be taller than 150px, despite the default breakpoints on bigger screens (200px).</p>
+<section>
+  <h3>F1 - (id=119) - carousel example with fixed maxWidth (766px) and custom previews (maxHeight 200px)</h3>
+  <br>
+  <ks-carousel [id]="119" [images]="imagesRect" [config]="LIBCONFIG119">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+<section>
+  <h3>F2 - (id=120) - carousel example with fixed maxWidth (766px) and custom previews (maxHeight 150px)</h3>
+  <br>
+  <ks-carousel [id]="120" [images]="imagesRect" [config]="LIBCONFIG120">
+    <div class="projected">This is my projected content!</div>
+  </ks-carousel>
+</section>
+<br>
+
+
+<h3>Examples with custom heights for previews (to try responsiveness)</h3>
+<br>
+<section>
+  <h3>G1 - (id=121) - carousel example (previews with different heights based on the window's width: xSmall: 50, small: 60, medium: 80, large: 150, xLarge: 180)</h3>
+  <br>
+  <ks-carousel [id]="121" [images]="imagesRect" [config]="LIBCONFIG121"></ks-carousel>
+</section>
+<br>
+<section>
+  <h3>G2 - (id=122) - carousel example with fixed maxWidth (500px) (previews with different heights based on the window's width: xSmall: 50, small: 60, medium: 70, large: 80, xLarge: 100)</h3>
+  <br>
+  <ks-carousel [id]="122" [images]="imagesRect" [config]="LIBCONFIG122"></ks-carousel>
+</section>
+<br>
+<br>

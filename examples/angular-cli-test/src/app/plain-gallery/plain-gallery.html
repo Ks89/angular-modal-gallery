@@ -1,0 +1,152 @@
+<h2 class="title">Plain Gallery</h2>
+<br>
+
+<p>If you want, you can <b>add a random image</b> to every example
+  <button (click)="addRandomImage()"><i class="fas fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add image</button>
+</p>
+<br>
+<hr>
+<h2>Layout examples</h2>
+<section>
+  <h3>P1 - (id=200) - row plain gallery layout (limit 2) and custom size</h3>
+  <br>
+  <ks-plain-gallery [id]="200"
+                    [images]="images"
+                    [config]="libConfigPlainGalleryRow"
+                    (clickImage)="onShow(200, $event)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P2 - (id=201) - row plain gallery layout space around (limit 2)</h3>
+  <br>
+  <ks-plain-gallery [id]="201"
+                    [images]="images"
+                    [config]="libConfigPlainGalleryRowSpaceAround"
+                    (clickImage)="onShow(201, $event)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P3 - (id=202) - row plain gallery layout with a tags and custom rectangular sizes (limit 4)</h3>
+  <br>
+  <ks-plain-gallery [id]="202"
+                    [images]="imagesRect"
+                    [config]="libConfigPlainGalleryRowATags"
+                    (clickImage)="onShow(202, $event, imagesRect)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P4 - (id=203) - column plain gallery layout (limit 3)</h3>
+  <br>
+  <ks-plain-gallery [id]="203"
+                    [images]="images"
+                    [config]="libConfigPlainGalleryColumn"
+                    (clickImage)="onShow(203, $event, images)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P5 - (id=204) - grid plain gallery layout and custom size</h3>
+  <br>
+  <ks-plain-gallery [id]="204"
+                    [images]="images"
+                    [config]="libConfigPlainGalleryGrid"
+                    (clickImage)="onShow(204, $event, images)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P6 - (id=205) - full custom plain gallery (row) with image pointer</h3>
+  <br>
+  <div class="my-app-custom-plain-container-row">
+    <ng-container *ngFor="let img of images; let i = index">
+      <div *ngIf="i <= 2"> <!-- 2 is a fixed value that I'm using to display only two images -->
+        <a class="more" *ngIf="i==2" (click)="openImageModalRow(205, img)"> +{{images.length - 2 - 1}} more </a>
+        <img *ngIf="img.plain && img.plain.img; else noThumb"
+             class="my-app-custom-image-row"
+             [src]="img.plain.img"
+             (click)="openImageModalRow(205, img)"
+             [alt]="img.modal.description"/>
+
+        <ng-template #noThumb>
+          <img class="my-app-custom-image-row"
+               [src]="img.modal.img"
+               (click)="openImageModalRow(205, img)"
+               [alt]="img.modal.description"/>
+        </ng-template>
+      </div>
+    </ng-container>
+  </div>
+</section>
+<br>
+<section>
+  <h3>P7 - (id=206) - full custom plain gallery (column) with image pointer</h3>
+  <br>
+  <div class="my-app-custom-plain-container-column">
+    <ng-container *ngFor="let img of images; let i = index">
+      <div *ngIf="i <= 2"> <!-- 2 is a fixed value that I'm using to display only two images -->
+        <a class="more" *ngIf="i==2" (click)="openImageModalColumn(206, img)"> +{{images.length - 2 - 1}} more </a>
+        <img *ngIf="img.plain && img.plain.img; else noThumb"
+             class="my-app-custom-image-column"
+             [src]="img.plain.img"
+             (click)="openImageModalColumn(206, img)"
+             [alt]="img.modal.description"/>
+
+        <ng-template #noThumb>
+          <img class="my-app-custom-image-column"
+               [src]="img.modal.img"
+               (click)="openImageModalColumn(206, img)"
+               [alt]="img.modal.description"/>
+        </ng-template>
+      </div>
+    </ng-container>
+  </div>
+</section>
+<br>
+<section>
+  <h3>P8 - (id=207) - full custom plain gallery (row) with descriptions</h3>
+  <br>
+  <div class="my-app-custom-plain-container-with-desc">
+    <ng-container *ngFor="let img of imagesRect">
+      <figure class="my-app-custom-image-with-desc">
+        <img [src]="img.modal.img"
+             (click)="openImageModalRowDescription(207, img)"/>
+        <figcaption class="description">{{img.modal.description ? img.modal.description : 'No description available'}}
+        </figcaption>
+      </figure>
+    </ng-container>
+  </div>
+</section>
+<br>
+<section>
+  <h3>P9 - (id=208) - row plain gallery layout with fallback images when it's not possible to load normal images (to fix issue #194)</h3>
+  <br>
+  <ks-plain-gallery [id]="208"
+                    [images]="fallbackImages"
+                    (clickImage)="onShow(208, $event, fallbackImages)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P10 - (id=209) - row plain gallery layout with a tags and custom rectangular sizes (limit 4) + fallback images when it's not possible to load normal images (to fix issue #194)</h3>
+  <br>
+  <ks-plain-gallery [id]="209"
+                    [images]="fallbackImages"
+                    [config]="libConfigPlainGalleryRowATags"
+                    (clickImage)="onShow(209, $event, fallbackImages)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P11 - (id=210) - row plain gallery layout (limit 2) and custom size + remove <a href="https://www.w3schools.com/tags/att_title.asp">title attribute</a> on images</h3>
+  <br>
+  <ks-plain-gallery [id]="210"
+                    [images]="imagesRectNoTitles"
+                    [config]="libConfigPlainGalleryRow"
+                    (clickImage)="onShow(210, $event, imagesRectNoTitles)"></ks-plain-gallery>
+</section>
+<br>
+<section>
+  <h3>P12 - (id=211) - row plain gallery layout with an empty images array</h3>
+  <br>
+  <ks-plain-gallery [id]="211"
+                    [images]="emptyImagesArray"
+                    (clickImage)="onShow(211, $event, emptyImagesArray)"></ks-plain-gallery>
+</section>
+<br>
+<br>
