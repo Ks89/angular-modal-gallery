@@ -51,7 +51,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * the service to call modal gallery.
    */
   @Input()
-  id: number | undefined
+  id!: number
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
@@ -68,7 +68,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * For instance, it contains a param to show/hide this component.
    */
   @Input()
-  dotsConfig: DotsConfig | undefined;
+  dotsConfig!: DotsConfig;
 
   /**
    * Output to emit clicks on dots. The payload contains a number that represent
@@ -97,9 +97,6 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    if (this.id === null || this.id === undefined) {
-      throw new Error('Internal library error - id must be defined');
-    }
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
