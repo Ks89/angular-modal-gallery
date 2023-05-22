@@ -65,12 +65,12 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * the service to call modal gallery.
    */
   @Input()
-  id!: number;
+  id: number | undefined;
   /**
    * Object of type `Image` that represent the visible image.
    */
   @Input()
-  currentImage!: Image;
+  currentImage: Image | undefined;
 
   /**
    * Output to emit clicks on refresh button. The payload contains a `ButtonEvent`.
@@ -151,6 +151,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
+    if (this.id === null || this.id === undefined) {
+      throw new Error('Internal library error - id must be defined');
+    }
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig || !libConfig.buttonsConfig) {
       throw new Error('Internal library error - libConfig and buttonsConfig must be defined');
@@ -185,6 +188,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * @throws an error if the button type is unknown
    */
   onEvent(button: InternalButtonConfig, event: KeyboardEvent | MouseEvent, action: Action = Action.CLICK): void {
+    if (this.id === null || this.id === undefined) {
+      throw new Error('Internal library error - id must be defined');
+    }
     if (!event) {
       return;
     }

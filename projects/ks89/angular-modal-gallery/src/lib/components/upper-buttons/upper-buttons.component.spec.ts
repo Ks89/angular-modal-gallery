@@ -65,6 +65,7 @@ const CUSTOM_BTN: ButtonConfig = {
 const WRONG_TYPE_BTN: ButtonConfig = {
   className: 'wrong-type-image',
   size: KS_DEFAULT_SIZE,
+  // @ts-ignore
   type: UNKNOWN_BUTTON_TYPE,
   title: 'Custom wrong-type title',
   ariaLabel: 'Custom wrong-type aria label'
@@ -133,7 +134,9 @@ const IGNORE_CUSTOM_CASES: ButtonsConfig[] = [
 ];
 
 const UNKNOWN_CASES: ButtonsConfig[] = [
+  // @ts-ignore
   {visible: true, strategy: UNKNOWN_STRATEGY, buttons: [CUSTOM_BTN]},
+  // @ts-ignore
   {visible: true, strategy: UNKNOWN_STRATEGY}
 ];
 

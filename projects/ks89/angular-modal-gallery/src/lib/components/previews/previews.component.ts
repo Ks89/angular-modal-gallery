@@ -54,18 +54,18 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * the service to call modal gallery.
    */
   @Input()
-  id!: number;
+  id: number | undefined;
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
   @Input()
-  currentImage!: InternalLibImage;
+  currentImage: InternalLibImage | undefined;
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
   @Input()
-  images!: InternalLibImage[];
+  images: InternalLibImage[] | undefined;
 
   /**
    * Optional template reference for the rendering of previews.
@@ -135,6 +135,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
+    if (this.id === null || this.id === undefined) {
+      throw new Error('Internal library error - id must be defined');
+    }
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
@@ -142,6 +145,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     this.accessibilityConfig = libConfig.accessibilityConfig;
     this.slideConfig = libConfig.slideConfig;
     this.previewConfig = libConfig.previewConfig;
+    if (!this.currentImage || !this.images) {
+      throw new Error('Internal library error - currentImage and images must be defined');
+    }
     this.initPreviews(this.currentImage, this.images);
   }
 
@@ -151,7 +157,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * @returns boolean true if is active, false otherwise
    */
   isActive(preview: InternalLibImage): boolean {
-    if (!preview) {
+    if (!preview || !this.currentImage) {
       return false;
     }
     return preview.id === this.currentImage.id;
@@ -184,6 +190,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     // It's suggested to stop propagation of the event, so the
     // Cdk background will not catch a click and close the modal (like it does on Windows Chrome/FF).
     event?.stopPropagation();
+    if (!this.id || !this.images) {
+      throw new Error('Internal library error - id and images must be defined');
+    }
     if (!this.previewConfig || !this.previewConfig.clickable) {
       return;
     }
@@ -281,8 +290,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Private method to update the visible previews navigating to the right (next).
    */
   private next(): void {
-    if (!this.previewConfig) {
-      throw new Error('Internal library error - previewConfig must be defined');
+    if (!this.images || !this.previewConfig) {
+      throw new Error('Internal library error - images must be defined');
     }
     if(this.end >= this.images.length) {
       // check if nextImage should be blocked
@@ -303,8 +312,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Private method to update the visible previews navigating to the left (previous).
    */
   private previous(): void {
-    if (!this.previewConfig) {
-      throw new Error('Internal library error - previewConfig must be defined');
+    if (!this.images || !this.previewConfig) {
+      throw new Error('Internal library error - images must be defined');
     }
     if(this.start <= 0) {
       // check if prevImage should be blocked

@@ -23,7 +23,7 @@
  */
 
 import { inject, TestBed, waitForAsync } from '@angular/core/testing';
-import { Overlay } from '@angular/cdk/overlay';
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 
 import { ModalGalleryService } from './modal-gallery.service';
 import { ConfigService } from '../../services/config.service';
@@ -32,6 +32,20 @@ import { ModalGalleryRef } from './modal-gallery-ref';
 import { Action } from '../../model/action.enum';
 import { ButtonConfig, ButtonEvent, ButtonType } from '../../model/buttons-config.interface';
 import { InternalLibImage } from '../../model/image-internal.class';
+import { ModalGalleryComponent } from './modal-gallery.component';
+import { UpperButtonsComponent } from '../upper-buttons/upper-buttons.component';
+import { CurrentImageComponent } from '../current-image/current-image.component';
+import { DotsComponent } from '../dots/dots.component';
+import { PreviewsComponent } from '../previews/previews.component';
+import { LoadingSpinnerComponent } from '../current-image/loading-spinner/loading-spinner.component';
+import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { DescriptionDirective } from '../../directives/description.directive';
+import { KeyboardNavigationDirective } from '../../directives/keyboard-navigation.directive';
+import { SizeDirective } from '../../directives/size.directive';
+import { WrapDirective } from '../../directives/wrap.directive';
+import { DirectionDirective } from '../../directives/direction.directive';
+import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive';
 
 const IMAGES: Image[] = [
   new Image(0, {
@@ -83,20 +97,28 @@ describe('ModalGalleryService', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        providers: [
-          {
-            provide: ModalGalleryService,
-            useClass: ModalGalleryService
-          },
-          {
-            provide: ConfigService,
-            useClass: ConfigService
-          },
-          {
-            provide: Overlay,
-            useClass: Overlay
-          }
-        ]
+        imports: [OverlayModule],
+        declarations: [ModalGalleryComponent,
+          UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent, LoadingSpinnerComponent,
+          FallbackImageDirective, ClickOutsideDirective, DescriptionDirective, KeyboardNavigationDirective,
+          SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective]
+      }).overrideComponent(ModalGalleryComponent, {
+        set: {
+          providers: [
+            {
+              provide: ModalGalleryService,
+              useClass: ModalGalleryService
+            },
+            {
+              provide: ConfigService,
+              useClass: ConfigService
+            },
+            {
+              provide: Overlay,
+              useClass: Overlay
+            }
+          ]
+        }
       });
     })
   );
