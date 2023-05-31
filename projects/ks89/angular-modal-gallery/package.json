@@ -1,6 +1,6 @@
 {
   "name": "@ks89/angular-modal-gallery",
-  "version": "11.0.0",
+  "version": "11.0.0-rc.1",
   "description": "Image gallery for Angular",
   "license": "MIT",
   "author": "Stefano Cappa",
