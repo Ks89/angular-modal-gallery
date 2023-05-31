@@ -1,4 +1,4 @@
-# 11.0.0
+# 11.0.0-rc.1
 
 **Migrate from 10.0.0 to 11.0.0 - Check the official guide [HERE](https://ks89.github.io/angular-modal-gallery-2023-v11.github.io/)**
 
