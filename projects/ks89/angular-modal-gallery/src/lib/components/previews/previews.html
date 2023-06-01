@@ -25,6 +25,8 @@
         <ng-template #defaultTemplate>
           <img *ngIf="preview?.modal?.img"
               class="inside preview-image {{isActive(preview) ? 'active' : ''}}"
+              [loading]="preview.loading"
+              [attr.fetchpriority]="preview.fetchpriority"
               [src]="preview.plain?.img ? preview.plain?.img! : preview.modal.img"
               ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
               ksSize [sizeConfig]="{width: previewConfig?.size ? previewConfig?.size?.width! : defaultPreviewSize.width,

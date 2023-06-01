@@ -15,6 +15,8 @@
   <div class="preview-inner-container">
     <ng-container *ngFor="let preview of previews; trackBy: trackById; let index = index">
       <img *ngIf="preview?.modal?.img"
+           [loading]="preview.loading"
+           [attr.fetchpriority]="preview.fetchpriority"
            class="inside preview-image{{isActive(preview) ? ' active' : ''}}{{!previewConfig?.clickable ? ' unclickable' : ''}}"
            [src]="preview.plain?.img ? preview.plain?.img : preview.modal.img"
            ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
