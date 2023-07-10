@@ -134,7 +134,7 @@ $figcaption-right: 0;
   }
 }
 
-#current-image {
+.current-image > img {
   height: auto;
   // Thanks to vh ad vw I can resize the image when reducing browser's window both vertically and horizontally
   max-width: $curr-img-max-width;
