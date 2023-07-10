@@ -310,7 +310,9 @@ function checkCurrentImage(currentImage: InternalLibImage, val: TestModel, withD
   const element: DebugElement = fixture.debugElement;
   const currentFigure: DebugElement = element.query(By.css('figure#current-figure'));
   expect(currentFigure.name).toBe('figure');
-  const currentImageElement: DebugElement = currentFigure.children[0];
+  const currentPictureElement: DebugElement = currentFigure.children[0];
+  expect(currentPictureElement.name).toBe('picture');
+  const currentImageElement: DebugElement = currentPictureElement.children[0];
   expect(currentImageElement.name).toBe('img');
   expect(currentImageElement.attributes.class).toBe('inside');
   expect(currentImageElement.attributes.role).toBe('img');
@@ -535,7 +537,7 @@ describe('CurrentImageComponent', () => {
         checkSidePreviews(IMAGES[index - 1], IMAGES[index + 1], index === 0, index === IMAGES.length - 1, val);
 
         const element: DebugElement = fixture.debugElement;
-        const currentImage: DebugElement = element.query(By.css('img#current-image'));
+        const currentImage: DebugElement = element.query(By.css('picture.current-image>img'));
         expect(currentImage.name).toBe('img');
 
         if (index !== IMAGES.length - 1) {
