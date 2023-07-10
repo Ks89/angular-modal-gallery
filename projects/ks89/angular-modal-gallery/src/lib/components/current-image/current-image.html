@@ -37,7 +37,7 @@
   </div>
 
 
-  <figure id="current-figure" [style.display]="loading ? 'none' : ''">
+  <figure id="current-figure" [style.opacity]="loading ? '0' : '1'">
     <picture class="current-image">
       <ng-container *ngFor="let source of currentImage.modal?.sources">
         <source [media]="source.media" [srcset]="source.srcset">
