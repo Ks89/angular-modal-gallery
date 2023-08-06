@@ -17,6 +17,8 @@
       <ng-container *ngIf="getLeftPreviewImage() as leftPreview">
         <img *ngIf="!isFirstImage; else firstImage"
              class="inside current-image-previous"
+             [loading]="leftPreview.loading"
+             [attr.fetchpriority]="leftPreview.fetchpriority"
              [src]="leftPreview.plain?.img ? leftPreview.plain?.img : leftPreview.modal.img"
              ksFallbackImage [fallbackImg]="leftPreview.plain?.fallbackImg ? leftPreview.plain?.fallbackImg : leftPreview.modal.fallbackImg"
              [hidden]="loading"
@@ -35,21 +37,28 @@
   </div>
 
 
-  <figure id="current-figure" [style.display]="loading ? 'none' : ''">
-    <img id="current-image"
-         class="inside"
-         [ngClass]="currentImageConfig?.navigateOnClick ? '' : 'unclickable'"
-         [src]="currentImage.modal.img"
-         ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
-         [attr.aria-label]="currentImage.modal.ariaLabel"
-         [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
-         alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
-         [tabIndex]="0" role="img"
-         (load)="onImageLoad($event)"
-         (click)="onImageEvent($event, clickAction)" (keyup)="onImageEvent($event, keyboardAction)"
-         ksSwipe
-         (swipeLeft)="swipe('swipeleft')"
-         (swipeRight)="swipe('swiperight')"/>
+  <figure id="current-figure" [style.opacity]="loading ? '0' : '1'">
+    <picture class="current-image">
+      <ng-container *ngFor="let source of currentImage.modal?.sources">
+        <source [media]="source.media" [srcset]="source.srcset">
+      </ng-container>
+      <img [id]="currentImage.id"
+           [loading]="currentImage.loading"
+           [attr.fetchpriority]="currentImage.fetchpriority"
+           class="inside"
+           [ngClass]="currentImageConfig?.navigateOnClick ? '' : 'unclickable'"
+           [src]="currentImage.modal.img"
+           ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
+           [attr.aria-label]="currentImage.modal.ariaLabel"
+           [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
+           alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
+           [tabIndex]="0" role="img"
+           (load)="onImageLoad($event)"
+           (click)="onImageEvent($event, clickAction)" (keyup)="onImageEvent($event, keyboardAction)"
+           ksSwipe
+           (swipeLeft)="swipe('swipeleft')"
+           (swipeRight)="swipe('swiperight')"/>
+    </picture>
     <figcaption *ngIf="getDescriptionToDisplay() !== ''"
                 class="inside description"
                 ksDescription [description]="currentImageConfig?.description"
@@ -62,6 +71,8 @@
       <ng-container *ngIf="getRightPreviewImage() as rightPreview">
         <img *ngIf="!isLastImage; else lastImage"
              class="inside current-image-next"
+             [loading]="rightPreview.loading"
+             [attr.fetchpriority]="rightPreview.fetchpriority"
              [src]="rightPreview.plain?.img ? rightPreview.plain?.img : rightPreview.modal.img"
              ksFallbackImage [fallbackImg]="rightPreview.plain?.fallbackImg ? rightPreview.plain?.fallbackImg : rightPreview.modal.fallbackImg"
              [hidden]="loading"

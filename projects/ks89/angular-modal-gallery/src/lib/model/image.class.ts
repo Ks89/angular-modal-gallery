@@ -32,14 +32,17 @@ import { SafeResourceUrl } from '@angular/platform-browser';
  */
 export class Image {
   id: number;
-
+  loading: 'eager' | 'lazy';
+  fetchpriority: 'high' | 'low' | 'auto';
   modal: ModalImage;
   plain?: PlainImage;
 
-  constructor(id: number, modal: ModalImage, plain?: PlainImage) {
+  constructor(id: number, modal: ModalImage, plain?: PlainImage, loading: 'eager' | 'lazy' = 'lazy', fetchpriority: 'high' | 'low' | 'auto' = 'auto') {
     this.id = id;
     this.modal = modal;
     this.plain = plain;
+    this.loading = loading;
+    this.fetchpriority = fetchpriority
   }
 }
 
@@ -62,6 +65,7 @@ export interface ImageData {
 export interface ModalImage extends ImageData {
   extUrl?: string;
   downloadFileName?: string;
+  sources?: Source[];
 }
 
 /**
@@ -94,4 +98,12 @@ export class ImageModalEvent extends ImageEvent {
   constructor(galleryId: number, action: Action, result: number | boolean) {
     super(galleryId, action, result);
   }
+}
+
+/**
+ * Interface `Source` to configure sources of picture element.
+ */
+export interface Source {
+  srcset: string;
+  media: string;
 }

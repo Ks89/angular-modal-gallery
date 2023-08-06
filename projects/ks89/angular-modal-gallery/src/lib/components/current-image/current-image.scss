@@ -103,17 +103,18 @@ $figcaption-right: 0;
     text-align: center;
     margin: 0; // => Removes margin from every figure to prevent problem when resizing horizontally on tablets and smartphones
     position: relative;
-
-    > #current-image {
-      // display: block;
-      // don't use this
-      // Bootstrap 4 img-fluid class uses max-width: 100% and height: auto
-      max-width: 100%;
-      height: auto;
+    > .current-image {
       display: block;
-
-      &.unclickable {
-        cursor: not-allowed;
+      > img {
+        // display: block;
+        // don't use this
+        // Bootstrap 4 img-fluid class uses max-width: 100% and height: auto
+        width: 100%;
+        height: auto;
+        display: block;
+        &.unclickable {
+          cursor: not-allowed;
+        }
       }
     }
 
@@ -133,7 +134,7 @@ $figcaption-right: 0;
   }
 }
 
-#current-image {
+.current-image > img {
   height: auto;
   // Thanks to vh ad vw I can resize the image when reducing browser's window both vertically and horizontally
   max-width: $curr-img-max-width;

@@ -22,21 +22,27 @@
     </a>
 
     <ng-container *ngTemplateOutlet="content"></ng-container>
-
-    <img id="current-image"
-         [style.object-fit]="carouselConfig?.objectFit"
-         ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
-                                  maxHeight: carouselConfig?.maxHeight}"
-         [src]="currentImage.modal.img"
-         ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
-         [attr.aria-label]="currentImage.modal.ariaLabel"
-         [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
-         alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
-         [tabIndex]="0" role="img"
-         (click)="onClickCurrentImage()"
-         (swipeleft)="swipe($event.type)"
-         (swiperight)="swipe($event.type)"/>
-
+    <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
+      maxHeight: carouselConfig?.maxHeight}">
+      <ng-container *ngFor="let source of currentImage.modal?.sources">
+        <source [media]="source.media" [srcset]="source.srcset">
+      </ng-container>
+      <img [id]="currentImage.id"
+          [loading]="currentImage.loading"
+          [attr.fetchpriority]="currentImage.fetchpriority"
+          [style.object-fit]="carouselConfig?.objectFit"
+          ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
+                                    maxHeight: carouselConfig?.maxHeight}"
+          [src]="currentImage.modal.img"
+          ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
+          [attr.aria-label]="currentImage.modal.ariaLabel"
+          [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
+          alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
+          [tabIndex]="0" role="img"
+          (click)="onClickCurrentImage()"
+          (swipeleft)="swipe($event.type)"
+          (swiperight)="swipe($event.type)"/>
+    </picture>
     <figcaption *ngIf="getDescriptionToDisplay() !== ''"
                 class="description"
                 ksDescription [description]="carouselImageConfig?.description"

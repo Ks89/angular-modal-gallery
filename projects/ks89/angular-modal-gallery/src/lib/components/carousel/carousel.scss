@@ -80,12 +80,15 @@ $figcaption-right: 0;
       right: $nav-right-position;
     }
 
-    > #current-image {
-      // max width is applied via Angular
-      width: 100%;
-      // max-width: 100%;
-      height: auto;
+    > .current-image {
       display: block;
+      > img {
+        // max width is applied via Angular
+        width: 100%;
+        // max-width: 100%;
+        height: auto;
+        display: block;
+      }
     }
 
     > figcaption {

@@ -202,6 +202,31 @@ export class CarouselExampleComponent {
       modalGalleryEnable: false
     }
   };
+  LIBCONFIG124: CarouselLibConfig = {
+    carouselPreviewsConfig: {
+      visible: true,
+      breakpoints: {
+        xSmall: 50,
+        small: 60,
+        medium: 70,
+        large: 80,
+        xLarge: 100
+      }
+    },
+    carouselConfig: {
+      maxWidth: '500px',
+      maxHeight: '400px',
+      showArrows: true,
+      objectFit: 'cover',
+      keyboardEnable: true,
+      modalGalleryEnable: false
+    },
+    carouselPlayConfig: {
+      autoPlay: false,
+      interval: 1,
+      pauseOnHover: true
+    }
+  };
 
   imagesRect: Image[] = [
     new Image(
@@ -258,6 +283,98 @@ export class CarouselExampleComponent {
       { img: '/assets/images/gallery/thumbs/t-pexels-photo-94420.jpg' }
     ),
     new Image(6, { img: '/assets/images/gallery/pexels-photo-96947.jpeg' }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' })
+  ];
+
+  imagesRectWithSources: Image[] = [
+    new Image(
+      0,
+      {
+        img: '/assets/images/gallery/milan-pegasus-gallery-statue.jpg',
+        description: 'Description 1',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/milan-pegasus-gallery-statue-480w.jpg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/milan-pegasus-gallery-statue-768w.jpg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/milan-pegasus-gallery-statue-1024w.jpg' }
+        ]
+      },
+      {
+        img: '/assets/images/gallery/thumbs/t-milan-pegasus-gallery-statue.jpg',
+        title: 'First image title',
+        alt: 'First image alt',
+        ariaLabel: 'First image aria-label'
+      }
+    ),
+    new Image(1, { img: '/assets/images/gallery/pexels-photo-47223.jpeg',
+    sources: [
+      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-47223-480w.jpeg' },
+      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-47223-768w.jpeg' },
+      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-47223-1024w.jpeg' }
+    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-47223.jpg' }),
+    new Image(
+      2,
+      {
+        img: '/assets/images/gallery/pexels-photo-52062.jpeg',
+        description: 'Description 3',
+        title: 'Third image title',
+        alt: 'Third image alt',
+        ariaLabel: 'Third image aria-label',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-52062-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-52062-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-52062-1024w.jpeg' }
+        ]
+      },
+      {
+        img: '/assets/images/gallery/thumbs/t-pexels-photo-52062.jpg',
+        description: 'Description 3'
+      }
+    ),
+    new Image(
+      3,
+      {
+        img: '/assets/images/gallery/pexels-photo-66943.jpeg',
+        description: 'Description 4',
+        title: 'Fourth image title (modal obj)',
+        alt: 'Fourth image alt (modal obj)',
+        ariaLabel: 'Fourth image aria-label (modal obj)',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-66943-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-66943-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-66943-1024w.jpeg' }
+        ]
+      },
+      {
+        img: '/assets/images/gallery/thumbs/t-pexels-photo-66943.jpg',
+        title: 'Fourth image title (plain obj)',
+        alt: 'Fourth image alt (plain obj)',
+        ariaLabel: 'Fourth image aria-label (plain obj)'
+      }
+    ),
+    new Image(4, { img: '/assets/images/gallery/pexels-photo-93750.jpeg',
+    sources: [
+      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-93750-480w.jpeg' },
+      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-93750-768w.jpeg' },
+      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-93750-1024w.jpeg' }
+    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-93750.jpg' }),
+    new Image(
+      5,
+      {
+        img: '/assets/images/gallery/pexels-photo-94420.jpeg',
+        description: 'Description 6',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-94420-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-94420-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-94420-1024w.jpeg' }
+        ]
+      },
+      { img: '/assets/images/gallery/thumbs/t-pexels-photo-94420.jpg' }
+    ),
+    new Image(6, { img: '/assets/images/gallery/pexels-photo-96947.jpeg',
+    sources: [
+      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-96947-480w.jpeg' },
+      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-96947-768w.jpeg' },
+      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-96947-1024w.jpeg' }
+    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' })
   ];
 
   emptyImagesArray: Image[] = [];

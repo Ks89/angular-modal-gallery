@@ -255,9 +255,11 @@ function checkCurrentImage(currentImage: Image, val: TestModel, withDots: boolea
   const element: DebugElement = fixture.debugElement;
   const currentFigure: DebugElement = element.query(By.css('figure.current-figure'));
   expect(currentFigure.name).toBe('figure');
-  const currentImageElement: DebugElement = currentFigure.children[withArrows ? 1 : 0]; // 0 and 2 are the arrows
+  const currentPictureElement: DebugElement = currentFigure.children[withArrows ? 1 : 0]; // 0 and 2 are the arrows
+  expect(currentPictureElement.name).toBe('picture');
+  expect(currentPictureElement.attributes.class).toBe('current-image');
+  const currentImageElement = currentPictureElement.children[0];
   expect(currentImageElement.name).toBe('img');
-  expect(currentImageElement.attributes.id).toBe('current-image');
   expect(currentImageElement.attributes.role).toBe('img');
   expect(currentImageElement.properties.src).toBe(currentImage.modal.img);
   expect(currentImageElement.properties.title).toBe(val.currentImgTitle);
@@ -758,7 +760,7 @@ describe('CarouselComponent', () => {
     //
     //   // click on the current image
     //   const element: DebugElement = fixture.debugElement;
-    //   const currentImage: DebugElement = element.query(By.css('img#current-image'));
+    //   const currentImage: DebugElement = element.query(By.css('picture.current-image>img'));
     //   console.log('currentImage', currentImage);
     //
     //   currentImage.nativeElement.click();

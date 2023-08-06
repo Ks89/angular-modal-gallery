@@ -9,6 +9,8 @@
 
       <ng-container *ngIf="!plainGalleryConfig?.advanced?.aTags; else aTags">
         <img *ngIf="imgCol?.modal?.img"
+             [loading]="imgCol.loading"
+             [attr.fetchpriority]="imgCol.fetchpriority"
              [src]="imgCol.plain?.img! ? imgCol.plain?.img! : imgCol.modal.img"
              ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? imgCol.plain?.fallbackImg : imgCol.modal.fallbackImg"
              class="image"
