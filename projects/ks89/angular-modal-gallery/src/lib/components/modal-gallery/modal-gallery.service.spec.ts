@@ -142,6 +142,25 @@ describe('ModalGalleryService', () => {
           expect(ref instanceof ModalGalleryRef).toBeTrue();
         })
       );
+
+      it('should trigger attachment of the component to the overlay', inject([ModalGalleryService], (service: ModalGalleryService) => {
+        const ID: number = 1;
+        const config = {
+          id: ID,
+          images: IMAGES,
+          currentImage: IMAGES[0]
+        };
+        let hasEmitted = false;
+
+        service.triggerAttachToOverlay.subscribe(payload => {
+          expect(payload.config).toEqual(config);
+          hasEmitted = true;
+        });
+
+        service.open(config);
+
+        expect(hasEmitted).toBeTrue();
+      }));
     });
   });
 

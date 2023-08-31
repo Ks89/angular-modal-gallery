@@ -1,24 +1,41 @@
-import { Injectable, Injector, ComponentRef } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 
-import { GlobalPositionStrategy, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
+import {GlobalPositionStrategy, Overlay, OverlayConfig, OverlayRef} from '@angular/cdk/overlay';
 
-import { Subject } from 'rxjs';
-
-import { DIALOG_DATA } from './modal-gallery.tokens';
-import { ModalGalleryComponent } from './modal-gallery.component';
-import { ModalGalleryRef } from './modal-gallery-ref';
-import { Image, ImageModalEvent } from '../../model/image.class';
-import { ConfigService } from '../../services/config.service';
-import { ButtonEvent } from '../../model/buttons-config.interface';
-import { ModalGalleryConfig } from '../../model/modal-gallery-config.interface';
-import { LibConfig } from '../../model/lib-config.interface';
+import {Subject} from 'rxjs';
+import {ModalGalleryComponent} from './modal-gallery.component';
+import {ModalGalleryRef} from './modal-gallery-ref';
+import {Image, ImageModalEvent} from '../../model/image.class';
+import {ConfigService} from '../../services/config.service';
+import {ButtonEvent} from '../../model/buttons-config.interface';
+import {ModalGalleryConfig} from '../../model/modal-gallery-config.interface';
+import {LibConfig} from '../../model/lib-config.interface';
 
 // private interface used only in this file
 interface ModalDialogConfig {
   panelClass: string;
   hasBackdrop: boolean;
   backdropClass: string;
+}
+
+/**
+ * Payload to be emitted via {@link triggerAttachToOverlay} to enable {@link AttachToOverlayService}
+ * to attach the {@link ModalGalleryComponent} to the overlay
+ */
+export interface AttachToOverlayPayload {
+  /**
+   * Overlay object created using Angular CDK APIs
+   */
+  overlayRef: OverlayRef;
+  /**
+   * Dialog data to be injected into the {@link ModalGalleryComponent}
+   * contains: id, array of images, current image and optionally the configuration object
+   */
+  config: ModalGalleryConfig;
+  /**
+   * Object to control the dialog instance
+   */
+  dialogRef: ModalGalleryRef;
 }
 
 const DEFAULT_DIALOG_CONFIG: ModalDialogConfig = {
@@ -34,7 +51,9 @@ export class ModalGalleryService {
 
   private dialogRef: ModalGalleryRef | undefined;
 
-  constructor(private injector: Injector, private overlay: Overlay, private configService: ConfigService) {}
+  public triggerAttachToOverlay = new EventEmitter<AttachToOverlayPayload>();
+
+  constructor(private overlay: Overlay, private configService: ConfigService) {}
 
   /**
    * Method to open modal gallery passing the configuration
@@ -47,7 +66,11 @@ export class ModalGalleryService {
     // Instantiate a reference to the dialog
     this.dialogRef = new ModalGalleryRef(overlayRef);
     // Attach dialog container
-    const overlayComponent: ModalGalleryComponent = this.attachDialogContainer(overlayRef, config, this.dialogRef);
+    this.triggerAttachToOverlay.emit({
+      overlayRef,
+      config,
+      dialogRef: this.dialogRef
+    });
     overlayRef.backdropClick().subscribe(() => {
       if (this.dialogRef) {
         this.dialogRef.closeModal();
@@ -166,28 +189,6 @@ export class ModalGalleryService {
   private createOverlay(): OverlayRef {
     const overlayConfig = this.getOverlayConfig();
     return this.overlay.create(overlayConfig);
-  }
-
-  /**
-   * Private method to attach ModalGalleryComponent to the overlay.
-   * @param overlayRef OverlayRef is the Overlay object created using Angular CDK APIs
-   * @param config ModalGalleryConfig that contains: id, array of images, current image and optionally the configuration object
-   * @param dialogRef ModalGalleryRef is the object to control the dialog instance
-   * @private
-   */
-  private attachDialogContainer(overlayRef: OverlayRef, config: ModalGalleryConfig, dialogRef: ModalGalleryRef): ModalGalleryComponent {
-    const injector: Injector = Injector.create({
-      parent: this.injector,
-      providers: [
-        { provide: ModalGalleryRef, useValue: dialogRef },
-        { provide: DIALOG_DATA, useValue: config }
-      ]
-    });
-
-    const containerPortal = new ComponentPortal(ModalGalleryComponent, null, injector);
-    const containerRef: ComponentRef<ModalGalleryComponent> = overlayRef.attach(containerPortal);
-
-    return containerRef.instance;
   }
 
   /**

@@ -22,13 +22,14 @@
  SOFTWARE.
  */
 
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { COMPONENTS, CarouselComponent } from './components/components';
 import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.component';
 import { DIRECTIVES } from './directives/directives';
+import { AttachToOverlayService } from './components/modal-gallery/attach-to-overlay.service';
 
 /**
  * Module to import it in the root module of your application.
@@ -36,6 +37,16 @@ import { DIRECTIVES } from './directives/directives';
 @NgModule({
   imports: [CommonModule, OverlayModule],
   declarations: [COMPONENTS, DIRECTIVES],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AttachToOverlayService],
+      useFactory: (service: AttachToOverlayService): (() => void) => {
+        return () => service.initialize();
+      }
+    }
+  ],
   exports: [PlainGalleryComponent, CarouselComponent]
 })
 export class GalleryModule {}
