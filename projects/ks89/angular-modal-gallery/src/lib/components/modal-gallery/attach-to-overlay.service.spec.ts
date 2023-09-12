@@ -71,35 +71,39 @@ describe('AttachToOverlayService', () => {
 
   describe('#attachToOverlay()', () => {
     describe('---YES---', () => {
-      it('should call the attach method on the given overlayRef', inject([ModalGalleryService], (modalGalleryService: ModalGalleryService) => {
-        const ID: number = 1;
-        const config = {
-          id: ID,
-          images: IMAGES,
-          currentImage: IMAGES[0]
-        };
-        const ref: ModalGalleryRef | undefined = modalGalleryService.open({
-          id: ID,
-          images: IMAGES,
-          currentImage: IMAGES[0]
-        });
-        expect(ref).toBeDefined();
-        expect(ref instanceof ModalGalleryRef).toBeTrue();
-        let attachCalled = false;
-        const mockOverlayRef = {
-          attach: () => {
-            attachCalled = true;
-          }
-        };
+      it('should call the attach method on the given overlayRef', inject(
+        [ModalGalleryService, AttachToOverlayService],
+        (modalGalleryService: ModalGalleryService, attachToOverlayService: AttachToOverlayService) => {
+          attachToOverlayService.initialize();
+          const ID: number = 1;
+          const config = {
+            id: ID,
+            images: IMAGES,
+            currentImage: IMAGES[0]
+          };
+          const ref: ModalGalleryRef | undefined = modalGalleryService.open({
+            id: ID,
+            images: IMAGES,
+            currentImage: IMAGES[0]
+          });
+          expect(ref).toBeDefined();
+          expect(ref instanceof ModalGalleryRef).toBeTrue();
+          let attachCalled = false;
+          const mockOverlayRef = {
+            attach: () => {
+              attachCalled = true;
+            }
+          };
 
-        modalGalleryService.triggerAttachToOverlay.emit({
-          config,
-          dialogRef: ref as ModalGalleryRef,
-          overlayRef: mockOverlayRef as unknown as OverlayRef
-        });
+          modalGalleryService.triggerAttachToOverlay.emit({
+            config,
+            dialogRef: ref as ModalGalleryRef,
+            overlayRef: mockOverlayRef as unknown as OverlayRef
+          });
 
-        expect(attachCalled).toBeTrue();
-      }));
+          expect(attachCalled).toBeTrue();
+        }
+      ));
     });
   });
 });
