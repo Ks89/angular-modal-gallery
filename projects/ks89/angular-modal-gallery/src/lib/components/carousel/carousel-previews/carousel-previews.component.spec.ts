@@ -231,8 +231,8 @@ function checkPreview(previewElement: DebugElement, previewImage: InternalLibIma
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [CarouselPreviewsComponent, SizeDirective, FallbackImageDirective]
-  }).overrideComponent(CarouselPreviewsComponent, {
+    imports: [CarouselPreviewsComponent, SizeDirective, FallbackImageDirective]
+}).overrideComponent(CarouselPreviewsComponent, {
     set: {
       providers: [
         {

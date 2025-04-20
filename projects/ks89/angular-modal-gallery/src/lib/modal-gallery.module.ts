@@ -35,18 +35,17 @@ import { AttachToOverlayService } from './components/modal-gallery/attach-to-ove
  * Module to import it in the root module of your application.
  */
 @NgModule({
-  imports: [CommonModule, OverlayModule],
-  declarations: [COMPONENTS, DIRECTIVES],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [AttachToOverlayService],
-      useFactory: (service: AttachToOverlayService): (() => void) => {
-        return () => service.initialize();
-      }
-    }
-  ],
-  exports: [PlainGalleryComponent, CarouselComponent]
+    imports: [CommonModule, OverlayModule, COMPONENTS, DIRECTIVES],
+    providers: [
+        {
+            provide: APP_INITIALIZER,
+            multi: true,
+            deps: [AttachToOverlayService],
+            useFactory: (service: AttachToOverlayService): (() => void) => {
+                return () => service.initialize();
+            }
+        }
+    ],
+    exports: [PlainGalleryComponent, CarouselComponent]
 })
 export class GalleryModule {}

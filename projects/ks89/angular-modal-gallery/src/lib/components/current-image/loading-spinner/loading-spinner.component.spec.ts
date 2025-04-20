@@ -42,8 +42,8 @@ const VISIBLE_CONFIG: LoadingConfig[] = [
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [LoadingSpinnerComponent]
-  });
+    imports: [LoadingSpinnerComponent]
+});
 }
 
 describe('LoadingSpinnerComponent', () => {

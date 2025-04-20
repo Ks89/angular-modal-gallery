@@ -41,6 +41,8 @@ import {
 import { NEXT } from '../../utils/user-input.util';
 import { ConfigService } from '../../services/config.service';
 import { LibConfig } from '../../model/lib-config.interface';
+import { NgIf, NgFor, NgStyle } from '@angular/common';
+import { SizeDirective } from '../../directives/size.directive';
 
 /**
  * Internal representation of `ButtonConfig` with an optional `id` field, used by trackId to improve performances.
@@ -58,7 +60,7 @@ export interface InternalButtonConfig extends ButtonConfig {
     styleUrls: ['upper-buttons.scss'],
     templateUrl: 'upper-buttons.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [NgIf, NgFor, SizeDirective, NgStyle]
 })
 export class UpperButtonsComponent extends AccessibleComponent implements OnInit {
   /**

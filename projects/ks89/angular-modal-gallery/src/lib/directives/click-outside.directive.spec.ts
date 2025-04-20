@@ -46,8 +46,7 @@ import { By } from '@angular/platform-browser';
         </div>
       </div>
     </div>
-  `,
-    standalone: false
+  `
 })
 class TestClickOutsideComponent {
   @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -66,8 +65,8 @@ describe('ClickOutsideDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestClickOutsideComponent, ClickOutsideDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestClickOutsideComponent, ClickOutsideDirective]
+}); // not necessary with webpack .compileComponents();
 
     fixture = TestBed.createComponent(TestClickOutsideComponent);
     comp = fixture.componentInstance;

@@ -24,22 +24,14 @@
 
 import { Component } from '@angular/core';
 
-import {
-  AccessibilityConfig,
-  CarouselLibConfig,
-  Image,
-  ImageEvent,
-  ModalGalleryConfig,
-  ModalGalleryRef,
-  ModalGalleryService,
-  ModalLibConfig
-} from '@ks89/angular-modal-gallery';
+import { AccessibilityConfig, CarouselLibConfig, Image, ImageEvent, ModalGalleryConfig, ModalGalleryRef, ModalGalleryService, ModalLibConfig, GalleryModule } from '@ks89/angular-modal-gallery';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'ks-carousel-page',
     templateUrl: './carousel.html',
     styleUrls: ['./carousel.scss'],
-    standalone: false
+    imports: [GalleryModule, NgIf]
 })
 export class CarouselExampleComponent {
   imageIndex = 1;

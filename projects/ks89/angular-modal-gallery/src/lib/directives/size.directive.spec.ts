@@ -50,8 +50,7 @@ const expected: Size[] = [
     <div ksSize [sizeConfig]="{width: '50px', height: 'auto'}"></div>
     <div ksSize [sizeConfig]="{width: '', height: ''}"></div>
     <div ksSize [sizeConfig]="null"></div>
-  `,
-    standalone: false
+  `
 })
 class TestSizeComponent {}
 
@@ -65,8 +64,8 @@ describe('SizeDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestSizeComponent, SizeDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestSizeComponent, SizeDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestSizeComponent);
     comp = fixture.componentInstance;
 

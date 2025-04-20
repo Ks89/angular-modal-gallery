@@ -209,16 +209,14 @@ function containsClasses(actualClasses: string, expectedClasses: string): boolea
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    imports: [OverlayModule],
-    declarations: [
-      ClickOutsideDirective,
-      UpperButtonsComponent, CurrentImageComponent, LoadingSpinnerComponent,
-      PreviewsComponent, FallbackImageDirective,
-      KeyboardNavigationDirective, ATagBgImageDirective,
-      WrapDirective, DirectionDirective,
-      CarouselComponent, CarouselPreviewsComponent, ModalGalleryComponent, PlainGalleryComponent,
-      SizeDirective, DescriptionDirective, DotsComponent, MaxSizeDirective]
-  }).overrideComponent(CarouselComponent, {
+    imports: [OverlayModule, ClickOutsideDirective,
+        UpperButtonsComponent, CurrentImageComponent, LoadingSpinnerComponent,
+        PreviewsComponent, FallbackImageDirective,
+        KeyboardNavigationDirective, ATagBgImageDirective,
+        WrapDirective, DirectionDirective,
+        CarouselComponent, CarouselPreviewsComponent, ModalGalleryComponent, PlainGalleryComponent,
+        SizeDirective, DescriptionDirective, DotsComponent, MaxSizeDirective]
+}).overrideComponent(CarouselComponent, {
     set: {
       providers: [
         {

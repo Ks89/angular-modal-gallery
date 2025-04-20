@@ -48,24 +48,21 @@ dom.watch(); // Kicks off the process of finding <i> tags and replacing with <sv
 // *************************************************************************
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CarouselExampleComponent,
-    PlainGalleryExampleComponent,
-    ModalGalleryExampleComponent,
-    NavbarComponent,
-    HomeComponent,
-    IntroHeaderComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-
-    AppRoutingModule,
-
-    GalleryModule // <-------------------------------------------- @ks89/angular-modal-gallery module import
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        GalleryModule // <-------------------------------------------- @ks89/angular-modal-gallery module import
+        ,
+        CarouselExampleComponent,
+        PlainGalleryExampleComponent,
+        ModalGalleryExampleComponent,
+        NavbarComponent,
+        HomeComponent,
+        IntroHeaderComponent
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

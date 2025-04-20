@@ -100,8 +100,8 @@ const IMAGES: InternalLibImage[] = [
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [PlainGalleryComponent, SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective, FallbackImageDirective]
-  }).overrideComponent(PlainGalleryComponent, {
+    imports: [PlainGalleryComponent, SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective, FallbackImageDirective]
+}).overrideComponent(PlainGalleryComponent, {
     set: {
       providers: [
         {

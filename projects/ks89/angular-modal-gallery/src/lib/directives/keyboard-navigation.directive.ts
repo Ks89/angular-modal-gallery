@@ -27,10 +27,7 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
 /**
  * Directive to manage keyboard navigation.
  */
-@Directive({
-    selector: '[ksKeyboardNavigation]',
-    standalone: false
-})
+@Directive({ selector: '[ksKeyboardNavigation]' })
 export class KeyboardNavigationDirective {
   /**
    * Boolean input to skip keyboard navigation.

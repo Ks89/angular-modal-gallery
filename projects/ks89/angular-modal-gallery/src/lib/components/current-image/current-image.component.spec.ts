@@ -398,8 +398,8 @@ function containsClasses(actualClasses: string, expectedClasses: string): boolea
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [CurrentImageComponent, LoadingSpinnerComponent, KeyboardNavigationDirective, DescriptionDirective, SizeDirective, FallbackImageDirective]
-  }).overrideComponent(CurrentImageComponent, {
+    imports: [CurrentImageComponent, LoadingSpinnerComponent, KeyboardNavigationDirective, DescriptionDirective, SizeDirective, FallbackImageDirective]
+}).overrideComponent(CurrentImageComponent, {
     set: {
       providers: [
         {

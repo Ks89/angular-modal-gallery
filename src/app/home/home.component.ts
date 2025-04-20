@@ -23,11 +23,12 @@
  */
 
 import { Component } from '@angular/core';
+import { IntroHeaderComponent } from '../intro-header/intro-header.component';
 
 @Component({
     selector: 'ks-home-page',
     templateUrl: './home.html',
     styleUrls: ['./home.scss'],
-    standalone: false
+    imports: [IntroHeaderComponent]
 })
 export class HomeComponent {}

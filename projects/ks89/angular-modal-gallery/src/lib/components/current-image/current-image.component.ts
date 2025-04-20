@@ -40,7 +40,7 @@ import {
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgFor, NgClass } from '@angular/common';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -59,6 +59,12 @@ import { getIndex } from '../../utils/image.util';
 import { CurrentImageConfig } from '../../model/current-image-config.interface';
 import { ConfigService } from '../../services/config.service';
 import { LibConfig } from '../../model/lib-config.interface';
+import { KeyboardNavigationDirective } from '../../directives/keyboard-navigation.directive';
+import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { SizeDirective } from '../../directives/size.directive';
+import { SwipeDirective } from '../../directives/swipe.directive';
+import { DescriptionDirective } from '../../directives/description.directive';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 /**
  * Interface to describe the Load Event, used to
@@ -78,7 +84,7 @@ export interface ImageLoadEvent {
     styleUrls: ['current-image.scss', '../image-arrows.scss', 'current-image-previews.scss'],
     templateUrl: 'current-image.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [KeyboardNavigationDirective, NgIf, FallbackImageDirective, SizeDirective, NgFor, SwipeDirective, NgClass, DescriptionDirective, LoadingSpinnerComponent]
 })
 export class CurrentImageComponent extends AccessibleComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   /**

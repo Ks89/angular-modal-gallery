@@ -35,8 +35,7 @@ import { FallbackImageDirective } from './fallback-image.directive';
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="''" (fallbackApplied)="onError(true)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="base64" (fallbackApplied)="onError(true)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="''" (fallbackApplied)="onError(true)">
-  `,
-    standalone: false
+  `
 })
 class TestFallbackImageComponent {
   base64: SafeResourceUrl = 'data:image/png;base64,iVBORw0KG=';
@@ -58,8 +57,7 @@ class TestFallbackImageComponent {
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="null" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
-  `,
-    standalone: false
+  `
 })
 class WrongTestFallbackImageComponent {
   @Output()
@@ -87,8 +85,8 @@ describe('FallbackImageDirective', () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        declarations: [TestFallbackImageComponent, FallbackImageDirective]
-      }); // not necessary with webpack .compileComponents();
+    imports: [TestFallbackImageComponent, FallbackImageDirective]
+}); // not necessary with webpack .compileComponents();
       fixture = TestBed.createComponent(TestFallbackImageComponent);
       comp = fixture.componentInstance;
 
@@ -122,8 +120,8 @@ describe('FallbackImageDirective', () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-        declarations: [WrongTestFallbackImageComponent, FallbackImageDirective]
-      }); // not necessary with webpack .compileComponents();
+    imports: [WrongTestFallbackImageComponent, FallbackImageDirective]
+}); // not necessary with webpack .compileComponents();
       fixtureWrong = TestBed.createComponent(WrongTestFallbackImageComponent);
       compWrong = fixtureWrong.componentInstance;
 

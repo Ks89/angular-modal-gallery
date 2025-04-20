@@ -28,10 +28,7 @@ import { MaxSize } from '../model/max-size.interface';
 /**
  * Directive to change the max size of an element.
  */
-@Directive({
-    selector: '[ksMaxSize]',
-    standalone: false
-})
+@Directive({ selector: '[ksMaxSize]' })
 export class MaxSizeDirective implements OnInit, OnChanges {
   /**
    * Object of type `MaxSize` to resize the element.

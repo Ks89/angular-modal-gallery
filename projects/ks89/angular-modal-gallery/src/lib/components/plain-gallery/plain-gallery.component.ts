@@ -34,6 +34,12 @@ import { ConfigService } from '../../services/config.service';
 import { NEXT } from '../../utils/user-input.util';
 import { AccessibleComponent } from '../accessible.component';
 import { PlainLibConfig, LibConfig } from '../../model/lib-config.interface';
+import { WrapDirective } from '../../directives/wrap.directive';
+import { DirectionDirective } from '../../directives/direction.directive';
+import { NgFor, NgIf } from '@angular/common';
+import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { SizeDirective } from '../../directives/size.directive';
+import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive';
 
 /**
  * Component with the gallery of thumbs.
@@ -47,7 +53,7 @@ import { PlainLibConfig, LibConfig } from '../../model/lib-config.interface';
     styleUrls: ['plain-gallery.scss'],
     templateUrl: 'plain-gallery.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [WrapDirective, DirectionDirective, NgFor, NgIf, FallbackImageDirective, SizeDirective, ATagBgImageDirective]
 })
 export class PlainGalleryComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**

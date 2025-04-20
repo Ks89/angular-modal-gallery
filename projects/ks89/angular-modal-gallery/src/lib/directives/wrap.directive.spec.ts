@@ -38,8 +38,7 @@ interface TestModel {
     <div ksWrap [wrap]="true" [width]="'100px'"></div>
     <div ksWrap [wrap]="false" [width]="'100px'"></div>
     <div ksWrap [wrap]="undefined" [width]="'100px'"></div>
-  `,
-    standalone: false
+  `
 })
 class TestWrapComponent {}
 
@@ -59,8 +58,8 @@ describe('WrapDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestWrapComponent, WrapDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestWrapComponent, WrapDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestWrapComponent);
     comp = fixture.componentInstance;
 

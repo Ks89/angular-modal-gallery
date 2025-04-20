@@ -27,10 +27,7 @@ import { Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@ang
 /**
  * Directive to change the flex-wrap css property of an element.
  */
-@Directive({
-    selector: '[ksWrap]',
-    standalone: false
-})
+@Directive({ selector: '[ksWrap]' })
 export class WrapDirective implements OnInit, OnChanges {
   /**
    * Boolean input that it's true to add 'flex-wrap: wrap', 'flex-wrap: nowrap' otherwise.

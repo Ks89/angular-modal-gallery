@@ -86,8 +86,8 @@ const IMAGES: InternalLibImage[] = [
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [DotsComponent, AccessibleComponent]
-  }).overrideComponent(DotsComponent, {
+    imports: [DotsComponent, AccessibleComponent]
+}).overrideComponent(DotsComponent, {
     set: {
       providers: [
         {

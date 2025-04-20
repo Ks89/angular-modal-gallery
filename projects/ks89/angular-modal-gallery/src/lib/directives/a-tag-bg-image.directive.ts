@@ -30,10 +30,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 /**
  * Directive to add an image to an `<a>` tag with some additional custom properties.
  */
-@Directive({
-    selector: '[ksATagBgImage]',
-    standalone: false
-})
+@Directive({ selector: '[ksATagBgImage]' })
 export class ATagBgImageDirective implements OnInit, OnChanges {
   /**
    * Object of type `Image` that represents the image to add to the `<a>` tag.

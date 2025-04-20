@@ -26,13 +26,17 @@ import { CurrentImageConfig } from '../../model/current-image-config.interface';
 import { ModalGalleryService } from './modal-gallery.service';
 import { LibConfig } from '../../model/lib-config.interface';
 import { ModalGalleryConfig } from '../../model/modal-gallery-config.interface';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { UpperButtonsComponent } from '../upper-buttons/upper-buttons.component';
+import { DotsComponent } from '../dots/dots.component';
+import { PreviewsComponent } from '../previews/previews.component';
 
 @Component({
     selector: 'ks-modal-gallery',
     templateUrl: './modal-gallery.component.html',
     styleUrls: ['./modal-gallery.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [ClickOutsideDirective, UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent]
 })
 export class ModalGalleryComponent implements OnInit, OnDestroy {
   /**

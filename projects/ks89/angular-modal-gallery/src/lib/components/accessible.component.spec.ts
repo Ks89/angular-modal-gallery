@@ -35,8 +35,8 @@ let fixture: ComponentFixture<AccessibleComponent>;
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [AccessibleComponent]
-  });
+    imports: [AccessibleComponent]
+});
 }
 
 describe('AccessibleComponent', () => {

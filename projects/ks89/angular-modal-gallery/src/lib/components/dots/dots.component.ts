@@ -35,6 +35,7 @@ import { NEXT } from '../../utils/user-input.util';
 import { getIndex } from '../../utils/image.util';
 import { ConfigService } from '../../services/config.service';
 import { LibConfig } from '../../model/lib-config.interface';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 /**
  * Component with clickable dots (small circles) to navigate between images inside the modal gallery.
@@ -44,7 +45,7 @@ import { LibConfig } from '../../model/lib-config.interface';
     styleUrls: ['dots.scss'],
     templateUrl: 'dots.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [NgIf, NgFor, NgClass]
 })
 export class DotsComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**

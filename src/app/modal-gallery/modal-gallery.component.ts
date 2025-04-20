@@ -41,12 +41,14 @@ import {
 import { Subscription } from 'rxjs';
 
 import * as libConfigs from './libconfigs';
+import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'ks-modal-gallery-page',
     templateUrl: './modal-gallery.html',
     styleUrls: ['./modal-gallery.scss'],
-    standalone: false
+    imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
   /**

@@ -28,10 +28,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
 /**
  * Directive to add fallback image if the original one is not reachable.
  */
-@Directive({
-    selector: '[ksFallbackImage]',
-    standalone: false
-})
+@Directive({ selector: '[ksFallbackImage]' })
 export class FallbackImageDirective {
   @Input()
   fallbackImg: string | SafeResourceUrl | undefined;

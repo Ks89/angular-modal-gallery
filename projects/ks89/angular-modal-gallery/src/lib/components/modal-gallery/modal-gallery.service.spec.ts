@@ -97,12 +97,11 @@ describe('ModalGalleryService', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        imports: [OverlayModule],
-        declarations: [ModalGalleryComponent,
-          UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent, LoadingSpinnerComponent,
-          FallbackImageDirective, ClickOutsideDirective, DescriptionDirective, KeyboardNavigationDirective,
-          SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective]
-      }).overrideComponent(ModalGalleryComponent, {
+    imports: [OverlayModule, ModalGalleryComponent,
+        UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent, LoadingSpinnerComponent,
+        FallbackImageDirective, ClickOutsideDirective, DescriptionDirective, KeyboardNavigationDirective,
+        SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective]
+}).overrideComponent(ModalGalleryComponent, {
         set: {
           providers: [
             {

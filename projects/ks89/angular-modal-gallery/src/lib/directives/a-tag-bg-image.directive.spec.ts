@@ -102,8 +102,7 @@ const length: number = expectedModal.length + expectedPlain.length + expectedWro
 
     <!-- tests with fallback image -->
     <div ksATagBgImage [image]="expectedPlainWithFallback[0]" [style]="''"></div>
-  `,
-    standalone: false
+  `
 })
 class TestATagBgImageComponent {
   base64: SafeResourceUrl = 'data:image/png;base64,iVBORw0KG=';
@@ -135,8 +134,8 @@ describe('ATagBgImageDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestATagBgImageComponent, ATagBgImageDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestATagBgImageComponent, ATagBgImageDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestATagBgImageComponent);
     comp = fixture.componentInstance;
 

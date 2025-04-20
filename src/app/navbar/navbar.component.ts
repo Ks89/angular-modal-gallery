@@ -25,12 +25,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'ks-navbar',
     templateUrl: 'navbar.html',
     styleUrls: ['navbar.scss'],
-    standalone: false
+    imports: [NgIf, FormsModule]
 })
 export class NavbarComponent {
   navbarHeight = '56px';

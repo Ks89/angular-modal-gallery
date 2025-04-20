@@ -59,18 +59,16 @@ const IMAGES: Image[] = [
 describe('AttachToOverlayService', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [OverlayModule],
-      declarations: [ModalGalleryComponent, UpperButtonsComponent,
-        CurrentImageComponent, DotsComponent, PreviewsComponent
-      ],
-      providers: [
+    imports: [OverlayModule, ModalGalleryComponent, UpperButtonsComponent,
+        CurrentImageComponent, DotsComponent, PreviewsComponent],
+    providers: [
         AttachToOverlayService,
         {
-          provide: ModalGalleryService,
-          useClass: ModalGalleryService
+            provide: ModalGalleryService,
+            useClass: ModalGalleryService
         }
-      ]
-    });
+    ]
+});
   }));
 
   it('should instantiate service when inject service', inject([AttachToOverlayService], (service: AttachToOverlayService) => {

@@ -29,10 +29,7 @@ import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/c
  * In fact, it listens for a click on all elements that aren't 'inside' and it emits
  * an event using `@Output clickOutside`.
  */
-@Directive({
-    selector: '[ksClickOutside]',
-    standalone: false
-})
+@Directive({ selector: '[ksClickOutside]' })
 export class ClickOutsideDirective {
   /**
    * Boolean to enable this directive.

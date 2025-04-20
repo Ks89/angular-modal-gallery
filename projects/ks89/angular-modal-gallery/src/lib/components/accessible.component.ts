@@ -34,8 +34,7 @@ import { DIRECTION_RIGHT, MOUSE_MAIN_BUTTON_CLICK, NEXT, NOTHING, PREV, ENTER_CO
 @Component({
     selector: 'ks-accessible',
     template: ``,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccessibleComponent {
   constructor() {}

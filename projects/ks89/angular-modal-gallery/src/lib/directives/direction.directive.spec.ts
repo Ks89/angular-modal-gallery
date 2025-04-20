@@ -58,8 +58,7 @@ const expected: TestModel[] = [
     <div ksDirection [direction]="''" [justify]="''"></div>
     <div ksDirection [direction]="''" [justify]="'center'"></div>
     <div ksDirection [direction]="'row'" [justify]="''"></div>
-  `,
-    standalone: false
+  `
 })
 class TestDirectionComponent {}
 
@@ -73,8 +72,8 @@ describe('DirectionDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestDirectionComponent, DirectionDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestDirectionComponent, DirectionDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestDirectionComponent);
     comp = fixture.componentInstance;
 

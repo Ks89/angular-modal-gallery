@@ -28,10 +28,7 @@ import { Description } from '../model/description.interface';
 /**
  * Directive to customize the description.
  */
-@Directive({
-    selector: '[ksDescription]',
-    standalone: false
-})
+@Directive({ selector: '[ksDescription]' })
 export class DescriptionDirective implements OnInit, OnChanges {
   /**
    * Object of type `Description` to resize the element.

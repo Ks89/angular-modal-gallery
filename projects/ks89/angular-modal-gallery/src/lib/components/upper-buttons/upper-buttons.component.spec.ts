@@ -336,8 +336,8 @@ function testBtnNumberByStrategy(strategy: ButtonsStrategy, btnDebugElementsCoun
 
 function initTestBed(): void {
   TestBed.configureTestingModule({
-    declarations: [UpperButtonsComponent, SizeDirective]
-  }).overrideComponent(UpperButtonsComponent, {
+    imports: [UpperButtonsComponent, SizeDirective]
+}).overrideComponent(UpperButtonsComponent, {
     set: {
       providers: [
         {

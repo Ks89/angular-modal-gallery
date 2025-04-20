@@ -32,8 +32,7 @@ import { KeyboardNavigationDirective } from './keyboard-navigation.directive';
     selector: 'ks-test-keyboard-navigation',
     template: `
     <main ksKeyboardNavigation [isOpen]="true" (keyboardNavigation)="onKeyPress($event)"></main>
-  `,
-    standalone: false
+  `
 })
 class TestKeyboardNavigationComponent {
   @Output() keyPress: EventEmitter<string> = new EventEmitter<string>();
@@ -52,8 +51,8 @@ describe('KeyboardNavigationDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestKeyboardNavigationComponent, KeyboardNavigationDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestKeyboardNavigationComponent, KeyboardNavigationDirective]
+}); // not necessary with webpack .compileComponents();
 
     fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
     comp = fixture.componentInstance;

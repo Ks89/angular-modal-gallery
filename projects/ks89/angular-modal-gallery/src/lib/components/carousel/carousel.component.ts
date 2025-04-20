@@ -44,7 +44,7 @@ import {
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -64,6 +64,12 @@ import { ConfigService } from '../../services/config.service';
 import { ModalGalleryService } from '../modal-gallery/modal-gallery.service';
 import { CarouselLibConfig, LibConfig } from '../../model/lib-config.interface';
 import { InternalLibImage } from '../../model/image-internal.class';
+import { MaxSizeDirective } from '../../directives/max-size.directive';
+import { SizeDirective } from '../../directives/size.directive';
+import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { DescriptionDirective } from '../../directives/description.directive';
+import { DotsComponent } from '../dots/dots.component';
+import { CarouselPreviewsComponent } from './carousel-previews/carousel-previews.component';
 
 /**
  * Component with configurable inline/plain carousel.
@@ -74,7 +80,7 @@ import { InternalLibImage } from '../../model/image-internal.class';
     templateUrl: 'carousel.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ConfigService],
-    standalone: false
+    imports: [MaxSizeDirective, NgIf, SizeDirective, NgTemplateOutlet, NgFor, FallbackImageDirective, DescriptionDirective, DotsComponent, CarouselPreviewsComponent]
 })
 export class CarouselComponent extends AccessibleComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
   /**

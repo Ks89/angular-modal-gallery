@@ -85,8 +85,7 @@ const expected: Description[] | undefined[] = [
     <figure>
       <figcaption ksDescription [description]="descriptions[7]"></figcaption>
     </figure>
-  `,
-    standalone: false
+  `
 })
 class TestDescriptionComponent {
   descriptions: Description[] | undefined[] = [
@@ -129,11 +128,11 @@ describe('DescriptionDirective', () => {
   beforeEach(async () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
-      declarations: [TestDescriptionComponent, DescriptionDirective],
-      providers: [
-        {provide: ComponentFixtureAutoDetect, useValue: true}
-      ]
-    }).compileComponents();
+    imports: [TestDescriptionComponent, DescriptionDirective],
+    providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true }
+    ]
+}).compileComponents();
     fixture = TestBed.createComponent(TestDescriptionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges(); // initial binding

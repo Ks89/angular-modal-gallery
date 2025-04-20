@@ -44,8 +44,7 @@ const expected: MaxSize[] = [
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50%', maxHeight: '100%'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '', maxHeight: ''}"></div>
     <div ksMaxSize [maxSizeConfig]="null"></div>
-  `,
-    standalone: false
+  `
 })
 class TestSizeComponent {}
 
@@ -59,8 +58,8 @@ describe('MaxSizeDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestSizeComponent, MaxSizeDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestSizeComponent, MaxSizeDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestSizeComponent);
     comp = fixture.componentInstance;
 

@@ -38,6 +38,9 @@ import { Action } from '../../model/action.enum';
 import { ConfigService, DEFAULT_PREVIEW_SIZE } from '../../services/config.service';
 import { Size } from '../../model/size.interface';
 import { LibConfig } from '../../model/lib-config.interface';
+import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { SizeDirective } from '../../directives/size.directive';
 
 /**
  * Component with image previews
@@ -47,7 +50,7 @@ import { LibConfig } from '../../model/lib-config.interface';
     styleUrls: ['previews.scss', '../previews-arrows.scss'],
     templateUrl: 'previews.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [NgIf, NgFor, NgTemplateOutlet, FallbackImageDirective, SizeDirective]
 })
 export class PreviewsComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**

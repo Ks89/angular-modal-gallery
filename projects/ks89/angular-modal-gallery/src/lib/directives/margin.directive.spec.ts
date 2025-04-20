@@ -65,8 +65,7 @@ const expected: Margin[] = [
       <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'" [marginTop]="'0px'" [marginBottom]="'2px'"></div>
       <div ksMargin [marginLeft]="undefined" [marginRight]="null" [marginTop]="undefined" [marginBottom]="null"></div>
       <div ksMargin></div>
-    `,
-    standalone: false
+    `
 })
 class TestMarginComponent {}
 
@@ -80,8 +79,8 @@ describe('MarginDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      declarations: [TestMarginComponent, MarginDirective]
-    }); // not necessary with webpack .compileComponents();
+    imports: [TestMarginComponent, MarginDirective]
+}); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestMarginComponent);
     comp = fixture.componentInstance;
 

@@ -24,22 +24,14 @@
 
 import { Component } from '@angular/core';
 
-import {
-  GridLayout,
-  Image,
-  LineLayout,
-  PlainGalleryConfig,
-  PlainGalleryStrategy,
-  ModalGalleryService,
-  ModalGalleryRef,
-  PlainLibConfig
-} from '@ks89/angular-modal-gallery';
+import { GridLayout, Image, LineLayout, PlainGalleryConfig, PlainGalleryStrategy, ModalGalleryService, ModalGalleryRef, PlainLibConfig, GalleryModule } from '@ks89/angular-modal-gallery';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'ks-plain-gallery-page',
     templateUrl: './plain-gallery.html',
     styleUrls: ['./plain-gallery.scss'],
-    standalone: false
+    imports: [GalleryModule, NgFor, NgIf]
 })
 export class PlainGalleryExampleComponent {
   constructor(private modalGalleryService: ModalGalleryService) {}

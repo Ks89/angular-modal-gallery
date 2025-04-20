@@ -54,6 +54,9 @@ import { getIndex } from '../../../utils/image.util';
 import { Action } from '../../../model/action.enum';
 import { ConfigService } from '../../../services/config.service';
 import { LibConfig } from '../../../model/lib-config.interface';
+import { NgIf, NgFor } from '@angular/common';
+import { FallbackImageDirective } from '../../../directives/fallback-image.directive';
+import { SizeDirective } from '../../../directives/size.directive';
 
 /**
  * Default max height of previews.
@@ -68,7 +71,7 @@ const DEFAULT_MAX_HEIGHT = '200px';
     styleUrls: ['carousel-previews.scss', '../../previews-arrows.scss'],
     templateUrl: 'carousel-previews.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    imports: [NgIf, NgFor, FallbackImageDirective, SizeDirective]
 })
 export class CarouselPreviewsComponent extends AccessibleComponent implements OnInit, OnChanges, OnDestroy {
   /**
