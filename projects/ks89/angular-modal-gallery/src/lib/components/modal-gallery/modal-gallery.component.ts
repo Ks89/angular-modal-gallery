@@ -111,8 +111,8 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   private updateImagesSubscription: Subscription | undefined;
 
   /**
-   * HostListener to catch browser's back button and destroy the gallery.
-   * This prevents weired behaviour about scrolling.
+   * HostListener to catch the browser back button and destroy the gallery.
+   * This prevents unexpected behavior about scrolling.
    * Added to fix this issue: https://github.com/Ks89/angular-modal-gallery/issues/159
    */
   @HostListener('window:popstate')

@@ -346,7 +346,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Method to get `alt attribute`.
    * `alt` specifies an alternate text for an image, if the image cannot be displayed.
-   * @param Image image to get its alt description. If not provided it will be the current image
+   * @param image Image to get its alt description. If not provided it will be the current image
    * @returns String alt description of the image (or the current image if not provided)
    */
   getAltDescriptionByImage(image: Image = this.currentImage): string {
@@ -360,7 +360,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * Method to get the title attributes based on descriptions.
    * This is useful to prevent accessibility issues, because if DescriptionStrategy is ALWAYS_HIDDEN,
    * it prevents an empty string as title.
-   * @param Image image to get its description. If not provided it will be the current image
+   * @param image Image to get its description. If not provided it will be the current image
    * @returns String title of the image based on descriptions
    * @throws an Error if description isn't available
    */
