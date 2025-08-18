@@ -92,8 +92,8 @@ describe('ClickOutsideDirective', () => {
     it(`should check for ksClickOutside`, () => {
       const clickOutsideDirective: DebugElement = fixture.debugElement.query(By.directive(ClickOutsideDirective));
       expect(clickOutsideDirective.name).toBe('div');
-      expect(clickOutsideDirective.attributes.id).toBe('modal-gallery-wrapper');
-      expect(clickOutsideDirective.attributes.ksClickOutside).toBe('');
+      expect(clickOutsideDirective.attributes['id']).toBe('modal-gallery-wrapper');
+      expect(clickOutsideDirective.attributes['ksClickOutside']).toBe('');
     });
 
     it(`should close the modal gallery after a click`, () => {

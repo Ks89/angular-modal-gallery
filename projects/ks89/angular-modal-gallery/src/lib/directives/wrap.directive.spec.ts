@@ -91,7 +91,7 @@ describe('WrapDirective', () => {
     });
 
     it('should check expected results for bare <div> without this directive', () => {
-      expect(bareElement.properties.ksWrap).toBeUndefined();
+      expect(bareElement.properties['ksWrap']).toBeUndefined();
     });
   });
 });

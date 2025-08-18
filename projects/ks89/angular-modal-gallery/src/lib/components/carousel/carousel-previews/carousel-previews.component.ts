@@ -268,7 +268,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const simpleChange: SimpleChange = changes.currentImage;
+    const simpleChange: SimpleChange = changes['currentImage'];
     if (!simpleChange) {
       return;
     }
@@ -276,11 +276,11 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     const prev: InternalLibImage = simpleChange.previousValue;
     const current: InternalLibImage = simpleChange.currentValue;
 
-    if (current && changes.images && changes.images.previousValue && changes.images.currentValue) {
+    if (current && changes['images'] && changes['images'].previousValue && changes['images'].currentValue) {
       // I'm in this if statement, if input images are changed (for instance, because I removed one of them with the 'delete button',
       // or because users changed the images array while modal gallery is still open).
       // In this case, I have to re-init previews, because the input array of images is changed.
-      this.initPreviews(current, changes.images.currentValue);
+      this.initPreviews(current, changes['images'].currentValue);
     }
 
     if (prev && current && prev.id !== current.id) {

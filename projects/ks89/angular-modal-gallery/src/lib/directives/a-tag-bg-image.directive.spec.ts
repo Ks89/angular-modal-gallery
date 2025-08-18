@@ -225,7 +225,7 @@ describe('ATagBgImageDirective', () => {
     });
 
     it('should check expected results for bare <div> without this directive', () => {
-      expect(bareElement.properties.ksATagBgImage).toBeUndefined();
+      expect(bareElement.properties['ksATagBgImage']).toBeUndefined();
     });
   });
 });

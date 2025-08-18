@@ -169,8 +169,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   ngOnChanges(changes: SimpleChanges): void {
 
-    let currentImage = changes.currentImage?.currentValue ?? this.currentImage;
-    let images = changes.images?.currentValue ?? this.images;
+    let currentImage = changes['currentImage']?.currentValue ?? this.currentImage;
+    let images = changes['images']?.currentValue ?? this.images;
 
     if (this.previewConfig && currentImage && images) {
       this.initPreviews(currentImage, images);

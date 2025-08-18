@@ -16,12 +16,10 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
+    "module": "preserve",
     "useDefineForClassFields": false, // to inject sanitizer without errors
     "lib": [
       "ES2022",
@@ -35,8 +33,18 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
 
     // FIXME THIS SHOULD BE FORCED TO TRUE IN THE FUTURE VERSIONS OF THE LIBRARY
     "strictTemplates": false
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

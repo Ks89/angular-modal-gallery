@@ -184,7 +184,7 @@ function checkPreview(previewElement: DebugElement, previewImage: InternalLibIma
     const sizes: DebugElement[] = fixture.debugElement.queryAll(By.directive(SizeDirective));
     let width = '';
     let height = '';
-    const split: string[] | undefined = sizes[0].attributes.style?.split(';');
+    const split: string[] | undefined = sizes[0].attributes['style']?.split(';');
     if (!split) {
       throw new Error('This test expects to check styles applied by ksSize directive');
     }

@@ -122,7 +122,7 @@ describe('MarginDirective', () => {
     });
 
     it('should check expected results for bare <div> without this directive', () => {
-      expect(bareElement.properties.ksMargin).toBeUndefined();
+      expect(bareElement.properties['ksMargin']).toBeUndefined();
     });
   });
 });

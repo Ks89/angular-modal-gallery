@@ -93,7 +93,7 @@ describe('MaxSizeDirective', () => {
     });
 
     it('should check expected results for bare <div> without this directive', () => {
-      expect(bareElement.properties.ksMaxSize).toBeUndefined();
+      expect(bareElement.properties['ksMaxSize']).toBeUndefined();
     });
   });
 });

@@ -1,6 +1,3 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app/app-routing.module';

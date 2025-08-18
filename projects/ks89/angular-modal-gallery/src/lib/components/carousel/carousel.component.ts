@@ -304,7 +304,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
       throw new Error('Internal library error - libConfig must be defined');
     }
 
-    const configChange: SimpleChange = changes.config;
+    const configChange: SimpleChange = changes['config'];
 
     // handle changes of dotsConfig.visible
     if (configChange &&

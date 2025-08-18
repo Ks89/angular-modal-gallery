@@ -241,16 +241,16 @@ function testCurrentHtmlBtn(btnDebugElement: DebugElement, btnIndex: number, siz
   }
   const currentButton: InternalButtonConfig = comp.buttons[btnIndex] as InternalButtonConfig;
   expect(btnDebugElement.name).toBe('a');
-  expect(btnDebugElement.attributes.class).toBe('upper-button');
-  expect(btnDebugElement.attributes.kssize).not.toBeNull();
-  expect(btnDebugElement.attributes.sizeConfig).toBeUndefined();
+  expect(btnDebugElement.attributes['class']).toBe('upper-button');
+  expect(btnDebugElement.attributes['kssize']).not.toBeNull();
+  expect(btnDebugElement.attributes['sizeConfig']).toBeUndefined();
   if (size) {
     // I don't know why I cannot retrieve styles from btnDebugElement, so I decided to
     // get elements via Directive.
     const sizes: DebugElement[] = fixture.debugElement.queryAll(By.directive(SizeDirective));
     let width = '';
     let height = '';
-    const split: string[] | undefined = sizes[0].attributes.style?.split(';');
+    const split: string[] | undefined = sizes[0].attributes['style']?.split(';');
     if (!split) {
       throw new Error('This test expects to check styles applies by ksSize directive');
     }
@@ -273,8 +273,8 @@ function testCurrentHtmlBtn(btnDebugElement: DebugElement, btnIndex: number, siz
     }
   }
   expect(btnDebugElement.attributes['aria-label']).toBe(currentButton.ariaLabel ? currentButton.ariaLabel : null);
-  expect(btnDebugElement.attributes.role).toBe('button');
-  expect(btnDebugElement.properties.tabIndex).toBe(0);
+  expect(btnDebugElement.attributes['role']).toBe('button');
+  expect(btnDebugElement.properties['tabIndex']).toBe(0);
   // expect(btnDebugElement.properties['hidden']).toBe(false);
 
   // console.log('btnDebugElement.attributes ' + btnIndex, btnDebugElement.attributes);
@@ -291,8 +291,8 @@ function testCurrentHtmlBtn(btnDebugElement: DebugElement, btnIndex: number, siz
   const childrenElements: DebugElement[] = btnDebugElement.children;
   expect(childrenElements.length).toBe(1);
   expect(childrenElements[0].attributes['aria-hidden']).toBe('true');
-  expect(containsClasses(childrenElements[0].properties.className, currentButton.className + ' inside')).toBeTrue();
-  expect(childrenElements[0].properties.title).toBe(currentButton.title);
+  expect(containsClasses(childrenElements[0].properties['className'], currentButton.className + ' inside')).toBeTrue();
+  expect(childrenElements[0].properties['title']).toBe(currentButton.title);
   // console.log('childrenElements.attributes ' + btnIndex, childrenElements[0].attributes);
   // console.log('childrenElements.properties ' + btnIndex, childrenElements[0].properties);
 }

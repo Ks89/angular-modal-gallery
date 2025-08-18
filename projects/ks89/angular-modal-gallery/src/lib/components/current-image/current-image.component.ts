@@ -250,8 +250,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
-    const images: SimpleChange = changes.images;
-    const currentImage: SimpleChange = changes.currentImage;
+    const images: SimpleChange = changes['images'];
+    const currentImage: SimpleChange = changes['currentImage'];
 
     if (currentImage && currentImage.previousValue !== currentImage.currentValue) {
       this.updateIndexes();
@@ -259,7 +259,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
       this.updateIndexes();
     }
 
-    const slideConfig: SimpleChange = changes.slideConfig;
+    const slideConfig: SimpleChange = changes['slideConfig'];
     if (slideConfig && slideConfig.previousValue !== slideConfig.currentValue) {
       this.slideConfig = libConfig.slideConfig;
     }
@@ -321,7 +321,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * Method to get the image description based on input params.
    * If you provide a full description this will be the visible description, otherwise,
    * it will be built using the `Description` object, concatenating its fields.
-   * @param Image image to get its description. If not provided it will be the current image
+   * @param image image to get its description. If not provided it will be the current image
    * @returns String description of the image (or the current image if not provided)
    * @throws an Error if description isn't available
    */
@@ -369,8 +369,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
       throw new Error('Description input must be a valid object implementing the Description interface');
     }
     const imageWithoutDescription: boolean = !image.modal || !image.modal.description || image.modal.description === '';
-    const description: string = this.buildTextDescription(image, imageWithoutDescription);
-    return description;
+    return this.buildTextDescription(image, imageWithoutDescription);
   }
 
   /**
@@ -414,8 +413,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Method called by events from both keyboard and mouse on an image.
    * This will invoke the nextImage method.
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the event or `Action.NORMAL` if not provided
+   * @param keyboardEvent | MouseEvent event payload
+   * @param action action that triggered the event or `Action.NORMAL` if not provided
    */
   onImageEvent(event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     if (!this.currentImageConfig) {
@@ -490,7 +489,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Method to emit an event as loadImage output to say that the requested image if loaded.
    * This method is invoked by the javascript's 'load' event on an img tag.
-   * @param Event event that triggered the load
+   * @param event event that triggered the load
    */
   onImageLoad(event: Event): void {
     const loadImageData: ImageLoadEvent = {
@@ -536,7 +535,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
   /**
    * Method used in `modal-gallery.component` to get the index of an image to delete.
-   * @param Image image to get the index, or the visible image, if not passed
+   * @param image image to get the index, or the visible image, if not passed
    * @returns number the index of the image
    */
   getIndexToDelete(image: Image = this.currentImage): number {
@@ -652,7 +651,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Private method to build a text description.
    * This is used also to create titles.
-   * @param Image image to get its description. If not provided it will be the current image.
+   * @param image image to get its description. If not provided it will be the current image.
    * @param boolean imageWithoutDescription is a boolean that it's true if the image hasn't a 'modal' description.
    * @returns String description built concatenating image fields with a specific logic.
    */

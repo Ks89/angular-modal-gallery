@@ -112,7 +112,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * This is an angular lifecycle hook, so its called automatically by Angular itself.
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const dotsConfigChanges: SimpleChange = changes.dotsConfig;
+    const dotsConfigChanges: SimpleChange = changes['dotsConfig'];
     if (dotsConfigChanges && dotsConfigChanges.currentValue !== dotsConfigChanges.previousValue) {
       this.configDots = dotsConfigChanges.currentValue;
     }

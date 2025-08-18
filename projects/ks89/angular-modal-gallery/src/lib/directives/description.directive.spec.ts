@@ -158,8 +158,8 @@ describe('DescriptionDirective', () => {
     expected.forEach((val: Description, index: number) => {
       it(`should check expected results for <figcaption> at position ${index}`, () => {
         if (val && val.style && val.style.bgColor && val.style.textColor) {
-          expect(des[index].styles.background).toBe(val.style.bgColor);
-          expect(des[index].styles.color).toBe(val.style.textColor);
+          expect(des[index].styles['background']).toBe(val.style.bgColor);
+          expect(des[index].styles['color']).toBe(val.style.textColor);
 
           expect(des[index].nativeElement.style.position).toBe(val.style.position ? val.style.position : '');
           expect(des[index].nativeElement.style.top).toBe(val.style.top ? val.style.top : '');
@@ -177,7 +177,7 @@ describe('DescriptionDirective', () => {
     });
 
     it('should check expected results for bare <figcaption> without this directive', () => {
-      expect(bareElement.properties.ksDescription).toBeUndefined();
+      expect(bareElement.properties['ksDescription']).toBeUndefined();
     });
   });
 });

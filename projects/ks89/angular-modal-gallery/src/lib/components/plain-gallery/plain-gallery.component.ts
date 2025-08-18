@@ -161,8 +161,8 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
       throw new Error('Internal library error - libConfig must be defined');
     }
 
-    const imagesChange: SimpleChange = changes.images;
-    const configChange: SimpleChange = changes.config;
+    const imagesChange: SimpleChange = changes['images'];
+    const configChange: SimpleChange = changes['config'];
     // I'm using !change.firstChange because the first time will be called both onInit and onChange and I don't
     // want to execute initialization two times.
     if (
@@ -181,7 +181,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   /**
    * Method called when you click on an image of the plain (or inline) gallery.
    * This will emit the show event with the image as payload.
-   * @param Image img is the Image to show
+   * @param img is the Image to show
    */
   showModalGalleryByImage(img: Image): void {
     const index: number = this.images.findIndex((val: Image) => val && img && val.id === img.id);
@@ -192,7 +192,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    * Method called when you navigate between images.
    * This will emit the show event with the image as payload.
    * @param KeyboardEvent event that triggered the navigation
-   * @param Image img is the Image to show
+   * @param img is the Image to show
    */
   onNavigationEvent(event: KeyboardEvent, img: Image): void {
     const result: number = super.handleImageEvent(event);
@@ -204,7 +204,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   /**
    * Method to get `alt attribute`.
    * `alt` specifies an alternate text for an image, if the image cannot be displayed.
-   * @param Image image to get its alt description.
+   * @param image to get its alt description.
    * @returns string alt description of the image
    */
   getAltPlainDescriptionByImage(image: Image): string {
@@ -216,7 +216,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
 
   /**
    * Method to get the title for an image.
-   * @param Image image to get its title
+   * @param image to get its title
    * @returns string the title of the input image
    */
   getTitleDisplay(image: Image): string {

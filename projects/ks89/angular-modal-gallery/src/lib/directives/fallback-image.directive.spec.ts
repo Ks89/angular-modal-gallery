@@ -111,7 +111,7 @@ describe('FallbackImageDirective', () => {
     });
 
     it('should check expected results for bare <img> without this directive', () => {
-      expect(bareElement.properties.ksFallbackImage).toBeUndefined();
+      expect(bareElement.properties['ksFallbackImage']).toBeUndefined();
     });
   });
 
@@ -146,7 +146,7 @@ describe('FallbackImageDirective', () => {
     });
 
     it('should check expected results for bare <img> without this directive', () => {
-      expect(bareElementWrong.properties.ksFallbackImage).toBeUndefined();
+      expect(bareElementWrong.properties['ksFallbackImage']).toBeUndefined();
     });
   });
 });

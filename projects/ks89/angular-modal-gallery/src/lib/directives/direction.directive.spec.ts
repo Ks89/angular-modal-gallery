@@ -105,7 +105,7 @@ describe('DirectionDirective', () => {
     });
 
     it('should check expected results for bare <div> without this directive', () => {
-      expect(bareElement.properties.ksDirection).toBeUndefined();
+      expect(bareElement.properties['ksDirection']).toBeUndefined();
     });
   });
 });
