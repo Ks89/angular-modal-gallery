@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2024 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,8 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { NgIf, NgFor, NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -38,7 +39,6 @@ import { Action } from '../../model/action.enum';
 import { ConfigService, DEFAULT_PREVIEW_SIZE } from '../../services/config.service';
 import { Size } from '../../model/size.interface';
 import { LibConfig } from '../../model/lib-config.interface';
-import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
 import { SizeDirective } from '../../directives/size.directive';
 
@@ -46,16 +46,16 @@ import { SizeDirective } from '../../directives/size.directive';
  * Component with image previews
  */
 @Component({
-    selector: 'ks-previews',
-    styleUrls: ['previews.scss', '../previews-arrows.scss'],
-    templateUrl: 'previews.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgFor, NgTemplateOutlet, FallbackImageDirective, SizeDirective]
+  selector: 'ks-previews',
+  styleUrls: ['previews.scss', '../previews-arrows.scss'],
+  templateUrl: 'previews.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf, NgFor, NgTemplateOutlet, FallbackImageDirective, SizeDirective]
 })
 export class PreviewsComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**
    * Unique id (>=0) of the current instance of this library. This is required when you are using
-   * the service to call modal gallery.
+   * the service to call modal-gallery.
    */
   @Input()
   id!: number;
@@ -73,7 +73,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
 
   /**
    * Optional template reference for the rendering of previews.
-   * Template may access following context variables:
+   * Template may access the following context variables:
    * - preview: the `Image` object
    * - defaultTemplate: the template used by default to render the preview (in case the need is to wrap it)
    */
@@ -151,7 +151,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
 
   /**
    * Method to check if an image is active (i.e. a preview image).
-   * @param InternalLibImage preview is an image to check if it's active or not
+   * @param preview InternalLibImage is an image to check if it's active or not
    * @returns boolean true if is active, false otherwise
    */
   isActive(preview: InternalLibImage): boolean {
@@ -164,7 +164,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Method ´ngOnChanges´ to update `previews` array.
    * Also, both `start` and `end` local variables will be updated accordingly.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -172,17 +172,17 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     let currentImage = changes.currentImage?.currentValue ?? this.currentImage;
     let images = changes.images?.currentValue ?? this.images;
 
-    if(this.previewConfig && currentImage && images) {
-      this.initPreviews( currentImage, images);
+    if (this.previewConfig && currentImage && images) {
+      this.initPreviews(currentImage, images);
     }
   }
 
   /**
    * Method called by events from both keyboard and mouse on a preview.
    * This will trigger the `clickpreview` output with the input preview as its payload.
-   * @param InternalLibImage preview that triggered this method
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the source event or `Action.NORMAL` if not specified
+   * @param preview InternalLibImage that triggered this method
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered the source event or `Action.NORMAL` if not specified
    */
   onImageEvent(preview: InternalLibImage, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     // It's suggested to stop propagation of the event, so the
@@ -200,9 +200,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Method called by events from both keyboard and mouse on a navigation arrow.
    * It also emits an event to specify which arrow.
-   * @param string direction of the navigation that can be either 'next' or 'prev'
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the source event or `Action.NORMAL` if not specified
+   * @param direction string of the navigation that can be either 'next' or 'prev'
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered the source event or `Action.NORMAL` if not specified
    */
   onNavigationEvent(direction: string, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     const result: number = super.handleNavigationEvent(direction, event);
@@ -215,8 +215,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
 
   /**
    * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
+   * @param index number of the array
+   * @param item Image of the array
    * @returns number the id of the item
    */
   trackById(index: number, item: Image): number {
@@ -227,9 +227,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Indicates if the previews 'left arrow' should be displayed or not.
    * @returns
    */
-  displayLeftPreviewsArrow(): boolean {
-    // Don't show arrows if requested previews number equals or is greated than total number of imgaes
-    if(this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+  isDisplayLeftPreviewsArrow(): boolean {
+    // Don't show arrows if the preview number is greater or equals than total number of images
+    if (this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
       return false;
     }
     return (this.previewConfig?.arrows && this.start > 0) || !!this.slideConfig?.infinite;
@@ -239,9 +239,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Indicates if the previews 'right arrow' should be displayed or not.
    * @returns
    */
-  displayRightPreviewsArrow(): boolean {
-    // Don't show arrows if requested previews number equals or is greated than total number of imgaes
-    if(this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+  isDisplayRightPreviewsArrow(): boolean {
+    // Don't show arrows if the preview number is greater or equals than total number of images
+    if (this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
       return false;
     }
     return (this.previewConfig?.arrows && this.images && this.end < this.images.length) || !!this.slideConfig?.infinite;
@@ -250,8 +250,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Private method to init previews based on the currentImage and the full array of images.
    * The current image in mandatory to show always the current preview (as highlighted).
-   * @param InternalLibImage currentImage to decide how to show previews, because I always want to see the current image as highlighted
-   * @param InternalLibImage[] images is the array of all images.
+   * @param currentImage InternalLibImage to decide how to show previews, because I always want to see the current image as highlighted
+   * @param images InternalLibImage[] is the array of all images.
    */
   private initPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
     this.setIndexesPreviews(currentImage, images);
@@ -268,13 +268,13 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     const previewsNumber = this.previewConfig.number as number;
     let start = getIndex(currentImage, images) - Math.floor(previewsNumber / 2);
     // start is, at a minimum, the first index
-    if(start < 0) start = 0;
+    if (start < 0) start = 0;
     // end index
     let end = start + previewsNumber;
     // end is, at a maximum, the last index
-    if(end > images.length) {
+    if (end > images.length) {
       start -= end - images.length;
-      if(start < 0) start = 0; // start is, at a minimum, the first index
+      if (start < 0) start = 0; // start is, at a minimum, the first index
       end = images.length;
     }
     this.start = start;
@@ -288,10 +288,10 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     if (!this.previewConfig) {
       throw new Error('Internal library error - previewConfig must be defined');
     }
-    if(this.end >= this.images.length) {
+    if (this.end >= this.images.length) {
       // check if nextImage should be blocked
       const preventSliding = !!this.slideConfig && this.slideConfig.infinite === false;
-      if(preventSliding) {
+      if (preventSliding) {
         return;
       }
       this.start = 0;
@@ -310,10 +310,10 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     if (!this.previewConfig) {
       throw new Error('Internal library error - previewConfig must be defined');
     }
-    if(this.start <= 0) {
+    if (this.start <= 0) {
       // check if prevImage should be blocked
       const preventSliding = !!this.slideConfig && this.slideConfig.infinite === false;
-      if(preventSliding) {
+      if (preventSliding) {
         return;
       }
       this.end = this.images.length;

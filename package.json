@@ -59,7 +59,7 @@
   "dependencies": {
     "@angular/cdk": "^19.0.4",
     "@angular/common": "^19.0.5",
-    "@angular/compiler": "^19.0.5",
+    "@angular/compiler":  "^19.0.5",
     "@angular/core": "^19.0.5",
     "@angular/forms": "^19.0.5",
     "@angular/platform-browser": "^19.0.5",

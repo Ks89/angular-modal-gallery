@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2024 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -30,22 +30,27 @@ import { COMPONENTS, CarouselComponent } from './components/components';
 import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.component';
 import { DIRECTIVES } from './directives/directives';
 import { AttachToOverlayService } from './components/modal-gallery/attach-to-overlay.service';
+import { inject } from '@angular/core/testing';
+
+const factoryFn = (service: AttachToOverlayService): (() => void) => {
+  return () => service.initialize();
+};
 
 /**
  * Module to import it in the root module of your application.
  */
 @NgModule({
-    imports: [CommonModule, OverlayModule, COMPONENTS, DIRECTIVES],
-    providers: [
-        {
-            provide: APP_INITIALIZER,
-            multi: true,
-            deps: [AttachToOverlayService],
-            useFactory: (service: AttachToOverlayService): (() => void) => {
-                return () => service.initialize();
-            }
-        }
-    ],
-    exports: [PlainGalleryComponent, CarouselComponent]
+  imports: [CommonModule, OverlayModule, COMPONENTS, DIRECTIVES],
+  providers: [
+    // provideAppInitializer(() => factoryFn(inject(AttachToOverlayService))),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [AttachToOverlayService],
+      useFactory: factoryFn
+    }
+  ],
+  exports: [PlainGalleryComponent, CarouselComponent]
 })
-export class GalleryModule {}
+export class GalleryModule {
+}

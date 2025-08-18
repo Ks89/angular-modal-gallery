@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2024 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -54,7 +54,7 @@ import { getIndex } from '../../../utils/image.util';
 import { Action } from '../../../model/action.enum';
 import { ConfigService } from '../../../services/config.service';
 import { LibConfig } from '../../../model/lib-config.interface';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, NgOptimizedImage } from '@angular/common';
 import { FallbackImageDirective } from '../../../directives/fallback-image.directive';
 import { SizeDirective } from '../../../directives/size.directive';
 
@@ -71,7 +71,7 @@ const DEFAULT_MAX_HEIGHT = '200px';
     styleUrls: ['carousel-previews.scss', '../../previews-arrows.scss'],
     templateUrl: 'carousel-previews.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgFor, FallbackImageDirective, SizeDirective]
+  imports: [NgIf, NgFor, FallbackImageDirective, SizeDirective, NgOptimizedImage]
 })
 export class CarouselPreviewsComponent extends AccessibleComponent implements OnInit, OnChanges, OnDestroy {
   /**

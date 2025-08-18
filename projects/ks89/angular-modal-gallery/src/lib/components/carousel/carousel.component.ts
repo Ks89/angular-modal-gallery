@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2024 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ import {
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor, NgOptimizedImage } from '@angular/common';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -80,7 +80,7 @@ import { CarouselPreviewsComponent } from './carousel-previews/carousel-previews
     templateUrl: 'carousel.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ConfigService],
-    imports: [MaxSizeDirective, NgIf, SizeDirective, NgTemplateOutlet, NgFor, FallbackImageDirective, DescriptionDirective, DotsComponent, CarouselPreviewsComponent]
+  imports: [MaxSizeDirective, NgIf, SizeDirective, NgTemplateOutlet, NgFor, FallbackImageDirective, DescriptionDirective, DotsComponent, CarouselPreviewsComponent, NgOptimizedImage]
 })
 export class CarouselComponent extends AccessibleComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
   /**

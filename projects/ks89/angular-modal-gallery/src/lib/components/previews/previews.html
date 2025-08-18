@@ -19,7 +19,7 @@
         (click)="onImageEvent(preview, $event, clickAction)"
         (keyup)="onImageEvent(preview, $event, keyboardAction)"
       >
-        <ng-container 
+        <ng-container
           *ngTemplateOutlet="!customTemplate ? defaultTemplate : customTemplate ; context:{preview, defaultTemplate}">
         </ng-container>
         <ng-template #defaultTemplate>
@@ -44,9 +44,9 @@
 
     <a class="nav-right"
        [attr.aria-label]="accessibilityConfig?.previewScrollNextAriaLabel"
-       [tabIndex]="displayRightPreviewsArrow() ? 0 : -1" role="button"
+       [tabIndex]="isDisplayRightPreviewsArrow() ? 0 : -1" role="button"
        (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
-      <div class="inside {{ displayRightPreviewsArrow() ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
+      <div class="inside {{ isDisplayRightPreviewsArrow() ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
            aria-hidden="true"
            [title]="accessibilityConfig?.previewScrollNextTitle"></div>
     </a>
