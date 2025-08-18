@@ -51,23 +51,25 @@ const expected: Margin[] = [
 ];
 
 @Component({
-    selector: 'ks-test-margin',
-    template: `
-      <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'"></div>
-      <div ksMargin [marginLeft]="'4px'" [marginRight]="'0px'"></div>
-      <div ksMargin [marginLeft]="'4px'" [marginRight]="'0'"></div>
-      <div ksMargin [marginLeft]="''" [marginRight]="''"></div>
-      <div ksMargin [marginLeft]="'-2px'" [marginRight]="'-3px'"></div>
-      <div ksMargin [marginTop]="'2px'" [marginBottom]="'2px'"></div>
-      <div ksMargin [marginTop]="''" [marginBottom]="''"></div>
-      <div ksMargin [marginTop]="'0px'" [marginBottom]="'2px'"></div>
-      <div ksMargin [marginTop]="'0'" [marginBottom]="'-7px'"></div>
-      <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'" [marginTop]="'0px'" [marginBottom]="'2px'"></div>
-      <div ksMargin [marginLeft]="undefined" [marginRight]="null" [marginTop]="undefined" [marginBottom]="null"></div>
-      <div ksMargin></div>
-    `
+  selector: 'ks-test-margin',
+  imports: [MarginDirective],
+  template: `
+    <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'"></div>
+    <div ksMargin [marginLeft]="'4px'" [marginRight]="'0px'"></div>
+    <div ksMargin [marginLeft]="'4px'" [marginRight]="'0'"></div>
+    <div ksMargin [marginLeft]="''" [marginRight]="''"></div>
+    <div ksMargin [marginLeft]="'-2px'" [marginRight]="'-3px'"></div>
+    <div ksMargin [marginTop]="'2px'" [marginBottom]="'2px'"></div>
+    <div ksMargin [marginTop]="''" [marginBottom]="''"></div>
+    <div ksMargin [marginTop]="'0px'" [marginBottom]="'2px'"></div>
+    <div ksMargin [marginTop]="'0'" [marginBottom]="'-7px'"></div>
+    <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'" [marginTop]="'0px'" [marginBottom]="'2px'"></div>
+    <div ksMargin [marginLeft]="undefined" [marginRight]="null" [marginTop]="undefined" [marginBottom]="null"></div>
+    <div ksMargin></div>
+  `
 })
-class TestMarginComponent {}
+class TestMarginComponent {
+}
 
 let fixture: ComponentFixture<TestMarginComponent>;
 let comp: TestMarginComponent;
@@ -79,8 +81,8 @@ describe('MarginDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestMarginComponent, MarginDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestMarginComponent, MarginDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestMarginComponent);
     comp = fixture.componentInstance;
 

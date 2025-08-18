@@ -28,8 +28,9 @@ import { By, SafeResourceUrl } from '@angular/platform-browser';
 import { FallbackImageDirective } from './fallback-image.directive';
 
 @Component({
-    selector: 'ks-test-fallback-image',
-    template: `
+  selector: 'ks-test-fallback-image',
+  imports: [FallbackImageDirective],
+  template: `
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="imgPath" (fallbackApplied)="onError(true)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="base64" (fallbackApplied)="onError(true)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="''" (fallbackApplied)="onError(true)">
@@ -50,8 +51,9 @@ class TestFallbackImageComponent {
 }
 
 @Component({
-    selector: 'ks-test-fallback-image-wrong',
-    template: `
+  selector: 'ks-test-fallback-image-wrong',
+  imports: [FallbackImageDirective],
+  template: `
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="null" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
@@ -85,8 +87,8 @@ describe('FallbackImageDirective', () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-    imports: [TestFallbackImageComponent, FallbackImageDirective]
-}); // not necessary with webpack .compileComponents();
+        imports: [TestFallbackImageComponent, FallbackImageDirective]
+      }); // not necessary with webpack .compileComponents();
       fixture = TestBed.createComponent(TestFallbackImageComponent);
       comp = fixture.componentInstance;
 
@@ -120,8 +122,8 @@ describe('FallbackImageDirective', () => {
     beforeEach(() => {
       TestBed.resetTestingModule();
       TestBed.configureTestingModule({
-    imports: [WrongTestFallbackImageComponent, FallbackImageDirective]
-}); // not necessary with webpack .compileComponents();
+        imports: [WrongTestFallbackImageComponent, FallbackImageDirective]
+      }); // not necessary with webpack .compileComponents();
       fixtureWrong = TestBed.createComponent(WrongTestFallbackImageComponent);
       compWrong = fixtureWrong.componentInstance;
 

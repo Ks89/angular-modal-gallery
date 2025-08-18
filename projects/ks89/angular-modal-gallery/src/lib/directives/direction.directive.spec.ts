@@ -35,20 +35,21 @@ interface TestModel {
 const expected: TestModel[] = [
   // direction can be: row | row-reverse | column | column-reverse
   // justify can be: flex-start | flex-end | center | space-between | space-around | space-evenly
-  {direction: 'row', justify: 'flex-start'},
-  {direction: 'row-reverse', justify: 'flex-end'},
-  {direction: 'column', justify: 'center'},
-  {direction: 'column-reverse', justify: 'space-between'},
-  {direction: 'row', justify: 'space-around'},
-  {direction: 'row', justify: 'space-evenly'},
-  {direction: '', justify: ''}, // with '' and '' the expected result is '' and ''
-  {direction: '', justify: ''}, // with '' and 'center' the expected result is '' and ''
-  {direction: '', justify: ''} // with 'row' and '' the expected result is '' and ''
+  { direction: 'row', justify: 'flex-start' },
+  { direction: 'row-reverse', justify: 'flex-end' },
+  { direction: 'column', justify: 'center' },
+  { direction: 'column-reverse', justify: 'space-between' },
+  { direction: 'row', justify: 'space-around' },
+  { direction: 'row', justify: 'space-evenly' },
+  { direction: '', justify: '' }, // with '' and '' the expected result is '' and ''
+  { direction: '', justify: '' }, // with '' and 'center' the expected result is '' and ''
+  { direction: '', justify: '' } // with 'row' and '' the expected result is '' and ''
 ];
 
 @Component({
-    selector: 'ks-test-direction',
-    template: `
+  selector: 'ks-test-direction',
+  imports: [DirectionDirective],
+  template: `
     <div ksDirection [direction]="'row'" [justify]="'flex-start'"></div>
     <div ksDirection [direction]="'row-reverse'" [justify]="'flex-end'"></div>
     <div ksDirection [direction]="'column'" [justify]="'center'"></div>
@@ -60,7 +61,8 @@ const expected: TestModel[] = [
     <div ksDirection [direction]="'row'" [justify]="''"></div>
   `
 })
-class TestDirectionComponent {}
+class TestDirectionComponent {
+}
 
 let fixture: ComponentFixture<TestDirectionComponent>;
 let comp: TestDirectionComponent;
@@ -72,8 +74,8 @@ describe('DirectionDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestDirectionComponent, DirectionDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestDirectionComponent, DirectionDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestDirectionComponent);
     comp = fixture.componentInstance;
 

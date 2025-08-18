@@ -83,6 +83,7 @@ const length: number = expectedModal.length + expectedPlain.length + expectedWro
 
 @Component({
     selector: 'ks-test-atagbgimage',
+    imports: [ATagBgImageDirective],
     template: `
     <div ksATagBgImage [image]="images[0]" [style]="'50% 50% / cover'"></div>
     <div ksATagBgImage [image]="images[0]" [style]="''"></div>

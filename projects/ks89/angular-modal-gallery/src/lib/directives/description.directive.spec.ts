@@ -32,35 +32,36 @@ import { ComponentFixtureAutoDetect } from '@angular/core/testing';
 const expected: Description[] | undefined[] = [
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white', marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px'}
+    style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white', marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px' }
   },
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px'}
+    style: { marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px' }
   },
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white'}
+    style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white' }
   },
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {bgColor: 'rgba(255, 0, 0, .5)', marginBottom: '0px'}
+    style: { bgColor: 'rgba(255, 0, 0, .5)', marginBottom: '0px' }
   },
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {height: '30px', width: '100px', position: 'absolute', top: '0px', bottom: '0px', left: '0px', right: '0px'}
+    style: { height: '30px', width: '100px', position: 'absolute', top: '0px', bottom: '0px', left: '0px', right: '0px' }
   },
   {
     strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-    style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white'}
+    style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white' }
   },
-  {strategy: DescriptionStrategy.ALWAYS_VISIBLE, style: {}},
-  {strategy: DescriptionStrategy.ALWAYS_VISIBLE}
+  { strategy: DescriptionStrategy.ALWAYS_VISIBLE, style: {} },
+  { strategy: DescriptionStrategy.ALWAYS_VISIBLE }
 ];
 
 @Component({
-    selector: 'ks-test-description',
-    template: `
+  selector: 'ks-test-description',
+  imports: [DescriptionDirective],
+  template: `
     <figure>
       <figcaption ksDescription [description]="descriptions[0]"></figcaption>
     </figure>
@@ -91,30 +92,30 @@ class TestDescriptionComponent {
   descriptions: Description[] | undefined[] = [
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white', marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px'}
+      style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white', marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px' }
     },
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px'}
+      style: { marginTop: '0px', marginBottom: '5px', marginLeft: '0px', marginRight: '0px' }
     },
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white'}
+      style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white' }
     },
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {bgColor: 'rgba(255, 0, 0, .5)', marginBottom: '0px'}
+      style: { bgColor: 'rgba(255, 0, 0, .5)', marginBottom: '0px' }
     },
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {height: '30px', width: '100px', position: 'absolute', top: '0px', bottom: '0px', left: '0px', right: '0px'}
+      style: { height: '30px', width: '100px', position: 'absolute', top: '0px', bottom: '0px', left: '0px', right: '0px' }
     },
     {
       strategy: DescriptionStrategy.ALWAYS_VISIBLE,
-      style: {bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white'}
+      style: { bgColor: 'rgba(0, 0, 0, 0.5)', textColor: 'white' }
     },
-    {strategy: DescriptionStrategy.ALWAYS_VISIBLE, style: {}},
-    {strategy: DescriptionStrategy.ALWAYS_VISIBLE}
+    { strategy: DescriptionStrategy.ALWAYS_VISIBLE, style: {} },
+    { strategy: DescriptionStrategy.ALWAYS_VISIBLE }
   ];
 }
 
@@ -128,11 +129,11 @@ describe('DescriptionDirective', () => {
   beforeEach(async () => {
     TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
-    imports: [TestDescriptionComponent, DescriptionDirective],
-    providers: [
+      imports: [TestDescriptionComponent, DescriptionDirective],
+      providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true }
-    ]
-}).compileComponents();
+      ]
+    }).compileComponents();
     fixture = TestBed.createComponent(TestDescriptionComponent);
     comp = fixture.componentInstance;
     fixture.detectChanges(); // initial binding

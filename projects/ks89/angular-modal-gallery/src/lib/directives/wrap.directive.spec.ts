@@ -33,14 +33,16 @@ interface TestModel {
 }
 
 @Component({
-    selector: 'ks-test-wrap',
-    template: `
+  selector: 'ks-test-wrap',
+  imports: [WrapDirective],
+  template: `
     <div ksWrap [wrap]="true" [width]="'100px'"></div>
     <div ksWrap [wrap]="false" [width]="'100px'"></div>
     <div ksWrap [wrap]="undefined" [width]="'100px'"></div>
   `
 })
-class TestWrapComponent {}
+class TestWrapComponent {
+}
 
 let fixture: ComponentFixture<TestWrapComponent>;
 let comp: TestWrapComponent;
@@ -48,9 +50,9 @@ let des: DebugElement[] = [];
 let bareElement: DebugElement;
 
 const expected: TestModel[] = [
-  {width: '100px', wrap: true, wrapStyle: 'wrap'},
-  {width: '', wrap: false, wrapStyle: ''},
-  {width: '', wrap: undefined, wrapStyle: ''},
+  { width: '100px', wrap: true, wrapStyle: 'wrap' },
+  { width: '', wrap: false, wrapStyle: '' },
+  { width: '', wrap: undefined, wrapStyle: '' }
 ];
 
 describe('WrapDirective', () => {
@@ -58,8 +60,8 @@ describe('WrapDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestWrapComponent, WrapDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestWrapComponent, WrapDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestWrapComponent);
     comp = fixture.componentInstance;
 

@@ -28,8 +28,9 @@ import { ClickOutsideDirective } from './click-outside.directive';
 import { By } from '@angular/platform-browser';
 
 @Component({
-    selector: 'ks-test-click-outside',
-    template: `
+  selector: 'ks-test-click-outside',
+  imports: [ClickOutsideDirective],
+  template: `
     <div id="modal-gallery-wrapper"
          ksClickOutside [clickOutsideEnable]="true"
          (clickOutside)="onClickOutside($event)">
@@ -39,7 +40,7 @@ import { By } from '@angular/platform-browser';
       <div id="flex-min-height-ie-fix">
         <div id="modal-gallery-container">
 
-          <img id="current-image-test" class="inside current-image-next" [src]="'path'"/>
+          <img id="current-image-test" class="inside current-image-next" [src]="'path'" />
 
           <div id="hidden-div-test" class="div-class hidden"></div>
 
@@ -65,8 +66,8 @@ describe('ClickOutsideDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestClickOutsideComponent, ClickOutsideDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestClickOutsideComponent, ClickOutsideDirective]
+    }); // not necessary with webpack .compileComponents();
 
     fixture = TestBed.createComponent(TestClickOutsideComponent);
     comp = fixture.componentInstance;

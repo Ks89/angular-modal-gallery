@@ -29,8 +29,9 @@ import { By } from '@angular/platform-browser';
 import { KeyboardNavigationDirective } from './keyboard-navigation.directive';
 
 @Component({
-    selector: 'ks-test-keyboard-navigation',
-    template: `
+  selector: 'ks-test-keyboard-navigation',
+  imports: [KeyboardNavigationDirective],
+  template: `
     <main ksKeyboardNavigation [isOpen]="true" (keyboardNavigation)="onKeyPress($event)"></main>
   `
 })
@@ -51,8 +52,8 @@ describe('KeyboardNavigationDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestKeyboardNavigationComponent, KeyboardNavigationDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestKeyboardNavigationComponent, KeyboardNavigationDirective]
+    }); // not necessary with webpack .compileComponents();
 
     fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
     comp = fixture.componentInstance;

@@ -29,16 +29,17 @@ import { MaxSizeDirective } from './max-size.directive';
 import { MaxSize } from '../model/max-size.interface';
 
 const expected: MaxSize[] = [
-  {maxWidth: '100px', maxHeight: '80px'},
-  {maxWidth: '50px', maxHeight: '20px'},
-  {maxWidth: '50%', maxHeight: '100%'},
-  {maxWidth: '', maxHeight: ''},
+  { maxWidth: '100px', maxHeight: '80px' },
+  { maxWidth: '50px', maxHeight: '20px' },
+  { maxWidth: '50%', maxHeight: '100%' },
+  { maxWidth: '', maxHeight: '' },
   {}
 ];
 
 @Component({
-    selector: 'ks-test-max-size',
-    template: `
+  selector: 'ks-test-max-size',
+  imports: [MaxSizeDirective],
+  template: `
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '100px', maxHeight: '80px'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50px', maxHeight: '20px'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50%', maxHeight: '100%'}"></div>
@@ -46,7 +47,8 @@ const expected: MaxSize[] = [
     <div ksMaxSize [maxSizeConfig]="null"></div>
   `
 })
-class TestSizeComponent {}
+class TestSizeComponent {
+}
 
 let fixture: ComponentFixture<TestSizeComponent>;
 let comp: TestSizeComponent;
@@ -58,8 +60,8 @@ describe('MaxSizeDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestSizeComponent, MaxSizeDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestSizeComponent, MaxSizeDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestSizeComponent);
     comp = fixture.componentInstance;
 

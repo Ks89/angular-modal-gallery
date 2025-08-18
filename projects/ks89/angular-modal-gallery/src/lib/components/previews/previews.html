@@ -6,9 +6,9 @@
   <ng-container *ngIf="previewConfig?.visible">
     <a class="nav-left"
        [attr.aria-label]="accessibilityConfig?.previewScrollPrevAriaLabel"
-       [tabIndex]="displayLeftPreviewsArrow() ? 0 : -1" role="button"
+       [tabIndex]="isDisplayLeftPreviewsArrow() ? 0 : -1" role="button"
        (click)="onNavigationEvent('left', $event)" (keyup)="onNavigationEvent('left', $event)">
-      <div class="inside {{ displayLeftPreviewsArrow() ? 'left-arrow-preview-image' : 'empty-arrow-preview-image'}}"
+      <div class="inside {{ isDisplayLeftPreviewsArrow() ? 'left-arrow-preview-image' : 'empty-arrow-preview-image'}}"
            aria-hidden="true"
            [title]="accessibilityConfig?.previewScrollPrevTitle"></div>
     </a>

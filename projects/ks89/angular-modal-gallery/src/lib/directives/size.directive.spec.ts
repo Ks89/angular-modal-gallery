@@ -29,19 +29,20 @@ import { SizeDirective } from './size.directive';
 import { Size } from '../model/size.interface';
 
 const expected: Size[] = [
-  {width: '100px', height: '80px'},
-  {width: '50px', height: '20px'},
-  {width: '50%', height: '100%'},
-  {width: 'auto', height: 'auto'},
-  {width: 'auto', height: '20px'},
-  {width: '50px', height: 'auto'},
-  {width: '', height: ''},
-  {width: '', height: ''}
+  { width: '100px', height: '80px' },
+  { width: '50px', height: '20px' },
+  { width: '50%', height: '100%' },
+  { width: 'auto', height: 'auto' },
+  { width: 'auto', height: '20px' },
+  { width: '50px', height: 'auto' },
+  { width: '', height: '' },
+  { width: '', height: '' }
 ];
 
 @Component({
-    selector: 'ks-test-size',
-    template: `
+  selector: 'ks-test-size',
+  imports: [SizeDirective],
+  template: `
     <div ksSize [sizeConfig]="{width: '100px', height: '80px'}"></div>
     <div ksSize [sizeConfig]="{width: '50px', height: '20px'}"></div>
     <div ksSize [sizeConfig]="{width: '50%', height: '100%'}"></div>
@@ -52,7 +53,8 @@ const expected: Size[] = [
     <div ksSize [sizeConfig]="null"></div>
   `
 })
-class TestSizeComponent {}
+class TestSizeComponent {
+}
 
 let fixture: ComponentFixture<TestSizeComponent>;
 let comp: TestSizeComponent;
@@ -64,8 +66,8 @@ describe('SizeDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestSizeComponent, SizeDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestSizeComponent, SizeDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestSizeComponent);
     comp = fixture.componentInstance;
 

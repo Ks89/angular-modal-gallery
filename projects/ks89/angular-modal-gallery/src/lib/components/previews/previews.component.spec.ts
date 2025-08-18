@@ -31,6 +31,7 @@ import { SlideConfig } from '../../model/slide-config.interface';
 import { ConfigService } from '../../services/config.service';
 import { KS_DEFAULT_SIZE } from '../upper-buttons/upper-buttons-default';
 import { PreviewsComponent } from './previews.component';
+import { NgTemplateOutlet } from '@angular/common';
 
 
 
@@ -252,13 +253,18 @@ class PreviewsTemplateComponent0 {
 /**
  * A template-providing component to test the template-driven previews customization (using default template).
  */
-@Component({ template: `
+@Component({
+  imports: [
+    NgTemplateOutlet
+  ],
+  template: `
     <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
       <div>
         <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
       </div>
     </ng-template>
-` })
+  `
+})
 class PreviewsTemplateComponent1 {
   @ViewChild('template') templateRef?: TemplateRef<HTMLElement>;
 }
