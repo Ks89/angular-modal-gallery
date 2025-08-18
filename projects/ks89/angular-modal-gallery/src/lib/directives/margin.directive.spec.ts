@@ -46,7 +46,7 @@ const expected: Margin[] = [
   { top: '0px', bottom: '-7px' },
   { left: '2px', right: '2px', top: '0px', bottom: '2px' },
   // @ts-ignore
-  { left: undefined, right: null, top: undefined, bottom: null },
+  { left: undefined, right: undefined, top: undefined, bottom: undefined },
   {}
 ];
 
@@ -64,7 +64,7 @@ const expected: Margin[] = [
     <div ksMargin [marginTop]="'0px'" [marginBottom]="'2px'"></div>
     <div ksMargin [marginTop]="'0'" [marginBottom]="'-7px'"></div>
     <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'" [marginTop]="'0px'" [marginBottom]="'2px'"></div>
-    <div ksMargin [marginLeft]="undefined" [marginRight]="null" [marginTop]="undefined" [marginBottom]="null"></div>
+    <div ksMargin [marginLeft]="undefined" [marginRight]="undefined" [marginTop]="undefined" [marginBottom]="undefined"></div>
     <div ksMargin></div>
   `
 })

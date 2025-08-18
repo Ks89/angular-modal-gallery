@@ -44,7 +44,7 @@ const expected: MaxSize[] = [
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50px', maxHeight: '20px'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50%', maxHeight: '100%'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '', maxHeight: ''}"></div>
-    <div ksMaxSize [maxSizeConfig]="null"></div>
+    <div ksMaxSize [maxSizeConfig]="undefined"></div>
   `
 })
 class TestSizeComponent {

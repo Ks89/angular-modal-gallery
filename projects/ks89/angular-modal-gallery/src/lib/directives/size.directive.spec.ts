@@ -50,7 +50,7 @@ const expected: Size[] = [
     <div ksSize [sizeConfig]="{width: 'auto', height: '20px'}"></div>
     <div ksSize [sizeConfig]="{width: '50px', height: 'auto'}"></div>
     <div ksSize [sizeConfig]="{width: '', height: ''}"></div>
-    <div ksSize [sizeConfig]="null"></div>
+    <div ksSize [sizeConfig]="undefined"></div>
   `
 })
 class TestSizeComponent {

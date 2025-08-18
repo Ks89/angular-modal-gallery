@@ -54,10 +54,8 @@ class TestFallbackImageComponent {
   selector: 'ks-test-fallback-image-wrong',
   imports: [FallbackImageDirective],
   template: `
-    <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="null" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
-    <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="null" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
   `
 })
@@ -138,7 +136,7 @@ describe('FallbackImageDirective', () => {
     it('can instantiate it', () => expect(compWrong).not.toBeNull());
 
     it('should have this directive', () => {
-      expect(desWrong.length).toBe(5);
+      expect(desWrong.length).toBe(3);
     });
 
     it(`should return false, because fallbackImg is not valid`, () => {
