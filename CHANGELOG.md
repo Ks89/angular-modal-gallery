@@ -1,3 +1,10 @@
+# 14.0.0
+
+### Features
+
+- Angular 20 is required **(BREAKING CHANGE)**
+
+
 # 13.0.0
 
 ### Features
