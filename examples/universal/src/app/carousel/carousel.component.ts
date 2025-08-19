@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2021 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -24,13 +24,16 @@
 
 import { Component } from '@angular/core';
 
-import { AccessibilityConfig, CarouselLibConfig, Image, ImageEvent, ModalGalleryConfig, ModalGalleryRef, ModalGalleryService, ModalLibConfig } from '@ks89/angular-modal-gallery';
+import {
+  AccessibilityConfig, CarouselLibConfig, Image, ImageEvent,
+  ModalGalleryConfig, ModalGalleryRef, ModalGalleryService, GalleryModule
+} from '@ks89/angular-modal-gallery';
 
 @Component({
-    selector: 'ks-carousel-page',
-    templateUrl: './carousel.html',
-    styleUrls: ['./carousel.scss'],
-    standalone: false
+  selector: 'ks-carousel-page',
+  templateUrl: './carousel.html',
+  styleUrls: ['./carousel.scss'],
+  imports: [GalleryModule]
 })
 export class CarouselExampleComponent {
   imageIndex = 1;
@@ -305,12 +308,14 @@ export class CarouselExampleComponent {
         ariaLabel: 'First image aria-label'
       }
     ),
-    new Image(1, { img: '/assets/images/gallery/pexels-photo-47223.jpeg',
-    sources: [
-      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-47223-480w.jpeg' },
-      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-47223-768w.jpeg' },
-      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-47223-1024w.jpeg' }
-    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-47223.jpg' }),
+    new Image(1, {
+      img: '/assets/images/gallery/pexels-photo-47223.jpeg',
+      sources: [
+        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-47223-480w.jpeg' },
+        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-47223-768w.jpeg' },
+        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-47223-1024w.jpeg' }
+      ]
+    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-47223.jpg' }),
     new Image(
       2,
       {
@@ -351,12 +356,14 @@ export class CarouselExampleComponent {
         ariaLabel: 'Fourth image aria-label (plain obj)'
       }
     ),
-    new Image(4, { img: '/assets/images/gallery/pexels-photo-93750.jpeg',
-    sources: [
-      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-93750-480w.jpeg' },
-      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-93750-768w.jpeg' },
-      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-93750-1024w.jpeg' }
-    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-93750.jpg' }),
+    new Image(4, {
+      img: '/assets/images/gallery/pexels-photo-93750.jpeg',
+      sources: [
+        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-93750-480w.jpeg' },
+        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-93750-768w.jpeg' },
+        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-93750-1024w.jpeg' }
+      ]
+    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-93750.jpg' }),
     new Image(
       5,
       {
@@ -370,12 +377,14 @@ export class CarouselExampleComponent {
       },
       { img: '/assets/images/gallery/thumbs/t-pexels-photo-94420.jpg' }
     ),
-    new Image(6, { img: '/assets/images/gallery/pexels-photo-96947.jpeg',
-    sources: [
-      { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-96947-480w.jpeg' },
-      { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-96947-768w.jpeg' },
-      { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-96947-1024w.jpeg' }
-    ] }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' })
+    new Image(6, {
+      img: '/assets/images/gallery/pexels-photo-96947.jpeg',
+      sources: [
+        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-96947-480w.jpeg' },
+        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-96947-768w.jpeg' },
+        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-96947-1024w.jpeg' }
+      ]
+    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' })
   ];
 
   emptyImagesArray: Image[] = [];
@@ -502,12 +511,7 @@ export class CarouselExampleComponent {
     carouselPreviewScrollNextTitle: 'Scroll next previews'
   };
 
-  constructor(private modalGalleryService: ModalGalleryService) {}
-
-  addRandomImage(): void {
-    const imageToCopy: Image = this.imagesRect[Math.floor(Math.random() * this.imagesRect.length)];
-    const newImage: Image = new Image(this.imagesRect.length - 1 + 1, imageToCopy.modal, imageToCopy.plain);
-    this.imagesRect = [...this.imagesRect, newImage];
+  constructor(private modalGalleryService: ModalGalleryService) {
   }
 
   onChangeAutoPlay(): void {

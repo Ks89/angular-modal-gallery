@@ -99,10 +99,11 @@
 <br>
 <section>
   <h3>A13 - (id=112) - carousel example with an empty images array.</h3>
-  <p>Carousel component doesn't support empty images arrays! To prevent runtime errors, you should use an *ngIf to remove the carousel when there are no images.</p>
+  <p>Carousel component doesn't support empty images arrays! To prevent runtime errors, you should use an &#64;if to remove the carousel when there are no images.</p>
   <br>
-  <ks-carousel *ngIf="emptyImagesArray.length !== 0"
-               [id]="112" [images]="emptyImagesArray"></ks-carousel>
+  @if (emptyImagesArray.length !== 0) {
+    <ks-carousel [id]="112" [images]="emptyImagesArray"></ks-carousel>
+  }
 </section>
 <br>
 <br>

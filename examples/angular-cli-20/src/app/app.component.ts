@@ -25,12 +25,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NavbarComponent } from '../../../../src/app/navbar/navbar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
-    selector: 'ks-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
+  selector: 'ks-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   imports: [NavbarComponent, RouterOutlet]
 })
-export class AppComponent {}
+export class AppComponent {
+}

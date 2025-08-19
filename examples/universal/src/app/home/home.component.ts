@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2021 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,12 @@
  */
 
 import { Component } from '@angular/core';
+import { IntroHeaderComponent } from '../intro-header/intro-header.component';
 
 @Component({
     selector: 'ks-home-page',
     templateUrl: './home.html',
     styleUrls: ['./home.scss'],
-    standalone: false
+    imports: [IntroHeaderComponent]
 })
 export class HomeComponent {}

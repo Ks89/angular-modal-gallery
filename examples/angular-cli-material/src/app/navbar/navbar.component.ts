@@ -32,7 +32,7 @@ import { NgOptimizedImage } from '@angular/common';
   selector: 'ks-navbar',
   templateUrl: 'navbar.html',
   styleUrls: ['navbar.scss'],
-  imports: [FormsModule, ReactiveFormsModule, NgOptimizedImage]
+  imports: [FormsModule, ReactiveFormsModule, NgOptimizedImage, FormsModule, NgOptimizedImage]
 })
 export class NavbarComponent {
   navbarHeight = '56px';

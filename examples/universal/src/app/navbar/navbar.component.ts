@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017-2025 Stefano Cappa
+ * Copyright (c) 2017-2025 Stefano Cappa (Ks89)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +25,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: 'ks-navbar',
-    templateUrl: 'navbar.html',
-    styleUrls: ['navbar.scss'],
-    standalone: false
+  selector: 'ks-navbar',
+  templateUrl: 'navbar.html',
+  styleUrls: ['navbar.scss'],
+  imports: [FormsModule, ReactiveFormsModule, NgOptimizedImage]
 })
 export class NavbarComponent {
   navbarHeight = '56px';

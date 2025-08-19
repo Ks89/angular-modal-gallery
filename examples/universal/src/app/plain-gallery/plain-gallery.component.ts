@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2021 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2025 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -23,26 +23,22 @@
  */
 
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 import {
-  GridLayout,
-  Image,
-  LineLayout,
-  PlainGalleryConfig,
-  PlainGalleryStrategy,
-  ModalGalleryService,
-  ModalGalleryRef,
-  PlainLibConfig
+  GridLayout, Image, LineLayout, PlainGalleryConfig, PlainGalleryStrategy,
+  ModalGalleryService, ModalGalleryRef, PlainLibConfig, GalleryModule
 } from '@ks89/angular-modal-gallery';
 
 @Component({
-    selector: 'ks-plain-gallery-page',
-    templateUrl: './plain-gallery.html',
-    styleUrls: ['./plain-gallery.scss'],
-    standalone: false
+  selector: 'ks-plain-gallery-page',
+  templateUrl: './plain-gallery.html',
+  styleUrls: ['./plain-gallery.scss'],
+  imports: [GalleryModule]
 })
 export class PlainGalleryExampleComponent {
+  constructor(private modalGalleryService: ModalGalleryService) {
+  }
+
   plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,
     layout: new LineLayout({ width: '80px', height: '80px' }, { length: 2, wrap: true }, 'flex-start')
@@ -235,8 +231,6 @@ export class PlainGalleryExampleComponent {
   libConfigPlainGalleryGrid: PlainLibConfig = {
     plainGalleryConfig: this.plainGalleryGrid
   };
-
-  constructor(private modalGalleryService: ModalGalleryService, private sanitizer: DomSanitizer) {}
 
   openImageModalRow(id: number, image: Image): void {
     console.log('Opening modal gallery from custom plain gallery row, with image: ', image);
