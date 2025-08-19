@@ -84,7 +84,8 @@ export interface ImageLoadEvent {
   styleUrls: ['current-image.scss', '../image-arrows.scss', 'current-image-previews.scss'],
   templateUrl: 'current-image.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [KeyboardNavigationDirective, FallbackImageDirective, SizeDirective, SwipeDirective, NgClass, DescriptionDirective, LoadingSpinnerComponent]
+  imports: [KeyboardNavigationDirective, FallbackImageDirective, SizeDirective,
+    SwipeDirective, NgClass, DescriptionDirective, LoadingSpinnerComponent]
 })
 export class CurrentImageComponent extends AccessibleComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   /**

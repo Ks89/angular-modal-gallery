@@ -66,10 +66,10 @@ const DEFAULT_MAX_HEIGHT = '200px';
  * Component with image previews for carousel
  */
 @Component({
-    selector: 'ks-carousel-previews',
-    styleUrls: ['carousel-previews.scss', '../../previews-arrows.scss'],
-    templateUrl: 'carousel-previews.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'ks-carousel-previews',
+  styleUrls: ['carousel-previews.scss', '../../previews-arrows.scss'],
+  templateUrl: 'carousel-previews.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FallbackImageDirective, SizeDirective]
 })
 export class CarouselPreviewsComponent extends AccessibleComponent implements OnInit, OnChanges, OnDestroy {
@@ -145,12 +145,12 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Start index (inclusive) of the input images used to display previews.
    */
-  // @ts-ignore
+    // @ts-ignore
   start: number;
   /**
    * End index (non inclusive) of the input images used to display previews.
    */
-  // @ts-ignore
+    // @ts-ignore
   end: number;
 
   private readonly breakpointSubscription: Subscription;

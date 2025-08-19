@@ -47,11 +47,11 @@ import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive'
  * Also, it emits click events as outputs.
  */
 @Component({
-    selector: 'ks-plain-gallery',
-    styleUrls: ['plain-gallery.scss'],
-    templateUrl: 'plain-gallery.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [WrapDirective, DirectionDirective, FallbackImageDirective, SizeDirective, ATagBgImageDirective]
+  selector: 'ks-plain-gallery',
+  styleUrls: ['plain-gallery.scss'],
+  templateUrl: 'plain-gallery.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [WrapDirective, DirectionDirective, FallbackImageDirective, SizeDirective, ATagBgImageDirective]
 })
 export class PlainGalleryComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**
