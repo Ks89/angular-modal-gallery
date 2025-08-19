@@ -23,7 +23,15 @@
  */
 
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
+
+import { NavbarComponent } from './navbar/navbar.component';
 
 export interface DialogData {
   animal: string;
@@ -31,10 +39,20 @@ export interface DialogData {
 }
 
 @Component({
-    selector: 'ks-root',
-    templateUrl: 'app.component.html',
-    styleUrls: ['app.component.scss'],
-    standalone: false
+  selector: 'ks-root',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss'],
+  imports: [
+    MatButtonModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterOutlet,
+    NavbarComponent,
+  ]
 })
 export class AppComponent {
   // ----------------------------------------------------
@@ -49,7 +67,8 @@ export class AppComponent {
   animal: string | undefined;
   name: string | undefined;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
@@ -67,17 +86,26 @@ export class AppComponent {
 // ----------------------------------------------------
 // ----------------------------------------------------
 @Component({
-    selector: 'dialog-overview-example-dialog',
-    templateUrl: 'dialog-overview-example-dialog.html',
-    standalone: false
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+  imports: [
+    MatButtonModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule
+  ]
 })
 export class DialogOverviewExampleDialog {
-  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 }
+
 // ----------------------------------------------------
 // ----------------------------------------------------
 

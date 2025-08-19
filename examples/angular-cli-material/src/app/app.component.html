@@ -7,13 +7,14 @@
 <br><br>
 <h2>Example of Angular Material</h2>
 <mat-grid-list cols="4" rowHeight="100px">
-  <mat-grid-tile
-    *ngFor="let tile of tiles"
-    [colspan]="tile.cols"
-    [rowspan]="tile.rows"
-    [style.background]="tile.color">
-    {{tile.text}}
-  </mat-grid-tile>
+  @for (tile of tiles; track tile.text) {
+    <mat-grid-tile
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+      {{ tile.text }}
+    </mat-grid-tile>
+  }
 </mat-grid-list>
 <ol>
   <li>
@@ -25,9 +26,9 @@
   <li>
     <button mat-raised-button (click)="openDialog()">Pick one</button>
   </li>
-  <li *ngIf="animal">
-    You chose: <i>{{animal}}</i>
-  </li>
+  @if (animal) {
+    <li>You chose: <i>{{ animal }}</i></li>
+  }
 </ol>
 
 <hr>
