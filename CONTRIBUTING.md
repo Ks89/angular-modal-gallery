@@ -10,7 +10,7 @@ Every time you'll run `npm install` inside an example's folder, you must rebuild
 2. remove all `node_modules` and temp folders with compiled files (if necessary)
 3. `npm install` (from the root of this project)
 4. `npm run clean:all`
-5. `cd examples/angular-cli-19`
+5. `cd examples/angular-cli-20`
 6. `npm install`
 7. `cd ../..`
 8. `cd examples/universal`
@@ -31,8 +31,8 @@ Every time you'll run `npm install` inside an example's folder, you must rebuild
 6. `cd dist/angular-modal-gallery/browser && lite-server` => if everything is ok (also in browser's console), kill the process and go to the next step
 7. `cd ../../../../..`
 
-# C. Run angular-cli-19 example
-1. `cd examples/angular-cli-19`
+# C. Run angular-cli-20 example
+1. `cd examples/angular-cli-20`
 2. `npm start` => if everything is ok (also in browser's console), kill the process and go to the next step
 3. `npm run build:dev`
 4. `cd dist/angular-cli/browser && lite-server` => if everything is ok (also in browser's console), kill the process and go to the next step

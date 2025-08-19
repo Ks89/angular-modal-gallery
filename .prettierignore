@@ -9,7 +9,7 @@
 **/node_modules/
 reports/
 
-examples/angular-cli-19/dist/
+examples/angular-cli-20/dist/
 examples/angular-cli-material/dist/
 examples/universal/dist/
 examples/universal/server.ts

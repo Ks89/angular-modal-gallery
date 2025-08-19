@@ -41,12 +41,14 @@ import {
 import { Subscription } from 'rxjs';
 
 import * as libConfigs from './libconfigs';
+import { FormsModule } from '@angular/forms';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'ks-modal-gallery-page',
     templateUrl: './modal-gallery.html',
     styleUrls: ['./modal-gallery.scss'],
-    standalone: false
+    imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
   /**
@@ -461,11 +463,11 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   private buttonBeforeHookSubscription: Subscription | undefined;
   private buttonAfterHookSubscription: Subscription | undefined;
 
-  constructor(private modalGalleryService: ModalGalleryService, private sanitizer: DomSanitizer) {}
-
   // this variable is used only for example of auto navigation
   // tslint:disable-next-line:no-any
   private timeout: any;
+
+  constructor(private modalGalleryService: ModalGalleryService, private sanitizer: DomSanitizer) {}
 
   openModalWithAutoClose(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
     const imageToShow: Image = imagesArrayToUse[imageIndex];
@@ -520,7 +522,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       id,
       images: imagesArrayToUse,
       currentImage: imageToShow,
-      libConfig
+      libConfig,
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 

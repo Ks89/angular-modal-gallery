@@ -4,7 +4,7 @@ on:
   push:
     paths-ignore:
       - 'node_modules'
-      - '../../examples/angular-cli-19/node_modules'
+      - '../../examples/angular-cli-20/node_modules'
       - 'examples/angular-cli-material/node_modules'
       - 'examples/universal/node_modules'
 
@@ -36,7 +36,7 @@ jobs:
       - name: Installing all deps
         run: |
           npm ci
-          cd examples/angular-cli-19
+          cd examples/angular-cli-20
           npm ci
           cd ../..
           cd examples/angular-cli-material
@@ -54,7 +54,7 @@ jobs:
 
       - name: Building angular-cli example
         run: |
-          cd examples/angular-cli-19
+          cd examples/angular-cli-20
           npm run build:dev
           npm run build:prod
           cd ../..

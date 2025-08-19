@@ -23,11 +23,14 @@
  */
 
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+import { NavbarComponent } from '../../../../src/app/navbar/navbar.component';
 
 @Component({
     selector: 'ks-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+  imports: [NavbarComponent, RouterOutlet]
 })
 export class AppComponent {}

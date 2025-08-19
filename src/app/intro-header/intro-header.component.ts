@@ -23,10 +23,14 @@
  */
 
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: 'ks-intro-header',
-    templateUrl: 'intro-header.html',
-    styleUrls: ['intro-header.scss']
+  selector: 'ks-intro-header',
+  templateUrl: 'intro-header.html',
+  imports: [
+    NgOptimizedImage
+  ],
+  styleUrls: ['intro-header.scss']
 })
 export class IntroHeaderComponent {}

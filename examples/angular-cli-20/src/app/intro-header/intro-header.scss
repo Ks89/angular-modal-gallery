@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017-2025 Stefano Cappa
+ * Copyright (c) 2017-2025 Stefano Cappa (Ks89)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,42 +22,52 @@
  * SOFTWARE.
  */
 
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
+// search all occurrences in all code, also html, because it's everywhere
+$color-primary: #101010;
+$color-secondary: #9e9e9e;
+$color-white: #FFF;
+$color-black: #000;
+$color-light-black: #343A40;
+$color-code: #c100e0;
+$color-url: #0060b7;
+$color-warning: #880012;
 
-@Component({
-    selector: 'ks-navbar',
-    templateUrl: 'navbar.html',
-    styleUrls: ['navbar.scss'],
-    standalone: false
-})
-export class NavbarComponent {
-  navbarHeight = '56px';
-  // path: string = PATH + '/assets/amg.svg';
+//$font-huge: 24px;
+$font-big: 18px;
+$font-middle: 14px;
+$font-small: 12px;
+$font-very-small: 10px;
 
-  collapsed = false;
+.intro-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $color-primary;
+  background: linear-gradient(135deg, $color-primary, $color-secondary);
+  margin-top: 10px;
+  padding-bottom: 1px;
+  color: $color-white;
 
-  constructor(private router: Router, breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(['(min-width: 990px)']).subscribe(result => {
-      if (result.matches) {
-        console.log('min width 990px');
-        this.collapsed = false;
-      }
-    });
+  h1 {
+    color: $color-white;
+    font-size: 3rem;
   }
+}
 
-  isNavItemActive(location: string): string {
-    return this.router.url.includes(location) ? 'active' : '';
-  }
+.project-title {
+  margin-top: 20px;
+  font-size: 2.8rem;
+  text-align: center;
+}
 
-  onNavigateTo(path: string): void {
-    this.collapsed = false;
-    this.router.navigate([path]);
-  }
+img {
+  margin-top: 25px;
+  border-radius: 10px
+}
 
-  onToggle(): void {
-    this.collapsed = !this.collapsed;
-    this.navbarHeight = this.collapsed ? '56px' : '150px';
-  }
+.lead {
+  font-size: 1rem;
+  text-align: center;
+  color: #d4d4d4;
 }

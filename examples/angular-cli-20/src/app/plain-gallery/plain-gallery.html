@@ -56,23 +56,25 @@
   <h3>P6 - (id=205) - full custom plain gallery (row) with image pointer</h3>
   <br>
   <div class="my-app-custom-plain-container-row">
-    <ng-container *ngFor="let img of images; let i = index">
-      <div *ngIf="i <= 2"> <!-- 2 is a fixed value that I'm using to display only two images -->
-        <a class="more" *ngIf="i==2" (click)="openImageModalRow(205, img)"> +{{images.length - 2 - 1}} more </a>
-        <img *ngIf="img.plain && img.plain.img; else noThumb"
-             class="my-app-custom-image-row"
-             [src]="img.plain.img"
-             (click)="openImageModalRow(205, img)"
-             [alt]="img.modal.description"/>
-
-        <ng-template #noThumb>
+    @for (img of images; track img.id; let i = $index) {
+      <!-- 2 is a fixed value that I'm using to display only two images -->
+      @if (i <= 2) {
+        @if (i == 2) {
+          <a class="more" (click)="openImageModalRow(205, img)"> +{{ images.length - 2 - 1 }} more </a>
+        }
+        @if (img.plain && img.plain.img) {
+          <img class="my-app-custom-image-row"
+               [src]="img.plain.img"
+               (click)="openImageModalRow(205, img)"
+               [alt]="img.modal.description" />
+        } @else {
           <img class="my-app-custom-image-row"
                [src]="img.modal.img"
                (click)="openImageModalRow(205, img)"
-               [alt]="img.modal.description"/>
-        </ng-template>
-      </div>
-    </ng-container>
+               [alt]="img.modal.description" />
+        }
+      }
+    }
   </div>
 </section>
 <br>
@@ -80,23 +82,25 @@
   <h3>P7 - (id=206) - full custom plain gallery (column) with image pointer</h3>
   <br>
   <div class="my-app-custom-plain-container-column">
-    <ng-container *ngFor="let img of images; let i = index">
-      <div *ngIf="i <= 2"> <!-- 2 is a fixed value that I'm using to display only two images -->
-        <a class="more" *ngIf="i==2" (click)="openImageModalColumn(206, img)"> +{{images.length - 2 - 1}} more </a>
-        <img *ngIf="img.plain && img.plain.img; else noThumb"
-             class="my-app-custom-image-column"
-             [src]="img.plain.img"
-             (click)="openImageModalColumn(206, img)"
-             [alt]="img.modal.description"/>
-
-        <ng-template #noThumb>
+    @for (img of images; track img.id; let i = $index) {
+      <!-- 2 is a fixed value that I'm using to display only two images -->
+      @if (i <= 2) {
+        @if (i == 2) {
+          <a class="more" (click)="openImageModalColumn(206, img)"> +{{ images.length - 2 - 1 }} more </a>
+        }
+        @if (img.plain && img.plain.img) {
+          <img class="my-app-custom-image-column"
+               [src]="img.plain.img"
+               (click)="openImageModalColumn(206, img)"
+               [alt]="img.modal.description" />
+        } @else {
           <img class="my-app-custom-image-column"
                [src]="img.modal.img"
                (click)="openImageModalColumn(206, img)"
-               [alt]="img.modal.description"/>
-        </ng-template>
-      </div>
-    </ng-container>
+               [alt]="img.modal.description" />
+        }
+      }
+    }
   </div>
 </section>
 <br>
@@ -104,14 +108,14 @@
   <h3>P8 - (id=207) - full custom plain gallery (row) with descriptions</h3>
   <br>
   <div class="my-app-custom-plain-container-with-desc">
-    <ng-container *ngFor="let img of imagesRect">
+    @for (img of imagesRect; track img.id) {
       <figure class="my-app-custom-image-with-desc">
         <img [src]="img.modal.img"
-             (click)="openImageModalRowDescription(207, img)"/>
-        <figcaption class="description">{{img.modal.description ? img.modal.description : 'No description available'}}
+             (click)="openImageModalRowDescription(207, img)" />
+        <figcaption class="description">{{ img.modal.description ? img.modal.description : 'No description available' }}
         </figcaption>
       </figure>
-    </ng-container>
+    }
   </div>
 </section>
 <br>

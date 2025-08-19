@@ -8,13 +8,7 @@ import { AppComponent } from './app/app.component';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
 
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-
-    // import GalleryModule. Install @ks89/angular-modal-gallery first
-    GalleryModule
-  )]
+  // import GalleryModule. Install @ks89/angular-modal-gallery first
+  providers: [importProvidersFrom(BrowserModule, FormsModule, AppRoutingModule, GalleryModule)]
 })
   .catch(err => console.error(err));

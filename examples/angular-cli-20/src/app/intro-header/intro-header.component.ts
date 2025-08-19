@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017-2025 Stefano Cappa
+ * Copyright (c) 2017-2025 Stefano Cappa (Ks89)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,11 +23,14 @@
  */
 
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: 'ks-intro-header',
-    templateUrl: 'intro-header.html',
-    styleUrls: ['intro-header.scss'],
-    standalone: false
+  selector: 'ks-intro-header',
+  templateUrl: 'intro-header.html',
+  imports: [
+    NgOptimizedImage
+  ],
+  styleUrls: ['intro-header.scss']
 })
 export class IntroHeaderComponent {}
