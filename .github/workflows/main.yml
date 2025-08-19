@@ -18,10 +18,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 20.x ]
+        node-version: [ 22.x ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -30,7 +30,7 @@ jobs:
 
       - name: Switch to a specific npm version
         run: |
-          npm install -g npm@10
+          npm install -g npm@11
           npm cache verify
 
       - name: Installing all deps
@@ -74,7 +74,7 @@ jobs:
           cd ../..
 
       - name: Running tests (with retry on failure)
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v3
         with:
           max_attempts: 3
           timeout_minutes: 10
@@ -82,7 +82,7 @@ jobs:
             npm test
 
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: './coverage/ks89/angular-modal-gallery/lcov.info'

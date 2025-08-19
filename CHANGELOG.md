@@ -4,6 +4,14 @@
 
 - Angular 20 is required **(BREAKING CHANGE)**
 
+### Refactor
+
+- upgrade library removing ngIf, ngFor and ngSwitch to use control flow syntax (@if, @for and @switch)
+
+### Examples
+
+- upgrade all examples to Angular 20 and the new syntax
+
 
 # 13.0.0
 
