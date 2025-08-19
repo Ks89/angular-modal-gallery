@@ -54,7 +54,6 @@ import { getIndex } from '../../../utils/image.util';
 import { Action } from '../../../model/action.enum';
 import { ConfigService } from '../../../services/config.service';
 import { LibConfig } from '../../../model/lib-config.interface';
-import { NgIf, NgFor, NgOptimizedImage } from '@angular/common';
 import { FallbackImageDirective } from '../../../directives/fallback-image.directive';
 import { SizeDirective } from '../../../directives/size.directive';
 
@@ -71,7 +70,7 @@ const DEFAULT_MAX_HEIGHT = '200px';
     styleUrls: ['carousel-previews.scss', '../../previews-arrows.scss'],
     templateUrl: 'carousel-previews.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, FallbackImageDirective, SizeDirective, NgOptimizedImage]
+  imports: [FallbackImageDirective, SizeDirective]
 })
 export class CarouselPreviewsComponent extends AccessibleComponent implements OnInit, OnChanges, OnDestroy {
   /**
@@ -251,7 +250,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to check if an image is active (i.e. a preview image).
-   * @param InternalLibImage preview is an image to check if it's active or not
+   * @param preview InternalLibImage is an image to check if it's active or not
    * @returns boolean true if is active, false otherwise
    */
   isActive(preview: InternalLibImage): boolean {
@@ -334,9 +333,9 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Method called by events from both keyboard and mouse on a preview.
    * This will trigger the `clickpreview` output with the input preview as its payload.
-   * @param InternalLibImage preview that triggered this method
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action that triggered this event (Action.NORMAL by default)
+   * @param preview InternalLibImage that triggered this method
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered this event (Action.NORMAL by default)
    */
   onImageEvent(preview: InternalLibImage, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     if (!this.previewConfig || !this.previewConfig.clickable) {
@@ -353,8 +352,8 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method called by events from both keyboard and mouse on a navigation arrow.
-   * @param string direction of the navigation that can be either 'next' or 'prev'
-   * @param KeyboardEvent | MouseEvent event payload
+   * @param direction string of the navigation that can be either 'next' or 'prev'
+   * @param event KeyboardEvent | MouseEvent payload
    */
   onNavigationEvent(direction: string, event: KeyboardEvent | MouseEvent): void {
     const result: number = super.handleNavigationEvent(direction, event);
@@ -367,7 +366,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to get aria-label text for a preview image.
-   * @param Image is the preview
+   * @param preview Image is the preview
    */
   getAriaLabel(preview: Image): string {
     if (!preview.plain) {
@@ -378,7 +377,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to get title text for a preview image.
-   * @param Image is the preview
+   * @param preview Image is the preview
    */
   getTitle(preview: Image): string {
     if (!preview.plain) {
@@ -389,23 +388,13 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to get alt text for a preview image.
-   * @param Image is the preview
+   * @param preview Image is the preview
    */
   getAlt(preview: Image): string {
     if (!preview.plain) {
       return preview.modal.alt || '';
     }
     return preview.plain.alt || preview.modal.alt || '';
-  }
-
-  /**
-   * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
-   * @returns number the id of the item
-   */
-  trackById(index: number, item: Image): number {
-    return item.id;
   }
 
   /**
@@ -438,8 +427,8 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Private method to init previews based on the currentImage and the full array of images.
    * The current image in mandatory to show always the current preview (as highlighted).
-   * @param InternalLibImage currentImage to decide how to show previews, because I always want to see the current image as highlighted
-   * @param InternalLibImage[] images is the array of all images.
+   * @param currentImage InternalLibImage to decide how to show previews, because I always want to see the current image as highlighted
+   * @param images InternalLibImage[] is the array of all images.
    */
   private initPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
     let index: number;
@@ -530,7 +519,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Private method to block/permit sliding between previews.
-   * @param number boundaryIndex is the first or the last index of `images` input array
+   * @param boundaryIndex number is the first or the last index of `images` input array
    * @returns boolean if true block sliding, otherwise not
    */
   private isPreventSliding(boundaryIndex: number): boolean {

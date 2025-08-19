@@ -22,7 +22,7 @@ import { By } from '@angular/platform-browser';
 import { DotsComponent } from './dots.component';
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { DotsConfig } from '../../model/dots-config.interface';
-import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../../components/accessibility-default';
+import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../accessibility-default';
 import { InternalLibImage } from '../../model/image-internal.class';
 import { ConfigService } from '../../services/config.service';
 import { AccessibleComponent } from '../accessible.component';

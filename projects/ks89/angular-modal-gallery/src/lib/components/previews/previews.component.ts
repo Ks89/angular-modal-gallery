@@ -23,7 +23,7 @@
  */
 
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
-import { NgIf, NgFor, NgTemplateOutlet, NgOptimizedImage } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -32,7 +32,6 @@ import { Image, ImageEvent, ImageModalEvent } from '../../model/image.class';
 import { InternalLibImage } from '../../model/image-internal.class';
 import { PreviewConfig } from '../../model/preview-config.interface';
 import { SlideConfig } from '../../model/slide-config.interface';
-
 import { NEXT, PREV } from '../../utils/user-input.util';
 import { getIndex } from '../../utils/image.util';
 import { Action } from '../../model/action.enum';
@@ -50,7 +49,7 @@ import { SizeDirective } from '../../directives/size.directive';
   styleUrls: ['previews.scss', '../previews-arrows.scss'],
   templateUrl: 'previews.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, NgFor, NgTemplateOutlet, FallbackImageDirective, SizeDirective]
+  imports: [NgTemplateOutlet, FallbackImageDirective, SizeDirective]
 })
 export class PreviewsComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**
@@ -211,16 +210,6 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     } else if (result === PREV) {
       this.previous();
     }
-  }
-
-  /**
-   * Method used in the template to track ids in ngFor.
-   * @param index number of the array
-   * @param item Image of the array
-   * @returns number the id of the item
-   */
-  trackById(index: number, item: Image): number {
-    return item.id;
   }
 
   /**

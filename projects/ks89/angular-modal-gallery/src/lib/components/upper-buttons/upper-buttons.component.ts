@@ -41,7 +41,7 @@ import {
 import { NEXT } from '../../utils/user-input.util';
 import { ConfigService } from '../../services/config.service';
 import { LibConfig } from '../../model/lib-config.interface';
-import { NgIf, NgFor, NgStyle } from '@angular/common';
+import { NgStyle } from '@angular/common';
 import { SizeDirective } from '../../directives/size.directive';
 
 /**
@@ -60,7 +60,7 @@ export interface InternalButtonConfig extends ButtonConfig {
     styleUrls: ['upper-buttons.scss'],
     templateUrl: 'upper-buttons.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgFor, SizeDirective, NgStyle]
+    imports: [SizeDirective, NgStyle]
 })
 export class UpperButtonsComponent extends AccessibleComponent implements OnInit {
   /**
@@ -182,9 +182,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   /**
    * Method called by events from both keyboard and mouse on a button.
    * This will call a private method to trigger an output with the right payload.
-   * @param InternalButtonConfig button that called this method
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the source event or `Action.CLICK` if not specified
+   * @param button InternalButtonConfig that called this method
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered the source event or `Action.CLICK` if not specified
    * @throws an error if the button type is unknown
    */
   onEvent(button: InternalButtonConfig, event: KeyboardEvent | MouseEvent, action: Action = Action.CLICK): void {
@@ -227,9 +227,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
+   * Method used in the template to track ids in @for.
+   * @param index number of the array
+   * @param item Image of the array
    * @returns number the id of the item or undefined if the item is not valid
    */
   trackById(index: number, item: InternalButtonConfig): number | undefined {
@@ -238,9 +238,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
 
   /**
    * Private method to emit an event using the specified output as an `EventEmitter`.
-   * @param EventEmitter<ButtonEvent> emitter is the output to emit the `ButtonEvent`
-   * @param KeyboardEvent | MouseEvent event is the source that triggered this method
-   * @param ButtonEvent dataToEmit payload to emit
+   * @param emitter EventEmitter<ButtonEvent> is the output to emit the `ButtonEvent`
+   * @param event KeyboardEvent | MouseEvent is the source that triggered this method
+   * @param dataToEmit ButtonEvent payload to emit
    */
   private triggerOnMouseAndKeyboard(emitter: EventEmitter<ButtonEvent>, event: KeyboardEvent | MouseEvent, dataToEmit: ButtonEvent): void {
     if (!emitter) {
@@ -258,7 +258,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * It adds ids in a reverse way, to be sure that the last button will always have id = 0.
    * This is really useful in unit testing to be sure that close button always have id = 0, download 1 and so on...
    * It's totally transparent to the user.
-   * @param ButtonConfig[] buttons config array
+   * @param buttons ButtonConfig[] config array
    * @returns ButtonConfig[] the input array with incremental numeric ids
    */
   private addButtonIds(buttons: ButtonConfig[]): ButtonConfig[] {
@@ -267,7 +267,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
 
   /**
    * Private method to validate custom buttons received as input.
-   * @param ButtonConfig[] buttons config array. [] by default.
+   * @param buttons ButtonConfig[] config array. [] by default.
    * @returns ButtonConfig[] the same input buttons config array
    * @throws an error is exists a button with an unknown type
    */

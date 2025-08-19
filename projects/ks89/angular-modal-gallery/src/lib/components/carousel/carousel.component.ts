@@ -44,7 +44,7 @@ import {
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -75,12 +75,13 @@ import { CarouselPreviewsComponent } from './carousel-previews/carousel-previews
  * Component with configurable inline/plain carousel.
  */
 @Component({
-    selector: 'ks-carousel',
-    styleUrls: ['carousel.scss', '../image-arrows.scss'],
-    templateUrl: 'carousel.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ConfigService],
-  imports: [MaxSizeDirective, NgIf, SizeDirective, NgTemplateOutlet, NgFor, FallbackImageDirective, DescriptionDirective, DotsComponent, CarouselPreviewsComponent, NgOptimizedImage]
+  selector: 'ks-carousel',
+  styleUrls: ['carousel.scss', '../image-arrows.scss'],
+  templateUrl: 'carousel.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ConfigService],
+  imports: [MaxSizeDirective, SizeDirective, NgTemplateOutlet,
+    FallbackImageDirective, DescriptionDirective, DotsComponent, CarouselPreviewsComponent]
 })
 export class CarouselComponent extends AccessibleComponent implements OnInit, AfterContentInit, OnDestroy, OnChanges {
   /**
@@ -383,7 +384,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
   /**
    * Method called when a dot is clicked and used to update the current image.
-   * @param number index of the clicked dot
+   * @param index number of the clicked dot
    */
   onClickDot(index: number): void {
     this.changeCurrentImage(this.images[index] as InternalLibImage, Action.NORMAL);
@@ -391,9 +392,9 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
   /**
    * Method called by events from both keyboard and mouse on a navigation arrow.
-   * @param string direction of the navigation that can be either 'next' or 'prev'
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the event or `Action.NORMAL` if not provided
+   * @param direction string of the navigation that can be either 'next' or 'prev'
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered the event or `Action.NORMAL` if not provided
    */
   onNavigationEvent(direction: string, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     const result: number = super.handleNavigationEvent(direction, event);
@@ -427,7 +428,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * Method to get the image description based on input params.
    * If you provide a full description this will be the visible description, otherwise,
    * it will be built using the `Description` object, concatenating its fields.
-   * @param Image image to get its description. If not provided it will be the current image
+   * @param image Image to get its description. If not provided it will be the current image
    * @returns String description of the image (or the current image if not provided)
    * @throws an Error if description isn't available
    */
@@ -529,16 +530,6 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   }
 
   /**
-   * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
-   * @returns number the id of the item
-   */
-  trackById(index: number, item: Image): number {
-    return item.id;
-  }
-
-  /**
    * Method called when an image preview is clicked and used to update the current image.
    * @param event an ImageEvent object with the relative action and the index of the clicked preview.
    */
@@ -568,7 +559,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * Method to get `alt attribute`.
    * `alt` specifies an alternate text for an image, if the image cannot be displayed.
-   * @param Image image to get its alt description. If not provided it will be the current image
+   * @param image Image to get its alt description. If not provided it will be the current image
    * @returns String alt description of the image (or the current image if not provided)
    */
   getAltDescriptionByImage(image: Image | undefined = this.currentImage): string {
@@ -583,7 +574,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * Method to get the title attributes based on descriptions.
    * This is useful to prevent accessibility issues, because if DescriptionStrategy is ALWAYS_HIDDEN,
    * it prevents an empty string as title.
-   * @param Image image to get its description. If not provided it will be the current image
+   * @param image Image to get its description. If not provided it will be the current image
    * @returns String title of the image based on descriptions
    * @throws an Error if description isn't available
    */
@@ -600,8 +591,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
       throw new Error('Description input must be a valid object implementing the Description interface');
     }
     const imageWithoutDescription: boolean = !image || !image.modal || !image.modal.description || image.modal.description === '';
-    const description: string = this.buildTextDescription(image, imageWithoutDescription);
-    return description;
+    return this.buildTextDescription(image, imageWithoutDescription);
   }
 
   /**
@@ -621,7 +611,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   // }
 
   /**
-   * Method to cleanup resources. In fact, this will stop the carousel.
+   * Method to clean up resources. In fact, this will stop the carousel.
    * This is an angular lifecycle hook that is called when this component is destroyed.
    */
   ngOnDestroy(): void {
@@ -657,7 +647,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
       throw new Error('Internal library error - currentImage must be defined');
     }
     const currentIndex: number = getIndex(this.currentImage, this.images);
-    let newIndex = 0;
+    let newIndex;
     if (currentIndex >= 0 && currentIndex < this.images.length - 1) {
       newIndex = currentIndex + 1;
     } else {
@@ -676,7 +666,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
       throw new Error('Internal library error - currentImage must be defined');
     }
     const currentIndex: number = getIndex(this.currentImage, this.images);
-    let newIndex = 0;
+    let newIndex;
     if (currentIndex > 0 && currentIndex <= this.images.length - 1) {
       newIndex = currentIndex - 1;
     } else {
@@ -688,8 +678,8 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * Private method to build a text description.
    * This is used also to create titles.
-   * @param Image image to get its description. If not provided it will be the current image.
-   * @param boolean imageWithoutDescription is a boolean that it's true if the image hasn't a 'modal' description.
+   * @param image Image to get its description. If not provided it will be the current image.
+   * @param imageWithoutDescription boolean is a boolean that it's true if the image hasn't a 'modal' description.
    * @returns String description built concatenating image fields with a specific logic.
    */
   private buildTextDescription(image: Image | undefined, imageWithoutDescription: boolean): string {
@@ -733,7 +723,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * Private method to update both `isFirstImage` and `isLastImage` based on
    * the index of the current image.
-   * @param number currentIndex is the index of the current image
+   * @param currentIndex number is the index of the current image
    */
   private handleBoundaries(currentIndex: number): void {
     if (this.images.length === 1) {
@@ -762,7 +752,6 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * Private method to manage boundary arrows and sliding.
    * This is based on the slideConfig input to enable/disable 'infinite sliding'.
-   * @param number index of the visible image
    */
   private manageSlideConfig(): void {
     if (this.id === null || this.id === undefined) {
@@ -817,7 +806,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * Private method to check if next/prev actions should be blocked.
    * It checks if carouselSlideInfinite === false and if the image index is equals to the input parameter.
    * If yes, it returns true to say that sliding should be blocked, otherwise not.
-   * @param number boundaryIndex that could be either the beginning index (0) or the last index
+   * @param boundaryIndex number that could be either the beginning index (0) or the last index
    *  of images (this.images.length - 1).
    * @returns boolean true if carouselSlideInfinite === false and the current index is
    *  either the first or the last one.

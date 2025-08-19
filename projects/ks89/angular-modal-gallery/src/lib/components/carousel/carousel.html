@@ -5,67 +5,76 @@
                                maxHeight: ''}">
 
 
-  <!-- Workaround to support 2 ng-content in the same template in 2 ngIf (https://github.com/angular/angular/issues/22972) -->
-  <ng-template #content><ng-content></ng-content></ng-template>
+  <!-- Workaround to support 2 ng-content in the same template in 2 @if (https://github.com/angular/angular/issues/22972) -->
+  <!-- Is this still required??? Issue is closed!-->
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
 
-  <figure class="current-figure" *ngIf="currentImage && currentImage.modal"
-          ksSize [sizeConfig]="{width: carouselConfig?.maxWidth,
-                                height: ''}">
+  @if (currentImage && currentImage.modal) {
+    <figure class="current-figure"
+            ksSize [sizeConfig]="{width: carouselConfig?.maxWidth, height: ''}">
 
-    <a class="nav-left" *ngIf="carouselConfig?.showArrows"
-       [attr.aria-label]="accessibilityConfig?.carouselPrevImageAriaLabel"
-       [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
-       (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)">
-      <div class="inside {{(isFirstImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'left-arrow-image'}}"
-           aria-hidden="true"
-           [title]="accessibilityConfig?.carouselPrevImageTitle"></div>
-    </a>
+      @if (carouselConfig?.showArrows) {
+        <a class="nav-left"
+           [attr.aria-label]="accessibilityConfig?.carouselPrevImageAriaLabel"
+           [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
+           (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)">
+          <div class="inside {{(isFirstImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'left-arrow-image'}}"
+               aria-hidden="true"
+               [title]="accessibilityConfig?.carouselPrevImageTitle"></div>
+        </a>
+      }
 
-    <ng-container *ngTemplateOutlet="content"></ng-container>
-    <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
-      maxHeight: carouselConfig?.maxHeight}">
-      <ng-container *ngFor="let source of currentImage.modal?.sources">
-        <source [media]="source.media" [srcset]="source.srcset">
-      </ng-container>
-      <img [id]="currentImage.id"
-          [loading]="currentImage.loading"
-          [attr.fetchpriority]="currentImage.fetchpriority"
-          [style.object-fit]="carouselConfig?.objectFit"
-          ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
-                                    maxHeight: carouselConfig?.maxHeight}"
-          [src]="currentImage.modal.img"
-          ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
-          [attr.aria-label]="currentImage.modal.ariaLabel"
-          [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
-          alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
-          [tabIndex]="0" role="img"
-          (click)="onClickCurrentImage()"
-          (swipeleft)="swipe($event.type)"
-          (swiperight)="swipe($event.type)"/>
-    </picture>
-    <figcaption *ngIf="getDescriptionToDisplay() !== ''"
-                class="description"
-                ksDescription [description]="carouselImageConfig?.description"
-                [innerHTML]="getDescriptionToDisplay()"></figcaption>
+      <ng-container *ngTemplateOutlet="content"></ng-container>
+      <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
+        maxHeight: carouselConfig?.maxHeight}">
+        @for (source of currentImage.modal?.sources; let i = $index; track i) {
+          <source [media]="source.media" [srcset]="source.srcset">
+        }
+        <img [id]="currentImage.id"
+             [loading]="currentImage.loading"
+             [attr.fetchpriority]="currentImage.fetchpriority"
+             [style.object-fit]="carouselConfig?.objectFit"
+             ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
+                                      maxHeight: carouselConfig?.maxHeight}"
+             [src]="currentImage.modal.img"
+             ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
+             [attr.aria-label]="currentImage.modal.ariaLabel"
+             [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
+             alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
+             [tabIndex]="0" role="img"
+             (click)="onClickCurrentImage()"
+             (swipeleft)="swipe($event.type)"
+             (swiperight)="swipe($event.type)" />
+      </picture>
+      @if (getDescriptionToDisplay() !== '') {
+        <figcaption class="description"
+                    ksDescription [description]="carouselImageConfig?.description"
+                    [innerHTML]="getDescriptionToDisplay()"></figcaption>
+      }
 
-    <a class="nav-right" *ngIf="carouselConfig?.showArrows"
-       [attr.aria-label]="accessibilityConfig?.carouselNextImageAriaLabel"
-       [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
-       (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)">
-      <div class="inside {{(isLastImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'right-arrow-image'}}"
-           aria-hidden="true"
-           [title]="accessibilityConfig?.carouselNextImageTitle"></div>
-    </a>
+      @if (carouselConfig?.showArrows) {
+        <a class="nav-right"
+           [attr.aria-label]="accessibilityConfig?.carouselNextImageAriaLabel"
+           [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
+           (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)">
+          <div class="inside {{(isLastImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'right-arrow-image'}}"
+               aria-hidden="true"
+               [title]="accessibilityConfig?.carouselNextImageTitle"></div>
+        </a>
+      }
 
-    <div id="dots">
-      <ks-dots [id]="id"
-               [currentImage]="currentImage"
-               [images]="images"
-               [dotsConfig]="carouselDotsConfig"
-               (clickDot)="onClickDot($event)"></ks-dots>
-    </div>
+      <div id="dots">
+        <ks-dots [id]="id"
+                 [currentImage]="currentImage"
+                 [images]="images"
+                 [dotsConfig]="carouselDotsConfig"
+                 (clickDot)="onClickDot($event)"></ks-dots>
+      </div>
 
-  </figure>
+    </figure>
+  }
 
 </main>
 

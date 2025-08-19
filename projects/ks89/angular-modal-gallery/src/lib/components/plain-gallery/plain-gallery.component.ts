@@ -28,7 +28,6 @@ import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Image } from '../../model/image.class';
 import { Size } from '../../model/size.interface';
 import { GridLayout, LineLayout, PlainGalleryConfig, PlainGalleryStrategy } from '../../model/plain-gallery-config.interface';
-
 import { getIndex } from '../../utils/image.util';
 import { ConfigService } from '../../services/config.service';
 import { NEXT } from '../../utils/user-input.util';
@@ -36,7 +35,6 @@ import { AccessibleComponent } from '../accessible.component';
 import { PlainLibConfig, LibConfig } from '../../model/lib-config.interface';
 import { WrapDirective } from '../../directives/wrap.directive';
 import { DirectionDirective } from '../../directives/direction.directive';
-import { NgFor, NgIf } from '@angular/common';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
 import { SizeDirective } from '../../directives/size.directive';
 import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive';
@@ -53,7 +51,7 @@ import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive'
     styleUrls: ['plain-gallery.scss'],
     templateUrl: 'plain-gallery.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [WrapDirective, DirectionDirective, NgFor, NgIf, FallbackImageDirective, SizeDirective, ATagBgImageDirective]
+    imports: [WrapDirective, DirectionDirective, FallbackImageDirective, SizeDirective, ATagBgImageDirective]
 })
 export class PlainGalleryComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**
@@ -102,7 +100,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   size: Size | undefined;
   /**
    * Boolean passed as input to `ks-wrap` directive to configure flex-wrap css property.
-   * However it's not enough, because you need to limit the width using `widthStyle` public variable.
+   * However, it's not enough, because you need to limit the width using `widthStyle` public variable.
    * For more info check https://developer.mozilla.org/it/docs/Web/CSS/flex-wrap
    */
   wrapStyle = false;
@@ -191,7 +189,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   /**
    * Method called when you navigate between images.
    * This will emit the show event with the image as payload.
-   * @param KeyboardEvent event that triggered the navigation
+   * @param event KeyboardEvent that triggered the navigation
    * @param img is the Image to show
    */
   onNavigationEvent(event: KeyboardEvent, img: Image): void {
@@ -239,19 +237,9 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
-   * @returns number the id of the item
-   */
-  trackById(index: number, item: Image): number {
-    return item.id;
-  }
-
-  /**
    * Method called when you click on an image of the plain (or inline) gallery.
    * This will emit the show event with the index number as payload.
-   * @param number index of the clicked image
+   * @param index number of the clicked image
    */
   private showModalGallery(index: number): void {
     this.clickImage.emit(index);

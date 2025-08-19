@@ -27,7 +27,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnI
 import { AccessibleComponent } from '../accessible.component';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
-import { Image } from '../../model/image.class';
 import { InternalLibImage } from '../../model/image-internal.class';
 import { DotsConfig } from '../../model/dots-config.interface';
 
@@ -35,17 +34,17 @@ import { NEXT } from '../../utils/user-input.util';
 import { getIndex } from '../../utils/image.util';
 import { ConfigService } from '../../services/config.service';
 import { LibConfig } from '../../model/lib-config.interface';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 /**
  * Component with clickable dots (small circles) to navigate between images inside the modal gallery.
  */
 @Component({
-    selector: 'ks-dots',
-    styleUrls: ['dots.scss'],
-    templateUrl: 'dots.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgIf, NgFor, NgClass]
+  selector: 'ks-dots',
+  styleUrls: ['dots.scss'],
+  templateUrl: 'dots.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgClass]
 })
 export class DotsComponent extends AccessibleComponent implements OnInit, OnChanges {
   /**
@@ -53,12 +52,12 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * the service to call modal gallery.
    */
   @Input()
-  id!: number
+  id!: number;
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
   @Input()
-  currentImage: InternalLibImage | undefined
+  currentImage: InternalLibImage | undefined;
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
@@ -121,7 +120,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
   /**
    * Method to check if an image is active (i.e. the current image).
    * It checks currentImage and images to prevent errors.
-   * @param number index of the image to check if it's active or not
+   * @param index number of the image to check if it's active or not
    * @returns boolean true if is active (and input params are valid), false otherwise
    */
   isActive(index: number): boolean {
@@ -140,23 +139,13 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
 
   /**
    * Method called by events from keyboard and mouse.
-   * @param number index of the dot
-   * @param KeyboardEvent | MouseEvent event payload
+   * @param index number of the dot
+   * @param event KeyboardEvent | MouseEvent payload
    */
   onDotEvent(index: number, event: KeyboardEvent | MouseEvent): void {
     const result: number = super.handleImageEvent(event);
     if (result === NEXT) {
       this.clickDot.emit(index);
     }
-  }
-
-  /**
-   * Method used in the template to track ids in ngFor.
-   * @param number index of the array
-   * @param Image item of the array
-   * @returns number the id of the item
-   */
-  trackById(index: number, item: Image): number {
-    return item.id;
   }
 }

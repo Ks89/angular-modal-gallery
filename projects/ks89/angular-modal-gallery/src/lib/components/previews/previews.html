@@ -3,7 +3,7 @@
      [attr.aria-label]="accessibilityConfig?.previewsContainerAriaLabel"
      [title]="accessibilityConfig?.previewsContainerTitle">
 
-  <ng-container *ngIf="previewConfig?.visible">
+  @if (previewConfig?.visible) {
     <a class="nav-left"
        [attr.aria-label]="accessibilityConfig?.previewScrollPrevAriaLabel"
        [tabIndex]="isDisplayLeftPreviewsArrow() ? 0 : -1" role="button"
@@ -13,33 +13,32 @@
            [title]="accessibilityConfig?.previewScrollPrevTitle"></div>
     </a>
 
-    <ng-container *ngFor="let preview of previews; trackBy: trackById; let index = index">
-
+    @for (preview of previews; track preview.id) {
       <div class="preview-container {{!previewConfig?.clickable ? ' unclickable' : ''}}"
-        (click)="onImageEvent(preview, $event, clickAction)"
-        (keyup)="onImageEvent(preview, $event, keyboardAction)"
+           (click)="onImageEvent(preview, $event, clickAction)"
+           (keyup)="onImageEvent(preview, $event, keyboardAction)"
       >
         <ng-container
           *ngTemplateOutlet="!customTemplate ? defaultTemplate : customTemplate ; context:{preview, defaultTemplate}">
         </ng-container>
         <ng-template #defaultTemplate>
-          <img *ngIf="preview?.modal?.img"
-              class="inside preview-image {{isActive(preview) ? 'active' : ''}}"
-              [loading]="preview.loading"
-              [attr.fetchpriority]="preview.fetchpriority"
-              [src]="preview.plain?.img ? preview.plain?.img! : preview.modal.img"
-              ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
-              ksSize [sizeConfig]="{width: previewConfig?.size ? previewConfig?.size?.width! : defaultPreviewSize.width,
-                                    height: previewConfig?.size ? previewConfig?.size?.height! : defaultPreviewSize.height}"
-              [attr.aria-label]="preview.modal.ariaLabel ? preview.modal.ariaLabel : ''"
-              [title]="(preview.modal.title || preview.modal.title === '') ? preview.modal.title : ''"
-              alt="{{preview.modal.alt ? preview.modal.alt : ''}}"
-              [tabIndex]="0" role="img"
-          />
+          @if (preview?.modal?.img) {
+            <img class="inside preview-image {{isActive(preview) ? 'active' : ''}}"
+                 [loading]="preview.loading"
+                 [attr.fetchpriority]="preview.fetchpriority"
+                 [src]="preview.plain?.img ? preview.plain?.img! : preview.modal.img"
+                 ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
+                 ksSize [sizeConfig]="{width: previewConfig?.size ? previewConfig?.size?.width! : defaultPreviewSize.width,
+                                      height: previewConfig?.size ? previewConfig?.size?.height! : defaultPreviewSize.height}"
+                 [attr.aria-label]="preview.modal.ariaLabel ? preview.modal.ariaLabel : ''"
+                 [title]="(preview.modal.title || preview.modal.title === '') ? preview.modal.title : ''"
+                 alt="{{preview.modal.alt ? preview.modal.alt : ''}}"
+                 [tabIndex]="0" role="img"
+            />
+          }
         </ng-template>
       </div>
-
-    </ng-container>
+    }
 
 
     <a class="nav-right"
@@ -50,6 +49,5 @@
            aria-hidden="true"
            [title]="accessibilityConfig?.previewScrollNextTitle"></div>
     </a>
-  </ng-container>
-
+  }
 </nav>

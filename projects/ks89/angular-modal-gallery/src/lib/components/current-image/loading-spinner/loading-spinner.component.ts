@@ -26,7 +26,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { AccessibilityConfig } from '../../../model/accessibility.interface';
 import { LoadingConfig, LoadingType } from '../../../model/loading-config.interface';
-import { NgSwitch, NgSwitchCase } from '@angular/common';
 
 /**
  * Component with the loading spinner
@@ -43,8 +42,7 @@ import { NgSwitch, NgSwitchCase } from '@angular/common';
         'style-loading-spinner-explosing-squares.scss'
     ],
     templateUrl: 'loading-spinner.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [NgSwitch, NgSwitchCase]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSpinnerComponent {
   /**

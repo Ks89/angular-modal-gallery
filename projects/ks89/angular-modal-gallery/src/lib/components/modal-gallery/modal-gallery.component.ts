@@ -32,11 +32,11 @@ import { DotsComponent } from '../dots/dots.component';
 import { PreviewsComponent } from '../previews/previews.component';
 
 @Component({
-    selector: 'ks-modal-gallery',
-    templateUrl: './modal-gallery.component.html',
-    styleUrls: ['./modal-gallery.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [ClickOutsideDirective, UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent]
+  selector: 'ks-modal-gallery',
+  templateUrl: './modal-gallery.component.html',
+  styleUrls: ['./modal-gallery.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ClickOutsideDirective, UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent]
 })
 export class ModalGalleryComponent implements OnInit, OnDestroy {
   /**
@@ -62,7 +62,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    * Object of type `DotsConfig` to init DotsComponent's features.
    * For instance, it contains a param to show/hide dots.
    */
-  dotsConfig: DotsConfig | undefined;
+  dotsConfig!: DotsConfig;
   /**
    * Object of type `PreviewConfig` to init PreviewsComponent's features.
    * For instance, it contains a param to show/hide previews.

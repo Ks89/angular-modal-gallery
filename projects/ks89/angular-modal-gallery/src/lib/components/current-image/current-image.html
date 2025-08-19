@@ -13,10 +13,10 @@
            [title]="isFirstImage ? '' : accessibilityConfig?.mainPrevImageTitle"></div>
     </a>
 
-    <ng-container *ngIf="slideConfig?.sidePreviews?.show">
-      <ng-container *ngIf="getLeftPreviewImage() as leftPreview">
-        <img *ngIf="!isFirstImage; else firstImage"
-             class="inside current-image-previous"
+    @let leftPreview = getLeftPreviewImage();
+    @if (slideConfig?.sidePreviews?.show && leftPreview) {
+      @if (!isFirstImage) {
+        <img class="inside current-image-previous"
              [loading]="leftPreview.loading"
              [attr.fetchpriority]="leftPreview.fetchpriority"
              [src]="leftPreview.plain?.img ? leftPreview.plain?.img : leftPreview.modal.img"
@@ -27,21 +27,20 @@
              [title]="(leftPreview.modal.title || leftPreview.modal.title === '') ? leftPreview.modal.title : getDescriptionToDisplay(leftPreview)"
              alt="{{leftPreview.modal.alt ? leftPreview.modal.alt : getAltDescriptionByImage(leftPreview)}}"
              [tabIndex]="0" role="img"
-             (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)"/>
-        <ng-template #firstImage>
-          <div class="current-image-previous hidden"
-               ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"></div>
-        </ng-template>
-      </ng-container>
-    </ng-container>
+             (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)" />
+      } @else {
+        <div class="current-image-previous hidden"
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"></div>
+      }
+    }
   </div>
 
 
   <figure id="current-figure" [style.opacity]="loading ? '0' : '1'">
     <picture class="current-image">
-      <ng-container *ngFor="let source of currentImage.modal?.sources">
+      @for (source of currentImage.modal?.sources; let i = $index; track i) {
         <source [media]="source.media" [srcset]="source.srcset">
-      </ng-container>
+      }
       <img [id]="currentImage.id"
            [loading]="currentImage.loading"
            [attr.fetchpriority]="currentImage.fetchpriority"
@@ -57,20 +56,21 @@
            (click)="onImageEvent($event, clickAction)" (keyup)="onImageEvent($event, keyboardAction)"
            ksSwipe
            (swipeLeft)="swipe('swipeleft')"
-           (swipeRight)="swipe('swiperight')"/>
+           (swipeRight)="swipe('swiperight')" />
     </picture>
-    <figcaption *ngIf="getDescriptionToDisplay() !== ''"
-                class="inside description"
-                ksDescription [description]="currentImageConfig?.description"
-                [innerHTML]="getDescriptionToDisplay()">
-    </figcaption>
+    @if (getDescriptionToDisplay() !== '') {
+      <figcaption class="inside description"
+                  ksDescription [description]="currentImageConfig?.description"
+                  [innerHTML]="getDescriptionToDisplay()">
+      </figcaption>
+    }
   </figure>
 
   <div class="right-sub-container">
-    <ng-container *ngIf="slideConfig?.sidePreviews?.show">
-      <ng-container *ngIf="getRightPreviewImage() as rightPreview">
-        <img *ngIf="!isLastImage; else lastImage"
-             class="inside current-image-next"
+    @let rightPreview = getRightPreviewImage();
+    @if (slideConfig?.sidePreviews?.show && leftPreview) {
+      @if (!isLastImage) {
+        <img class="inside current-image-next"
              [loading]="rightPreview.loading"
              [attr.fetchpriority]="rightPreview.fetchpriority"
              [src]="rightPreview.plain?.img ? rightPreview.plain?.img : rightPreview.modal.img"
@@ -81,19 +81,17 @@
              [title]="(rightPreview.modal.title || rightPreview.modal.title === '') ? rightPreview.modal.title : getDescriptionToDisplay(rightPreview)"
              alt="{{rightPreview.modal.alt ? rightPreview.modal.alt : getAltDescriptionByImage(rightPreview)}}"
              [tabIndex]="0" role="img"
-             (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)"/>
-        <ng-template #lastImage>
-          <div class="current-image-next hidden"
-               ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}">
-          </div>
-        </ng-template>
-      </ng-container>
-    </ng-container>
+             (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)" />
+      } @else {
+        <div class="current-image-next hidden"
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"></div>
+      }
+    }
 
-    <ng-container *ngIf="loading && currentImageConfig?.loadingConfig?.enable">
+    @if (loading && currentImageConfig?.loadingConfig?.enable) {
       <ks-loading-spinner [loadingConfig]="currentImageConfig?.loadingConfig"
                           [accessibilityConfig]="accessibilityConfig"></ks-loading-spinner>
-    </ng-container>
+    }
 
     <a class="nav-right {{isFirstImage ? 'no-pointer' : ''}}"
        [attr.aria-label]="accessibilityConfig?.mainNextImageAriaLabel"

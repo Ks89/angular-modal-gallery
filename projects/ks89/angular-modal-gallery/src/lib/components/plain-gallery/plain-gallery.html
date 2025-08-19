@@ -4,39 +4,37 @@
      [attr.aria-label]="accessibilityConfig?.plainGalleryContentAriaLabel"
      [title]="accessibilityConfig?.plainGalleryContentTitle">
 
-  <ng-container *ngFor="let imgRow of imageGrid; let i = index">
-    <ng-container *ngFor="let imgCol of imgRow; let j = index">
-
-      <ng-container *ngIf="!plainGalleryConfig?.advanced?.aTags; else aTags">
-        <img *ngIf="imgCol?.modal?.img"
-             [loading]="imgCol.loading"
-             [attr.fetchpriority]="imgCol.fetchpriority"
-             [src]="imgCol.plain?.img! ? imgCol.plain?.img! : imgCol.modal.img"
-             ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? imgCol.plain?.fallbackImg : imgCol.modal.fallbackImg"
-             class="image"
+  @for (imgRow of imageGrid; let i = $index; track i) {
+    @for (imgCol of imgRow; let j = $index; track j) {
+      @if (!plainGalleryConfig?.advanced?.aTags) {
+        @if (imgCol?.modal?.img) {
+          <img [loading]="imgCol.loading"
+               [attr.fetchpriority]="imgCol.fetchpriority"
+               [src]="imgCol.plain?.img! ? imgCol.plain?.img! : imgCol.modal.img"
+               ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? imgCol.plain?.fallbackImg : imgCol.modal.fallbackImg"
+               class="image"
+               ksSize [sizeConfig]="{width: size?.width!, height: size?.height!}"
+               [attr.aria-label]="imgCol.plain?.ariaLabel"
+               [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? imgCol.plain?.title : getTitleDisplay(imgCol)"
+               alt="{{imgCol.plain?.alt! ? imgCol.plain?.alt! : getAltPlainDescriptionByImage(imgCol)}}"
+               [tabIndex]="0" role="img"
+               (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)" />
+        }
+      } @else {
+        <!-- Add directive to set background with the image url as param to pass thumb or img-->
+          <!-- to do something like this <a style="background: url('path to image') 50% 50%/cover">.-->
+        @if (imgCol?.modal?.img) {
+          <a class="a-tag-image"
+             ksATagBgImage [image]="imgCol" [style]="plainGalleryConfig?.advanced?.additionalBackground"
              ksSize [sizeConfig]="{width: size?.width!, height: size?.height!}"
              [attr.aria-label]="imgCol.plain?.ariaLabel"
              [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? imgCol.plain?.title : getTitleDisplay(imgCol)"
-             alt="{{imgCol.plain?.alt! ? imgCol.plain?.alt! : getAltPlainDescriptionByImage(imgCol)}}"
-             [tabIndex]="0" role="img"
-             (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)"/>
-      </ng-container>
-
-      <!-- Add directive to set background with the image url as param to pass thumb or img-->
-      <!-- to do something like this <a style="background: url('path to image') 50% 50%/cover">.-->
-      <ng-template #aTags>
-        <a *ngIf="imgCol?.modal?.img"
-           class="a-tag-image"
-           ksATagBgImage [image]="imgCol" [style]="plainGalleryConfig?.advanced?.additionalBackground"
-           ksSize [sizeConfig]="{width: size?.width!, height: size?.height!}"
-           [attr.aria-label]="imgCol.plain?.ariaLabel"
-           [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? imgCol.plain?.title : getTitleDisplay(imgCol)"
-           [tabIndex]="0"
-           (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)"></a>
-      </ng-template>
-
-    </ng-container>
-  </ng-container>
+             [tabIndex]="0"
+             (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)"></a>
+        }
+      }
+    }
+  }
 
 </div>
 

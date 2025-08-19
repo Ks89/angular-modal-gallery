@@ -1,42 +1,43 @@
-<nav *ngIf="previewConfig?.visible"
-     class="previews-container"
-     [attr.aria-label]="accessibilityConfig?.carouselPreviewsContainerAriaLabel"
-     [title]="accessibilityConfig?.carouselPreviewsContainerTitle">
+@if (previewConfig?.visible) {
+  <nav class="previews-container"
+       [attr.aria-label]="accessibilityConfig?.carouselPreviewsContainerAriaLabel"
+       [title]="accessibilityConfig?.carouselPreviewsContainerTitle">
 
-  <a class="nav-left"
-     [attr.aria-label]="accessibilityConfig?.carouselPreviewScrollPrevAriaLabel"
-     [tabIndex]="previewConfig?.arrows && start > 0 ? 0 : -1" role="button"
-     (click)="onNavigationEvent('left', $event)" (keyup)="onNavigationEvent('left', $event)">
-    <div class="inside {{previewConfig?.arrows && start > 0 ? 'left-arrow-preview-image' : 'empty-arrow-preview-image'}}"
-         aria-hidden="true"
-         [title]="accessibilityConfig?.carouselPreviewScrollPrevTitle"></div>
-  </a>
+    <a class="nav-left"
+       [attr.aria-label]="accessibilityConfig?.carouselPreviewScrollPrevAriaLabel"
+       [tabIndex]="previewConfig?.arrows && start > 0 ? 0 : -1" role="button"
+       (click)="onNavigationEvent('left', $event)" (keyup)="onNavigationEvent('left', $event)">
+      <div class="inside {{previewConfig?.arrows && start > 0 ? 'left-arrow-preview-image' : 'empty-arrow-preview-image'}}"
+           aria-hidden="true"
+           [title]="accessibilityConfig?.carouselPreviewScrollPrevTitle"></div>
+    </a>
 
-  <div class="preview-inner-container">
-    <ng-container *ngFor="let preview of previews; trackBy: trackById; let index = index">
-      <img *ngIf="preview?.modal?.img"
-           [loading]="preview.loading"
-           [attr.fetchpriority]="preview.fetchpriority"
-           class="inside preview-image{{isActive(preview) ? ' active' : ''}}{{!previewConfig?.clickable ? ' unclickable' : ''}}"
-           [src]="preview.plain?.img ? preview.plain?.img : preview.modal.img"
-           ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
-           ksSize [sizeConfig]="{width: previewConfig?.width!,
-                                 height: previewMaxHeight}"
-           [attr.aria-label]="getAriaLabel(preview)"
-           [title]="getTitle(preview)"
-           alt="{{getAlt(preview)}}"
-           [tabIndex]="0" role="img"
-           (click)="onImageEvent(preview, $event, clickAction)" (keyup)="onImageEvent(preview, $event, keyboardAction)"/>
-    </ng-container>
-  </div>
+    <div class="preview-inner-container">
+      @for (preview of previews; track preview.id) {
+        @if (preview?.modal?.img) {
+          <img [loading]="preview.loading"
+               [attr.fetchpriority]="preview.fetchpriority"
+               class="inside preview-image{{isActive(preview) ? ' active' : ''}}{{!previewConfig?.clickable ? ' unclickable' : ''}}"
+               [src]="preview.plain?.img ? preview.plain?.img : preview.modal.img"
+               ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
+               ksSize [sizeConfig]="{width: previewConfig?.width!,
+                                   height: previewMaxHeight}"
+               [attr.aria-label]="getAriaLabel(preview)"
+               [title]="getTitle(preview)"
+               alt="{{getAlt(preview)}}"
+               [tabIndex]="0" role="img"
+               (click)="onImageEvent(preview, $event, clickAction)" (keyup)="onImageEvent(preview, $event, keyboardAction)" />
+        }
+      }
+    </div>
 
-  <a class="nav-right"
-     [attr.aria-label]="accessibilityConfig?.carouselPreviewScrollNextAriaLabel"
-     [tabIndex]="previewConfig?.arrows && end < images.length ? 0 : -1" role="button"
-     (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
-    <div class="inside {{previewConfig?.arrows && end < images.length ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
-         aria-hidden="true"
-         [title]="accessibilityConfig?.carouselPreviewScrollNextTitle"></div>
-  </a>
-
-</nav>
+    <a class="nav-right"
+       [attr.aria-label]="accessibilityConfig?.carouselPreviewScrollNextAriaLabel"
+       [tabIndex]="previewConfig?.arrows && end < images.length ? 0 : -1" role="button"
+       (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
+      <div class="inside {{previewConfig?.arrows && end < images.length ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
+           aria-hidden="true"
+           [title]="accessibilityConfig?.carouselPreviewScrollNextTitle"></div>
+    </a>
+  </nav>
+}

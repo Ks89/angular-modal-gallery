@@ -40,7 +40,7 @@ import {
   SimpleChange,
   SimpleChanges
 } from '@angular/core';
-import { isPlatformBrowser, NgIf, NgFor, NgClass } from '@angular/common';
+import { isPlatformBrowser, NgClass } from '@angular/common';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -80,11 +80,11 @@ export interface ImageLoadEvent {
  * Component with the current image with some additional elements like arrows and side previews.
  */
 @Component({
-    selector: 'ks-current-image',
-    styleUrls: ['current-image.scss', '../image-arrows.scss', 'current-image-previews.scss'],
-    templateUrl: 'current-image.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [KeyboardNavigationDirective, NgIf, FallbackImageDirective, SizeDirective, NgFor, SwipeDirective, NgClass, DescriptionDirective, LoadingSpinnerComponent]
+  selector: 'ks-current-image',
+  styleUrls: ['current-image.scss', '../image-arrows.scss', 'current-image-previews.scss'],
+  templateUrl: 'current-image.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [KeyboardNavigationDirective, FallbackImageDirective, SizeDirective, SwipeDirective, NgClass, DescriptionDirective, LoadingSpinnerComponent]
 })
 export class CurrentImageComponent extends AccessibleComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
   /**
@@ -109,7 +109,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * If yes, also this component should be visible.
    */
   @Input()
-  // @ts-ignore
+    // @ts-ignore
   isOpen: boolean = false;
 
   /**
@@ -413,7 +413,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Method called by events from both keyboard and mouse on an image.
    * This will invoke the nextImage method.
-   * @param keyboardEvent | MouseEvent event payload
+   * @param event keyboardEvent | MouseEvent payload
    * @param action action that triggered the event or `Action.NORMAL` if not provided
    */
   onImageEvent(event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
@@ -435,10 +435,10 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
   /**
    * Method called by events from both keyboard and mouse on a navigation arrow.
-   * @param string direction of the navigation that can be either 'next' or 'prev'
-   * @param KeyboardEvent | MouseEvent event payload
-   * @param Action action that triggered the event or `Action.NORMAL` if not provided
-   * @param boolean disable to disable navigation
+   * @param direction string of the navigation that can be either 'next' or 'prev'
+   * @param event KeyboardEvent | MouseEvent payload
+   * @param action Action that triggered the event or `Action.NORMAL` if not provided
+   * @param disable boolean to disable navigation
    */
   onNavigationEvent(direction: string, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL, disable: boolean = false): void {
     if (disable) {
@@ -567,7 +567,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Private method to update both `isFirstImage` and `isLastImage` based on
    * the index of the current image.
-   * @param number currentIndex is the index of the current image
+   * @param currentIndex number is the index of the current image
    */
   private handleBoundaries(currentIndex: number): void {
     if (this.images.length === 1) {
@@ -607,7 +607,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * Private method to check if next/prev actions should be blocked.
    * It checks if slideConfig.infinite === false and if the image index is equals to the input parameter.
    * If yes, it returns true to say that sliding should be blocked, otherwise not.
-   * @param number boundaryIndex that could be either the beginning index (0) or the last index
+   * @param boundaryIndex number that could be either the beginning index (0) or the last index
    *  of images (this.images.length - 1).
    * @returns boolean true if slideConfig.infinite === false and the current index is
    *  either the first or the last one.
@@ -623,7 +623,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   private getNextImage(): InternalLibImage {
     const currentIndex: number = getIndex(this.currentImage, this.images);
-    let newIndex = 0;
+    let newIndex;
     if (currentIndex >= 0 && currentIndex < this.images.length - 1) {
       newIndex = currentIndex + 1;
     } else {
@@ -639,7 +639,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   private getPrevImage(): InternalLibImage {
     const currentIndex: number = getIndex(this.currentImage, this.images);
-    let newIndex = 0;
+    let newIndex;
     if (currentIndex > 0 && currentIndex <= this.images.length - 1) {
       newIndex = currentIndex - 1;
     } else {
@@ -651,8 +651,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Private method to build a text description.
    * This is used also to create titles.
-   * @param image image to get its description. If not provided it will be the current image.
-   * @param boolean imageWithoutDescription is a boolean that it's true if the image hasn't a 'modal' description.
+   * @param image Image to get its description. If not provided it will be the current image.
+   * @param imageWithoutDescription boolean is a boolean that it's true if the image hasn't a 'modal' description.
    * @returns String description built concatenating image fields with a specific logic.
    */
   private buildTextDescription(image: Image, imageWithoutDescription: boolean): string {

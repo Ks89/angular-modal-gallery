@@ -1,13 +1,16 @@
 import { Injectable, Injector } from '@angular/core';
+
+import { ComponentPortal } from '@angular/cdk/portal';
+
 import { ModalGalleryRef } from './modal-gallery-ref';
 import { ModalGalleryComponent } from './modal-gallery.component';
 import { DIALOG_DATA } from './modal-gallery.tokens';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { AttachToOverlayPayload, ModalGalleryService } from './modal-gallery.service';
 
 @Injectable({ providedIn: 'root' })
 export class AttachToOverlayService {
-  constructor(private injector: Injector, private modalGalleryService: ModalGalleryService) {}
+  constructor(private injector: Injector, private modalGalleryService: ModalGalleryService) {
+  }
 
   /**
    * To be called by a provider with the APP_INITIALIZER token.

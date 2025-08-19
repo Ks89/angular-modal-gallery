@@ -1,27 +1,27 @@
 <div [attr.aria-label]="accessibilityConfig?.loadingSpinnerAriaLabel"
      [title]="accessibilityConfig?.loadingSpinnerTitle">
 
-  <ng-container [ngSwitch]="loadingConfig?.type">
-    <ng-container *ngSwitchCase="loadingStandard">
+  @switch (loadingConfig?.type) {
+    @case (loadingStandard) {
       <div class="cssload-loader">
         <div class="cssload-inner cssload-one"></div>
         <div class="cssload-inner cssload-two"></div>
         <div class="cssload-inner cssload-three"></div>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingBars">
+    }
+    @case (loadingBars) {
       <div class="loader-bars">
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingCircular">
+    }
+    @case (loadingCircular) {
       <div class="loader-circular">
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingDots">
+    }
+    @case (loadingDots) {
       <div class="loader-dots">
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingCubeFlipping">
+    }
+    @case (loadingCubeFlipping) {
       <div class="cube-wrapper">
         <div class="cube-folding">
           <span class="leaf1"></span>
@@ -30,19 +30,19 @@
           <span class="leaf4"></span>
         </div>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingCircles">
+    }
+    @case (loadingCircles) {
       <div id="preloader">
         <div id="loader"></div>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="loadingExplosingSquares">
+    }
+    @case (loadingExplosingSquares) {
       <div class="loader">
         <span></span>
         <span></span>
         <span></span>
         <span></span>
       </div>
-    </ng-container>
-  </ng-container>
+    }
+  }
 </div>

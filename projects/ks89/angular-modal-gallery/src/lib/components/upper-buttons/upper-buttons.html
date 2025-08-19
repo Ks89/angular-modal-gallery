@@ -1,14 +1,15 @@
 <header class="buttons-container">
 
-  <ng-container *ngIf="!buttonsConfig || buttonsConfig?.visible">
-    <a *ngFor="let btn of buttons; trackBy: trackById; let index = index"
-       class="upper-button"
-       ksSize [sizeConfig]="{width: btn.size?.width!, height: btn.size?.height!}"
-       [ngStyle]="{'font-size': btn.fontSize}"
-       [attr.aria-label]="btn.ariaLabel"
-       [tabIndex]="0" role="button"
-       (click)="onEvent(btn, $event)" (keyup)="onEvent(btn, $event)">
-      <div class="inside {{btn.className}}" aria-hidden="true" title="{{btn.title}}"></div>
-    </a>
-  </ng-container>
+  @if (!buttonsConfig || buttonsConfig?.visible) {
+    @for (btn of buttons; track trackById) {
+      <a class="upper-button"
+         ksSize [sizeConfig]="{width: btn.size?.width!, height: btn.size?.height!}"
+         [ngStyle]="{'font-size': btn.fontSize}"
+         [attr.aria-label]="btn.ariaLabel"
+         [tabIndex]="0" role="button"
+         (click)="onEvent(btn, $event)" (keyup)="onEvent(btn, $event)">
+        <div class="inside {{btn.className}}" aria-hidden="true" title="{{btn.title}}"></div>
+      </a>
+    }
+  }
 </header>
