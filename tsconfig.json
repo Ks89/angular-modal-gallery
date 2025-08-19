@@ -8,7 +8,6 @@
         "./dist/ks89/angular-modal-gallery"
       ]
     },
-    "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,  // FIXME should become tre
@@ -21,10 +20,6 @@
     "target": "ES2022",
     "module": "preserve",
     "useDefineForClassFields": false, // to inject sanitizer without errors
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
     "typeRoots": [
       "node_modules/@types"
     ]
@@ -34,7 +29,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "typeCheckHostBindings": true,
-
     // FIXME THIS SHOULD BE FORCED TO TRUE IN THE FUTURE VERSIONS OF THE LIBRARY
     "strictTemplates": false
   },
@@ -45,6 +39,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ks89/angular-modal-gallery/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ks89/angular-modal-gallery/tsconfig.spec.json"
     }
   ]
 }

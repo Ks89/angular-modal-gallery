@@ -1,20 +1,7 @@
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { importProvidersFrom } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { bootstrapApplication } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app/app-routing.module';
+import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 
-import { GalleryModule } from '@ks89/angular-modal-gallery';
-
-bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-
-    // import GalleryModule. Install @ks89/angular-modal-gallery first
-    GalleryModule
-  )]
-})
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
