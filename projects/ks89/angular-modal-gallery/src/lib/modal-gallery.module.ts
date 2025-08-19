@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { APP_INITIALIZER, NgModule, provideAppInitializer } from '@angular/core';
+import { inject, NgModule, provideAppInitializer } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -30,11 +30,6 @@ import { COMPONENTS, CarouselComponent } from './components/components';
 import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.component';
 import { DIRECTIVES } from './directives/directives';
 import { AttachToOverlayService } from './components/modal-gallery/attach-to-overlay.service';
-import { inject } from '@angular/core/testing';
-
-const factoryFn = (service: AttachToOverlayService): (() => void) => {
-  return () => service.initialize();
-};
 
 /**
  * Module to import it in the root module of your application.
@@ -42,13 +37,10 @@ const factoryFn = (service: AttachToOverlayService): (() => void) => {
 @NgModule({
   imports: [CommonModule, OverlayModule, COMPONENTS, DIRECTIVES],
   providers: [
-    // provideAppInitializer(() => factoryFn(inject(AttachToOverlayService))),
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      deps: [AttachToOverlayService],
-      useFactory: factoryFn
-    }
+    provideAppInitializer(() => {
+      const service = inject(AttachToOverlayService);
+      service.initialize();
+    })
   ],
   exports: [PlainGalleryComponent, CarouselComponent]
 })
