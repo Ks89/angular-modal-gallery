@@ -62,7 +62,7 @@ export class ClickOutsideDirective {
 
     if (typeof target.className !== 'string') {
       // it happens with @fortawesome/fontawesome 5
-      // for some reasons className is an object with 2 empty properties inside
+      // for some reason className is an object with 2 empty properties inside
       isInside = true;
     } else {
       // in normal scenarios, use classname, because it's a simple string
