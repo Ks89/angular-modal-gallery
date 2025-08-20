@@ -47,7 +47,7 @@ export type { CarouselImageConfig } from './lib/model/carousel-image-config.inte
 export type { Size } from './lib/model/size.interface';
 
 export { ButtonsStrategy, ButtonType } from './lib/model/buttons-config.interface';
-export type { ButtonsConfig, ButtonEvent } from './lib/model/buttons-config.interface';
+export type { ButtonsConfig, ButtonConfig, ButtonEvent } from './lib/model/buttons-config.interface';
 
 export type { ModalLibConfig, PlainLibConfig, CarouselLibConfig } from './lib/model/lib-config.interface';
 
@@ -59,6 +59,8 @@ export { LoadingType } from './lib/model/loading-config.interface';
 export type { LoadingConfig } from './lib/model/loading-config.interface';
 
 export type { InteractionEvent } from './lib/model/interaction-event.interface';
+
+export type { SidePreviewsConfig, SlideConfig } from './lib/model/slide-config.interface';
 
 export { KS_DEFAULT_ACCESSIBILITY_CONFIG } from './lib/components/accessibility-default';
 export {

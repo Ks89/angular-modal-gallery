@@ -26,7 +26,7 @@
 // *********** required by @ks89/angular-modal-gallery *************
 // *****************************************************************
 // ATTENTION: You have to install @angular/cdk to be able to use @ks89/angular-modal-gallery properly
-@use "@angular/cdk/overlay-prebuilt.css";
+@use "@angular/cdk/overlay-prebuilt.css" as *;
 
 .ks-modal-gallery-backdrop {
   background: #000 !important;;

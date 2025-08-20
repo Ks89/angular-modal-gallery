@@ -10,7 +10,11 @@
 
 ### Examples
 
-- upgrade all examples to Angular 20 and the new syntax
+- upgrade all examples to Angular 20 and control flow syntax
+
+### Documentation
+
+- upgrade doc website to Angular 20 component based with control flow syntax
 
 
 # 13.0.0
