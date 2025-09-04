@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Image } from '../../model/image.class';
@@ -69,8 +69,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   /**
    * PlainLibConfig object to configure plain-gallery.
    */
-  @Input()
-  config: PlainLibConfig | undefined;
+  readonly config = input<PlainLibConfig>();
 
   /**
    * Output to emit an event when an image is clicked.
@@ -131,7 +130,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
     if (this.id === null || this.id === undefined) {
       throw new Error('Internal library error - id must be defined');
     }
-    this.configService.setConfig(this.id, this.config);
+    this.configService.setConfig(this.id, this.config());
 
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig) {

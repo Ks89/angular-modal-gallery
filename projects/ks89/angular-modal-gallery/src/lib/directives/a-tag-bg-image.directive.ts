@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 
 import { Image } from '../model/image.class';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -35,14 +35,12 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
   /**
    * Object of type `Image` that represents the image to add to the `<a>` tag.
    */
-  @Input()
-  image: Image | undefined;
+  readonly image = input<Image>();
   /**
    * Additional style to customize the background attribute.
    * Empty string by default.
    */
-  @Input()
-  style: string | undefined;
+  readonly style = input<string>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -69,17 +67,18 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
    * Private method to add an image as background of an `<a>` tag.
    */
   private applyStyle(): void {
-    if (!this.image || (!this.image.plain && !this.image.modal)) {
+    const image = this.image();
+    if (!image || (!image.plain && !image.modal)) {
       return;
     }
 
-    const imgPath: string | SafeResourceUrl = this.image.plain && this.image.plain.img ? this.image.plain.img : this.image.modal.img;
-    let bg = `url("${imgPath}") ${this.style}`;
+    const imgPath: string | SafeResourceUrl = image.plain && image.plain.img ? image.plain.img : image.modal.img;
+    let bg = `url("${imgPath}") ${this.style()}`;
 
     const fallbackImgPath: string | SafeResourceUrl | undefined =
-      this.image.plain && this.image.plain.fallbackImg ? this.image.plain.fallbackImg : this.image.modal.fallbackImg;
+      image.plain && image.plain.fallbackImg ? image.plain.fallbackImg : image.modal.fallbackImg;
     if (!!fallbackImgPath) {
-      bg += `, url("${fallbackImgPath}") ${this.style}`;
+      bg += `, url("${fallbackImgPath}") ${this.style()}`;
     }
 
     this.renderer.setStyle(this.el.nativeElement, 'background', bg);

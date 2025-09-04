@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, HostListener, inject, Input, Renderer2, output } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Renderer2, output, input } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 /**
@@ -30,8 +30,7 @@ import { SafeResourceUrl } from '@angular/platform-browser';
  */
 @Directive({ selector: '[ksFallbackImage]' })
 export class FallbackImageDirective {
-  @Input()
-  fallbackImg: string | SafeResourceUrl | undefined;
+  readonly fallbackImg = input<string | SafeResourceUrl>();
 
   readonly fallbackApplied = output<boolean>();
 
@@ -39,11 +38,12 @@ export class FallbackImageDirective {
   private el: ElementRef = inject(ElementRef);
 
   @HostListener('error') onError(): void {
-    if (!this.fallbackImg) {
+    const fallbackImg = this.fallbackImg();
+    if (!fallbackImg) {
       this.fallbackApplied.emit(false);
       return;
     }
-    this.renderer.setAttribute(this.el.nativeElement, 'src', this.fallbackImg.toString());
+    this.renderer.setAttribute(this.el.nativeElement, 'src', fallbackImg.toString());
     this.fallbackApplied.emit(true);
   }
 }

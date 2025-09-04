@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -68,8 +68,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * Object of type `DotsConfig` to init DotsComponent's features.
    * For instance, it contains a param to show/hide this component.
    */
-  @Input()
-  dotsConfig!: DotsConfig;
+  readonly dotsConfig = input.required<DotsConfig>();
 
   /**
    * Output to emit clicks on dots. The payload contains a number that represent
@@ -100,7 +99,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
       throw new Error('Internal library error - libConfig must be defined');
     }
     this.accessibilityConfig = libConfig.accessibilityConfig;
-    this.configDots = Object.assign({}, this.dotsConfig);
+    this.configDots = Object.assign({}, this.dotsConfig());
   }
 
   /**

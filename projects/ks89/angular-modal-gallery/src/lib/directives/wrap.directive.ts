@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 
 /**
  * Directive to change the flex-wrap css property of an element.
@@ -32,13 +32,11 @@ export class WrapDirective implements OnInit, OnChanges {
   /**
    * Boolean input that it's true to add 'flex-wrap: wrap', 'flex-wrap: nowrap' otherwise.
    */
-  @Input()
-  wrap: boolean | undefined;
+  readonly wrap = input<boolean>();
   /**
    * String input to force the width of the element to be able to see wrapping.
    */
-  @Input()
-  width: string | undefined;
+  readonly width = input<string>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -66,10 +64,11 @@ export class WrapDirective implements OnInit, OnChanges {
    */
   private applyStyle(): void {
     // TODO is this right???? If wrap is false I cannot apply width and flex-wrap
-    if (!this.wrap) {
+    const wrap = this.wrap();
+    if (!wrap) {
       return;
     }
-    this.renderer.setStyle(this.el.nativeElement, 'width', this.width);
-    this.renderer.setStyle(this.el.nativeElement, 'flex-wrap', this.wrap ? 'wrap' : 'nowrap');
+    this.renderer.setStyle(this.el.nativeElement, 'width', this.width());
+    this.renderer.setStyle(this.el.nativeElement, 'flex-wrap', wrap ? 'wrap' : 'nowrap');
   }
 }

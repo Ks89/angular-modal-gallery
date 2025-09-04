@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 import { MaxSize } from '../model/max-size.interface';
 
 /**
@@ -33,8 +33,7 @@ export class MaxSizeDirective implements OnInit, OnChanges {
   /**
    * Object of type `MaxSize` to resize the element.
    */
-  @Input()
-  maxSizeConfig: MaxSize | undefined;
+  readonly maxSizeConfig = input<MaxSize>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -61,14 +60,15 @@ export class MaxSizeDirective implements OnInit, OnChanges {
    * Private method to change both max-width and max-height of an element.
    */
   private applyStyle(): void {
-    if (!this.maxSizeConfig) {
+    const maxSizeConfig = this.maxSizeConfig();
+    if (!maxSizeConfig) {
       return;
     }
-    if (this.maxSizeConfig.maxWidth) {
-      this.renderer.setStyle(this.el.nativeElement, 'max-width', this.maxSizeConfig.maxWidth);
+    if (maxSizeConfig.maxWidth) {
+      this.renderer.setStyle(this.el.nativeElement, 'max-width', maxSizeConfig.maxWidth);
     }
-    if (this.maxSizeConfig.maxHeight) {
-      this.renderer.setStyle(this.el.nativeElement, 'max-height', this.maxSizeConfig.maxHeight);
+    if (maxSizeConfig.maxHeight) {
+      this.renderer.setStyle(this.el.nativeElement, 'max-height', maxSizeConfig.maxHeight);
     }
   }
 }

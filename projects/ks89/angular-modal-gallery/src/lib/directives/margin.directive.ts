@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 
 /**
  * Directive to change margins of an element.
@@ -32,23 +32,19 @@ export class MarginDirective implements OnInit, OnChanges {
   /**
    * String to set the margin of an element.
    */
-  @Input()
-  marginLeft: string | undefined;
+  readonly marginLeft = input<string>();
   /**
    * String to set the margin of an element.
    */
-  @Input()
-  marginRight: string | undefined;
+  readonly marginRight = input<string>();
   /**
    * String to set the margin of an element.
    */
-  @Input()
-  marginTop: string | undefined;
+  readonly marginTop = input<string>();
   /**
    * String to set the margin of an element.
    */
-  @Input()
-  marginBottom: string | undefined;
+  readonly marginBottom = input<string>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -75,17 +71,21 @@ export class MarginDirective implements OnInit, OnChanges {
    * Private method to change both width and height of an element.
    */
   private applyStyle(): void {
-    if (this.marginLeft) {
-      this.renderer.setStyle(this.el.nativeElement, 'margin-left', this.marginLeft);
+    const marginLeft = this.marginLeft();
+    if (marginLeft) {
+      this.renderer.setStyle(this.el.nativeElement, 'margin-left', marginLeft);
     }
-    if (this.marginRight) {
-      this.renderer.setStyle(this.el.nativeElement, 'margin-right', this.marginRight);
+    const marginRight = this.marginRight();
+    if (marginRight) {
+      this.renderer.setStyle(this.el.nativeElement, 'margin-right', marginRight);
     }
-    if (this.marginTop) {
-      this.renderer.setStyle(this.el.nativeElement, 'margin-top', this.marginTop);
+    const marginTop = this.marginTop();
+    if (marginTop) {
+      this.renderer.setStyle(this.el.nativeElement, 'margin-top', marginTop);
     }
-    if (this.marginBottom) {
-      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', this.marginBottom);
+    const marginBottom = this.marginBottom();
+    if (marginBottom) {
+      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', marginBottom);
     }
   }
 }

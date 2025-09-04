@@ -40,7 +40,8 @@ import {
   PLATFORM_ID,
   SimpleChange,
   SimpleChanges,
-  output
+  output,
+  input
 } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
@@ -102,8 +103,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * CarouselLibConfig object to configure carousel.
    */
-  @Input()
-  config: CarouselLibConfig | undefined;
+  readonly config = input<CarouselLibConfig>();
 
   /**
    * Output to emit an event when an image is clicked.
@@ -271,7 +271,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
     if (!this.images || this.images.length === 0) {
       throw new Error('Internal library error - images array must be defined and with at least an element');
     }
-    this.configService.setConfig(this.id, this.config);
+    this.configService.setConfig(this.id, this.config());
 
     const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
     if (!libConfig) {

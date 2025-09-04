@@ -1,6 +1,6 @@
 <nav class="dots-container" [attr.aria-label]="accessibilityConfig?.dotsContainerAriaLabel"
      [title]="accessibilityConfig?.dotsContainerTitle">
-  @if (!dotsConfig || dotsConfig?.visible) {
+  @if (!dotsConfig() || dotsConfig()?.visible) {
     @for (img of images; let index = $index; track img.id) {
       <div class="inside dot"
            [ngClass]="{'active': isActive(index)}"

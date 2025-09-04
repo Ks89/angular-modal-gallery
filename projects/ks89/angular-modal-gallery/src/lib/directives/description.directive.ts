@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 import { Description } from '../model/description.interface';
 
 /**
@@ -33,8 +33,7 @@ export class DescriptionDirective implements OnInit, OnChanges {
   /**
    * Object of type `Description` to resize the element.
    */
-  @Input()
-  description: Description | undefined;
+  readonly description = input<Description>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -61,40 +60,41 @@ export class DescriptionDirective implements OnInit, OnChanges {
    * Private method to change description's style.
    */
   private applyStyle(): void {
-    if (!this.description) {
+    const description = this.description();
+    if (!description) {
       return;
     }
 
-    if (this.description.style) {
-      this.renderer.setStyle(this.el.nativeElement, 'background', this.description.style.bgColor);
-      this.renderer.setStyle(this.el.nativeElement, 'color', this.description.style.textColor);
+    if (description.style) {
+      this.renderer.setStyle(this.el.nativeElement, 'background', description.style.bgColor);
+      this.renderer.setStyle(this.el.nativeElement, 'color', description.style.textColor);
 
-      if (this.description.style.width) {
-        this.renderer.setStyle(this.el.nativeElement, 'width', this.description.style.width);
+      if (description.style.width) {
+        this.renderer.setStyle(this.el.nativeElement, 'width', description.style.width);
       }
-      if (this.description.style.height) {
-        this.renderer.setStyle(this.el.nativeElement, 'height', this.description.style.height);
+      if (description.style.height) {
+        this.renderer.setStyle(this.el.nativeElement, 'height', description.style.height);
       }
-      if (this.description.style.position) {
-        this.renderer.setStyle(this.el.nativeElement, 'position', this.description.style.position);
+      if (description.style.position) {
+        this.renderer.setStyle(this.el.nativeElement, 'position', description.style.position);
       }
-      if (this.description.style.top) {
-        this.renderer.setStyle(this.el.nativeElement, 'top', this.description.style.top);
+      if (description.style.top) {
+        this.renderer.setStyle(this.el.nativeElement, 'top', description.style.top);
       }
-      if (this.description.style.bottom) {
-        this.renderer.setStyle(this.el.nativeElement, 'bottom', this.description.style.bottom);
+      if (description.style.bottom) {
+        this.renderer.setStyle(this.el.nativeElement, 'bottom', description.style.bottom);
       }
-      if (this.description.style.left) {
-        this.renderer.setStyle(this.el.nativeElement, 'left', this.description.style.left);
+      if (description.style.left) {
+        this.renderer.setStyle(this.el.nativeElement, 'left', description.style.left);
       }
-      if (this.description.style.right) {
-        this.renderer.setStyle(this.el.nativeElement, 'right', this.description.style.right);
+      if (description.style.right) {
+        this.renderer.setStyle(this.el.nativeElement, 'right', description.style.right);
       }
 
-      this.renderer.setStyle(this.el.nativeElement, 'margin-top', this.description.style.marginTop ? this.description.style.marginTop : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', this.description.style.marginBottom ? this.description.style.marginBottom : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-left', this.description.style.marginLeft ? this.description.style.marginLeft : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-right', this.description.style.marginRight ? this.description.style.marginRight : '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-top', description.style.marginTop ? description.style.marginTop : '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', description.style.marginBottom ? description.style.marginBottom : '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-left', description.style.marginLeft ? description.style.marginLeft : '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-right', description.style.marginRight ? description.style.marginRight : '0px');
     }
   }
 }

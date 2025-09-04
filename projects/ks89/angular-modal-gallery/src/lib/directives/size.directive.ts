@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 import { Size } from '../model/size.interface';
 
 /**
@@ -33,8 +33,7 @@ export class SizeDirective implements OnInit, OnChanges {
   /**
    * Object of type `Size` to resize the element.
    */
-  @Input()
-  sizeConfig: Size | undefined;
+  readonly sizeConfig = input<Size>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -61,15 +60,16 @@ export class SizeDirective implements OnInit, OnChanges {
    * Private method to change both width and height of an element.
    */
   private applyStyle(): void {
-    if (!this.sizeConfig) {
+    const sizeConfig = this.sizeConfig();
+    if (!sizeConfig) {
       return;
     }
     // apply [style.width]
-    if (this.sizeConfig.width) {
-      this.renderer.setStyle(this.el.nativeElement, 'width', this.sizeConfig.width);
+    if (sizeConfig.width) {
+      this.renderer.setStyle(this.el.nativeElement, 'width', sizeConfig.width);
     }
-    if (this.sizeConfig.height) {
-      this.renderer.setStyle(this.el.nativeElement, 'height', this.sizeConfig.height);
+    if (sizeConfig.height) {
+      this.renderer.setStyle(this.el.nativeElement, 'height', sizeConfig.height);
     }
   }
 }

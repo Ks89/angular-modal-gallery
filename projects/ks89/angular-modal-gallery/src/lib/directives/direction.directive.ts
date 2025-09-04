@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, OnChanges, OnInit, Renderer2, input } from '@angular/core';
 
 /**
  * Directive to change the flex-direction of an element, based on two inputs (`direction` and `justify`).
@@ -32,13 +32,11 @@ export class DirectionDirective implements OnInit, OnChanges {
   /**
    * String input to set the css flex-direction of an element.
    */
-  @Input()
-  direction: string | undefined;
+  readonly direction = input<string>();
   /**
    * String input to set the css justify-content of an element.
    */
-  @Input()
-  justify: string | undefined;
+  readonly justify = input<string>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -65,10 +63,12 @@ export class DirectionDirective implements OnInit, OnChanges {
    * Private method to change both direction and justify of an element.
    */
   private applyStyle(): void {
-    if (!this.direction || !this.justify) {
+    const direction = this.direction();
+    const justify = this.justify();
+    if (!direction || !justify) {
       return;
     }
-    this.renderer.setStyle(this.el.nativeElement, 'flex-direction', this.direction);
-    this.renderer.setStyle(this.el.nativeElement, 'justify-content', this.justify);
+    this.renderer.setStyle(this.el.nativeElement, 'flex-direction', direction);
+    this.renderer.setStyle(this.el.nativeElement, 'justify-content', justify);
   }
 }
