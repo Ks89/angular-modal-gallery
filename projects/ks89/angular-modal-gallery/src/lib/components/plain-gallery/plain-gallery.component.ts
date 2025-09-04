@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output } from '@angular/core';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Image } from '../../model/image.class';
@@ -75,8 +75,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   /**
    * Output to emit an event when an image is clicked.
    */
-  @Output()
-  clickImage: EventEmitter<number> = new EventEmitter<number>();
+  readonly clickImage = output<number>();
 
   /**
    * Object of type `PlainGalleryConfig` to configure the plain gallery.

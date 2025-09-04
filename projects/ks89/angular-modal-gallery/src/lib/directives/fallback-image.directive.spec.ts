@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement, EventEmitter, Output } from '@angular/core';
+import { Component, DebugElement, output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, SafeResourceUrl } from '@angular/platform-browser';
 import { FallbackImageDirective } from './fallback-image.directive';
@@ -42,8 +42,7 @@ class TestFallbackImageComponent {
   base64: SafeResourceUrl = 'data:image/png;base64,iVBORw0KG=';
   imgPath = 'http:/example.com/bad-url.jpg';
 
-  @Output()
-  fallbackApplied: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly fallbackApplied = output<boolean>();
 
   onError(data: boolean): void {
     this.fallbackApplied.emit(data);
@@ -60,8 +59,7 @@ class TestFallbackImageComponent {
   `
 })
 class WrongTestFallbackImageComponent {
-  @Output()
-  fallbackApplied: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly fallbackApplied = output<boolean>();
 
   onError(data: boolean): void {
     this.fallbackApplied.emit(data);

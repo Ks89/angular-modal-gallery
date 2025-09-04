@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, HostListener, output } from '@angular/core';
 
 
 // Inspired from https://stackblitz.com/edit/angular-swipe-events-with-hostlistner?file=src%2Fapp%2Fapp.component.ts
@@ -37,23 +37,19 @@ export class SwipeDirective {
   /**
    * Output to emit swipe left event. Payload is empty.
    */
-  @Output()
-  swipeLeft: EventEmitter<void> = new EventEmitter<void>();
+  readonly swipeLeft = output();
   /**
    * Output to emit swipe right event. Payload is empty.
    */
-  @Output()
-  swipeRight: EventEmitter<void> = new EventEmitter<void>();
+  readonly swipeRight = output();
   /**
    * Output to emit swipe up event. Payload is empty.
    */
-  @Output()
-  swipeUp: EventEmitter<void> = new EventEmitter<void>();
+  readonly swipeUp = output();
   /**
    * Output to emit swipe down event. Payload is empty.
    */
-  @Output()
-  swipeDown: EventEmitter<void> = new EventEmitter<void>();
+  readonly swipeDown = output();
 
   /**
    * Method called by Angular itself every click thanks to `@HostListener`.

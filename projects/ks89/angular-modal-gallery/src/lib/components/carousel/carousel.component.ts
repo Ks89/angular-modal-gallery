@@ -30,7 +30,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   HostBinding,
   HostListener, inject,
   Input,
@@ -38,10 +37,10 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
   PLATFORM_ID,
   SimpleChange,
-  SimpleChanges
+  SimpleChanges,
+  output
 } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
 
@@ -109,23 +108,19 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   /**
    * Output to emit an event when an image is clicked.
    */
-  @Output()
-  clickImage: EventEmitter<number> = new EventEmitter<number>();
+  readonly clickImage = output<number>();
   /**
    * Output to emit an event when current image is changed.
    */
-  @Output()
-  changeImage: EventEmitter<ImageEvent> = new EventEmitter<ImageEvent>();
+  readonly changeImage = output<ImageEvent>();
   /**
    * Output to emit an event when the current image is the first one.
    */
-  @Output()
-  firstImage: EventEmitter<ImageEvent> = new EventEmitter<ImageEvent>();
+  readonly firstImage = output<ImageEvent>();
   /**
    * Output to emit an event when the current image is the last one.
    */
-  @Output()
-  lastImage: EventEmitter<ImageEvent> = new EventEmitter<ImageEvent>();
+  readonly lastImage = output<ImageEvent>();
 
   /**
    * Object of type `CarouselConfig` to init CarouselComponent's features.

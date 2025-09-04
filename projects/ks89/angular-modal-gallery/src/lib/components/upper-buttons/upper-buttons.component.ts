@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, output, OutputEmitterRef } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -78,38 +78,31 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   /**
    * Output to emit clicks on refresh button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  refresh: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly refresh = output<ButtonEvent>();
   /**
    * Output to emit clicks on delete button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  delete: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly delete = output<ButtonEvent>();
   /**
    * Output to emit clicks on navigate button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  navigate: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly navigate = output<ButtonEvent>();
   /**
    * Output to emit clicks on download button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  download: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly download = output<ButtonEvent>();
   /**
    * Output to emit clicks on close button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  closeButton: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly closeButton = output<ButtonEvent>();
   /**
    * Output to emit clicks on full-screen button. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  fullscreen: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly fullscreen = output<ButtonEvent>();
   /**
    * Output to emit clicks on all custom buttons. The payload contains a `ButtonEvent`.
    */
-  @Output()
-  customEmit: EventEmitter<ButtonEvent> = new EventEmitter<ButtonEvent>();
+  readonly customEmit = output<ButtonEvent>();
 
   /**
    * Object of type `ButtonsConfig` to init UpperButtonsComponent's features.
@@ -240,7 +233,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * @param event KeyboardEvent | MouseEvent is the source that triggered this method
    * @param dataToEmit ButtonEvent payload to emit
    */
-  private triggerOnMouseAndKeyboard(emitter: EventEmitter<ButtonEvent>, event: KeyboardEvent | MouseEvent, dataToEmit: ButtonEvent): void {
+  private triggerOnMouseAndKeyboard(emitter: OutputEmitterRef<ButtonEvent>, event: KeyboardEvent | MouseEvent, dataToEmit: ButtonEvent): void {
     if (!emitter) {
       throw new Error(`UpperButtonsComponent unknown emitter in triggerOnMouseAndKeyboard`);
     }

@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement, EventEmitter, Output } from '@angular/core';
+import { Component, DebugElement, output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -36,7 +36,7 @@ import { KeyboardNavigationDirective } from './keyboard-navigation.directive';
   `
 })
 class TestKeyboardNavigationComponent {
-  @Output() keyPress: EventEmitter<string> = new EventEmitter<string>();
+  readonly keyPress = output<string>();
 
   onKeyPress(event: string) {
     this.keyPress.emit(event);

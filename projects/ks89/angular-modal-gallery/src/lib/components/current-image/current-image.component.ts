@@ -27,7 +27,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   HostListener,
   inject,
   Input,
@@ -35,10 +34,10 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
   PLATFORM_ID,
   SimpleChange,
-  SimpleChanges
+  SimpleChanges,
+  output
 } from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 
@@ -116,18 +115,15 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Output to emit an event when images are loaded. The payload contains an `ImageLoadEvent`.
    */
-  @Output()
-  loadImage: EventEmitter<ImageLoadEvent> = new EventEmitter<ImageLoadEvent>();
+  readonly loadImage = output<ImageLoadEvent>();
   /**
    * Output to emit any changes of the current image. The payload contains an `ImageModalEvent`.
    */
-  @Output()
-  changeImage: EventEmitter<ImageModalEvent> = new EventEmitter<ImageModalEvent>();
+  readonly changeImage = output<ImageModalEvent>();
   /**
    * Output to emit an event when the modal gallery is closed. The payload contains an `ImageModalEvent`.
    */
-  @Output()
-  closeGallery: EventEmitter<ImageModalEvent> = new EventEmitter<ImageModalEvent>();
+  readonly closeGallery = output<ImageModalEvent>();
 
   /**
    * Subject to play modal-gallery.

@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, output } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
@@ -82,8 +82,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Output to emit the clicked preview. The payload contains the `ImageEvent` associated to the clicked preview.
    */
-  @Output()
-  clickPreview: EventEmitter<ImageEvent> = new EventEmitter<ImageEvent>();
+  readonly clickPreview = output<ImageEvent>();
 
   /**
    * Object of type `AccessibilityConfig` to init custom accessibility features.

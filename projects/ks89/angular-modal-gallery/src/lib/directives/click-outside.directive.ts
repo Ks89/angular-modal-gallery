@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, HostListener, Input, output } from '@angular/core';
 
 /**
  * Directive to close the modal gallery clicking on the semi-transparent background.
@@ -39,8 +39,7 @@ export class ClickOutsideDirective {
   /**
    * Output to emit an event if the clicked element class doesn't contain 'inside' or it is 'hidden'. The payload is a boolean.
    */
-  @Output()
-  clickOutside: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly clickOutside = output<boolean>();
 
   /**
    * Method called by Angular itself every click thanks to `@HostListener`.

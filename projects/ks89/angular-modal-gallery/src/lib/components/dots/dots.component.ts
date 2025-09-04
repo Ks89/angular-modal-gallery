@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -75,8 +75,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * Output to emit clicks on dots. The payload contains a number that represent
    * the index of the clicked dot.
    */
-  @Output()
-  clickDot: EventEmitter<number> = new EventEmitter<number>();
+  readonly clickDot = output<number>();
 
   /**
    * Object of type `DotsConfig` used in template.

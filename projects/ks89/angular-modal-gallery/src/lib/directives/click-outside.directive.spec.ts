@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement, EventEmitter, Output } from '@angular/core';
+import { Component, DebugElement, output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { By } from '@angular/platform-browser';
@@ -50,7 +50,7 @@ import { By } from '@angular/platform-browser';
   `
 })
 class TestClickOutsideComponent {
-  @Output() clicked: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly clicked = output<boolean>();
 
   onClickOutside(event: boolean): void {
     this.clicked.emit(event);

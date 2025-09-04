@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Directive, HostListener, Input, output } from '@angular/core';
 
 /**
  * Directive to manage keyboard navigation.
@@ -38,8 +38,7 @@ export class KeyboardNavigationDirective {
   /**
    * Output to emit keyboard `code` of the pressed key (keydown).
    */
-  @Output()
-  keyboardNavigation: EventEmitter<string> = new EventEmitter<string>();
+  readonly keyboardNavigation = output<string>();
 
   /**
    * Listener to catch keyboard's events and call the right method based on the key.

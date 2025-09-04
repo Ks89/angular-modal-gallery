@@ -26,15 +26,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   HostBinding,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
   SimpleChange,
-  SimpleChanges
+  SimpleChanges,
+  output
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -105,8 +104,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Output to emit the clicked preview. The payload contains the `InternalLibImage` associated to the clicked preview.
    */
-  @Output()
-  clickPreview: EventEmitter<ImageEvent> = new EventEmitter<ImageEvent>();
+  readonly clickPreview = output<ImageEvent>();
 
   /**
    * Object of type `CarouselConfig` to init CarouselComponent's features.
