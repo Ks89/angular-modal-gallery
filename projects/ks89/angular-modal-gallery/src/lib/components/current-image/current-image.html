@@ -1,5 +1,5 @@
 <main class="main-image-container"
-      ksKeyboardNavigation [isOpen]="isOpen" (keyboardNavigation)="onKeyPress($event)"
+      ksKeyboardNavigation [isOpen]="isOpen()" (keyboardNavigation)="onKeyPress($event)"
       [attr.aria-label]="accessibilityConfig?.mainContainerAriaLabel"
       [title]="accessibilityConfig?.mainContainerTitle">
 
@@ -38,19 +38,19 @@
 
   <figure id="current-figure" [style.opacity]="loading ? '0' : '1'">
     <picture class="current-image">
-      @for (source of currentImage.modal?.sources; let i = $index; track i) {
+      @for (source of currentImage().modal?.sources; let i = $index; track i) {
         <source [media]="source.media" [srcset]="source.srcset">
       }
-      <img [id]="currentImage.id"
-           [loading]="currentImage.loading"
-           [attr.fetchpriority]="currentImage.fetchpriority"
+      <img [id]="currentImage().id"
+           [loading]="currentImage().loading"
+           [attr.fetchpriority]="currentImage().fetchpriority"
            class="inside"
            [ngClass]="currentImageConfig?.navigateOnClick ? '' : 'unclickable'"
-           [src]="currentImage.modal.img"
-           ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
-           [attr.aria-label]="currentImage.modal.ariaLabel"
-           [title]="(currentImage.modal.title || currentImage.modal.title === '') ? currentImage.modal.title : getTitleToDisplay()"
-           alt="{{currentImage.modal.alt ? currentImage.modal.alt : getAltDescriptionByImage()}}"
+           [src]="currentImage().modal.img"
+           ksFallbackImage [fallbackImg]="currentImage().modal.fallbackImg"
+           [attr.aria-label]="currentImage().modal.ariaLabel"
+           [title]="(currentImage().modal.title || currentImage().modal.title === '') ? currentImage().modal.title : getTitleToDisplay()"
+           alt="{{currentImage().modal.alt ? currentImage().modal.alt : getAltDescriptionByImage()}}"
            [tabIndex]="0" role="img"
            (load)="onImageLoad($event)"
            (click)="onImageEvent($event, clickAction)" (keyup)="onImageEvent($event, keyboardAction)"

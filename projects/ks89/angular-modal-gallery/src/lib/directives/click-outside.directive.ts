@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, HostListener, Input, output } from '@angular/core';
+import { Directive, HostListener, output, input } from '@angular/core';
 
 /**
  * Directive to close the modal gallery clicking on the semi-transparent background.
@@ -34,8 +34,7 @@ export class ClickOutsideDirective {
   /**
    * Boolean to enable this directive.
    */
-  @Input()
-  clickOutsideEnable: boolean | undefined;
+  readonly clickOutsideEnable = input<boolean>();
   /**
    * Output to emit an event if the clicked element class doesn't contain 'inside' or it is 'hidden'. The payload is a boolean.
    */
@@ -52,7 +51,7 @@ export class ClickOutsideDirective {
     // tslint:disable-next-line:no-any
     const target: any = event.target;
 
-    if (!this.clickOutsideEnable || !target) {
+    if (!this.clickOutsideEnable() || !target) {
       return;
     }
 

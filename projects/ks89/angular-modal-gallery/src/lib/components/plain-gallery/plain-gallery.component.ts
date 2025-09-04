@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Image } from '../../model/image.class';
@@ -58,14 +58,12 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    * Unique id (>=0) of the current instance of this library. This is required when you are using
    * the service to call modal gallery.
    */
-  @Input()
-  id: number | undefined;
+  readonly id = input<number>();
 
   /**
    * Array of `Image` that represent the model of this library with all images, thumbs and so on.
    */
-  @Input()
-  images: Image[] = [];
+  readonly images = input<Image[]>([]);
   /**
    * PlainLibConfig object to configure plain-gallery.
    */
@@ -127,12 +125,13 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    if (this.id === null || this.id === undefined) {
+    const id = this.id();
+    if (id === null || id === undefined) {
       throw new Error('Internal library error - id must be defined');
     }
-    this.configService.setConfig(this.id, this.config());
+    this.configService.setConfig(id, this.config());
 
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(id);
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
@@ -147,10 +146,11 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.id === null || this.id === undefined) {
+    const id = this.id();
+    if (id === null || id === undefined) {
       throw new Error('Internal library error - id must be defined');
     }
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(id);
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
@@ -178,7 +178,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    * @param img is the Image to show
    */
   showModalGalleryByImage(img: Image): void {
-    const index: number = this.images.findIndex((val: Image) => val && img && val.id === img.id);
+    const index: number = this.images().findIndex((val: Image) => val && img && val.id === img.id);
     this.showModalGallery(index);
   }
 
@@ -205,7 +205,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
     if (!image) {
       return '';
     }
-    return image.plain && image.plain.description ? image.plain.description : `Image ${getIndex(image, this.images) + 1}`;
+    return image.plain && image.plain.description ? image.plain.description : `Image ${getIndex(image, this.images()) + 1}`;
   }
 
   /**
@@ -222,8 +222,8 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
       description = image.modal.description;
     }
 
-    const currentIndex: number = getIndex(image, this.images);
-    const prevDescription: string = 'Image ' + (currentIndex + 1) + '/' + this.images.length;
+    const currentIndex: number = getIndex(image, this.images());
+    const prevDescription: string = 'Image ' + (currentIndex + 1) + '/' + this.images().length;
     let currImgDescription: string = description ? description : '';
 
     if (currImgDescription !== '') {
@@ -255,7 +255,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
 
     if (this.plainGalleryConfig.layout instanceof LineLayout) {
       const layout: LineLayout = this.plainGalleryConfig.layout;
-      const row: Image[] = this.images.filter((val: Image, i: number) => i < layout.breakConfig.length || layout.breakConfig.length === -1);
+      const row: Image[] = this.images().filter((val: Image, i: number) => i < layout.breakConfig.length || layout.breakConfig.length === -1);
       this.imageGrid = [row];
 
       this.size = this.plainGalleryConfig.layout.size;
@@ -274,12 +274,12 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
 
     if (this.plainGalleryConfig.layout instanceof GridLayout) {
       const layout: GridLayout = this.plainGalleryConfig.layout;
-      const count: number = Math.ceil(this.images.length / layout.breakConfig.length);
+      const count: number = Math.ceil(this.images().length / layout.breakConfig.length);
       let start = 0;
       let end: number = layout.breakConfig.length - 1;
 
       for (let j = 0; j < count; j++) {
-        const row: Image[] = this.images.filter((val: Image, i: number) => i >= start && i <= end);
+        const row: Image[] = this.images().filter((val: Image, i: number) => i >= start && i <= end);
         this.imageGrid.push(row);
         start = end + 1;
         end = start + layout.breakConfig.length - 1;

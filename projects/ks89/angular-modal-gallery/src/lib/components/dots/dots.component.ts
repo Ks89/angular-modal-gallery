@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -51,19 +51,16 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * Unique id (>=0) of the current instance of this library. This is required when you are using
    * the service to call modal gallery.
    */
-  @Input()
-  id!: number;
+  readonly id = input.required<number>();
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  @Input()
-  currentImage: InternalLibImage | undefined;
+  readonly currentImage = input<InternalLibImage>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  @Input()
-  images: InternalLibImage[] | undefined;
+  readonly images = input<InternalLibImage[]>();
   /**
    * Object of type `DotsConfig` to init DotsComponent's features.
    * For instance, it contains a param to show/hide this component.
@@ -94,7 +91,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
@@ -120,12 +117,14 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    * @returns boolean true if is active (and input params are valid), false otherwise
    */
   isActive(index: number): boolean {
-    if (!this.currentImage || !this.images || this.images.length === 0) {
+    const currentImage = this.currentImage();
+    const images = this.images();
+    if (!currentImage || !images || images.length === 0) {
       return false;
     }
     let imageIndex: number;
     try {
-      imageIndex = getIndex(this.currentImage, this.images);
+      imageIndex = getIndex(currentImage, images);
     } catch (err) {
       console.error(`Internal error while trying to show the active 'dot'`, err);
       return false;

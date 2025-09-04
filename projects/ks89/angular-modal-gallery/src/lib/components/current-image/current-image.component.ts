@@ -29,7 +29,6 @@ import {
   Component,
   HostListener,
   inject,
-  Input,
   NgZone,
   OnChanges,
   OnDestroy,
@@ -37,7 +36,8 @@ import {
   PLATFORM_ID,
   SimpleChange,
   SimpleChanges,
-  output
+  output,
+  input
 } from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
 
@@ -91,26 +91,21 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * Unique id (>=0) of the current instance of this library. This is useful when you are using
    * the service to call modal gallery without open it manually.
    */
-  @Input()
-  id!: number;
+  readonly id = input.required<number>();
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  @Input()
-  currentImage!: InternalLibImage;
+  readonly currentImage = input.required<InternalLibImage>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  @Input()
-  images!: InternalLibImage[];
+  readonly images = input.required<InternalLibImage[]>();
   /**
    * Boolean that it is true if the modal gallery is visible.
    * If yes, also this component should be visible.
    */
-  @Input()
-    // @ts-ignore
-  isOpen: boolean = false;
+  readonly isOpen = input<boolean>(false);
 
   /**
    * Output to emit an event when images are loaded. The payload contains an `ImageLoadEvent`.
@@ -224,7 +219,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig || !libConfig.buttonsConfig) {
       throw new Error('Internal library error - libConfig and buttonsConfig must be defined');
     }
@@ -241,7 +236,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
@@ -301,7 +296,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
     switch (code) {
       case esc:
-        this.closeGallery.emit(new ImageModalEvent(this.id, Action.KEYBOARD, true));
+        this.closeGallery.emit(new ImageModalEvent(this.id(), Action.KEYBOARD, true));
         break;
       case right:
         this.nextImage(Action.KEYBOARD);
@@ -320,7 +315,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @returns String description of the image (or the current image if not provided)
    * @throws an Error if description isn't available
    */
-  getDescriptionToDisplay(image: Image = this.currentImage): string {
+  getDescriptionToDisplay(image: Image = this.currentImage()): string {
     if (!this.currentImageConfig || !this.currentImageConfig.description) {
       throw new Error('Description input must be a valid object implementing the Description interface');
     }
@@ -344,11 +339,11 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @param image Image to get its alt description. If not provided it will be the current image
    * @returns String alt description of the image (or the current image if not provided)
    */
-  getAltDescriptionByImage(image: Image = this.currentImage): string {
+  getAltDescriptionByImage(image: Image = this.currentImage()): string {
     if (!image) {
       return '';
     }
-    return image.modal && image.modal.description ? image.modal.description : `Image ${getIndex(image, this.images) + 1}`;
+    return image.modal && image.modal.description ? image.modal.description : `Image ${getIndex(image, this.images()) + 1}`;
   }
 
   /**
@@ -359,7 +354,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @returns String title of the image based on descriptions
    * @throws an Error if description isn't available
    */
-  getTitleToDisplay(image: Image = this.currentImage): string {
+  getTitleToDisplay(image: Image = this.currentImage()): string {
     if (!this.currentImageConfig || !this.currentImageConfig.description) {
       throw new Error('Description input must be a valid object implementing the Description interface');
     }
@@ -375,15 +370,15 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
     if (!this.slideConfig) {
       throw new Error('Internal library error - slideConfig must be defined');
     }
-    const currentIndex: number = getIndex(this.currentImage, this.images);
+    const currentIndex: number = getIndex(this.currentImage(), this.images());
     if (currentIndex === 0 && this.slideConfig.infinite) {
       // the current image is the first one,
       // so the previous one is the last image
       // because infinite is true
-      return this.images[this.images.length - 1];
+      return this.images()[this.images().length - 1];
     }
     this.handleBoundaries(currentIndex);
-    return this.images[Math.max(currentIndex - 1, 0)];
+    return this.images()[Math.max(currentIndex - 1, 0)];
   }
 
   /**
@@ -394,15 +389,16 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
     if (!this.slideConfig) {
       throw new Error('Internal library error - slideConfig must be defined');
     }
-    const currentIndex: number = getIndex(this.currentImage, this.images);
-    if (currentIndex === this.images.length - 1 && this.slideConfig.infinite) {
+    const currentIndex: number = getIndex(this.currentImage(), this.images());
+    const images = this.images();
+    if (currentIndex === images.length - 1 && this.slideConfig.infinite) {
       // the current image is the last one,
       // so the next one is the first image
       // because infinite is true
-      return this.images[0];
+      return images[0];
     }
     this.handleBoundaries(currentIndex);
-    return this.images[Math.min(currentIndex + 1, this.images.length - 1)];
+    return images[Math.min(currentIndex + 1, images.length - 1)];
   }
 
   /**
@@ -459,7 +455,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
     }
     const prevImage: InternalLibImage = this.getPrevImage();
     this.loading = !prevImage.previouslyLoaded;
-    this.changeImage.emit(new ImageModalEvent(this.id, action, getIndex(prevImage, this.images)));
+    this.changeImage.emit(new ImageModalEvent(this.id(), action, getIndex(prevImage, this.images())));
 
     this.start$.next();
   }
@@ -471,12 +467,13 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   nextImage(action: Action = Action.NORMAL): void {
     // check if nextImage should be blocked
-    if (this.isPreventSliding(this.images.length - 1)) {
+    const images = this.images();
+    if (this.isPreventSliding(images.length - 1)) {
       return;
     }
     const nextImage: InternalLibImage = this.getNextImage();
     this.loading = !nextImage.previouslyLoaded;
-    this.changeImage.emit(new ImageModalEvent(this.id, action, getIndex(nextImage, this.images)));
+    this.changeImage.emit(new ImageModalEvent(this.id(), action, getIndex(nextImage, images)));
 
     this.start$.next();
   }
@@ -489,8 +486,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   onImageLoad(event: Event): void {
     const loadImageData: ImageLoadEvent = {
       status: true,
-      index: getIndex(this.currentImage, this.images),
-      id: this.currentImage.id
+      index: getIndex(this.currentImage(), this.images()),
+      id: this.currentImage().id
     };
 
     this.loadImage.emit(loadImageData);
@@ -533,8 +530,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @param image image to get the index, or the visible image, if not passed
    * @returns number the index of the image
    */
-  getIndexToDelete(image: Image = this.currentImage): number {
-    return getIndex(image, this.images);
+  getIndexToDelete(image: Image = this.currentImage()): number {
+    return getIndex(image, this.images());
   }
 
   /**
@@ -565,7 +562,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @param currentIndex number is the index of the current image
    */
   private handleBoundaries(currentIndex: number): void {
-    if (this.images.length === 1) {
+    const images = this.images();
+    if (images.length === 1) {
       this.isFirstImage = true;
       this.isLastImage = true;
       this.ref.markForCheck();
@@ -584,7 +582,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
           this.isLastImage = false;
           this.ref.markForCheck();
           break;
-        case this.images.length - 1:
+        case images.length - 1:
           this.isFirstImage = false;
           this.isLastImage = true;
           this.ref.markForCheck();
@@ -608,7 +606,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    *  either the first or the last one.
    */
   private isPreventSliding(boundaryIndex: number): boolean {
-    return !!this.slideConfig && this.slideConfig.infinite === false && getIndex(this.currentImage, this.images) === boundaryIndex;
+    return !!this.slideConfig && this.slideConfig.infinite === false && getIndex(this.currentImage(), this.images()) === boundaryIndex;
   }
 
   /**
@@ -617,14 +615,14 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * That happens because all modal images are shown like in a circle.
    */
   private getNextImage(): InternalLibImage {
-    const currentIndex: number = getIndex(this.currentImage, this.images);
+    const currentIndex: number = getIndex(this.currentImage(), this.images());
     let newIndex;
-    if (currentIndex >= 0 && currentIndex < this.images.length - 1) {
+    if (currentIndex >= 0 && currentIndex < this.images().length - 1) {
       newIndex = currentIndex + 1;
     } else {
       newIndex = 0; // start from the first index
     }
-    return this.images[newIndex];
+    return this.images()[newIndex];
   }
 
   /**
@@ -633,14 +631,14 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * That happens because all modal images are shown like in a circle.
    */
   private getPrevImage(): InternalLibImage {
-    const currentIndex: number = getIndex(this.currentImage, this.images);
+    const currentIndex: number = getIndex(this.currentImage(), this.images());
     let newIndex;
-    if (currentIndex > 0 && currentIndex <= this.images.length - 1) {
+    if (currentIndex > 0 && currentIndex <= this.images().length - 1) {
       newIndex = currentIndex - 1;
     } else {
-      newIndex = this.images.length - 1; // start from the last index
+      newIndex = this.images().length - 1; // start from the last index
     }
-    return this.images[newIndex];
+    return this.images()[newIndex];
   }
 
   /**
@@ -660,13 +658,13 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
       return this.currentImageConfig.description.customFullDescription;
     }
 
-    const currentIndex: number = getIndex(image, this.images);
+    const currentIndex: number = getIndex(image, this.images());
     // If the current image hasn't a description,
     // prevent to write the ' - ' (or this.description.beforeTextDescription)
 
     const prevDescription: string = this.currentImageConfig.description.imageText ? this.currentImageConfig.description.imageText : '';
     const midSeparator: string = this.currentImageConfig.description.numberSeparator ? this.currentImageConfig.description.numberSeparator : '';
-    const middleDescription: string = currentIndex + 1 + midSeparator + this.images.length;
+    const middleDescription: string = currentIndex + 1 + midSeparator + this.images().length;
 
     if (imageWithoutDescription) {
       return prevDescription + middleDescription;
@@ -682,8 +680,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   private updateIndexes(): void {
     try {
-      if (this.isOpen) {
-        const index: number = getIndex(this.currentImage, this.images);
+      if (this.isOpen()) {
+        const index: number = getIndex(this.currentImage(), this.images());
         this.handleBoundaries(index);
       }
     } catch (err) {

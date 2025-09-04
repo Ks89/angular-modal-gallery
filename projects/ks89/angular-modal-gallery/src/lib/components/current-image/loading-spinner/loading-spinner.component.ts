@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { AccessibilityConfig } from '../../../model/accessibility.interface';
 import { LoadingConfig, LoadingType } from '../../../model/loading-config.interface';
@@ -49,14 +49,12 @@ export class LoadingSpinnerComponent {
    * Object of type `LoadingConfig` exposed to the template.
    * It contains a field to choose a loading spinner.
    */
-  @Input()
-  loadingConfig!: LoadingConfig;
+  readonly loadingConfig = input.required<LoadingConfig>();
   /**
    * Object of type `AccessibilityConfig` to init custom accessibility features.
    * For instance, it contains titles, alt texts, aria-labels and so on.
    */
-  @Input()
-  accessibilityConfig!: AccessibilityConfig;
+  readonly accessibilityConfig = input.required<AccessibilityConfig>();
 
   /**
    * Enum of type `LoadingType` to choose the standard loading spinner.

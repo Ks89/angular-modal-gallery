@@ -27,13 +27,13 @@ import {
   ChangeDetectorRef,
   Component,
   HostBinding,
-  Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChange,
   SimpleChanges,
-  output
+  output,
+  input
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -87,19 +87,16 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * TODO write doc
    */
-  @Input()
-  id!: number;
+  readonly id = input.required<number>();
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  @Input()
-  currentImage!: InternalLibImage;
+  readonly currentImage = input.required<InternalLibImage>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  @Input()
-  images!: InternalLibImage[];
+  readonly images = input.required<InternalLibImage[]>();
 
   /**
    * Output to emit the clicked preview. The payload contains the `InternalLibImage` associated to the clicked preview.
@@ -205,7 +202,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
@@ -223,7 +220,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
     this.previewMaxHeight = this.previewConfig.maxHeight;
     // init previews based on currentImage and the full array of images
-    this.initPreviews(this.currentImage, this.images);
+    this.initPreviews(this.currentImage(), this.images());
 
     // apply custom height based on responsive breakpoints
     // This is required, because the breakpointSubscription is not triggered at creation,
@@ -252,10 +249,11 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    * @returns boolean true if is active, false otherwise
    */
   isActive(preview: InternalLibImage): boolean {
-    if (!preview || !this.currentImage) {
+    const currentImage = this.currentImage();
+    if (!preview || !currentImage) {
       return false;
     }
-    return preview.id === this.currentImage.id;
+    return preview.id === currentImage.id;
   }
 
   /**
@@ -287,8 +285,8 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       let prevIndex: number;
       let currentIndex: number;
       try {
-        prevIndex = getIndex(prev, this.images);
-        currentIndex = getIndex(current, this.images);
+        prevIndex = getIndex(prev, this.images());
+        currentIndex = getIndex(current, this.images());
       } catch (err) {
         console.error('Cannot get previous and current image indexes in previews');
         throw err;
@@ -297,17 +295,18 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       // apply a formula to get a values to be used to decide if go next, return back or stay without doing anything
       const calc = Math.floor((this.end - this.start) / 2) + this.start;
 
-      if (prevIndex === this.images.length - 1 && currentIndex === 0) {
+      const images = this.images();
+      if (prevIndex === images.length - 1 && currentIndex === 0) {
         // first image
         this.setBeginningIndexesPreviews();
-        this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+        this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
         return;
       }
       // the same for the opposite case, when you navigate back from the fist image to go to the last one.
-      if (prevIndex === 0 && currentIndex === this.images.length - 1) {
+      if (prevIndex === 0 && currentIndex === images.length - 1) {
         // last image
         this.setEndIndexesPreviews();
-        this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+        this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
         return;
       }
 
@@ -339,7 +338,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     if (!this.previewConfig || !this.previewConfig.clickable) {
       return;
     }
-    const clickedImageIndex: number = this.images.indexOf(preview);
+    const clickedImageIndex: number = this.images().indexOf(preview);
     const result: number = super.handleImageEvent(event);
     if (result === NEXT) {
       this.clickPreview.emit({ action, result: clickedImageIndex } as ImageEvent);
@@ -462,7 +461,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     }
 
     this.start = 0;
-    this.end = Math.min(this.previewConfig.number as number, this.images.length);
+    this.end = Math.min(this.previewConfig.number as number, this.images().length);
   }
 
   /**
@@ -473,8 +472,8 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       throw new Error('Internal library error - previewConfig and number must be defined');
     }
 
-    this.start = this.images.length - 1 - ((this.previewConfig.number as number) - 1);
-    this.end = this.images.length;
+    this.start = this.images().length - 1 - ((this.previewConfig.number as number) - 1);
+    this.end = this.images().length;
   }
 
   /**
@@ -482,18 +481,19 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    */
   private next(): void {
     // check if nextImage should be blocked
-    if (this.isPreventSliding(this.images.length - 1)) {
+    const images = this.images();
+    if (this.isPreventSliding(images.length - 1)) {
       return;
     }
 
-    if (this.end === this.images.length) {
+    if (this.end === images.length) {
       return;
     }
 
     this.start++;
-    this.end = Math.min(this.end + 1, this.images.length);
+    this.end = Math.min(this.end + 1, images.length);
 
-    this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -510,9 +510,9 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     }
 
     this.start = Math.max(this.start - 1, 0);
-    this.end = Math.min(this.end - 1, this.images.length);
+    this.end = Math.min(this.end - 1, this.images().length);
 
-    this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -521,6 +521,6 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    * @returns boolean if true block sliding, otherwise not
    */
   private isPreventSliding(boundaryIndex: number): boolean {
-    return getIndex(this.currentImage, this.images) === boundaryIndex;
+    return getIndex(this.currentImage(), this.images()) === boundaryIndex;
   }
 }

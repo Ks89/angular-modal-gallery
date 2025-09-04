@@ -1,7 +1,7 @@
-<div [attr.aria-label]="accessibilityConfig?.loadingSpinnerAriaLabel"
-     [title]="accessibilityConfig?.loadingSpinnerTitle">
+<div [attr.aria-label]="accessibilityConfig()?.loadingSpinnerAriaLabel"
+     [title]="accessibilityConfig()?.loadingSpinnerTitle">
 
-  @switch (loadingConfig?.type) {
+  @switch (loadingConfig()?.type) {
     @case (loadingStandard) {
       <div class="cssload-loader">
         <div class="cssload-inner cssload-one"></div>

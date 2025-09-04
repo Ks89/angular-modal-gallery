@@ -33,9 +33,9 @@
 
     <a class="nav-right"
        [attr.aria-label]="accessibilityConfig?.carouselPreviewScrollNextAriaLabel"
-       [tabIndex]="previewConfig?.arrows && end < images.length ? 0 : -1" role="button"
+       [tabIndex]="previewConfig?.arrows && end < images().length ? 0 : -1" role="button"
        (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
-      <div class="inside {{previewConfig?.arrows && end < images.length ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
+      <div class="inside {{previewConfig?.arrows && end < images().length ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
            aria-hidden="true"
            [title]="accessibilityConfig?.carouselPreviewScrollNextTitle"></div>
     </a>

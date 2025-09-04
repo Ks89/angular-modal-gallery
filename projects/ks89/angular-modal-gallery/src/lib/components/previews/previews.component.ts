@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnChanges, OnInit, SimpleChanges, TemplateRef, output, input } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
@@ -56,19 +56,16 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * Unique id (>=0) of the current instance of this library. This is required when you are using
    * the service to call modal-gallery.
    */
-  @Input()
-  id!: number;
+  readonly id = input.required<number>();
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  @Input()
-  currentImage!: InternalLibImage;
+  readonly currentImage = input.required<InternalLibImage>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  @Input()
-  images!: InternalLibImage[];
+  readonly images = input.required<InternalLibImage[]>();
 
   /**
    * Optional template reference for the rendering of previews.
@@ -76,8 +73,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * - preview: the `Image` object
    * - defaultTemplate: the template used by default to render the preview (in case the need is to wrap it)
    */
-  @Input()
-  customTemplate?: TemplateRef<HTMLElement>;
+  readonly customTemplate = input<TemplateRef<HTMLElement>>();
 
   /**
    * Output to emit the clicked preview. The payload contains the `ImageEvent` associated to the clicked preview.
@@ -135,14 +131,14 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig) {
       throw new Error('Internal library error - libConfig must be defined');
     }
     this.accessibilityConfig = libConfig.accessibilityConfig;
     this.slideConfig = libConfig.slideConfig;
     this.previewConfig = libConfig.previewConfig;
-    this.initPreviews(this.currentImage, this.images);
+    this.initPreviews(this.currentImage(), this.images());
   }
 
   /**
@@ -154,7 +150,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     if (!preview) {
       return false;
     }
-    return preview.id === this.currentImage.id;
+    return preview.id === this.currentImage().id;
   }
 
   /**
@@ -165,8 +161,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   ngOnChanges(changes: SimpleChanges): void {
 
-    let currentImage = changes['currentImage']?.currentValue ?? this.currentImage;
-    let images = changes['images']?.currentValue ?? this.images;
+    let currentImage = changes['currentImage']?.currentValue ?? this.currentImage();
+    let images = changes['images']?.currentValue ?? this.images();
 
     if (this.previewConfig && currentImage && images) {
       this.initPreviews(currentImage, images);
@@ -189,7 +185,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     }
     const result: number = super.handleImageEvent(event);
     if (result === NEXT || result === PREV) {
-      this.clickPreview.emit(new ImageModalEvent(this.id, action, getIndex(preview, this.images)));
+      this.clickPreview.emit(new ImageModalEvent(this.id(), action, getIndex(preview, this.images())));
     }
   }
 
@@ -215,7 +211,8 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   isDisplayLeftPreviewsArrow(): boolean {
     // Don't show arrows if the preview number is greater or equals than total number of images
-    if (this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+    const images = this.images();
+    if (this.previewConfig?.number !== undefined && images && this.previewConfig?.number >= images?.length) {
       return false;
     }
     return (this.previewConfig?.arrows && this.start > 0) || !!this.slideConfig?.infinite;
@@ -227,10 +224,11 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   isDisplayRightPreviewsArrow(): boolean {
     // Don't show arrows if the preview number is greater or equals than total number of images
-    if (this.previewConfig?.number !== undefined && this.images && this.previewConfig?.number >= this.images?.length) {
+    const images = this.images();
+    if (this.previewConfig?.number !== undefined && images && this.previewConfig?.number >= images?.length) {
       return false;
     }
-    return (this.previewConfig?.arrows && this.images && this.end < this.images.length) || !!this.slideConfig?.infinite;
+    return (this.previewConfig?.arrows && images && this.end < images.length) || !!this.slideConfig?.infinite;
   }
 
   /**
@@ -274,7 +272,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     if (!this.previewConfig) {
       throw new Error('Internal library error - previewConfig must be defined');
     }
-    if (this.end >= this.images.length) {
+    if (this.end >= this.images().length) {
       // check if nextImage should be blocked
       const preventSliding = !!this.slideConfig && this.slideConfig.infinite === false;
       if (preventSliding) {
@@ -284,9 +282,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     } else {
       this.start++;
     }
-    this.end = this.start + Math.min((this.previewConfig.number as number), this.images.length);
+    this.end = this.start + Math.min((this.previewConfig.number as number), this.images().length);
 
-    this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -302,13 +300,13 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
       if (preventSliding) {
         return;
       }
-      this.end = this.images.length;
+      this.end = this.images().length;
     } else {
       this.end--;
     }
-    this.start = this.end - Math.min((this.previewConfig.number as number), this.images.length);
+    this.start = this.end - Math.min((this.previewConfig.number as number), this.images().length);
 
-    this.previews = this.images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
   }
 
 }

@@ -66,9 +66,9 @@
       }
 
       <div id="dots">
-        <ks-dots [id]="id"
+        <ks-dots [id]="id()"
                  [currentImage]="currentImage"
-                 [images]="images"
+                 [images]="images()"
                  [dotsConfig]="carouselDotsConfig"
                  (clickDot)="onClickDot($event)" />
       </div>
@@ -78,7 +78,7 @@
 
 </main>
 
-<ks-carousel-previews [id]="id"
-                      [images]="images"
+<ks-carousel-previews [id]="id()"
+                      [images]="images()"
                       [currentImage]="currentImage"
                       (clickPreview)="onClickPreview($event)" />

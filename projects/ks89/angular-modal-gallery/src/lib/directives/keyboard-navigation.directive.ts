@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, HostListener, Input, output } from '@angular/core';
+import { Directive, HostListener, output, input } from '@angular/core';
 
 /**
  * Directive to manage keyboard navigation.
@@ -32,8 +32,7 @@ export class KeyboardNavigationDirective {
   /**
    * Boolean input to skip keyboard navigation.
    */
-  @Input()
-  isOpen: boolean | undefined;
+  readonly isOpen = input<boolean>();
 
   /**
    * Output to emit keyboard `code` of the pressed key (keydown).
@@ -48,7 +47,7 @@ export class KeyboardNavigationDirective {
    */
   @HostListener('window:keydown', ['$event'])
   onKeyDown(e: KeyboardEvent): void {
-    if (!this.isOpen) {
+    if (!this.isOpen()) {
       return;
     }
     this.keyboardNavigation.emit(e.code);

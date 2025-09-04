@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit, output, OutputEmitterRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, output, OutputEmitterRef, input } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -67,13 +67,11 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * Unique id (>=0) of the current instance of this library. This is required when you are using
    * the service to call modal gallery.
    */
-  @Input()
-  id!: number;
+  readonly id = input.required<number>();
   /**
    * Object of type `Image` that represent the visible image.
    */
-  @Input()
-  currentImage!: Image;
+  readonly currentImage = input.required<Image>();
 
   /**
    * Output to emit clicks on refresh button. The payload contains a `ButtonEvent`.
@@ -145,7 +143,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id);
+    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
     if (!libConfig || !libConfig.buttonsConfig) {
       throw new Error('Internal library error - libConfig and buttonsConfig must be defined');
     }
@@ -188,14 +186,15 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
       // (I'll fill this value inside the parent of this component
       image: null,
       action,
-      galleryId: this.id
+      galleryId: this.id()
     };
+    const currentImage = this.currentImage();
     switch (button.type) {
       case ButtonType.DELETE:
         this.triggerOnMouseAndKeyboard(this.delete, event, dataToEmit);
         break;
       case ButtonType.EXTURL:
-        if (!this.currentImage || !this.currentImage.modal || !this.currentImage.modal.extUrl) {
+        if (!currentImage || !currentImage.modal || !currentImage.modal.extUrl) {
           return;
         }
         this.triggerOnMouseAndKeyboard(this.navigate, event, dataToEmit);
