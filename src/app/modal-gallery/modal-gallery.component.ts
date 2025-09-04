@@ -22,8 +22,8 @@
  SOFTWARE.
  */
 
-import { inject, TemplateRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import { inject, TemplateRef, viewChild } from '@angular/core';
+
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -57,8 +57,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   /**
    * A custom template to illustrate the customization of previews rendering.
    */
-  @ViewChild('previewsTemplate')
-  previewsTemplate?: TemplateRef<HTMLElement>;
+  readonly previewsTemplate = viewChild<TemplateRef<HTMLElement>>('previewsTemplate');
 
   imageIndex = 0;
   galleryId = 1;
@@ -735,7 +734,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       images: imagesArrayToUse,
       currentImage: imageToShow,
       libConfig,
-      previewsTemplate: this.previewsTemplate,
+      previewsTemplate: this.previewsTemplate(),
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, DebugElement, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement, SimpleChanges, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -247,7 +247,7 @@ function checkPreviewStateAfterClick(previews: DebugElement[], prevValue: Intern
     </ng-template>
 ` })
 class PreviewsTemplateComponent0 {
-  @ViewChild('template') templateRef?: TemplateRef<HTMLElement>;
+  readonly templateRef = viewChild<TemplateRef<HTMLElement>>('template');
 }
 
 /**
@@ -266,7 +266,7 @@ class PreviewsTemplateComponent0 {
   `
 })
 class PreviewsTemplateComponent1 {
-  @ViewChild('template') templateRef?: TemplateRef<HTMLElement>;
+  readonly templateRef = viewChild<TemplateRef<HTMLElement>>('template');
 }
 
 function initTestBed(): void {
@@ -792,7 +792,7 @@ describe('PreviewsComponent', () => {
       const templateComponentFixture = TestBed.createComponent<PreviewsTemplateComponent0>(PreviewsTemplateComponent0);
       const templateComponent = templateComponentFixture.debugElement.componentInstance as PreviewsTemplateComponent0;
       templateComponentFixture.detectChanges();
-      const templateRef = templateComponent.templateRef;
+      const templateRef = templateComponent.templateRef();
       const initialActiveImage = 0;
       const numOfPreviews = 3;
       const configService = fixture.debugElement.injector.get(ConfigService);
@@ -825,7 +825,7 @@ describe('PreviewsComponent', () => {
       const templateComponentFixture = TestBed.createComponent<PreviewsTemplateComponent1>(PreviewsTemplateComponent1);
       const templateComponent = templateComponentFixture.debugElement.componentInstance as PreviewsTemplateComponent1;
       templateComponentFixture.detectChanges();
-      const templateRef = templateComponent.templateRef;
+      const templateRef = templateComponent.templateRef();
       const initialActiveImage = 0;
       const numOfPreviews = 3;
       const configService = fixture.debugElement.injector.get(ConfigService);

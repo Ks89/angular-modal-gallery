@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  HostListener, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, ViewChild, TemplateRef, inject
+  HostListener, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, TemplateRef, inject,
+  viewChild
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -42,7 +43,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   /**
    * Reference to the CurrentImageComponent to invoke methods on it.
    */
-  @ViewChild(CurrentImageComponent, { static: true }) currentImageComponent: CurrentImageComponent | undefined;
+  readonly currentImageComponent = viewChild(CurrentImageComponent);
 
   /**
    * Unique id (>=0) of the current instance of this library. This is useful when you are using
@@ -263,16 +264,17 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       this.closeGallery();
     }
 
-    if (!this.currentImageComponent) {
+    const currentImageComponent = this.currentImageComponent();
+    if (!currentImageComponent) {
       throw new Error('currentImageComponent must be defined');
     }
 
-    const imageIndexToDelete: number = this.currentImageComponent.getIndexToDelete(event.image as InternalLibImage);
+    const imageIndexToDelete: number = currentImageComponent.getIndexToDelete(event.image as InternalLibImage);
     if (imageIndexToDelete === this.images.length - 1) {
       // last image
-      this.currentImageComponent.prevImage();
+      currentImageComponent.prevImage();
     } else {
-      this.currentImageComponent.nextImage();
+      currentImageComponent.nextImage();
     }
 
     this.modalGalleryService.emitButtonAfterHook(eventToEmit);
