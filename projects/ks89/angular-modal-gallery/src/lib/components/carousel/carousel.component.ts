@@ -32,8 +32,7 @@ import {
   Component,
   EventEmitter,
   HostBinding,
-  HostListener,
-  Inject,
+  HostListener, inject,
   Input,
   NgZone,
   OnChanges,
@@ -187,6 +186,8 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    */
   private stop$ = new Subject<void>();
 
+  private readonly platformId: Object = inject(PLATFORM_ID);
+
   /**
    * Listener to stop the gallery when the mouse pointer is over the current image.
    */
@@ -260,8 +261,6 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   }
 
   constructor(
-    // tslint:disable-next-line:no-any
-    @Inject(PLATFORM_ID) private platformId: any,
     private ngZone: NgZone,
     private modalGalleryService: ModalGalleryService,
     private configService: ConfigService,

@@ -48,7 +48,11 @@ export class ModalGalleryRef {
   private buttonAfterHook = new Subject<ButtonEvent>();
   buttonAfterHook$ = this.buttonAfterHook.asObservable();
 
-  constructor(private overlayRef: OverlayRef) {}
+  private overlayRef: OverlayRef;
+
+  constructor(overlayRef: OverlayRef) {
+    this.overlayRef = overlayRef;
+  }
 
   /**
    * Close modal dialog, disposing the Overlay.

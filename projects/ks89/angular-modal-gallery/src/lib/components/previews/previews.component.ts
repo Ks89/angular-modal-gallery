@@ -22,13 +22,13 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
-import { Image, ImageEvent, ImageModalEvent } from '../../model/image.class';
+import { ImageEvent, ImageModalEvent } from '../../model/image.class';
 import { InternalLibImage } from '../../model/image-internal.class';
 import { PreviewConfig } from '../../model/preview-config.interface';
 import { SlideConfig } from '../../model/slide-config.interface';
@@ -127,9 +127,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
 
   defaultPreviewSize: Size = DEFAULT_PREVIEW_SIZE;
 
-  constructor(private configService: ConfigService) {
-    super();
-  }
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Method ´ngOnInit´ to build `configPreview` applying a default value and also to

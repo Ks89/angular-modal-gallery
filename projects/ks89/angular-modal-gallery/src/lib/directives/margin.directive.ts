@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
 
 /**
  * Directive to change margins of an element.
@@ -50,7 +50,8 @@ export class MarginDirective implements OnInit, OnChanges {
   @Input()
   marginBottom: string | undefined;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  private renderer: Renderer2 = inject(Renderer2);
+  private el: ElementRef = inject(ElementRef);
 
   /**
    * Method ´ngOnInit´ to apply the style of this directive.

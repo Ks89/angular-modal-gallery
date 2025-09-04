@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, ViewChild, TemplateRef
+  HostListener, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, ViewChild, TemplateRef, inject
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -108,7 +108,10 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    */
   libConfig: LibConfig | undefined;
 
-  private updateImagesSubscription: Subscription | undefined;
+  private readonly updateImagesSubscription: Subscription | undefined;
+
+  private readonly dialogContent: ModalGalleryConfig = inject(DIALOG_DATA);
+  private readonly platformId: Object = inject(PLATFORM_ID);
 
   /**
    * HostListener to catch the browser back button and destroy the gallery.
@@ -126,16 +129,13 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    */
   @HostListener('document:keydown.code.control.keyS', ['$event']) // windows
   @HostListener('document:keydown.code.meta.keyS', ['$event']) // macOS
-  onSaveListener(event: KeyboardEvent): void {
+  onSaveListener(event: Event): void {
     event.preventDefault();
     this.downloadImage();
   }
 
   constructor(
-    @Inject(DIALOG_DATA) private dialogContent: ModalGalleryConfig,
     private modalGalleryService: ModalGalleryService,
-    // tslint:disable-next-line:ban-types
-    @Inject(PLATFORM_ID) private platformId: Object,
     private changeDetectorRef: ChangeDetectorRef,
     private idValidatorService: IdValidatorService,
     private configService: ConfigService,

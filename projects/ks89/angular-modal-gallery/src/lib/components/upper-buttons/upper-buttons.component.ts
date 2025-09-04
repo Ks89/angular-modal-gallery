@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -143,9 +143,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
     ...this.advancedButtonsDefault
   ];
 
-  constructor(private configService: ConfigService) {
-    super();
-  }
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Method ´ngOnInit´ to build `configButtons` applying a default value and also to

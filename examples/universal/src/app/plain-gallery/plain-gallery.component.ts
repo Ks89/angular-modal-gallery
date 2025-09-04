@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
   GridLayout, Image, LineLayout, PlainGalleryConfig, PlainGalleryStrategy,
@@ -36,8 +36,7 @@ import {
   imports: [GalleryModule]
 })
 export class PlainGalleryExampleComponent {
-  constructor(private modalGalleryService: ModalGalleryService) {
-  }
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
 
   plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,

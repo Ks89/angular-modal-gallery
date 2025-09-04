@@ -29,7 +29,7 @@ import {
   Component,
   EventEmitter,
   HostListener,
-  Inject,
+  inject,
   Input,
   NgZone,
   OnChanges,
@@ -187,12 +187,10 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   loading = true;
 
-  // use public ChangeDetectorRef to be able to call it from spec files to trigger change detection
-  // tslint:disable-next-line:no-any
-  constructor(@Inject(PLATFORM_ID) private platformId: any, private ngZone: NgZone,
-              public ref: ChangeDetectorRef, private configService: ConfigService) {
-    super();
-  }
+  private readonly platformId: Object = inject(PLATFORM_ID);
+  private ngZone: NgZone = inject(NgZone);
+  private ref: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Listener to stop the gallery when the mouse pointer is over the current image.

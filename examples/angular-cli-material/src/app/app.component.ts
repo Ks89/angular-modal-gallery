@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, Inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -98,7 +98,8 @@ export class AppComponent {
   ]
 })
 export class DialogOverviewExampleDialog {
-  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+  private readonly data: DialogData = inject(MAT_DIALOG_DATA);
+  constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) {
   }
 
   onNoClick(): void {

@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { Image } from '../../model/image.class';
@@ -120,9 +120,7 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
    */
   justifyStyle: string | undefined;
 
-  constructor(private configService: ConfigService) {
-    super();
-  }
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Method ´ngOnInit´ to init both `configPlainGallery` calling `initPlainGalleryConfig()`

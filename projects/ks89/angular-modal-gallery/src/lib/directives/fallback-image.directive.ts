@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, EventEmitter, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, inject, Input, Output, Renderer2 } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 
 /**
@@ -36,7 +36,8 @@ export class FallbackImageDirective {
   @Output()
   fallbackApplied: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  private renderer: Renderer2 = inject(Renderer2);
+  private el: ElementRef = inject(ElementRef);
 
   @HostListener('error') onError(): void {
     if (!this.fallbackImg) {

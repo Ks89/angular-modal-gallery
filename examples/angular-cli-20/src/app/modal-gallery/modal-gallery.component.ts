@@ -467,7 +467,8 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   // tslint:disable-next-line:no-any
   private timeout: any;
 
-  constructor(private modalGalleryService: ModalGalleryService, private sanitizer: DomSanitizer) {}
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   openModalWithAutoClose(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
     const imageToShow: Image = imagesArrayToUse[imageIndex];

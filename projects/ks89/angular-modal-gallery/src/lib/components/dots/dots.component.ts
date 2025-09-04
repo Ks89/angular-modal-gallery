@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -88,9 +88,7 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
    */
   accessibilityConfig: AccessibilityConfig | undefined;
 
-  constructor(private configService: ConfigService) {
-    super();
-  }
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Method ´ngOnInit´ to build `configDots` applying a default value.

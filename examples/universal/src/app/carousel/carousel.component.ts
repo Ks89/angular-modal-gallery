@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
   AccessibilityConfig, CarouselLibConfig, Image, ImageEvent,
@@ -511,8 +511,7 @@ export class CarouselExampleComponent {
     carouselPreviewScrollNextTitle: 'Scroll next previews'
   };
 
-  constructor(private modalGalleryService: ModalGalleryService) {
-  }
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
 
   onChangeAutoPlay(): void {
     this.autoPlay = !this.autoPlay;

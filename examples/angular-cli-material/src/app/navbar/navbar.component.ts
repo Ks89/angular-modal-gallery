@@ -22,11 +22,11 @@
  * SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'ks-navbar',
@@ -40,8 +40,11 @@ export class NavbarComponent {
 
   collapsed = false;
 
-  constructor(private router: Router, breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(['(min-width: 990px)']).subscribe(result => {
+  private router: Router = inject(Router);
+  private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+
+  constructor() {
+    this.breakpointObserver.observe(['(min-width: 990px)']).subscribe(result => {
       if (result.matches) {
         console.log('min width 990px');
         this.collapsed = false;

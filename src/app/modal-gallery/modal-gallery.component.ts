@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { TemplateRef } from '@angular/core';
+import { inject, TemplateRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -51,6 +51,9 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+
   /**
    * A custom template to illustrate the customization of previews rendering.
    */
@@ -466,8 +469,6 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   // this variable is used only for example of auto navigation
   // tslint:disable-next-line:no-any
   private timeout: any;
-
-  constructor(private modalGalleryService: ModalGalleryService, private sanitizer: DomSanitizer) {}
 
   openModalWithAutoClose(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
     const imageToShow: Image = imagesArrayToUse[imageIndex];

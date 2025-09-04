@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
 
 /**
  * Directive to change the flex-direction of an element, based on two inputs (`direction` and `justify`).
@@ -40,7 +40,8 @@ export class DirectionDirective implements OnInit, OnChanges {
   @Input()
   justify: string | undefined;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  private renderer: Renderer2 = inject(Renderer2);
+  private el: ElementRef = inject(ElementRef);
 
   /**
    * Method ´ngOnInit´ to apply the style of this directive.

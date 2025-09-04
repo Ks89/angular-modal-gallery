@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, inject, Injectable } from '@angular/core';
 import { GlobalPositionStrategy, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 
@@ -51,8 +51,8 @@ export class ModalGalleryService {
 
   public triggerAttachToOverlay = new EventEmitter<AttachToOverlayPayload>();
 
-  constructor(private overlay: Overlay, private configService: ConfigService) {
-  }
+  private overlay: Overlay = inject(Overlay);
+  private configService: ConfigService = inject(ConfigService);
 
   /**
    * Method to open modal gallery passing the configuration

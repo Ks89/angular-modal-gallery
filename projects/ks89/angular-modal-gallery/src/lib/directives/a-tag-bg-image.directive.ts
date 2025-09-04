@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
 
 import { Image } from '../model/image.class';
 import { SafeResourceUrl } from '@angular/platform-browser';
@@ -44,7 +44,8 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
   @Input()
   style: string | undefined;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  private renderer: Renderer2 = inject(Renderer2);
+  private el: ElementRef = inject(ElementRef);
 
   /**
    * Method ´ngOnInit´ to apply the style of this directive.

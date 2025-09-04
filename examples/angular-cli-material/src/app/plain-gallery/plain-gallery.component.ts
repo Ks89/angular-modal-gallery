@@ -36,8 +36,7 @@ import {
   imports: [GalleryModule]
 })
 export class PlainGalleryExampleComponent {
-  constructor(private modalGalleryService: ModalGalleryService) {
-  }
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
 
   plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,
