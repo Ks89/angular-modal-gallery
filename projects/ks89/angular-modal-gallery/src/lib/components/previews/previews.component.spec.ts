@@ -260,7 +260,7 @@ class PreviewsTemplateComponent0 {
   template: `
     <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
       <div>
-        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+        <ng-container *ngTemplateOutlet="defaultTemplate" />
       </div>
     </ng-template>
   `

@@ -6,7 +6,7 @@
 <section>
   <h3>A1 - (id=100) - carousel example (minimal with all defaults) without content projection</h3>
   <br>
-  <ks-carousel [id]="100" [images]="imagesRect"></ks-carousel>
+  <ks-carousel [id]="100" [images]="imagesRect" />
 </section>
 <br>
 <section>
@@ -82,19 +82,19 @@
   <ks-carousel [id]="109" [images]="imagesRect"
     (changeImage)="onShow($event)"
     (firstImage)="onFirstImage($event)"
-    (lastImage)="onLastImage($event)"></ks-carousel>
+    (lastImage)="onLastImage($event)" />
 </section>
 <br>
 <section>
   <h3>A11 - (id=110) - carousel example with fallback images when it's not possible to load normal images (to fix issue #194)</h3>
   <br>
-  <ks-carousel [id]="110" [images]="fallbackRectImages"></ks-carousel>
+  <ks-carousel [id]="110" [images]="fallbackRectImages" />
 </section>
 <br>
 <section>
   <h3>A12 - (id=111) - carousel example without <a href="https://www.w3schools.com/tags/att_title.asp">title attribute</a> on images</h3>
   <br>
-  <ks-carousel [id]="111" [images]="imagesRectNoTitles"></ks-carousel>
+  <ks-carousel [id]="111" [images]="imagesRectNoTitles" />
 </section>
 <br>
 <section>
@@ -102,7 +102,7 @@
   <p>Carousel component doesn't support empty images arrays! To prevent runtime errors, you should use an &#64;if to remove the carousel when there are no images.</p>
   <br>
   @if (emptyImagesArray.length !== 0) {
-    <ks-carousel [id]="112" [images]="emptyImagesArray"></ks-carousel>
+    <ks-carousel [id]="112" [images]="emptyImagesArray" />
   }
 </section>
 <br>
@@ -191,13 +191,13 @@
 <section>
   <h3>G1 - (id=121) - carousel example (previews with different heights based on the window's width: xSmall: 50, small: 60, medium: 80, large: 150, xLarge: 180)</h3>
   <br>
-  <ks-carousel [id]="121" [images]="imagesRect" [config]="LIBCONFIG121"></ks-carousel>
+  <ks-carousel [id]="121" [images]="imagesRect" [config]="LIBCONFIG121" />
 </section>
 <br>
 <section>
   <h3>G2 - (id=122) - carousel example with fixed maxWidth (500px) (previews with different heights based on the window's width: xSmall: 50, small: 60, medium: 70, large: 80, xLarge: 100)</h3>
   <br>
-  <ks-carousel [id]="122" [images]="imagesRect" [config]="LIBCONFIG122"></ks-carousel>
+  <ks-carousel [id]="122" [images]="imagesRect" [config]="LIBCONFIG122" />
 </section>
 <br>
 <h3>Examples using sources (to improve LCP)</h3>
@@ -205,12 +205,12 @@
 <section>
   <h3>H1 - (id=123) - carousel example (minimal with all defaults) without content projection - using sources</h3>
   <br>
-  <ks-carousel [id]="123" [images]="imagesRectWithSources"></ks-carousel>
+  <ks-carousel [id]="123" [images]="imagesRectWithSources" />
 </section>
 <section>
   <h3>H2 - (id=124) - carousel example with fixed maxWidth (500px) (previews with different heights based on the window's width: xSmall: 50, small: 60, medium: 70, large: 80, xLarge: 100) - using sources</h3>
   <br>
-  <ks-carousel [id]="124" [images]="imagesRectWithSources" [config]="LIBCONFIG124"></ks-carousel>
+  <ks-carousel [id]="124" [images]="imagesRectWithSources" [config]="LIBCONFIG124" />
 </section>
 <br>
 <br>

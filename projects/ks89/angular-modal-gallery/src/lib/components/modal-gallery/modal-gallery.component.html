@@ -14,7 +14,7 @@
                         (download)="onDownload($event)"
                         (closeButton)="onCloseGalleryButton($event)"
                         (fullscreen)="onFullScreen($event)"
-                        (customEmit)="onCustomEmit($event)"></ks-upper-buttons>
+                        (customEmit)="onCustomEmit($event)" />
 
       <ks-current-image [id]="id"
                         [images]="images"
@@ -22,20 +22,20 @@
                         [isOpen]="true"
                         (loadImage)="onImageLoad($event)"
                         (changeImage)="onChangeCurrentImage($event)"
-                        (closeGallery)="onCloseGallery($event)"></ks-current-image>
+                        (closeGallery)="onCloseGallery($event)" />
 
       <div>
         <ks-dots [id]="id"
                  [images]="images"
                  [currentImage]="currentImage"
                  [dotsConfig]="dotsConfig"
-                 (clickDot)="onClickDot($event)"></ks-dots>
+                 (clickDot)="onClickDot($event)" />
 
         <ks-previews [id]="id"
                      [images]="images"
                      [currentImage]="currentImage"
                      [customTemplate]="customPreviewsTemplate"
-                     (clickPreview)="onClickPreview($event)"></ks-previews>
+                     (clickPreview)="onClickPreview($event)" />
       </div>
     </div>
   </div>

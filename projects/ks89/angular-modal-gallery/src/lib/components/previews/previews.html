@@ -18,9 +18,7 @@
            (click)="onImageEvent(preview, $event, clickAction)"
            (keyup)="onImageEvent(preview, $event, keyboardAction)"
       >
-        <ng-container
-          *ngTemplateOutlet="!customTemplate ? defaultTemplate : customTemplate ; context:{preview, defaultTemplate}">
-        </ng-container>
+        <ng-container *ngTemplateOutlet="!customTemplate ? defaultTemplate : customTemplate ; context:{preview, defaultTemplate}" />
         <ng-template #defaultTemplate>
           @if (preview?.modal?.img) {
             <img class="inside preview-image {{isActive(preview) ? 'active' : ''}}"

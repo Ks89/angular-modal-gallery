@@ -8,7 +8,7 @@
   <!-- Workaround to support 2 ng-content in the same template in 2 @if (https://github.com/angular/angular/issues/22972) -->
   <!-- Is this still required??? Issue is closed!-->
   <ng-template #content>
-    <ng-content></ng-content>
+    <ng-content />
   </ng-template>
 
   @if (currentImage && currentImage.modal) {
@@ -26,7 +26,7 @@
         </a>
       }
 
-      <ng-container *ngTemplateOutlet="content"></ng-container>
+      <ng-container *ngTemplateOutlet="content" />
       <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
         maxHeight: carouselConfig?.maxHeight}">
         @for (source of currentImage.modal?.sources; let i = $index; track i) {
@@ -70,7 +70,7 @@
                  [currentImage]="currentImage"
                  [images]="images"
                  [dotsConfig]="carouselDotsConfig"
-                 (clickDot)="onClickDot($event)"></ks-dots>
+                 (clickDot)="onClickDot($event)" />
       </div>
 
     </figure>
@@ -81,4 +81,4 @@
 <ks-carousel-previews [id]="id"
                       [images]="images"
                       [currentImage]="currentImage"
-                      (clickPreview)="onClickPreview($event)"></ks-carousel-previews>
+                      (clickPreview)="onClickPreview($event)" />
