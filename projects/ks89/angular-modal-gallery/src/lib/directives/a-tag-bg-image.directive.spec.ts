@@ -36,41 +36,41 @@ interface TestModel {
 const base64: SafeResourceUrl = 'data:image/png;base64,iVBORw0KG=';
 
 const expectedModal: TestModel[] = [
-  {image: new Image(0, {img: 'path'}), style: '50% 50% / cover'},
-  {image: new Image(0, {img: 'path'}), style: ''}
+  { image: new Image(0, { img: 'path' }), style: '50% 50% / cover' },
+  { image: new Image(0, { img: 'path' }), style: '' }
 ];
 
 const expectedPlain: TestModel[] = [
-  {image: new Image(1, {img: 'path'}, {img: 'plainPath'}), style: '50% 50% / cover'},
-  {image: new Image(1, {img: 'path'}, {img: 'plainPath'}), style: ''}
+  { image: new Image(1, { img: 'path' }, { img: 'plainPath' }), style: '50% 50% / cover' },
+  { image: new Image(1, { img: 'path' }, { img: 'plainPath' }), style: '' }
 ];
 
 const expectedModalBase64: TestModel[] = [
-  {image: new Image(0, {img: base64 as SafeResourceUrl}), style: '50% 50% / cover'},
-  {image: new Image(0, {img: base64 as SafeResourceUrl}), style: ''}
+  { image: new Image(0, { img: base64 as SafeResourceUrl }), style: '50% 50% / cover' },
+  { image: new Image(0, { img: base64 as SafeResourceUrl }), style: '' }
 ];
 
 const expectedPlainBase64: TestModel[] = [
-  {image: new Image(1, {img: base64 as SafeResourceUrl}, {img: base64 as SafeResourceUrl}), style: '50% 50% / cover'},
-  {image: new Image(1, {img: base64 as SafeResourceUrl}, {img: base64 as SafeResourceUrl}), style: ''}
+  { image: new Image(1, { img: base64 as SafeResourceUrl }, { img: base64 as SafeResourceUrl }), style: '50% 50% / cover' },
+  { image: new Image(1, { img: base64 as SafeResourceUrl }, { img: base64 as SafeResourceUrl }), style: '' }
 ];
 
 const expectedWrongPlain: TestModel[] = [
   // @ts-ignore
-  {image: new Image(2, {img: 'path'}, {img: null}), style: '50% 50% / cover'},
+  { image: new Image(2, { img: 'path' }, { img: null }), style: '50% 50% / cover' },
   // @ts-ignore
-  {image: new Image(3, {img: 'path'}, {img: undefined}), style: '50% 50% / cover'}
+  { image: new Image(3, { img: 'path' }, { img: undefined }), style: '50% 50% / cover' }
 ];
 
 const expectedWithNoImages: TestModel[] = [
   // @ts-ignore
-  {image: undefined, style: '50% 50% / cover'},
+  { image: undefined, style: '50% 50% / cover' },
   // @ts-ignore
-  {image: undefined, style: ''}
+  { image: undefined, style: '' }
 ];
 
 const expectedPlainWithFallback: TestModel[] = [
-  {image: new Image(1, {img: 'path'}, {img: 'plainPath', fallbackImg: 'fallbackmodal.jpg'}), style: '50% 50% / cover'}
+  { image: new Image(1, { img: 'path' }, { img: 'plainPath', fallbackImg: 'fallbackmodal.jpg' }), style: '50% 50% / cover' }
 ];
 
 const length: number = expectedModal.length + expectedPlain.length + expectedWrongPlain.length +
@@ -78,9 +78,9 @@ const length: number = expectedModal.length + expectedPlain.length + expectedWro
   expectedPlainWithFallback.length;
 
 @Component({
-    selector: 'ks-test-atagbgimage',
-    imports: [ATagBgImageDirective],
-    template: `
+  selector: 'ks-test-atagbgimage',
+  imports: [ATagBgImageDirective],
+  template: `
     <div ksATagBgImage [image]="images[0]" [style]="'50% 50% / cover'"></div>
     <div ksATagBgImage [image]="images[0]" [style]="''"></div>
     <div ksATagBgImage [image]="images[1]" [style]="'50% 50% / cover'"></div>
@@ -103,19 +103,19 @@ class TestATagBgImageComponent {
   base64: SafeResourceUrl = 'data:image/png;base64,iVBORw0KG=';
 
   images: Image[] = [
-    new Image(0, {img: 'path'}),
+    new Image(0, { img: 'path' }),
     // @ts-ignore
-    new Image(1, {img: 'path'}, {img: 'plainPath'}),
+    new Image(1, { img: 'path' }, { img: 'plainPath' }),
     // @ts-ignore
-    new Image(2, {img: 'path'}, {img: null}),
+    new Image(2, { img: 'path' }, { img: null }),
     // @ts-ignore
-    new Image(3, {img: 'path'}, {img: undefined}),
-    new Image(4, {img: this.base64}),
-    new Image(5, {img: this.base64}, {img: this.base64})
+    new Image(3, { img: 'path' }, { img: undefined }),
+    new Image(4, { img: this.base64 }),
+    new Image(5, { img: this.base64 }, { img: this.base64 })
   ];
 
   expectedPlainWithFallback: Image[] = [
-    new Image(1, {img: 'path'}, {img: 'plainPath', fallbackImg: 'fallbackmodal.jpg'})
+    new Image(1, { img: 'path' }, { img: 'plainPath', fallbackImg: 'fallbackmodal.jpg' })
   ];
 }
 
@@ -129,8 +129,8 @@ describe('ATagBgImageDirective', () => {
   beforeEach(() => {
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-    imports: [TestATagBgImageComponent, ATagBgImageDirective]
-}); // not necessary with webpack .compileComponents();
+      imports: [TestATagBgImageComponent, ATagBgImageDirective]
+    }); // not necessary with webpack .compileComponents();
     fixture = TestBed.createComponent(TestATagBgImageComponent);
     comp = fixture.componentInstance;
 

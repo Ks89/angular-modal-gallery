@@ -32,7 +32,7 @@ export class KeyboardNavigationDirective {
   /**
    * Boolean input to skip keyboard navigation.
    */
-  readonly isOpen = input<boolean>();
+  isOpen = input.required<boolean>();
 
   /**
    * Output to emit keyboard `code` of the pressed key (keydown).

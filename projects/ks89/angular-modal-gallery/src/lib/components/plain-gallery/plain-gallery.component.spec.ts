@@ -44,10 +44,10 @@ const CUSTOM_ACCESSIBILITY: AccessibilityConfig = Object.assign({}, KS_DEFAULT_A
 CUSTOM_ACCESSIBILITY.plainGalleryContentAriaLabel = 'custom plainGalleryContentAriaLabel';
 CUSTOM_ACCESSIBILITY.plainGalleryContentTitle = 'custom plainGalleryContentTitle';
 
-const DEFAULT_PLAIN_SIZE: Size = {width: 'auto', height: '50px'};
-const CUSTOM_SIZE: Size = {height: '40px', width: '40px'};
-const CUSTOM_SIZE_AUTO_HEIGHT: Size = {height: 'auto', width: '40px'};
-const CUSTOM_SIZE_AUTO_WIDTH: Size = {height: '40px', width: 'auto'};
+const DEFAULT_PLAIN_SIZE: Size = { width: 'auto', height: '50px' };
+const CUSTOM_SIZE: Size = { height: '40px', width: '40px' };
+const CUSTOM_SIZE_AUTO_HEIGHT: Size = { height: 'auto', width: '40px' };
+const CUSTOM_SIZE_AUTO_WIDTH: Size = { height: '40px', width: 'auto' };
 const CUSTOM_SIZES: Size[] = [CUSTOM_SIZE, CUSTOM_SIZE_AUTO_HEIGHT, CUSTOM_SIZE_AUTO_WIDTH];
 
 const GALLERY_ID = 1;
@@ -101,7 +101,7 @@ const IMAGES: InternalLibImage[] = [
 function initTestBed(): void {
   TestBed.configureTestingModule({
     imports: [PlainGalleryComponent, SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective, FallbackImageDirective]
-}).overrideComponent(PlainGalleryComponent, {
+  }).overrideComponent(PlainGalleryComponent, {
     set: {
       providers: [
         {
@@ -126,10 +126,9 @@ describe('PlainGalleryComponent', () => {
 
     it(`should display plain gallery with img tags and click on a thumb`, () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG});
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      configService.setConfig(GALLERY_ID, { accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG });
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -209,10 +208,9 @@ describe('PlainGalleryComponent', () => {
 
     it(`should display plain gallery with img tags and custom accessibility config`, () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {accessibilityConfig: CUSTOM_ACCESSIBILITY});
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      configService.setConfig(GALLERY_ID, { accessibilityConfig: CUSTOM_ACCESSIBILITY });
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -233,15 +231,14 @@ describe('PlainGalleryComponent', () => {
           plainGalleryConfig: {
             strategy: PlainGalleryStrategy.ROW,
             layout: new LineLayout(
-              {width: size.width, height: size.height},
-              {length: IMAGES.length, wrap: false},
+              { width: size.width, height: size.height },
+              { length: IMAGES.length, wrap: false },
               'flex-start'
             )
           }
         });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;
@@ -269,15 +266,14 @@ describe('PlainGalleryComponent', () => {
         plainGalleryConfig: {
           strategy: PlainGalleryStrategy.ROW,
           layout: new LineLayout(
-            {width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height},
-            {length: 2, wrap: false},
+            { width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height },
+            { length: 2, wrap: false },
             'flex-start'
           )
         }
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -294,15 +290,14 @@ describe('PlainGalleryComponent', () => {
         plainGalleryConfig: {
           strategy: PlainGalleryStrategy.ROW,
           layout: new LineLayout(
-            {width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height},
-            {length: IMAGES.length, wrap: false},
+            { width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height },
+            { length: IMAGES.length, wrap: false },
             'space-around'
           )
         }
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -319,15 +314,14 @@ describe('PlainGalleryComponent', () => {
         plainGalleryConfig: {
           strategy: PlainGalleryStrategy.COLUMN,
           layout: new LineLayout(
-            {width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height},
-            {length: 2, wrap: false},
+            { width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height },
+            { length: 2, wrap: false },
             'flex-start'
           )
         }
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -373,12 +367,11 @@ describe('PlainGalleryComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         plainGalleryConfig: {
           strategy: PlainGalleryStrategy.GRID,
-          layout: new GridLayout({width: '80px', height: '80px'}, {length: 2, wrap: true})
+          layout: new GridLayout({ width: '80px', height: '80px' }, { length: 2, wrap: true })
         }
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -400,16 +393,15 @@ describe('PlainGalleryComponent', () => {
         plainGalleryConfig: {
           strategy: PlainGalleryStrategy.ROW,
           layout: new LineLayout(
-            {width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height},
-            {length: IMAGES.length, wrap: true},
+            { width: DEFAULT_PLAIN_SIZE.width, height: DEFAULT_PLAIN_SIZE.height },
+            { length: IMAGES.length, wrap: true },
             'flex-start'
           ),
-          advanced: {aTags: true, additionalBackground: '50% 50% / cover'}
+          advanced: { aTags: true, additionalBackground: '50% 50% / cover' }
         }
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -490,16 +482,15 @@ describe('PlainGalleryComponent', () => {
           plainGalleryConfig: {
             strategy: PlainGalleryStrategy.ROW,
             layout: new LineLayout(
-              {width: size.width, height: size.height},
-              {length: IMAGES.length, wrap: false},
+              { width: size.width, height: size.height },
+              { length: IMAGES.length, wrap: false },
               'flex-start'
             ),
-            advanced: {aTags: true, additionalBackground: '50% 50% / cover'}
+            advanced: { aTags: true, additionalBackground: '50% 50% / cover' }
           }
         });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;

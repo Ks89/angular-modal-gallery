@@ -32,11 +32,11 @@ export class WrapDirective implements OnInit, OnChanges {
   /**
    * Boolean input that it's true to add 'flex-wrap: wrap', 'flex-wrap: nowrap' otherwise.
    */
-  readonly wrap = input<boolean>();
+  readonly wrap = input.required<boolean>();
   /**
    * String input to force the width of the element to be able to see wrapping.
    */
-  readonly width = input<string>();
+  readonly width = input.required<string>();
 
   private renderer: Renderer2 = inject(Renderer2);
   private el: ElementRef = inject(ElementRef);
@@ -63,12 +63,7 @@ export class WrapDirective implements OnInit, OnChanges {
    * Private method to change both width and flex-wrap css properties.
    */
   private applyStyle(): void {
-    // TODO is this right???? If wrap is false I cannot apply width and flex-wrap
-    const wrap = this.wrap();
-    if (!wrap) {
-      return;
-    }
     this.renderer.setStyle(this.el.nativeElement, 'width', this.width());
-    this.renderer.setStyle(this.el.nativeElement, 'flex-wrap', wrap ? 'wrap' : 'nowrap');
+    this.renderer.setStyle(this.el.nativeElement, 'flex-wrap', this.wrap() ? 'wrap' : 'nowrap');
   }
 }

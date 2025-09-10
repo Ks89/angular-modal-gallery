@@ -59,7 +59,6 @@ import { DotsConfig } from '../../model/dots-config.interface';
 import { CarouselConfig } from '../../model/carousel-config.interface';
 import { CarouselImageConfig } from '../../model/carousel-image-config.interface';
 import { ConfigService } from '../../services/config.service';
-import { ModalGalleryService } from '../modal-gallery/modal-gallery.service';
 import { CarouselLibConfig, LibConfig } from '../../model/lib-config.interface';
 import { InternalLibImage } from '../../model/image-internal.class';
 import { MaxSizeDirective } from '../../directives/max-size.directive';
@@ -91,7 +90,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * Unique id (>=0) of the current instance of the carousel. This is useful when you are using
    * the carousel's feature to open modal gallery.
    */
-  readonly id = input<number>();
+  readonly id = input.required<number>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
@@ -258,7 +257,6 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
   constructor(
     private ngZone: NgZone,
-    private modalGalleryService: ModalGalleryService,
     private configService: ConfigService,
     private ref: ChangeDetectorRef
   ) {

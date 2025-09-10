@@ -20,7 +20,7 @@
            [attr.aria-label]="accessibilityConfig?.carouselPrevImageAriaLabel"
            [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
            (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)">
-          <div class="inside {{(isFirstImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'left-arrow-image'}}"
+          <div class="inside {{(isFirstImage && !carouselSlideInfinite) || !carouselConfig?.showArrows ? 'empty-arrow-image' : 'left-arrow-image'}}"
                aria-hidden="true"
                [title]="accessibilityConfig?.carouselPrevImageTitle"></div>
         </a>
@@ -33,7 +33,7 @@
           <source [media]="source.media" [srcset]="source.srcset">
         }
         <img [id]="currentImage.id"
-             [loading]="currentImage.loading"
+             loading="{{ currentImage.loading }}"
              [attr.fetchpriority]="currentImage.fetchpriority"
              [style.object-fit]="carouselConfig?.objectFit"
              ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
@@ -59,26 +59,31 @@
            [attr.aria-label]="accessibilityConfig?.carouselNextImageAriaLabel"
            [tabIndex]="isLastImage && !carouselSlideInfinite ? -1 : 0" role="button"
            (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)">
-          <div class="inside {{(isLastImage && !carouselSlideInfinite) || !carouselConfig.showArrows ? 'empty-arrow-image' : 'right-arrow-image'}}"
+          <div class="inside {{(isLastImage && !carouselSlideInfinite) || !carouselConfig?.showArrows ? 'empty-arrow-image' : 'right-arrow-image'}}"
                aria-hidden="true"
                [title]="accessibilityConfig?.carouselNextImageTitle"></div>
         </a>
       }
 
-      <div id="dots">
-        <ks-dots [id]="id()"
-                 [currentImage]="currentImage"
-                 [images]="images()"
-                 [dotsConfig]="carouselDotsConfig"
-                 (clickDot)="onClickDot($event)" />
-      </div>
+      @if (carouselDotsConfig) {
+        <div id="dots">
+          <ks-dots [id]="id()"
+                   [currentImage]="currentImage"
+                   [images]="images()"
+                   [dotsConfig]="carouselDotsConfig"
+                   [accessibilityConfig]="accessibilityConfig!"
+                   (clickDot)="onClickDot($event)" />
+        </div>
+      }
 
     </figure>
   }
 
 </main>
 
-<ks-carousel-previews [id]="id()"
-                      [images]="images()"
-                      [currentImage]="currentImage"
-                      (clickPreview)="onClickPreview($event)" />
+@if (currentImage) {
+  <ks-carousel-previews [id]="id()"
+                        [images]="images()"
+                        [currentImage]="currentImage"
+                        (clickPreview)="onClickPreview($event)" />
+}

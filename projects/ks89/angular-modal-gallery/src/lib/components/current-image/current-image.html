@@ -17,12 +17,12 @@
     @if (slideConfig?.sidePreviews?.show && leftPreview) {
       @if (!isFirstImage) {
         <img class="inside current-image-previous"
-             [loading]="leftPreview.loading"
+             loading="{{ leftPreview.loading }}"
              [attr.fetchpriority]="leftPreview.fetchpriority"
              [src]="leftPreview.plain?.img ? leftPreview.plain?.img : leftPreview.modal.img"
              ksFallbackImage [fallbackImg]="leftPreview.plain?.fallbackImg ? leftPreview.plain?.fallbackImg : leftPreview.modal.fallbackImg"
              [hidden]="loading"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"
              [attr.aria-label]="leftPreview.modal.ariaLabel"
              [title]="(leftPreview.modal.title || leftPreview.modal.title === '') ? leftPreview.modal.title : getDescriptionToDisplay(leftPreview)"
              alt="{{leftPreview.modal.alt ? leftPreview.modal.alt : getAltDescriptionByImage(leftPreview)}}"
@@ -30,7 +30,7 @@
              (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)" />
       } @else {
         <div class="current-image-previous hidden"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"></div>
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"></div>
       }
     }
   </div>
@@ -42,7 +42,7 @@
         <source [media]="source.media" [srcset]="source.srcset">
       }
       <img [id]="currentImage().id"
-           [loading]="currentImage().loading"
+           loading="{{ currentImage().loading }}"
            [attr.fetchpriority]="currentImage().fetchpriority"
            class="inside"
            [ngClass]="currentImageConfig?.navigateOnClick ? '' : 'unclickable'"
@@ -71,12 +71,12 @@
     @if (slideConfig?.sidePreviews?.show && leftPreview) {
       @if (!isLastImage) {
         <img class="inside current-image-next"
-             [loading]="rightPreview.loading"
+             loading="{{ rightPreview.loading }}"
              [attr.fetchpriority]="rightPreview.fetchpriority"
              [src]="rightPreview.plain?.img ? rightPreview.plain?.img : rightPreview.modal.img"
              ksFallbackImage [fallbackImg]="rightPreview.plain?.fallbackImg ? rightPreview.plain?.fallbackImg : rightPreview.modal.fallbackImg"
              [hidden]="loading"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"
              [attr.aria-label]="rightPreview.modal.ariaLabel"
              [title]="(rightPreview.modal.title || rightPreview.modal.title === '') ? rightPreview.modal.title : getDescriptionToDisplay(rightPreview)"
              alt="{{rightPreview.modal.alt ? rightPreview.modal.alt : getAltDescriptionByImage(rightPreview)}}"
@@ -84,7 +84,7 @@
              (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)" />
       } @else {
         <div class="current-image-next hidden"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size.width, height: slideConfig?.sidePreviews?.size.height}"></div>
+             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"></div>
       }
     }
 

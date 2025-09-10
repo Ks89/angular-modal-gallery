@@ -23,9 +23,8 @@ import { DotsComponent } from './dots.component';
 import { AccessibilityConfig } from '../../model/accessibility.interface';
 import { DotsConfig } from '../../model/dots-config.interface';
 import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../accessibility-default';
-import { InternalLibImage } from '../../model/image-internal.class';
-import { ConfigService } from '../../services/config.service';
 import { AccessibleComponent } from '../accessible.component';
+import { Image } from '../../model/image.class';
 
 let comp: DotsComponent;
 let fixture: ComponentFixture<DotsComponent>;
@@ -35,21 +34,21 @@ const CUSTOM_ACCESSIBILITY: AccessibilityConfig = Object.assign({}, KS_DEFAULT_A
 CUSTOM_ACCESSIBILITY.dotsContainerTitle = 'custom dotsContainerTitle';
 CUSTOM_ACCESSIBILITY.dotsContainerAriaLabel = 'custom dotsContainerAriaLabel';
 
-const DOTS_CONFIG_VISIBLE: DotsConfig = {visible: true};
-const DOTS_CONFIG_HIDDEN: DotsConfig = {visible: false};
+const DOTS_CONFIG_VISIBLE: DotsConfig = { visible: true };
+const DOTS_CONFIG_HIDDEN: DotsConfig = { visible: false };
 
-const IMAGES: InternalLibImage[] = [
-  new InternalLibImage(0, {
+const IMAGES: Image[] = [
+  new Image(0, {
     // modal
     img: '../assets/images/gallery/img1.jpg',
     extUrl: 'http://www.google.com'
   }),
-  new InternalLibImage(1, {
+  new Image(1, {
     // modal
     img: '../assets/images/gallery/img2.png',
     description: 'Description 2'
   }),
-  new InternalLibImage(
+  new Image(
     2,
     {
       // modal
@@ -65,13 +64,13 @@ const IMAGES: InternalLibImage[] = [
       ariaLabel: 'arial label 2'
     }
   ),
-  new InternalLibImage(3, {
+  new Image(3, {
     // modal
     img: '../assets/images/gallery/img4.jpg',
     description: 'Description 4',
     extUrl: 'http://www.google.com'
   }),
-  new InternalLibImage(
+  new Image(
     4,
     {
       // modal
@@ -87,15 +86,6 @@ const IMAGES: InternalLibImage[] = [
 function initTestBed(): void {
   TestBed.configureTestingModule({
     imports: [DotsComponent, AccessibleComponent]
-}).overrideComponent(DotsComponent, {
-    set: {
-      providers: [
-        {
-          provide: ConfigService,
-          useClass: ConfigService
-        }
-      ]
-    }
   });
 }
 
@@ -112,17 +102,12 @@ describe('DotsComponent', () => {
 
     it(`should display dots (first one is active) based of the number of input images`, () => {
       const activeDotIndex = 0;
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        dotsConfig: DOTS_CONFIG_VISIBLE,
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[activeDotIndex];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[activeDotIndex]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', DOTS_CONFIG_VISIBLE);
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
-
       const element: DebugElement = fixture.debugElement;
 
       const dotsContainer: DebugElement = element.query(By.css('nav.dots-container'));
@@ -139,7 +124,7 @@ describe('DotsComponent', () => {
         expect(dot.properties.tabIndex).toBe(0);
         if (index === activeDotIndex) {
           // I don't know why, but with dot.attributes.class I can't see 'active'. In this way it's working!
-          expect(dot.classes).toEqual({inside: true, dot: true, active: true});
+          expect(dot.classes).toEqual({ inside: true, dot: true, active: true });
         } else {
           expect(dot.attributes.class).toBe('inside dot');
           // or like above: expect(dot.classes).toEqual({'inside': true, 'dot': true});
@@ -150,15 +135,11 @@ describe('DotsComponent', () => {
 
     it(`should display dots (first one is active), because by default dotsConfig are visible`, () => {
       const activeDotIndex = 0;
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        dotsConfig: undefined, // or null, or something not valid
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[activeDotIndex];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[activeDotIndex]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', undefined); // or null, or something not valid
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -178,7 +159,7 @@ describe('DotsComponent', () => {
 
         if (index === activeDotIndex) {
           // I don't know why, but with dot.attributes.class I can't see 'active'. In this way it's working!
-          expect(dot.classes).toEqual({inside: true, dot: true, active: true});
+          expect(dot.classes).toEqual({ inside: true, dot: true, active: true });
         } else {
           expect(dot.attributes.class).toBe('inside dot');
           // or like above: expect(dot.classes).toEqual({'inside': true, 'dot': true});
@@ -189,15 +170,11 @@ describe('DotsComponent', () => {
 
     it(`should display dots (first one is active) with custom accessibility`, () => {
       const activeDotIndex = 0;
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        dotsConfig: DOTS_CONFIG_VISIBLE,
-        accessibilityConfig: CUSTOM_ACCESSIBILITY
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[activeDotIndex];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[activeDotIndex]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', DOTS_CONFIG_VISIBLE);
+      fixture.componentRef.setInput('accessibilityConfig', CUSTOM_ACCESSIBILITY);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -217,7 +194,7 @@ describe('DotsComponent', () => {
 
         if (index === activeDotIndex) {
           // I don't know why, but with dot.attributes.class I can't see 'active'. In this way it's working!
-          expect(dot.classes).toEqual({inside: true, dot: true, active: true});
+          expect(dot.classes).toEqual({ inside: true, dot: true, active: true });
         } else {
           expect(dot.attributes.class).toBe('inside dot');
           // or like above: expect(dot.classes).toEqual({'inside': true, 'dot': true});
@@ -229,22 +206,18 @@ describe('DotsComponent', () => {
     it(`should display dots and click on one of themem`, () => {
       const indexToClick = 1;
       const activeDotIndex = 0;
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        dotsConfig: DOTS_CONFIG_VISIBLE,
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[activeDotIndex];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[activeDotIndex]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', DOTS_CONFIG_VISIBLE);
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
 
       comp.clickDot.subscribe((index: number) => {
         expect(index).toBe(indexToClick);
-      }, () => fail('after a click I should receive a clickDot event'));
+      });
 
       const dotsContainer: DebugElement = element.query(By.css('nav.dots-container'));
       expect(dotsContainer).not.toBeNull();
@@ -259,13 +232,12 @@ describe('DotsComponent', () => {
   describe('---NO---', () => {
 
     it(`shouldn't display dots, because visibility is false.`, () => {
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        dotsConfig: DOTS_CONFIG_VISIBLE,
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.ngOnInit();
+      const activeDotIndex = 0;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[activeDotIndex]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', DOTS_CONFIG_HIDDEN);
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -280,36 +252,11 @@ describe('DotsComponent', () => {
     });
 
     it(`shouldn't display dots, because the array of images as input is empty`, () => {
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = undefined;
-      comp.images = [];
-      comp.ngOnInit();
-      fixture.detectChanges();
-
-      const element: DebugElement = fixture.debugElement;
-
-      const dotsContainer: DebugElement = element.query(By.css('nav.dots-container'));
-      expect(dotsContainer.name).toBe('nav');
-      expect(dotsContainer.attributes['aria-label']).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.dotsContainerAriaLabel);
-      expect(dotsContainer.properties.title).toBe(KS_DEFAULT_ACCESSIBILITY_CONFIG.dotsContainerTitle);
-
-      const dots: DebugElement[] = dotsContainer.children;
-      expect(dots.length).toBe(0);
-    });
-
-    it(`shouldn't display dots, because the array of images as input is not valid`, () => {
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
-      comp.currentImage = undefined;
-      comp.images = undefined;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', undefined);
+      fixture.componentRef.setInput('images', []);
+      fixture.componentRef.setInput('dotsConfig', undefined);
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -324,15 +271,12 @@ describe('DotsComponent', () => {
     });
 
     it(`shouldn't display active dot when the currentImage is invalid, because 'isActive' method throws a managed error and return false`, () => {
-      const configService = fixture.debugElement.injector.get(ConfigService);
-      configService.setConfig(GALLERY_ID, {
-        accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG
-      });
-      comp.id = GALLERY_ID;
+      fixture.componentRef.setInput('id', GALLERY_ID);
       // create a fake image not available in comp.images array
-      comp.currentImage = new InternalLibImage(99, IMAGES[0].modal);
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('currentImage', new Image(99, IMAGES[0].modal));
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('dotsConfig', DOTS_CONFIG_VISIBLE);
+      fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;

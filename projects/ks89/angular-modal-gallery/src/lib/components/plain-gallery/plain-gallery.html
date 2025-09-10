@@ -8,7 +8,7 @@
     @for (imgCol of imgRow; let j = $index; track j) {
       @if (!plainGalleryConfig?.advanced?.aTags) {
         @if (imgCol?.modal?.img) {
-          <img [loading]="imgCol.loading"
+          <img loading="{{imgCol.loading}}"
                [attr.fetchpriority]="imgCol.fetchpriority"
                [src]="imgCol.plain?.img! ? imgCol.plain?.img! : imgCol.modal.img"
                ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? imgCol.plain?.fallbackImg : imgCol.modal.fallbackImg"

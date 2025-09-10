@@ -35,7 +35,7 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
   /**
    * Object of type `Image` that represents the image to add to the `<a>` tag.
    */
-  readonly image = input<Image>();
+  readonly image = input.required<Image>();
   /**
    * Additional style to customize the background attribute.
    * Empty string by default.

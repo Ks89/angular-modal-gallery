@@ -33,7 +33,7 @@ import {
   SimpleChange,
   SimpleChanges,
   output,
-  input
+  input, inject
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-browser';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
@@ -44,7 +44,6 @@ import { AccessibleComponent } from '../../accessible.component';
 
 import { AccessibilityConfig } from '../../../model/accessibility.interface';
 import { Image, ImageEvent } from '../../../model/image.class';
-import { InternalLibImage } from '../../../model/image-internal.class';
 import { CarouselPreviewConfig } from '../../../model/carousel-preview-config.interface';
 import { CarouselConfig } from '../../../model/carousel-config.interface';
 
@@ -55,6 +54,7 @@ import { ConfigService } from '../../../services/config.service';
 import { LibConfig } from '../../../model/lib-config.interface';
 import { FallbackImageDirective } from '../../../directives/fallback-image.directive';
 import { SizeDirective } from '../../../directives/size.directive';
+import { InternalLibImage } from '../../../model/image-internal.class';
 
 /**
  * Default max height of previews.
@@ -85,21 +85,22 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   ariaLabel = `Carousel previews`;
 
   /**
-   * TODO write doc
+   * Unique id (>=0) of the current instance of the carousel. This is useful when you are using
+   * the carousel's feature to open modal gallery.
    */
   readonly id = input.required<number>();
   /**
-   * Object of type `InternalLibImage` that represent the visible image.
+   * Object of type `Image` that represent the visible image.
    */
   readonly currentImage = input.required<InternalLibImage>();
   /**
-   * Array of `InternalLibImage` that represent the model of this library with all images,
+   * Array of `Image` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  readonly images = input.required<InternalLibImage[]>();
+  readonly images = input<Image[]>([]);
 
   /**
-   * Output to emit the clicked preview. The payload contains the `InternalLibImage` associated to the clicked preview.
+   * Output to emit the clicked preview. The payload contains the `Image` associated to the clicked preview.
    */
   readonly clickPreview = output<ImageEvent>();
 
@@ -129,10 +130,10 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    */
   keyboardAction: Action = Action.KEYBOARD;
   /**
-   * Array of `InternalLibImage` exposed to the template. This field is initialized
+   * Array of `Image` exposed to the template. This field is initialized
    * applying transformations, default values and so on to the input of the same type.
    */
-  previews: InternalLibImage[] = [];
+  previews: Image[] = [];
   /**
    * Variable with the preview's maxHeight
    */
@@ -143,24 +144,24 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     // @ts-ignore
   start: number;
   /**
-   * End index (non inclusive) of the input images used to display previews.
+   * End index (non-inclusive) of the input images used to display previews.
    */
     // @ts-ignore
   end: number;
 
   private readonly breakpointSubscription: Subscription;
 
-  constructor(
-    private ref: ChangeDetectorRef,
-    private breakpointObserver: BreakpointObserver,
-    // sanitizer is used only to sanitize style before add it to background property when legacyIE11Mode is enabled
-    private sanitizer: DomSanitizer,
-    private configService: ConfigService
-  ) {
+  private ref: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
+  // sanitizer is used only to sanitize style before add it to background property when legacyIE11Mode is enabled
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  private configService: ConfigService = inject(ConfigService);
+
+  constructor() {
     super();
 
     // listen for width changes and update preview heights accordingly
-    this.breakpointSubscription = breakpointObserver
+    this.breakpointSubscription = this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
       .subscribe((result: BreakpointState) => {
         if (!this.previewConfig || !this.previewConfig.breakpoints) {
@@ -245,10 +246,10 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Method to check if an image is active (i.e. a preview image).
-   * @param preview InternalLibImage is an image to check if it's active or not
+   * @param preview Image is an image to check if it's active or not
    * @returns boolean true if is active, false otherwise
    */
-  isActive(preview: InternalLibImage): boolean {
+  isActive(preview: Image): boolean {
     const currentImage = this.currentImage();
     if (!preview || !currentImage) {
       return false;
@@ -268,8 +269,8 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       return;
     }
 
-    const prev: InternalLibImage = simpleChange.previousValue;
-    const current: InternalLibImage = simpleChange.currentValue;
+    const prev: Image = simpleChange.previousValue;
+    const current: Image = simpleChange.currentValue;
 
     if (current && changes['images'] && changes['images'].previousValue && changes['images'].currentValue) {
       // I'm in this if statement, if input images are changed (for instance, because I removed one of them with the 'delete button',
@@ -299,14 +300,14 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       if (prevIndex === images.length - 1 && currentIndex === 0) {
         // first image
         this.setBeginningIndexesPreviews();
-        this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+        this.previews = images.filter((img: Image, i: number) => i >= this.start && i < this.end);
         return;
       }
       // the same for the opposite case, when you navigate back from the fist image to go to the last one.
       if (prevIndex === 0 && currentIndex === images.length - 1) {
         // last image
         this.setEndIndexesPreviews();
-        this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+        this.previews = images.filter((img: Image, i: number) => i >= this.start && i < this.end);
         return;
       }
 
@@ -330,11 +331,11 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Method called by events from both keyboard and mouse on a preview.
    * This will trigger the `clickpreview` output with the input preview as its payload.
-   * @param preview InternalLibImage that triggered this method
+   * @param preview Image that triggered this method
    * @param event KeyboardEvent | MouseEvent payload
    * @param action Action that triggered this event (Action.NORMAL by default)
    */
-  onImageEvent(preview: InternalLibImage, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
+  onImageEvent(preview: Image, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     if (!this.previewConfig || !this.previewConfig.clickable) {
       return;
     }
@@ -424,10 +425,10 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   /**
    * Private method to init previews based on the currentImage and the full array of images.
    * The current image in mandatory to show always the current preview (as highlighted).
-   * @param currentImage InternalLibImage to decide how to show previews, because I always want to see the current image as highlighted
-   * @param images InternalLibImage[] is the array of all images.
+   * @param currentImage Image to decide how to show previews, because I always want to see the current image as highlighted
+   * @param images Image[] is the array of all images.
    */
-  private initPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
+  private initPreviews(currentImage: Image, images: Image[]): void {
     let index: number;
     try {
       index = getIndex(currentImage, images);
@@ -449,7 +450,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
       //   this.setIndexesPreviews();
       //   break;
     }
-    this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = images.filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -493,7 +494,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     this.start++;
     this.end = Math.min(this.end + 1, images.length);
 
-    this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = images.filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -512,7 +513,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     this.start = Math.max(this.start - 1, 0);
     this.end = Math.min(this.end - 1, this.images().length);
 
-    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
   /**

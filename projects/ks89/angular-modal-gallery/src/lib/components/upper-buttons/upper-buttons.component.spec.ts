@@ -22,10 +22,11 @@ import { InternalButtonConfig, UpperButtonsComponent } from './upper-buttons.com
 import { Image } from '../../model/image.class';
 import { ButtonConfig, ButtonEvent, ButtonsConfig, ButtonsStrategy, ButtonType } from '../../model/buttons-config.interface';
 import { Size } from '../../model/size.interface';
-import { KS_DEFAULT_BTN_CLOSE, KS_DEFAULT_BTN_DELETE, KS_DEFAULT_BTN_DOWNLOAD,
-  KS_DEFAULT_BTN_EXTURL, KS_DEFAULT_BTN_FULL_SCREEN, KS_DEFAULT_SIZE } from './upper-buttons-default';
+import {
+  KS_DEFAULT_BTN_CLOSE, KS_DEFAULT_BTN_DELETE, KS_DEFAULT_BTN_DOWNLOAD,
+  KS_DEFAULT_BTN_EXTURL, KS_DEFAULT_BTN_FULL_SCREEN, KS_DEFAULT_SIZE
+} from './upper-buttons-default';
 import { Action } from '../../model/action.enum';
-import { ConfigService } from '../../services/config.service';
 import { SizeDirective } from '../../directives/size.directive';
 
 let comp: UpperButtonsComponent;
@@ -46,9 +47,9 @@ const IMAGE_NO_EXTURL: Image = new Image(0, {
 
 const NO_EXTURL_CASES: Image[] = [IMAGE_NO_EXTURL/*, BAD_IMAGE*/];
 
-const CUSTOM_SIZE: Size = {height: '40px', width: '40px'};
-const CUSTOM_SIZE_AUTO_HEIGHT: Size = {height: 'auto', width: '40px'};
-const CUSTOM_SIZE_AUTO_WIDTH: Size = {height: '40px', width: 'auto'};
+const CUSTOM_SIZE: Size = { height: '40px', width: '40px' };
+const CUSTOM_SIZE_AUTO_HEIGHT: Size = { height: 'auto', width: '40px' };
+const CUSTOM_SIZE_AUTO_WIDTH: Size = { height: '40px', width: 'auto' };
 
 const UNKNOWN_STRATEGY = 6;
 const UNKNOWN_BUTTON_TYPE = 99;
@@ -109,40 +110,40 @@ const CUSTOM_FA_BUTTONS: ButtonConfig[] = [
   }];
 
 const VISIBILITY_CASES: ButtonsConfig[] = [
-  {visible: false, strategy: ButtonsStrategy.DEFAULT},
-  {visible: false, strategy: ButtonsStrategy.SIMPLE},
-  {visible: false, strategy: ButtonsStrategy.ADVANCED},
-  {visible: false, strategy: ButtonsStrategy.FULL},
-  {visible: false, strategy: ButtonsStrategy.CUSTOM}
+  { visible: false, strategy: ButtonsStrategy.DEFAULT },
+  { visible: false, strategy: ButtonsStrategy.SIMPLE },
+  { visible: false, strategy: ButtonsStrategy.ADVANCED },
+  { visible: false, strategy: ButtonsStrategy.FULL },
+  { visible: false, strategy: ButtonsStrategy.CUSTOM }
 ];
 
 const DEFAULT_CASES: ButtonsConfig[] = [
-  {visible: true, strategy: ButtonsStrategy.DEFAULT},
-  {visible: true, strategy: ButtonsStrategy.SIMPLE},
-  {visible: true, strategy: ButtonsStrategy.ADVANCED},
-  {visible: true, strategy: ButtonsStrategy.FULL}
+  { visible: true, strategy: ButtonsStrategy.DEFAULT },
+  { visible: true, strategy: ButtonsStrategy.SIMPLE },
+  { visible: true, strategy: ButtonsStrategy.ADVANCED },
+  { visible: true, strategy: ButtonsStrategy.FULL }
 ];
 
-const CUSTOM_NO_BUTTONS_CASES: ButtonsConfig[] = [{visible: true, strategy: ButtonsStrategy.CUSTOM}];
+const CUSTOM_NO_BUTTONS_CASES: ButtonsConfig[] = [{ visible: true, strategy: ButtonsStrategy.CUSTOM }];
 
 // should be ignored by the component and consider ButtonStrategy
 const IGNORE_CUSTOM_CASES: ButtonsConfig[] = [
-  {visible: true, strategy: ButtonsStrategy.DEFAULT, buttons: [CUSTOM_BTN]},
-  {visible: true, strategy: ButtonsStrategy.SIMPLE, buttons: [CUSTOM_BTN]},
-  {visible: true, strategy: ButtonsStrategy.ADVANCED, buttons: [CUSTOM_BTN]},
-  {visible: true, strategy: ButtonsStrategy.FULL, buttons: [CUSTOM_BTN]}
+  { visible: true, strategy: ButtonsStrategy.DEFAULT, buttons: [CUSTOM_BTN] },
+  { visible: true, strategy: ButtonsStrategy.SIMPLE, buttons: [CUSTOM_BTN] },
+  { visible: true, strategy: ButtonsStrategy.ADVANCED, buttons: [CUSTOM_BTN] },
+  { visible: true, strategy: ButtonsStrategy.FULL, buttons: [CUSTOM_BTN] }
 ];
 
 const UNKNOWN_CASES: ButtonsConfig[] = [
   // @ts-ignore
-  {visible: true, strategy: UNKNOWN_STRATEGY, buttons: [CUSTOM_BTN]},
+  { visible: true, strategy: UNKNOWN_STRATEGY, buttons: [CUSTOM_BTN] },
   // @ts-ignore
-  {visible: true, strategy: UNKNOWN_STRATEGY}
+  { visible: true, strategy: UNKNOWN_STRATEGY }
 ];
 
 const CUSTOM_CASES: ButtonsConfig[] = [
-  {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN]},
-  {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN, CUSTOM_BTN]},
+  { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN] },
+  { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN, CUSTOM_BTN] },
   {
     visible: true,
     strategy: ButtonsStrategy.CUSTOM,
@@ -174,17 +175,17 @@ const CUSTOM_SIZES: ButtonsConfig[] = [
   }
 ];
 
-const CUSTOM_FA_CASE: ButtonsConfig = {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: CUSTOM_FA_BUTTONS};
+const CUSTOM_FA_CASE: ButtonsConfig = { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: CUSTOM_FA_BUTTONS };
 
 const NOT_VALID_BTN_TYPE_CASES: ButtonsConfig[] = [
-  {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [WRONG_TYPE_BTN]}
+  { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [WRONG_TYPE_BTN] }
 ];
 
-const EXTURL_BTN_NEW_TAB: ButtonConfig = Object.assign({}, KS_DEFAULT_BTN_EXTURL, {extUrlInNewTab: true});
+const EXTURL_BTN_NEW_TAB: ButtonConfig = Object.assign({}, KS_DEFAULT_BTN_EXTURL, { extUrlInNewTab: true });
 
 const EXT_URL_IN_A_NEW_TAB_CASES: ButtonsConfig[] = [
-  {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [EXTURL_BTN_NEW_TAB]},
-  {visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN, EXTURL_BTN_NEW_TAB]},
+  { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [EXTURL_BTN_NEW_TAB] },
+  { visible: true, strategy: ButtonsStrategy.CUSTOM, buttons: [CUSTOM_BTN, EXTURL_BTN_NEW_TAB] },
   {
     visible: true,
     strategy: ButtonsStrategy.CUSTOM,
@@ -207,29 +208,27 @@ function getButtonEvent(button: ButtonConfig): ButtonEvent {
   };
 }
 
-function updateInputs(image: Image, configButtons: ButtonsConfig): void {
-  const configService = fixture.debugElement.injector.get(ConfigService);
-  configService.setConfig(GALLERY_ID, {buttonsConfig: configButtons});
-  comp.id = GALLERY_ID;
-  comp.currentImage = image;
-  comp.ngOnInit();
+function updateInputs(id: number, image: Image, configButtons: ButtonsConfig): void {
+  fixture.componentRef.setInput('id', id);
+  fixture.componentRef.setInput('currentImage', image);
+  fixture.componentRef.setInput('buttonsConfig', configButtons);
   fixture.detectChanges();
 }
 
 function buildBtnWithCustomSize(btnType: ButtonType, size: Size): ButtonConfig {
   switch (btnType) {
     case ButtonType.CLOSE:
-      return Object.assign({}, KS_DEFAULT_BTN_CLOSE, {size});
+      return Object.assign({}, KS_DEFAULT_BTN_CLOSE, { size });
     case ButtonType.DOWNLOAD:
-      return Object.assign({}, KS_DEFAULT_BTN_DOWNLOAD, {size});
+      return Object.assign({}, KS_DEFAULT_BTN_DOWNLOAD, { size });
     case ButtonType.EXTURL:
-      return Object.assign({}, KS_DEFAULT_BTN_EXTURL, {size});
+      return Object.assign({}, KS_DEFAULT_BTN_EXTURL, { size });
     case ButtonType.DELETE:
-      return Object.assign({}, KS_DEFAULT_BTN_DELETE, {size});
+      return Object.assign({}, KS_DEFAULT_BTN_DELETE, { size });
     case ButtonType.FULLSCREEN:
-      return Object.assign({}, KS_DEFAULT_BTN_FULL_SCREEN, {size});
+      return Object.assign({}, KS_DEFAULT_BTN_FULL_SCREEN, { size });
     case ButtonType.CUSTOM:
-      return Object.assign({}, CUSTOM_BTN, {size});
+      return Object.assign({}, CUSTOM_BTN, { size });
     default:
       throw new Error('this test should run only with known button types');
   }
@@ -337,15 +336,6 @@ function testBtnNumberByStrategy(strategy: ButtonsStrategy, btnDebugElementsCoun
 function initTestBed(): void {
   TestBed.configureTestingModule({
     imports: [UpperButtonsComponent, SizeDirective]
-}).overrideComponent(UpperButtonsComponent, {
-    set: {
-      providers: [
-        {
-          provide: ConfigService,
-          useClass: ConfigService
-        }
-      ]
-    }
   });
 }
 
@@ -362,7 +352,7 @@ describe('UpperButtonsComponent', () => {
 
     DEFAULT_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should display buttons for every default buttonConfigs and subscribe to click events. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -372,7 +362,6 @@ describe('UpperButtonsComponent', () => {
 
         testBtnNumberByStrategy(currentButtonConfig.strategy, btns.length);
 
-        comp.id = GALLERY_ID;
         comp.closeButton.subscribe((res: ButtonEvent) => {
           expect(res).toEqual(getButtonEvent(KS_DEFAULT_BTN_CLOSE));
         });
@@ -394,7 +383,7 @@ describe('UpperButtonsComponent', () => {
           testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
         });
 
-        // iterate over all buttons from LEFT TO RIGHT
+        // iterate over all buttons from LEFT TO RIGHT,
         // clicking all of them
         btns.forEach((debugElement: DebugElement) => {
           debugElement.nativeElement.click();
@@ -404,7 +393,7 @@ describe('UpperButtonsComponent', () => {
 
     IGNORE_CUSTOM_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should show default buttons ignoring custom ones passed as input, because strategy != CUSTOM. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -414,7 +403,6 @@ describe('UpperButtonsComponent', () => {
 
         testBtnNumberByStrategy(currentButtonConfig.strategy, btns.length);
 
-        comp.id = GALLERY_ID;
         comp.closeButton.subscribe((res: ButtonEvent) => {
           expect(res).toEqual(getButtonEvent(KS_DEFAULT_BTN_CLOSE));
         });
@@ -436,7 +424,7 @@ describe('UpperButtonsComponent', () => {
           testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
         });
 
-        // iterate over all buttons from LEFT TO RIGHT
+        // iterate over all buttons from LEFT TO RIGHT,
         // clicking all of them
         btns.forEach((debugElement: DebugElement) => {
           debugElement.nativeElement.click();
@@ -447,7 +435,7 @@ describe('UpperButtonsComponent', () => {
     [DEFAULT_CASES[2], DEFAULT_CASES[3]].forEach((currentButtonConfig: ButtonsConfig, i: number) => {
       NO_EXTURL_CASES.forEach((image: Image, j: number) => {
         it(`shouldn't catch a navigate event, because either input image isn't valid or extUrl isn't defined. Test i=${i} j=${j}`, () => {
-          updateInputs(image, currentButtonConfig);
+          updateInputs(GALLERY_ID, image, currentButtonConfig);
 
           // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
           expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -457,7 +445,6 @@ describe('UpperButtonsComponent', () => {
 
           testBtnNumberByStrategy(currentButtonConfig.strategy, btns.length);
 
-          comp.id = GALLERY_ID;
           comp.navigate.subscribe((res: ButtonEvent) => {
             fail('navigate output should be never called, because input image is not valid or extUrl is not defined');
           });
@@ -480,7 +467,7 @@ describe('UpperButtonsComponent', () => {
             testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
           });
 
-          // iterate over all buttons from LEFT TO RIGHT
+          // iterate over all buttons from LEFT TO RIGHT,
           // clicking all of them
           btns.forEach((debugElement: DebugElement) => {
             debugElement.nativeElement.click();
@@ -491,7 +478,7 @@ describe('UpperButtonsComponent', () => {
 
     CUSTOM_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should display custom + default buttons and subscribe to click events. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -499,7 +486,8 @@ describe('UpperButtonsComponent', () => {
         const element: DebugElement = fixture.debugElement;
         const btns: DebugElement[] = element.queryAll(By.css('a.upper-button'));
 
-        comp.id = GALLERY_ID;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+
         comp.closeButton.subscribe((res: ButtonEvent) => {
           expect(res).toEqual(getButtonEvent(KS_DEFAULT_BTN_CLOSE));
         });
@@ -525,7 +513,7 @@ describe('UpperButtonsComponent', () => {
           testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
         });
 
-        // iterate over all buttons from LEFT TO RIGHT
+        // iterate over all buttons from LEFT TO RIGHT,
         // clicking all of them
         btns.forEach((debugElement: DebugElement) => {
           debugElement.nativeElement.click();
@@ -535,7 +523,7 @@ describe('UpperButtonsComponent', () => {
 
     EXT_URL_IN_A_NEW_TAB_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should display buttons where extUrl buttons open extUrl in a new tab and subscribe to click events. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -543,7 +531,8 @@ describe('UpperButtonsComponent', () => {
         const element: DebugElement = fixture.debugElement;
         const btns: DebugElement[] = element.queryAll(By.css('a.upper-button'));
 
-        comp.id = GALLERY_ID;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+
         comp.closeButton.subscribe((res: ButtonEvent) => {
           expect(res).toEqual(getButtonEvent(KS_DEFAULT_BTN_CLOSE));
         });
@@ -569,7 +558,7 @@ describe('UpperButtonsComponent', () => {
           testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
         });
 
-        // iterate over all buttons from LEFT TO RIGHT
+        // iterate over all buttons from LEFT TO RIGHT,
         // clicking all of them
         btns.forEach((debugElement: DebugElement) => {
           debugElement.nativeElement.click();
@@ -578,7 +567,7 @@ describe('UpperButtonsComponent', () => {
     });
 
     it(`should display custom buttons (with different types) with FontAwesome and subscribe to click events.`, () => {
-      updateInputs(IMAGE_EXTURL, CUSTOM_FA_CASE);
+      updateInputs(GALLERY_ID, IMAGE_EXTURL, CUSTOM_FA_CASE);
 
       // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
       expect(ButtonsStrategy[CUSTOM_FA_CASE.strategy]).not.toBeUndefined();
@@ -586,7 +575,8 @@ describe('UpperButtonsComponent', () => {
       const element: DebugElement = fixture.debugElement;
       const btns: DebugElement[] = element.queryAll(By.css('a.upper-button'));
 
-      comp.id = GALLERY_ID;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+
       comp.closeButton.subscribe((res: ButtonEvent) => {
         expect(res).toEqual(getButtonEvent(CUSTOM_FA_BUTTONS[2]));
       });
@@ -618,7 +608,7 @@ describe('UpperButtonsComponent', () => {
 
     [CUSTOM_SIZES[0]].forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should display custom buttons (with different types) with custom sizes. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -649,7 +639,7 @@ describe('UpperButtonsComponent', () => {
 
     VISIBILITY_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`shouldn't find any buttons, because visibility is false. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -666,7 +656,7 @@ describe('UpperButtonsComponent', () => {
 
     UNKNOWN_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should display default buttons (DEFAULT strategy), because input strategy is unknown. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect an UNKNOWN ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).toBeUndefined();
@@ -675,7 +665,8 @@ describe('UpperButtonsComponent', () => {
         const btns: DebugElement[] = element.queryAll(By.css('a.upper-button'));
         expect(btns.length).toBe(1);
 
-        comp.id = GALLERY_ID;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+
         comp.closeButton.subscribe((res: ButtonEvent) => {
           expect(res).toEqual(getButtonEvent(KS_DEFAULT_BTN_CLOSE));
         });
@@ -686,7 +677,7 @@ describe('UpperButtonsComponent', () => {
           testCurrentHtmlBtn(debugElement, btnIndex, KS_DEFAULT_SIZE);
         });
 
-        // iterate over all buttons from LEFT TO RIGHT
+        // iterate over all buttons from LEFT TO RIGHT,
         // clicking all of them
         btns.forEach((debugElement: DebugElement) => {
           debugElement.nativeElement.click();
@@ -696,7 +687,7 @@ describe('UpperButtonsComponent', () => {
 
     CUSTOM_NO_BUTTONS_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`shouldn't display anything, because custom config requires a buttons array. Test i=${index}`, () => {
-        updateInputs(IMAGE_EXTURL, currentButtonConfig);
+        updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig);
 
         // expect a valid ButtonStrategy because passed to this test as input (via currentButtonConfig)
         expect(ButtonsStrategy[currentButtonConfig.strategy]).not.toBeUndefined();
@@ -713,7 +704,7 @@ describe('UpperButtonsComponent', () => {
     NOT_VALID_BTN_TYPE_CASES.forEach((currentButtonConfig: ButtonsConfig, index: number) => {
       it(`should throw an error, because all buttons must have valid types. Test i=${index}`, () => {
         const ERROR: Error = new Error('Unknown ButtonType. For custom types use ButtonType.CUSTOM');
-        expect(() => updateInputs(IMAGE_EXTURL, currentButtonConfig)).toThrow(ERROR);
+        expect(() => updateInputs(GALLERY_ID, IMAGE_EXTURL, currentButtonConfig)).toThrow(ERROR);
       });
     });
   });

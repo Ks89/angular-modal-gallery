@@ -58,8 +58,8 @@ describe('LoadingSpinnerComponent', () => {
   describe('---YES---', () => {
     VISIBLE_CONFIG.forEach((loadingConfig: LoadingConfig, i: number) => {
       it(`should display loading spinner with default accessibility config. Test i=${i}`, () => {
-        comp.loadingConfig = loadingConfig;
-        comp.accessibilityConfig = KS_DEFAULT_ACCESSIBILITY_CONFIG;
+        fixture.componentRef.setInput('loadingConfig', loadingConfig);
+        fixture.componentRef.setInput('accessibilityConfig', KS_DEFAULT_ACCESSIBILITY_CONFIG);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;
@@ -138,8 +138,8 @@ describe('LoadingSpinnerComponent', () => {
 
     VISIBLE_CONFIG.forEach((loadingConfig: LoadingConfig, i: number) => {
       it(`should display loading spinner with CUSTOM accessibility config. Test i=${i}`, () => {
-        comp.loadingConfig = loadingConfig;
-        comp.accessibilityConfig = CUSTOM_ACCESSIBILITY;
+        fixture.componentRef.setInput('loadingConfig', loadingConfig);
+        fixture.componentRef.setInput('accessibilityConfig', CUSTOM_ACCESSIBILITY);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;

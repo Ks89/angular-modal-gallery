@@ -1,48 +1,50 @@
 <div [attr.aria-label]="accessibilityConfig()?.loadingSpinnerAriaLabel"
      [title]="accessibilityConfig()?.loadingSpinnerTitle">
 
-  @switch (loadingConfig()?.type) {
-    @case (loadingStandard) {
-      <div class="cssload-loader">
-        <div class="cssload-inner cssload-one"></div>
-        <div class="cssload-inner cssload-two"></div>
-        <div class="cssload-inner cssload-three"></div>
-      </div>
-    }
-    @case (loadingBars) {
-      <div class="loader-bars">
-      </div>
-    }
-    @case (loadingCircular) {
-      <div class="loader-circular">
-      </div>
-    }
-    @case (loadingDots) {
-      <div class="loader-dots">
-      </div>
-    }
-    @case (loadingCubeFlipping) {
-      <div class="cube-wrapper">
-        <div class="cube-folding">
-          <span class="leaf1"></span>
-          <span class="leaf2"></span>
-          <span class="leaf3"></span>
-          <span class="leaf4"></span>
+  @if (loadingConfig()) {
+    @switch (loadingConfig()?.type) {
+      @case (loadingStandard) {
+        <div class="cssload-loader">
+          <div class="cssload-inner cssload-one"></div>
+          <div class="cssload-inner cssload-two"></div>
+          <div class="cssload-inner cssload-three"></div>
         </div>
-      </div>
-    }
-    @case (loadingCircles) {
-      <div id="preloader">
-        <div id="loader"></div>
-      </div>
-    }
-    @case (loadingExplosingSquares) {
-      <div class="loader">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      }
+      @case (loadingBars) {
+        <div class="loader-bars">
+        </div>
+      }
+      @case (loadingCircular) {
+        <div class="loader-circular">
+        </div>
+      }
+      @case (loadingDots) {
+        <div class="loader-dots">
+        </div>
+      }
+      @case (loadingCubeFlipping) {
+        <div class="cube-wrapper">
+          <div class="cube-folding">
+            <span class="leaf1"></span>
+            <span class="leaf2"></span>
+            <span class="leaf3"></span>
+            <span class="leaf4"></span>
+          </div>
+        </div>
+      }
+      @case (loadingCircles) {
+        <div id="preloader">
+          <div id="loader"></div>
+        </div>
+      }
+      @case (loadingExplosingSquares) {
+        <div class="loader">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      }
     }
   }
 </div>

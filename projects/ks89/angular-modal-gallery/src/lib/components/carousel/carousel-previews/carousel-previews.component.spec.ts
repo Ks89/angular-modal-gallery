@@ -15,8 +15,8 @@
  */
 
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { DebugElement, SimpleChanges } from '@angular/core';
-import { By, SafeResourceUrl } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { CarouselPreviewsComponent } from './carousel-previews.component';
 import { SizeDirective } from '../../../directives/size.directive';
 import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../../accessibility-default';
@@ -289,9 +289,9 @@ describe('CarouselPreviewsComponent', () => {
       });
       const initialActiveImage = 0;
       const numOfPreviews: number = DEFAULT_PREVIEW_CONFIG.number as number;
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       expect(comp.start).toBe(initialActiveImage);
@@ -328,9 +328,9 @@ describe('CarouselPreviewsComponent', () => {
         const initialActiveImage = val.initial.activeIndex; // initial active preview
         const newActiveImage = val.expected.activeIndex; // preview to click => so the next active preview after the click action
         const numOfPreviews: number = DEFAULT_PREVIEW_CONFIG.number as number;
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[initialActiveImage];
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         expect(comp.start).toBe(val.initial.start);
@@ -364,23 +364,7 @@ describe('CarouselPreviewsComponent', () => {
 
           // it's required to change the currentImage,
           // because this operation is done by its parent GalleryComponent
-          comp.currentImage = IMAGES[newActiveImage];
-
-          comp.ngOnChanges({
-            currentImage: {
-              previousValue: IMAGES[initialActiveImage],
-              currentValue: IMAGES[newActiveImage],
-              firstChange: true,
-              isFirstChange: () => true
-            },
-            images: {
-              previousValue: IMAGES,
-              currentValue: IMAGES,
-              firstChange: false,
-              isFirstChange: () => false
-            }
-          } as SimpleChanges);
-
+          fixture.componentRef.setInput('currentImage', IMAGES[newActiveImage]);
           fixture.detectChanges();
           expect(comp.onImageEvent).toHaveBeenCalled();
 
@@ -421,9 +405,9 @@ describe('CarouselPreviewsComponent', () => {
         const initialActiveImage = val.initial.activeIndex; // initial active preview
         const newActiveImage = val.expected.activeIndex; // preview to click => so the next active preview after the click action
         const numOfPreviews: number = DEFAULT_PREVIEW_CONFIG.number as number;
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[initialActiveImage];
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
         const element: DebugElement = fixture.debugElement;
         let arrows: DebugElement[] = element.queryAll(By.css('a'));
@@ -466,23 +450,7 @@ describe('CarouselPreviewsComponent', () => {
 
           // it's required to change the currentImage,
           // because this operation is done by its parent GalleryComponent
-          comp.currentImage = IMAGES[newActiveImage];
-
-          comp.ngOnChanges({
-            currentImage: {
-              previousValue: IMAGES[initialActiveImage],
-              currentValue: IMAGES[newActiveImage],
-              firstChange: true,
-              isFirstChange: () => true
-            },
-            images: {
-              previousValue: IMAGES,
-              currentValue: IMAGES,
-              firstChange: false,
-              isFirstChange: () => false
-            }
-          } as SimpleChanges);
-
+          fixture.componentRef.setInput('currentImage', IMAGES[newActiveImage]);
           fixture.detectChanges();
           expect(comp.onImageEvent).toHaveBeenCalled();
 
@@ -521,9 +489,9 @@ describe('CarouselPreviewsComponent', () => {
       });
       const initialActiveImage = 0; // initial active preview
       const numOfPreviews: number = DEFAULT_PREVIEW_CONFIG.number as number;
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       expect(comp.start).toBe(initialActiveImage);
@@ -551,7 +519,8 @@ describe('CarouselPreviewsComponent', () => {
         tick(10);
         flush();
         fixture.detectChanges();
-        comp.currentImage = IMAGES[initialActiveImage]; // current image must be the initial image, because I'm navigating previews without changing the current image
+        // current image must be the initial image, because I'm navigating previews without changing the current image
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
         previewImages = IMAGES.slice(val.start, val.end);
         expect(comp.start).toBe(val.start);
         expect(comp.end).toBe(val.end);
@@ -585,9 +554,9 @@ describe('CarouselPreviewsComponent', () => {
       });
       const numOfPreviews = 4;
       const initialActiveImage = 0;
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES_CUSTOM_ACCESSIBILITY[initialActiveImage];
-      comp.images = IMAGES_CUSTOM_ACCESSIBILITY;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES_CUSTOM_ACCESSIBILITY[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES_CUSTOM_ACCESSIBILITY);
       fixture.detectChanges();
 
       const previewImages: InternalLibImage[] = IMAGES_CUSTOM_ACCESSIBILITY.slice(initialActiveImage, numOfPreviews);
@@ -632,9 +601,9 @@ describe('CarouselPreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         carouselConfig: CAROUSEL_CONFIG_DEFAULT
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const previewImages: InternalLibImage[] = IMAGES.slice(initialActiveImage, numOfPreviews);
@@ -672,9 +641,9 @@ describe('CarouselPreviewsComponent', () => {
           accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
           carouselConfig: CAROUSEL_CONFIG_DEFAULT
         });
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[initialActiveImage];
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const previewImages: InternalLibImage[] = IMAGES.slice(initialActiveImage, CUSTOM_PREVIEW_CONFIG.number);
@@ -756,9 +725,9 @@ describe('CarouselPreviewsComponent', () => {
         });
         const initialActiveImage = 0;
         const numOfPreviews = 4;
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[initialActiveImage];
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         expect(comp.start).toBe(initialActiveImage);
@@ -788,9 +757,9 @@ describe('CarouselPreviewsComponent', () => {
       });
       const initialActiveImage = 0;
       const numOfPreviews: number = DEFAULT_PREVIEW_CONFIG.number as number;
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       expect(comp.start).toBe(initialActiveImage);

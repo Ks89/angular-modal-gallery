@@ -34,7 +34,7 @@ export class ClickOutsideDirective {
   /**
    * Boolean to enable this directive.
    */
-  readonly clickOutsideEnable = input<boolean>();
+  clickOutsideEnable = input<boolean>();
   /**
    * Output to emit an event if the clicked element class doesn't contain 'inside' or it is 'hidden'. The payload is a boolean.
    */

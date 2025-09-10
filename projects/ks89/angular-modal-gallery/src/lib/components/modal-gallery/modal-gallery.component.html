@@ -9,6 +9,7 @@
 
       <ks-upper-buttons [id]="id"
                         [currentImage]="currentImage"
+                        [buttonsConfig]="buttonsConfig"
                         (delete)="onDelete($event)"
                         (navigate)="onNavigate($event)"
                         (download)="onDownload($event)"
@@ -29,6 +30,7 @@
                  [images]="images"
                  [currentImage]="currentImage"
                  [dotsConfig]="dotsConfig"
+                 [accessibilityConfig]="accessibilityConfig"
                  (clickDot)="onClickDot($event)" />
 
         <ks-previews [id]="id"

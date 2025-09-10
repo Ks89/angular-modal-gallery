@@ -1,3 +1,22 @@
+# 15.0.0-alpha.1
+
+### Refactor
+
+- migrate to inject() function instead of using the constructor
+- migrate to output<> syntax
+- migrate to input<> syntax
+- migrate to self-closing tags
+- migrate to signal queries
+
+### Examples
+
+- upgrade all examples to the new syntax
+
+### Documentation
+
+- upgrade doc website to the new syntax
+
+
 # 14.0.0
 
 ### Features

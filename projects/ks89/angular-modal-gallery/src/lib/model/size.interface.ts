@@ -27,6 +27,6 @@
  * They can be pixels, percentages or also 'auto'.
  */
 export interface Size {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
 }

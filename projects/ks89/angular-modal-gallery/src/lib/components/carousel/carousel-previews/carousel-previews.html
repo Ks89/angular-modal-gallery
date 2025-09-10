@@ -15,7 +15,7 @@
     <div class="preview-inner-container">
       @for (preview of previews; track preview.id) {
         @if (preview?.modal?.img) {
-          <img [loading]="preview.loading"
+          <img loading="{{preview.loading}}"
                [attr.fetchpriority]="preview.fetchpriority"
                class="inside preview-image{{isActive(preview) ? ' active' : ''}}{{!previewConfig?.clickable ? ' unclickable' : ''}}"
                [src]="preview.plain?.img ? preview.plain?.img : preview.modal.img"

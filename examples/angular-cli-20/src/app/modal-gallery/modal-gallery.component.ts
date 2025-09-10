@@ -22,8 +22,8 @@
  SOFTWARE.
  */
 
-import { TemplateRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import { inject, TemplateRef, viewChild } from '@angular/core';
+
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -51,11 +51,13 @@ import { NgTemplateOutlet } from '@angular/common';
     imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+
   /**
    * A custom template to illustrate the customization of previews rendering.
    */
-  @ViewChild('previewsTemplate')
-  previewsTemplate?: TemplateRef<HTMLElement>;
+  readonly previewsTemplate = viewChild<TemplateRef<HTMLElement>>('previewsTemplate');
 
   imageIndex = 0;
   galleryId = 1;
@@ -467,9 +469,6 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   // tslint:disable-next-line:no-any
   private timeout: any;
 
-  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
-  private sanitizer: DomSanitizer = inject(DomSanitizer);
-
   openModalWithAutoClose(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
     const imageToShow: Image = imagesArrayToUse[imageIndex];
     const dialogRef: ModalGalleryRef = this.modalGalleryService.open({
@@ -735,7 +734,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       images: imagesArrayToUse,
       currentImage: imageToShow,
       libConfig,
-      previewsTemplate: this.previewsTemplate,
+      previewsTemplate: this.previewsTemplate(),
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 

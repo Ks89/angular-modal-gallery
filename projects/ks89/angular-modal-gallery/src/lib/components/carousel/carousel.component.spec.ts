@@ -16,7 +16,7 @@
 
 import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 
-import { DebugElement, SimpleChanges } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { CarouselComponent } from './carousel.component';
@@ -425,8 +425,8 @@ describe('CarouselComponent', () => {
   describe('---YES---', () => {
 
     it(`should display carousel with all defaults and auto-navigate (play enabled by default).`, fakeAsync(() => {
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
       const defaultInterval = 5000;
 
@@ -447,8 +447,8 @@ describe('CarouselComponent', () => {
     }));
 
     it(`should display carousel with all defaults and auto-navigate (play enabled by default) trying infinite sliding.`, fakeAsync(() => {
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
       const defaultInterval = 5000;
 
@@ -476,8 +476,8 @@ describe('CarouselComponent', () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
 
       configService.setConfig(GALLERY_ID, { carouselSlideInfinite: false });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const defaultInterval = 5000;
@@ -506,8 +506,8 @@ describe('CarouselComponent', () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
 
       configService.setConfig(GALLERY_ID, { carouselDotsConfig: {visible: false} });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       checkMainContainer();
@@ -519,9 +519,8 @@ describe('CarouselComponent', () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
 
       configService.setConfig(GALLERY_ID, { carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {showArrows: false}) });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       checkMainContainer();
@@ -543,8 +542,8 @@ describe('CarouselComponent', () => {
         const configService = fixture.debugElement.injector.get(ConfigService);
 
         configService.setConfig(GALLERY_ID, { carouselPlayConfig: val });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         TEST_MODEL.forEach((model: TestModel, modelIndex: number) => {
@@ -574,8 +573,8 @@ describe('CarouselComponent', () => {
         const configService = fixture.debugElement.injector.get(ConfigService);
 
         configService.setConfig(GALLERY_ID, { carouselPlayConfig: val });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         checkMainContainer();
@@ -615,8 +614,8 @@ describe('CarouselComponent', () => {
         const configService = fixture.debugElement.injector.get(ConfigService);
 
         configService.setConfig(GALLERY_ID, { carouselPreviewsConfig: val });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         checkPreviews(val.number || 4, false, false, val.clickable === true || val.clickable === undefined);
@@ -630,9 +629,8 @@ describe('CarouselComponent', () => {
         carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {maxWidth: '766px'}),
         carouselPreviewsConfig: {number: 5, width: 'auto', maxHeight: '100px', visible: true}
       });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       checkMainContainer(comp.carouselConfig?.maxWidth);
@@ -684,8 +682,8 @@ describe('CarouselComponent', () => {
         const configService = fixture.debugElement.injector.get(ConfigService);
 
         configService.setConfig(GALLERY_ID, { carouselImageConfig: val });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         checkMainContainer();
@@ -710,8 +708,8 @@ describe('CarouselComponent', () => {
         const configService = fixture.debugElement.injector.get(ConfigService);
 
         configService.setConfig(GALLERY_ID, { carouselPreviewsConfig: previewConfig });
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         checkMainContainer();
@@ -724,9 +722,8 @@ describe('CarouselComponent', () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
 
       configService.setConfig(GALLERY_ID, { accessibilityConfig: CUSTOM_ACCESSIBILITY });
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       checkMainContainer('100%', CUSTOM_ACCESSIBILITY);
@@ -800,16 +797,8 @@ describe('CarouselComponent', () => {
 
     // TODO improve this adding more cases to cover all lines of code
     it(`should open carousel calling also ngOnChanges.`, fakeAsync(() => {
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.ngOnChanges({
-        currentImage: {
-          previousValue: IMAGES[0],
-          currentValue: IMAGES[0],
-          firstChange: false,
-          isFirstChange: () => false
-        }
-      } as SimpleChanges);
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
       const defaultInterval = 5000;
 
@@ -835,9 +824,9 @@ describe('CarouselComponent', () => {
       const configService = fixture.debugElement.injector.get(ConfigService);
 
       configService.setConfig(GALLERY_ID, { carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {modalGalleryEnable: true}) });
-      comp.id = undefined;
-      comp.images = IMAGES;
-      expect(() => comp.ngOnInit()).toThrow(new Error(ID_ERROR));
+      fixture.componentRef.setInput('id', undefined);
+      fixture.componentRef.setInput('images', IMAGES);
+      expect(() => fixture.detectChanges()).toThrow(new Error(ID_ERROR));
     });
 
     const PLAY_CONFIG_AUTOPLAY: PlayConfig[] = [

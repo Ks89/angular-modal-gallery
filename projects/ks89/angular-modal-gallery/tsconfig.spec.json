@@ -7,7 +7,11 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+
+    // overwrite options only for testing
+    "strict": false,
+    "noPropertyAccessFromIndexSignature": false,
   },
   "include": [
     "src/**/*.ts"

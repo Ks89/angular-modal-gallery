@@ -1,10 +1,12 @@
-<nav class="dots-container" [attr.aria-label]="accessibilityConfig?.dotsContainerAriaLabel"
-     [title]="accessibilityConfig?.dotsContainerTitle">
-  @if (!dotsConfig() || dotsConfig()?.visible) {
+@let accessibilityConf = accessibilityConfig();
+@let dotsConf = dotsConfig();
+<nav class="dots-container" [attr.aria-label]="accessibilityConf?.dotsContainerAriaLabel"
+     [title]="accessibilityConf?.dotsContainerTitle">
+  @if (!dotsConf || dotsConf?.visible) {
     @for (img of images(); let index = $index; track img.id) {
       <div class="inside dot"
            [ngClass]="{'active': isActive(index)}"
-           [attr.aria-label]="accessibilityConfig?.dotAriaLabel + ' ' + (index + 1)"
+           [attr.aria-label]="accessibilityConf?.dotAriaLabel + ' ' + (index + 1)"
            [tabIndex]="0" role="navigation"
            (click)="onDotEvent(index, $event)" (keyup)="onDotEvent(index, $event)"></div>
     }

@@ -39,7 +39,7 @@ import { LoadingConfig, LoadingType } from '../../../model/loading-config.interf
     'style-loading-spinner-circular.css',
     'style-loading-spinner-cube-flipping.css',
     'style-loading-spinner-circles.css',
-    'style-loading-spinner-explosing-squares.scss'
+    'style-loading-spinner-exploding-squares.scss'
   ],
   templateUrl: 'loading-spinner.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -49,12 +49,12 @@ export class LoadingSpinnerComponent {
    * Object of type `LoadingConfig` exposed to the template.
    * It contains a field to choose a loading spinner.
    */
-  readonly loadingConfig = input.required<LoadingConfig>();
+  readonly loadingConfig = input<LoadingConfig>();
   /**
    * Object of type `AccessibilityConfig` to init custom accessibility features.
    * For instance, it contains titles, alt texts, aria-labels and so on.
    */
-  readonly accessibilityConfig = input.required<AccessibilityConfig>();
+  readonly accessibilityConfig = input<AccessibilityConfig>();
 
   /**
    * Enum of type `LoadingType` to choose the standard loading spinner.

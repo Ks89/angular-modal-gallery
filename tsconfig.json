@@ -10,7 +10,7 @@
     },
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": false,  // FIXME should become tre
+    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
@@ -29,8 +29,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "typeCheckHostBindings": true,
-    // FIXME THIS SHOULD BE FORCED TO TRUE IN THE FUTURE VERSIONS OF THE LIBRARY
-    "strictTemplates": false
+    "strictTemplates": true,
   },
   "files": [],
   "references": [

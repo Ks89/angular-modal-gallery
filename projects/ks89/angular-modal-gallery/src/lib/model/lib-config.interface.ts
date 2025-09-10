@@ -66,3 +66,9 @@ export interface PlainLibConfig extends AccessibleLibConfig {
 }
 
 export interface LibConfig extends ModalLibConfig, PlainLibConfig, CarouselLibConfig {}
+
+// used to define a LibConfig object with all properties initialized (deeply)
+// this is very useful to prevent useless null checking when we know for sure that this object is always fully defined and initialized
+// via lib-config.service
+export type DeepRequired<T> = { [K in keyof T]: DeepRequired<T[K]>} & Required<T>
+export interface LibConfigInternal extends DeepRequired<ModalLibConfig>, DeepRequired<PlainLibConfig>, DeepRequired<CarouselLibConfig> {}

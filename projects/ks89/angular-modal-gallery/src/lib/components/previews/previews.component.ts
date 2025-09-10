@@ -28,8 +28,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { AccessibleComponent } from '../accessible.component';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
-import { ImageEvent, ImageModalEvent } from '../../model/image.class';
-import { InternalLibImage } from '../../model/image-internal.class';
+import { ImageEvent, ImageModalEvent, Image } from '../../model/image.class';
 import { PreviewConfig } from '../../model/preview-config.interface';
 import { SlideConfig } from '../../model/slide-config.interface';
 import { NEXT, PREV } from '../../utils/user-input.util';
@@ -58,14 +57,14 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   readonly id = input.required<number>();
   /**
-   * Object of type `InternalLibImage` that represent the visible image.
+   * Object of type `Image` that represent the visible image.
    */
-  readonly currentImage = input.required<InternalLibImage>();
+  readonly currentImage = input.required<Image>();
   /**
-   * Array of `InternalLibImage` that represent the model of this library with all images,
+   * Array of `Image` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  readonly images = input.required<InternalLibImage[]>();
+  readonly images = input.required<Image[]>();
 
   /**
    * Optional template reference for the rendering of previews.
@@ -105,10 +104,10 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
    */
   keyboardAction: Action = Action.KEYBOARD;
   /**
-   * Array of `InternalLibImage` exposed to the template. This field is initialized
+   * Array of `Image` exposed to the template. This field is initialized
    * applying transformations, default values and so on to the input of the same type.
    */
-  previews: InternalLibImage[] = [];
+  previews: Image[] = [];
   /**
    * Start index (included) of the input images used to display previews.
    */
@@ -143,10 +142,10 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
 
   /**
    * Method to check if an image is active (i.e. a preview image).
-   * @param preview InternalLibImage is an image to check if it's active or not
+   * @param preview Image is an image to check if it's active or not
    * @returns boolean true if is active, false otherwise
    */
-  isActive(preview: InternalLibImage): boolean {
+  isActive(preview: Image): boolean {
     if (!preview) {
       return false;
     }
@@ -172,11 +171,11 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Method called by events from both keyboard and mouse on a preview.
    * This will trigger the `clickpreview` output with the input preview as its payload.
-   * @param preview InternalLibImage that triggered this method
+   * @param preview Image that triggered this method
    * @param event KeyboardEvent | MouseEvent payload
    * @param action Action that triggered the source event or `Action.NORMAL` if not specified
    */
-  onImageEvent(preview: InternalLibImage, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
+  onImageEvent(preview: Image, event: KeyboardEvent | MouseEvent, action: Action = Action.NORMAL): void {
     // It's suggested to stop propagation of the event, so the
     // Cdk background will not catch a click and close the modal (like it does on Windows Chrome/FF).
     event?.stopPropagation();
@@ -234,18 +233,18 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   /**
    * Private method to init previews based on the currentImage and the full array of images.
    * The current image in mandatory to show always the current preview (as highlighted).
-   * @param currentImage InternalLibImage to decide how to show previews, because I always want to see the current image as highlighted
-   * @param images InternalLibImage[] is the array of all images.
+   * @param currentImage Image to decide how to show previews, because I always want to see the current image as highlighted
+   * @param images Image[] is the array of all images.
    */
-  private initPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
+  private initPreviews(currentImage: Image, images: Image[]): void {
     this.setIndexesPreviews(currentImage, images);
-    this.previews = images.filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = images.filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
   /**
    * Private method to update both `start` and `end` based on the currentImage.
    */
-  private setIndexesPreviews(currentImage: InternalLibImage, images: InternalLibImage[]): void {
+  private setIndexesPreviews(currentImage: Image, images: Image[]): void {
     if (!this.previewConfig || !images || !currentImage) {
       throw new Error('Internal library error - previewConfig, currentImage and images must be defined');
     }
@@ -284,7 +283,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     }
     this.end = this.start + Math.min((this.previewConfig.number as number), this.images().length);
 
-    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
   /**
@@ -306,7 +305,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
     }
     this.start = this.end - Math.min((this.previewConfig.number as number), this.images().length);
 
-    this.previews = this.images().filter((img: InternalLibImage, i: number) => i >= this.start && i < this.end);
+    this.previews = this.images().filter((img: Image, i: number) => i >= this.start && i < this.end);
   }
 
 }

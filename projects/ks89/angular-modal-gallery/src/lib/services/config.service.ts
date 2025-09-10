@@ -37,50 +37,61 @@ import { Description, DescriptionStrategy, DescriptionStyle } from '../model/des
 import { CarouselConfig } from '../model/carousel-config.interface';
 import { CarouselImageConfig } from '../model/carousel-image-config.interface';
 import { BreakpointsConfig, CarouselPreviewConfig } from '../model/carousel-preview-config.interface';
-import { LibConfig } from '../model/lib-config.interface';
+import { DeepRequired, LibConfig, LibConfigInternal } from '../model/lib-config.interface';
+import { Keyboard } from '../model/keyboard.enum';
+import { KeyboardConfig } from '../model/keyboard-config.interface';
 
-export const DEFAULT_PREVIEW_SIZE: Size = { height: '50px', width: 'auto' };
+export const DEFAULT_PREVIEW_SIZE: DeepRequired<Size> = { height: '50px', width: 'auto' };
 export const DEFAULT_LAYOUT: LineLayout = new LineLayout(DEFAULT_PREVIEW_SIZE, { length: -1, wrap: false }, 'flex-start');
-export const DEFAULT_PLAIN_CONFIG: PlainGalleryConfig = {
+export const DEFAULT_PLAIN_CONFIG: DeepRequired<PlainGalleryConfig> = {
   strategy: PlainGalleryStrategy.ROW,
   layout: DEFAULT_LAYOUT,
   advanced: { aTags: false, additionalBackground: '50% 50%/cover' }
 };
-export const DEFAULT_LOADING: LoadingConfig = { enable: true, type: LoadingType.STANDARD };
-export const DEFAULT_DESCRIPTION_STYLE: DescriptionStyle = {
+export const DEFAULT_LOADING: DeepRequired<LoadingConfig> = { enable: true, type: LoadingType.STANDARD };
+export const DEFAULT_DESCRIPTION_STYLE: DeepRequired<DescriptionStyle> = {
   bgColor: 'rgba(0, 0, 0, .5)',
   textColor: 'white',
   marginTop: '0px',
   marginBottom: '0px',
   marginLeft: '0px',
-  marginRight: '0px'
+  marginRight: '0px',
+  width: '',
+  height: '',
+  position: '',
+  top: '',
+  bottom: '',
+  left: '',
+  right: ''
 };
-export const DEFAULT_DESCRIPTION: Description = {
+export const DEFAULT_DESCRIPTION: DeepRequired<Description> = {
   strategy: DescriptionStrategy.ALWAYS_VISIBLE,
   imageText: 'Image ',
   numberSeparator: '/',
   beforeTextDescription: ' - ',
+  customFullDescription: '',
   style: DEFAULT_DESCRIPTION_STYLE
 };
-export const DEFAULT_CAROUSEL_DESCRIPTION: Description = {
+export const DEFAULT_CAROUSEL_DESCRIPTION: DeepRequired<Description> = {
   strategy: DescriptionStrategy.ALWAYS_HIDDEN,
   imageText: 'Image ',
   numberSeparator: '/',
   beforeTextDescription: ' - ',
+  customFullDescription: '',
   style: DEFAULT_DESCRIPTION_STYLE
 };
-export const DEFAULT_CURRENT_IMAGE_CONFIG: CurrentImageConfig = {
+export const DEFAULT_CURRENT_IMAGE_CONFIG: DeepRequired<CurrentImageConfig> = {
   navigateOnClick: true,
   loadingConfig: DEFAULT_LOADING,
   description: DEFAULT_DESCRIPTION,
   downloadable: false,
   invertSwipe: false
 };
-export const DEFAULT_CAROUSEL_IMAGE_CONFIG: CarouselImageConfig = {
+export const DEFAULT_CAROUSEL_IMAGE_CONFIG: DeepRequired<CarouselImageConfig> = {
   description: DEFAULT_CAROUSEL_DESCRIPTION,
   invertSwipe: false
 };
-export const DEFAULT_CURRENT_CAROUSEL_CONFIG: CarouselConfig = {
+export const DEFAULT_CURRENT_CAROUSEL_CONFIG: DeepRequired<CarouselConfig> = {
   maxWidth: '100%',
   maxHeight: '400px',
   showArrows: true,
@@ -88,14 +99,14 @@ export const DEFAULT_CURRENT_CAROUSEL_CONFIG: CarouselConfig = {
   keyboardEnable: true,
   modalGalleryEnable: false
 };
-export const DEFAULT_CURRENT_CAROUSEL_PLAY: PlayConfig = {
+export const DEFAULT_CURRENT_CAROUSEL_PLAY: DeepRequired<PlayConfig> = {
   autoPlay: true,
   interval: 5000,
   pauseOnHover: true
 };
 
-export const DEFAULT_CAROUSEL_BREAKPOINTS: BreakpointsConfig = { xSmall: 100, small: 100, medium: 150, large: 200, xLarge: 200 };
-export const DEFAULT_CAROUSEL_PREVIEWS_CONFIG: CarouselPreviewConfig = {
+export const DEFAULT_CAROUSEL_BREAKPOINTS: DeepRequired<BreakpointsConfig> = { xSmall: 100, small: 100, medium: 150, large: 200, xLarge: 200 };
+export const DEFAULT_CAROUSEL_PREVIEWS_CONFIG: DeepRequired<CarouselPreviewConfig> = {
   visible: true,
   number: 4,
   arrows: true,
@@ -104,33 +115,39 @@ export const DEFAULT_CAROUSEL_PREVIEWS_CONFIG: CarouselPreviewConfig = {
   maxHeight: '200px',
   breakpoints: DEFAULT_CAROUSEL_BREAKPOINTS
 };
-export const DEFAULT_SLIDE_CONFIG: SlideConfig = {
+export const DEFAULT_SLIDE_CONFIG: DeepRequired<SlideConfig> = {
   infinite: false,
-  playConfig: { autoPlay: false, interval: 5000, pauseOnHover: true } as PlayConfig,
-  sidePreviews: { show: true, size: { width: '100px', height: 'auto' } } as SidePreviewsConfig
+  playConfig: { autoPlay: false, interval: 5000, pauseOnHover: true } as DeepRequired<PlayConfig>,
+  sidePreviews: { show: true, size: { width: '100px', height: 'auto' } } as DeepRequired<SidePreviewsConfig>
 };
-export const DEFAULT_PREVIEW_CONFIG: PreviewConfig = {
+export const DEFAULT_PREVIEW_CONFIG: DeepRequired<PreviewConfig> = {
   visible: true,
   number: 3,
   arrows: true,
   clickable: true,
-  size: DEFAULT_PREVIEW_SIZE
+  size: DEFAULT_PREVIEW_SIZE,
+  mobileVisible: false
+};
+export const DEFAULT_KEYBOARD_CONFIG: DeepRequired<KeyboardConfig> = {
+  esc: Keyboard.ESC,
+  right: Keyboard.RIGHT_ARROW,
+  left: Keyboard.LEFT_ARROW
 };
 
-const DEFAULT_CONFIG: LibConfig = Object.freeze({
+const DEFAULT_CONFIG: LibConfigInternal = Object.freeze({
   slideConfig: DEFAULT_SLIDE_CONFIG,
   accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
   previewConfig: DEFAULT_PREVIEW_CONFIG,
-  buttonsConfig: { visible: true, strategy: ButtonsStrategy.DEFAULT } as ButtonsConfig,
-  dotsConfig: { visible: true } as DotsConfig,
+  buttonsConfig: { visible: true, strategy: ButtonsStrategy.DEFAULT } as DeepRequired<ButtonsConfig>,
+  dotsConfig: { visible: true } as DeepRequired<DotsConfig>,
   plainGalleryConfig: DEFAULT_PLAIN_CONFIG,
   currentImageConfig: DEFAULT_CURRENT_IMAGE_CONFIG,
-  keyboardConfig: undefined, // by default nothing, because the library uses default buttons automatically
+  keyboardConfig: DEFAULT_KEYBOARD_CONFIG,
   carouselConfig: DEFAULT_CURRENT_CAROUSEL_CONFIG,
   carouselImageConfig: DEFAULT_CAROUSEL_IMAGE_CONFIG,
   carouselPreviewsConfig: DEFAULT_CAROUSEL_PREVIEWS_CONFIG,
   carouselPlayConfig: DEFAULT_CURRENT_CAROUSEL_PLAY,
-  carouselDotsConfig: { visible: true } as DotsConfig,
+  carouselDotsConfig: { visible: true } as DeepRequired<DotsConfig>,
   carouselSlideInfinite: true,
   enableCloseOutside: true
 });
@@ -140,7 +157,7 @@ const DEFAULT_CONFIG: LibConfig = Object.freeze({
  */
 @Injectable({ providedIn: 'root' })
 export class ConfigService {
-  configMap: Map<number, LibConfig> = new Map<number, LibConfig>();
+  configMap: Map<number, LibConfigInternal> = new Map<number, LibConfigInternal>();
 
   getConfig(id: number): LibConfig | undefined {
     this.initIfNotExists(id);
@@ -173,7 +190,7 @@ export class ConfigService {
       throw new Error('Internal library error - DEFAULT_CONFIG must be fully initialized!!!');
     }
 
-    const newConfig: LibConfig = Object.assign({}, this.configMap.get(id));
+    const newConfig: LibConfigInternal = Object.assign({}, this.configMap.get(id));
     if (obj.slideConfig) {
       let playConfig;
       let sidePreviews;
@@ -194,7 +211,7 @@ export class ConfigService {
         sidePreviews = DEFAULT_CONFIG.slideConfig.sidePreviews;
         size = DEFAULT_CONFIG.slideConfig.sidePreviews.size;
       }
-      const newSlideConfig: SlideConfig = Object.assign({}, DEFAULT_CONFIG.slideConfig, obj.slideConfig);
+      const newSlideConfig: DeepRequired<SlideConfig> = Object.assign({}, DEFAULT_CONFIG.slideConfig, obj.slideConfig);
       newSlideConfig.playConfig = playConfig;
       newSlideConfig.sidePreviews = sidePreviews;
       newSlideConfig.sidePreviews.size = size;
@@ -204,7 +221,7 @@ export class ConfigService {
       newConfig.accessibilityConfig = Object.assign({}, DEFAULT_CONFIG.accessibilityConfig, obj.accessibilityConfig);
     }
     if (obj.previewConfig) {
-      let size: Size;
+      let size: DeepRequired<Size>;
       let num: number;
       if (obj.previewConfig.size) {
         size = Object.assign({}, DEFAULT_CONFIG.previewConfig.size, obj.previewConfig.size);
@@ -221,7 +238,7 @@ export class ConfigService {
       } else {
         num = DEFAULT_CONFIG.previewConfig.number;
       }
-      const newPreviewConfig: PreviewConfig = Object.assign({}, DEFAULT_CONFIG.previewConfig, obj.previewConfig);
+      const newPreviewConfig: DeepRequired<PreviewConfig> = Object.assign({}, DEFAULT_CONFIG.previewConfig, obj.previewConfig);
       newPreviewConfig.size = size;
       newPreviewConfig.number = num;
       newConfig.previewConfig = newPreviewConfig;
@@ -246,7 +263,7 @@ export class ConfigService {
       } else {
         layout = DEFAULT_CONFIG.plainGalleryConfig.layout;
       }
-      const newPlainGalleryConfig: PlainGalleryConfig = Object.assign({}, DEFAULT_CONFIG.plainGalleryConfig, obj.plainGalleryConfig);
+      const newPlainGalleryConfig: DeepRequired<PlainGalleryConfig> = Object.assign({}, DEFAULT_CONFIG.plainGalleryConfig, obj.plainGalleryConfig);
       newPlainGalleryConfig.layout = layout;
       newPlainGalleryConfig.advanced = advanced;
       newConfig.plainGalleryConfig = initPlainGalleryConfig(newPlainGalleryConfig);
@@ -271,7 +288,7 @@ export class ConfigService {
         description = DEFAULT_CONFIG.currentImageConfig.description;
         descriptionStyle = DEFAULT_CONFIG.currentImageConfig.description.style;
       }
-      const newCurrentImageConfig: CurrentImageConfig = Object.assign({}, DEFAULT_CONFIG.currentImageConfig, obj.currentImageConfig);
+      const newCurrentImageConfig: DeepRequired<CurrentImageConfig> = Object.assign({}, DEFAULT_CONFIG.currentImageConfig, obj.currentImageConfig);
       newCurrentImageConfig.loadingConfig = loading;
       newCurrentImageConfig.description = description;
       newCurrentImageConfig.description.style = descriptionStyle;
@@ -299,7 +316,7 @@ export class ConfigService {
         description = DEFAULT_CONFIG.carouselImageConfig.description;
         descriptionStyle = DEFAULT_CONFIG.carouselImageConfig.description.style;
       }
-      const newCarouselImageConfig: CarouselImageConfig = Object.assign({}, DEFAULT_CONFIG.carouselImageConfig, obj.carouselImageConfig);
+      const newCarouselImageConfig: DeepRequired<CarouselImageConfig> = Object.assign({}, DEFAULT_CONFIG.carouselImageConfig, obj.carouselImageConfig);
       newCarouselImageConfig.description = description;
       newCarouselImageConfig.description.style = descriptionStyle;
       newConfig.carouselImageConfig = newCarouselImageConfig;
@@ -362,8 +379,8 @@ export class ConfigService {
  * @returns PlainGalleryConfig the plain gallery configuration
  * @throws an Error if layout and strategy aren't compatible
  */
-function initPlainGalleryConfig(plainGalleryConfig: PlainGalleryConfig): PlainGalleryConfig {
-  const newPlayGalleryConfig: PlainGalleryConfig = Object.assign({}, DEFAULT_CONFIG.plainGalleryConfig, plainGalleryConfig);
+function initPlainGalleryConfig(plainGalleryConfig: PlainGalleryConfig): DeepRequired<PlainGalleryConfig> {
+  const newPlayGalleryConfig: DeepRequired<PlainGalleryConfig> = Object.assign({}, DEFAULT_CONFIG.plainGalleryConfig, plainGalleryConfig);
 
   if (newPlayGalleryConfig.layout instanceof LineLayout) {
     if (newPlayGalleryConfig.strategy !== PlainGalleryStrategy.ROW && newPlayGalleryConfig.strategy !== PlainGalleryStrategy.COLUMN) {

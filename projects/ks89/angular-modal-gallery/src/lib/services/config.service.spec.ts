@@ -489,17 +489,6 @@ describe('ConfigService', () => {
 
       describe('keyboardConfig', () => {
 
-        it(`should call setConfig to update the library configuration with an undefined keyboardConfig`,
-          inject([ConfigService], (service: ConfigService) => {
-            const inputConfig: LibConfig = {
-              keyboardConfig: undefined
-            };
-            service.setConfig(1, inputConfig);
-            const result: LibConfig | undefined = service.getConfig(1);
-            expect(result?.keyboardConfig).toEqual(undefined);
-          })
-        );
-
         it(`should call setConfig to update the library configuration with a custom keyboardConfig`,
           inject([ConfigService], (service: ConfigService) => {
             const inputConfig: LibConfig = {

@@ -18,7 +18,7 @@ import { Component, DebugElement, SimpleChanges, TemplateRef, viewChild } from '
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../../components/accessibility-default';
+import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../accessibility-default';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
 import { SizeDirective } from '../../directives/size.directive';
 import { AccessibilityConfig } from '../../model/accessibility.interface';
@@ -32,7 +32,6 @@ import { ConfigService } from '../../services/config.service';
 import { KS_DEFAULT_SIZE } from '../upper-buttons/upper-buttons-default';
 import { PreviewsComponent } from './previews.component';
 import { NgTemplateOutlet } from '@angular/common';
-
 
 
 interface NavigationTestData {
@@ -61,17 +60,17 @@ CUSTOM_ACCESSIBILITY.previewScrollNextTitle = 'custom previewScrollNextTitle';
 CUSTOM_ACCESSIBILITY.previewScrollPrevAriaLabel = 'custom previewScrollPrevAriaLabel';
 CUSTOM_ACCESSIBILITY.previewScrollPrevTitle = 'custom previewScrollPrevTitle';
 
-const DEFAULT_PREVIEW_SIZE: Size = {height: '50px', width: 'auto'};
-const CUSTOM_SIZE: Size = {height: '40px', width: '40px'};
-const CUSTOM_SIZE_AUTO_HEIGHT: Size = {height: 'auto', width: '40px'};
-const CUSTOM_SIZE_AUTO_WIDTH: Size = {height: '40px', width: 'auto'};
+const DEFAULT_PREVIEW_SIZE: Size = { height: '50px', width: 'auto' };
+const CUSTOM_SIZE: Size = { height: '40px', width: '40px' };
+const CUSTOM_SIZE_AUTO_HEIGHT: Size = { height: 'auto', width: '40px' };
+const CUSTOM_SIZE_AUTO_WIDTH: Size = { height: '40px', width: 'auto' };
 const CUSTOM_SIZES: Size[] = [CUSTOM_SIZE, CUSTOM_SIZE_AUTO_HEIGHT, CUSTOM_SIZE_AUTO_WIDTH];
 
-const PREVIEWS_CONFIG_VISIBLE: PreviewConfig = {visible: true};
-const SLIDE_CONFIG_INFINITE: SlideConfig = {infinite: true};
-const PREVIEWS_CONFIG_HIDDEN: PreviewConfig = {visible: false};
+const PREVIEWS_CONFIG_VISIBLE: PreviewConfig = { visible: true };
+const SLIDE_CONFIG_INFINITE: SlideConfig = { infinite: true };
+const PREVIEWS_CONFIG_HIDDEN: PreviewConfig = { visible: false };
 
-const SLIDE_CONFIG: SlideConfig = {infinite: false, sidePreviews: {show: true, size: KS_DEFAULT_SIZE}};
+const SLIDE_CONFIG: SlideConfig = { infinite: false, sidePreviews: { show: true, size: KS_DEFAULT_SIZE } };
 
 
 const IMAGES: InternalLibImage[] = [
@@ -130,23 +129,23 @@ const IMAGES_CUSTOM_ACCESSIBILITY: InternalLibImage[] = IMAGES.map((image: Inter
 
 const NAVIGATION_NEXT_PREVIEWS: NavigationTestData[] = [
   {
-    initial: {start: 0, end: 3, activeIndex: 0},
-    expected: {start: 1, end: 4, activeIndex: 0}
+    initial: { start: 0, end: 3, activeIndex: 0 },
+    expected: { start: 1, end: 4, activeIndex: 0 }
   },
   {
-    initial: {start: 1, end: 4, activeIndex: 0},
-    expected: {start: 2, end: 5, activeIndex: 0}
+    initial: { start: 1, end: 4, activeIndex: 0 },
+    expected: { start: 2, end: 5, activeIndex: 0 }
   }
 ];
 
 const NAVIGATION_PREV_PREVIEWS: NavigationTestData[] = [
   {
-    initial: {start: 2, end: 5, activeIndex: 0},
-    expected: {start: 1, end: 4, activeIndex: 0}
+    initial: { start: 2, end: 5, activeIndex: 0 },
+    expected: { start: 1, end: 4, activeIndex: 0 }
   },
   {
-    initial: {start: 1, end: 4, activeIndex: 0},
-    expected: {start: 0, end: 3, activeIndex: 0}
+    initial: { start: 1, end: 4, activeIndex: 0 },
+    expected: { start: 0, end: 3, activeIndex: 0 }
   }
 ];
 
@@ -241,11 +240,13 @@ function checkPreviewStateAfterClick(previews: DebugElement[], prevValue: Intern
 /**
  * A template-providing component to test the template-driven previews customization.
  */
- @Component({ template: `
+@Component({
+  template: `
     <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
       <div class="my-own-template">example</div>
     </ng-template>
-` })
+  `
+})
 class PreviewsTemplateComponent0 {
   readonly templateRef = viewChild<TemplateRef<HTMLElement>>('template');
 }
@@ -272,11 +273,11 @@ class PreviewsTemplateComponent1 {
 function initTestBed(): void {
   TestBed.configureTestingModule({
     imports: [PreviewsComponent,
-        SizeDirective,
-        FallbackImageDirective,
-        PreviewsTemplateComponent0,
-        PreviewsTemplateComponent1,]
-}).overrideComponent(PreviewsComponent, {
+      SizeDirective,
+      FallbackImageDirective,
+      PreviewsTemplateComponent0,
+      PreviewsTemplateComponent1]
+  }).overrideComponent(PreviewsComponent, {
     set: {
       providers: [
         {
@@ -308,10 +309,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -344,10 +344,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -380,10 +379,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -416,10 +414,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: CUSTOM_ACCESSIBILITY,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES_CUSTOM_ACCESSIBILITY[initialActiveImage];
-      comp.images = IMAGES_CUSTOM_ACCESSIBILITY;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES_CUSTOM_ACCESSIBILITY[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES_CUSTOM_ACCESSIBILITY);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -447,14 +444,13 @@ describe('PreviewsComponent', () => {
       const numOfPreviews = 2;
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {
-        previewConfig: {visible: true, number: 2, arrows: false},
+        previewConfig: { visible: true, number: 2, arrows: false },
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -484,14 +480,13 @@ describe('PreviewsComponent', () => {
         const numOfPreviews = 3;
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
-          previewConfig: {visible: true, size},
+          previewConfig: { visible: true, size },
           accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
           slideConfig: SLIDE_CONFIG
         });
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[initialActiveImage];
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;
@@ -525,10 +520,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       comp.clickPreview.subscribe((res: ImageModalEvent) => {
@@ -596,10 +590,9 @@ describe('PreviewsComponent', () => {
           accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
           slideConfig: SLIDE_CONFIG
         });
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[val.initial.activeIndex];
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[val.initial.activeIndex]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;
@@ -705,10 +698,9 @@ describe('PreviewsComponent', () => {
           accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
           slideConfig
         });
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[0];
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[0]);
+        fixture.componentRef.setInput('images', IMAGES);
         fixture.detectChanges();
 
         const element: DebugElement = fixture.debugElement;
@@ -801,11 +793,10 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.customTemplate = templateRef;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('customTemplate', templateRef);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -834,11 +825,10 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[initialActiveImage];
-      comp.images = IMAGES;
-      comp.customTemplate = templateRef;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[initialActiveImage]);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('customTemplate', templateRef);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;
@@ -870,52 +860,20 @@ describe('PreviewsComponent', () => {
           accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
           slideConfig: SLIDE_CONFIG
         });
-        comp.id = GALLERY_ID;
-        comp.currentImage = IMAGES[0];
-        comp.images = IMAGES;
-        comp.ngOnInit();
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('currentImage', IMAGES[0]);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.detectChanges();
         expect(comp.previews.length).toBe(previewNumber);
 
         // click on the second picture
-        comp.currentImage = IMAGES[1]; // set component input
-        comp.ngOnChanges({ // trigger changes manually (not done automatically in tests)
-          currentImage: {
-            previousValue: IMAGES[0],
-            currentValue: IMAGES[1],
-            firstChange: false,
-            isFirstChange: () => false
-          }
-        } as SimpleChanges);
-        // at the time of writing this test, a change is detected within 'images', yet with the same value
-        comp.ngOnChanges({
-          images: {
-            previousValue: IMAGES,
-            currentValue: IMAGES,
-            firstChange: false,
-            isFirstChange: () => false
-          }
-        } as SimpleChanges);
+        fixture.componentRef.setInput('currentImage', IMAGES[1]); // set component input
+        fixture.detectChanges();
         expect(comp.previews.length).toBe(previewNumber);
 
         // click on the third picture
-        comp.currentImage = IMAGES[2]; // set component input
-        comp.ngOnChanges({ // trigger changes manually (not done automatically in tests)
-          currentImage: {
-            previousValue: IMAGES[1],
-            currentValue: IMAGES[2],
-            firstChange: false,
-            isFirstChange: () => false
-          }
-        } as SimpleChanges);
-        // at the time of writing this test, a change is detected within 'images', yet with the same value
-        comp.ngOnChanges({
-          images: {
-            previousValue: IMAGES,
-            currentValue: IMAGES,
-            firstChange: false,
-            isFirstChange: () => false
-          }
-        } as SimpleChanges);
+        fixture.componentRef.setInput('currentImage', IMAGES[2]); // set component input
+        fixture.detectChanges();
         expect(comp.previews.length).toBe(previewNumber);
       }));
     });
@@ -927,10 +885,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[0];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
       const element: DebugElement = fixture.debugElement;
       let previews: DebugElement[] = element.queryAll(By.css('img'));
@@ -962,10 +919,9 @@ describe('PreviewsComponent', () => {
         accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
         slideConfig: SLIDE_CONFIG_INFINITE
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[0];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
       const element: DebugElement = fixture.debugElement;
       const leftArrow = element.query(By.css('a.nav-left')).nativeElement as HTMLAnchorElement;
@@ -989,7 +945,6 @@ describe('PreviewsComponent', () => {
       expect(leftArrowDiv.classList).toContain('left-arrow-preview-image');
       expect(rightArrowDiv.classList).toContain('right-arrow-preview-image');
     });
-
   });
 
   describe('---NO---', () => {
@@ -998,10 +953,9 @@ describe('PreviewsComponent', () => {
       configService.setConfig(GALLERY_ID, {
         previewConfig: PREVIEWS_CONFIG_HIDDEN
       });
-      comp.id = GALLERY_ID;
-      comp.currentImage = IMAGES[0];
-      comp.images = IMAGES;
-      comp.ngOnInit();
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('images', IMAGES);
       fixture.detectChanges();
 
       const element: DebugElement = fixture.debugElement;

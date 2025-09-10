@@ -287,9 +287,10 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
 
       this.size = this.plainGalleryConfig.layout.size;
 
-      const pixels: number = +layout.size.width.replace('px', '');
-
-      this.widthStyle = pixels * layout.breakConfig.length + pixels / 2 + 'px';
+      if (layout.size.width) {
+        const pixels: number = +(layout.size.width).replace('px', '');
+        this.widthStyle = pixels * layout.breakConfig.length + pixels / 2 + 'px';
+      }
       this.wrapStyle = layout.breakConfig.wrap;
 
       this.directionStyle = 'row';

@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, OnInit, output, OutputEmitterRef, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, output, OutputEmitterRef, input } from '@angular/core';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -39,8 +39,6 @@ import {
 } from './upper-buttons-default';
 
 import { NEXT } from '../../utils/user-input.util';
-import { ConfigService } from '../../services/config.service';
-import { LibConfig } from '../../model/lib-config.interface';
 import { NgStyle } from '@angular/common';
 import { SizeDirective } from '../../directives/size.directive';
 
@@ -72,7 +70,11 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * Object of type `Image` that represent the visible image.
    */
   readonly currentImage = input.required<Image>();
-
+  /**
+   * Object of type `ButtonsConfig` to init UpperButtonsComponent's features.
+   * For instance, it contains an array of buttons.
+   */
+  readonly buttonsConfig = input.required<ButtonsConfig>();
   /**
    * Output to emit clicks on refresh button. The payload contains a `ButtonEvent`.
    */
@@ -103,11 +105,6 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   readonly customEmit = output<ButtonEvent>();
 
   /**
-   * Object of type `ButtonsConfig` to init UpperButtonsComponent's features.
-   * For instance, it contains an array of buttons.
-   */
-  buttonsConfig: ButtonsConfig | undefined;
-  /**
    * Array of `InternalButtonConfig` exposed to the template. This field is initialized
    * applying transformations, default values and so on to the input of the same type.
    */
@@ -134,8 +131,6 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
     ...this.advancedButtonsDefault
   ];
 
-  private configService: ConfigService = inject(ConfigService);
-
   /**
    * Method ´ngOnInit´ to build `configButtons` applying a default value and also to
    * init the `buttons` array.
@@ -143,12 +138,10 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
-    if (!libConfig || !libConfig.buttonsConfig) {
-      throw new Error('Internal library error - libConfig and buttonsConfig must be defined');
+    if (!this.buttonsConfig()) {
+      throw new Error('No buttons configured');
     }
-    this.buttonsConfig = libConfig.buttonsConfig;
-    switch (this.buttonsConfig.strategy) {
+    switch (this.buttonsConfig().strategy) {
       case ButtonsStrategy.SIMPLE:
         this.buttons = this.addButtonIds(this.simpleButtonsDefault);
         break;
@@ -159,7 +152,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
         this.buttons = this.addButtonIds(this.fullButtonsDefault);
         break;
       case ButtonsStrategy.CUSTOM:
-        this.buttons = this.addButtonIds(this.validateCustomButtons(this.buttonsConfig.buttons));
+        this.buttons = this.addButtonIds(this.validateCustomButtons(this.buttonsConfig().buttons));
         break;
       case ButtonsStrategy.DEFAULT:
       default:
@@ -259,7 +252,7 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
    * Private method to validate custom buttons received as input.
    * @param buttons ButtonConfig[] config array. [] by default.
    * @returns ButtonConfig[] the same input buttons config array
-   * @throws an error is exists a button with an unknown type
+   * @throws an error if exists a button with an unknown type
    */
   private validateCustomButtons(buttons: ButtonConfig[] = []): ButtonConfig[] {
     buttons.forEach((val: ButtonConfig) => {

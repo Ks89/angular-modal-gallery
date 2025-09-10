@@ -91,21 +91,21 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * Unique id (>=0) of the current instance of this library. This is useful when you are using
    * the service to call modal gallery without open it manually.
    */
-  readonly id = input.required<number>();
+  id = input.required<number>();
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  readonly currentImage = input.required<InternalLibImage>();
+  currentImage = input.required<InternalLibImage>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  readonly images = input.required<InternalLibImage[]>();
+  images = input.required<InternalLibImage[]>();
   /**
    * Boolean that it is true if the modal gallery is visible.
    * If yes, also this component should be visible.
    */
-  readonly isOpen = input<boolean>(false);
+  isOpen = input<boolean>(false);
 
   /**
    * Output to emit an event when images are loaded. The payload contains an `ImageLoadEvent`.
@@ -180,8 +180,9 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
   private readonly platformId: Object = inject(PLATFORM_ID);
   private ngZone: NgZone = inject(NgZone);
-  private ref: ChangeDetectorRef = inject(ChangeDetectorRef);
   private configService: ConfigService = inject(ConfigService);
+  // this must be public for testing purposes
+  ref: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   /**
    * Listener to stop the gallery when the mouse pointer is over the current image.
@@ -224,7 +225,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
       throw new Error('Internal library error - libConfig and buttonsConfig must be defined');
     }
     this.slideConfig = libConfig.slideConfig;
-    this.accessibilityConfig = libConfig.accessibilityConfig;
+    this.accessibilityConfig = libConfig.accessibilityConfig ;
     this.currentImageConfig = libConfig.currentImageConfig;
     this.keyboardConfig = libConfig.keyboardConfig;
   }

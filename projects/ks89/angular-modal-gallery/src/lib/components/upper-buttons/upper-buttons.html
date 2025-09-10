@@ -1,6 +1,6 @@
 <header class="buttons-container">
 
-  @if (!buttonsConfig || buttonsConfig?.visible) {
+  @if (!buttonsConfig() || buttonsConfig()?.visible) {
     @for (btn of buttons; track trackById) {
       <a class="upper-button"
          ksSize [sizeConfig]="{width: btn.size?.width!, height: btn.size?.height!}"

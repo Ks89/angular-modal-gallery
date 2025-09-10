@@ -22,19 +22,17 @@
  SOFTWARE.
  */
 
-import { ChangeDetectionStrategy, Component, inject, OnChanges, OnInit, SimpleChange, SimpleChanges, output, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, input } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 import { AccessibleComponent } from '../accessible.component';
 
 import { AccessibilityConfig } from '../../model/accessibility.interface';
-import { InternalLibImage } from '../../model/image-internal.class';
 import { DotsConfig } from '../../model/dots-config.interface';
 
 import { NEXT } from '../../utils/user-input.util';
 import { getIndex } from '../../utils/image.util';
-import { ConfigService } from '../../services/config.service';
-import { LibConfig } from '../../model/lib-config.interface';
-import { NgClass } from '@angular/common';
+import { Image } from '../../model/image.class';
 
 /**
  * Component with clickable dots (small circles) to navigate between images inside the modal gallery.
@@ -46,7 +44,7 @@ import { NgClass } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass]
 })
-export class DotsComponent extends AccessibleComponent implements OnInit, OnChanges {
+export class DotsComponent extends AccessibleComponent {
   /**
    * Unique id (>=0) of the current instance of this library. This is required when you are using
    * the service to call modal gallery.
@@ -55,60 +53,28 @@ export class DotsComponent extends AccessibleComponent implements OnInit, OnChan
   /**
    * Object of type `InternalLibImage` that represent the visible image.
    */
-  readonly currentImage = input<InternalLibImage>();
+  readonly currentImage = input.required<Image>();
   /**
    * Array of `InternalLibImage` that represent the model of this library with all images,
    * thumbs and so on.
    */
-  readonly images = input<InternalLibImage[]>();
+  readonly images = input.required<Image[]>();
   /**
    * Object of type `DotsConfig` to init DotsComponent's features.
    * For instance, it contains a param to show/hide this component.
    */
   readonly dotsConfig = input.required<DotsConfig>();
+  /**
+   * Object of type `AccessibilityConfig` to init custom accessibility features.
+   * For instance, it contains titles, alt texts, aria-labels and so on.
+   */
+  readonly accessibilityConfig = input.required<AccessibilityConfig>();
 
   /**
    * Output to emit clicks on dots. The payload contains a number that represent
    * the index of the clicked dot.
    */
   readonly clickDot = output<number>();
-
-  /**
-   * Object of type `DotsConfig` used in template.
-   */
-  configDots: DotsConfig | undefined;
-  /**
-   * Object of type `AccessibilityConfig` to init custom accessibility features.
-   * For instance, it contains titles, alt texts, aria-labels and so on.
-   */
-  accessibilityConfig: AccessibilityConfig | undefined;
-
-  private configService: ConfigService = inject(ConfigService);
-
-  /**
-   * Method ´ngOnInit´ to build `configDots` applying a default value.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
-   * In particular, it's called only one time!!!
-   */
-  ngOnInit(): void {
-    const libConfig: LibConfig | undefined = this.configService.getConfig(this.id());
-    if (!libConfig) {
-      throw new Error('Internal library error - libConfig must be defined');
-    }
-    this.accessibilityConfig = libConfig.accessibilityConfig;
-    this.configDots = Object.assign({}, this.dotsConfig());
-  }
-
-  /**
-   * Method ´ngOnChanges´ to change `configDots` if the input dotsConfig is changed.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    const dotsConfigChanges: SimpleChange = changes['dotsConfig'];
-    if (dotsConfigChanges && dotsConfigChanges.currentValue !== dotsConfigChanges.previousValue) {
-      this.configDots = dotsConfigChanges.currentValue;
-    }
-  }
 
   /**
    * Method to check if an image is active (i.e. the current image).

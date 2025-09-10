@@ -424,10 +424,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should display current image with arrows and side previews. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -453,10 +453,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should display current image as base64 with arrows and side previews. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES_BASE64;
-        comp.currentImage = IMAGES_BASE64[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES_BASE64);
+        fixture.componentRef.setInput('currentImage', IMAGES_BASE64[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -481,10 +481,10 @@ describe('CurrentImageComponent', () => {
     });
 
     it(`should display current image with arrows and side previews when there is only one image.`, () => {
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.currentImage = IMAGES[0];
-      comp.isOpen = true;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('isOpen', true);
 
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {
@@ -509,10 +509,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should navigate between images clicking on current image. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -553,10 +553,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should navigate between images clicking on right side preview. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -601,10 +601,10 @@ describe('CurrentImageComponent', () => {
     [...TEST_MODEL].reverse().forEach((val: TestModel, index: number) => {
       it(`should navigate between images clicking on left side preview. Test i=${index}`, () => {
         const currentIndex: number = IMAGES.length - 1 - index;
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[currentIndex];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[currentIndex]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -648,10 +648,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should navigate between images to the right using swipe gestures. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -691,10 +691,10 @@ describe('CurrentImageComponent', () => {
     [...TEST_MODEL].reverse().forEach((val: TestModel, index: number) => {
       it(`should navigate between images to the left using swipe gestures. Test i=${index}`, () => {
         const currentIndex: number = IMAGES.length - 1 - index;
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[currentIndex];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[currentIndex]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -733,10 +733,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should invert swipe navigation with the 'invertSwipe' property to true navigating to the left. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -777,10 +777,10 @@ describe('CurrentImageComponent', () => {
     [...TEST_MODEL].reverse().forEach((val: TestModel, index: number) => {
       it(`should invert swipe navigation with the 'invertSwipe' property to true navigating to the right. Test i=${index}`, () => {
         const currentIndex: number = IMAGES.length - 1 - index;
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[currentIndex];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[currentIndex]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -820,10 +820,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL_ALWAYSEMPTY_DESCRIPTIONS.forEach((val: TestModel, index: number) => {
       it(`should display current image when description is ALWAYS_HIDDEN. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -851,10 +851,10 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL_HIDEEMPTY_DESCRIPTIONS.forEach((val: TestModel, index: number) => {
       it(`should display current image when description is HIDE_IF_EMPTY. Test i=${index}`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -885,10 +885,10 @@ describe('CurrentImageComponent', () => {
     CUSTOM_SLIDE_CONFIG.forEach((slideConfig: SlideConfig, j: number) => {
       TEST_MODEL.forEach((val: TestModel, index: number) => {
         it(`should display current image, arrows and side previews with custom slideConfig. Test i=${index}, j=${j}`, () => {
-          comp.id = GALLERY_ID;
-          comp.images = IMAGES;
-          comp.currentImage = IMAGES[index];
-          comp.isOpen = true;
+          fixture.componentRef.setInput('id', GALLERY_ID);
+          fixture.componentRef.setInput('images', IMAGES);
+          fixture.componentRef.setInput('currentImage', IMAGES[index]);
+          fixture.componentRef.setInput('isOpen', true);
 
           const configService = fixture.debugElement.injector.get(ConfigService);
           configService.setConfig(GALLERY_ID, {
@@ -920,10 +920,10 @@ describe('CurrentImageComponent', () => {
     CUSTOM_SLIDE_CONFIG_INFINITE.forEach((slideConfig: SlideConfig, j: number) => {
       TEST_MODEL_INFINITE.forEach((val: TestModel, index: number) => {
         it(`should display current image, arrows and side previews with infinite sliding. Test i=${index}, j=${j}`, () => {
-          comp.id = GALLERY_ID;
-          comp.images = IMAGES;
-          comp.currentImage = IMAGES[index];
-          comp.isOpen = true;
+          fixture.componentRef.setInput('id', GALLERY_ID);
+          fixture.componentRef.setInput('images', IMAGES);
+          fixture.componentRef.setInput('currentImage', IMAGES[index]);
+          fixture.componentRef.setInput('isOpen', true);
 
           const configService = fixture.debugElement.injector.get(ConfigService);
           configService.setConfig(GALLERY_ID, {
@@ -958,11 +958,11 @@ describe('CurrentImageComponent', () => {
 
     TEST_MODEL_INFINITE.forEach((val: TestModel, index: number) => {
       it(`should display current image and arrows WITHOUT side previews and with infinite sliding ENBALED. Test i=${index}.`, () => {
-        comp.id = GALLERY_ID;
+        fixture.componentRef.setInput('id', GALLERY_ID);
         const images = IMAGES;
-        comp.images = images;
-        comp.currentImage = images[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('images', images);
+        fixture.componentRef.setInput('currentImage', images[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const slideConfig: SlideConfig = {
           infinite: true,
@@ -1115,10 +1115,10 @@ describe('CurrentImageComponent', () => {
 
     IMAGES.forEach((image: InternalLibImage, index: number) => {
       it(`should display current image with custom accessibility. Image with index = ${index}.`, () => {
-        comp.id = GALLERY_ID;
-        comp.images = IMAGES;
-        comp.currentImage = IMAGES[index];
-        comp.isOpen = true;
+        fixture.componentRef.setInput('id', GALLERY_ID);
+        fixture.componentRef.setInput('images', IMAGES);
+        fixture.componentRef.setInput('currentImage', IMAGES[index]);
+        fixture.componentRef.setInput('isOpen', true);
 
         const configService = fixture.debugElement.injector.get(ConfigService);
         configService.setConfig(GALLERY_ID, {
@@ -1163,10 +1163,10 @@ describe('CurrentImageComponent', () => {
     });
 
     it(`should display current image with an array of images with a single element.`, () => {
-      comp.id = GALLERY_ID;
-      comp.images = [IMAGES[0]];
-      comp.currentImage = IMAGES[0];
-      comp.isOpen = true;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', [IMAGES[0]]);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('isOpen', true);
 
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {
@@ -1199,10 +1199,10 @@ describe('CurrentImageComponent', () => {
     });
 
     it(`should display gallery with all defaults and auto-navigate (play enabled).`, fakeAsync(() => {
-      comp.id = 0;
-      comp.images = IMAGES;
-      comp.currentImage = IMAGES[0];
-      comp.isOpen = true;
+      fixture.componentRef.setInput('id', 0);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('currentImage', IMAGES[0]);
+      fixture.componentRef.setInput('isOpen', true);
 
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {
@@ -1227,7 +1227,7 @@ describe('CurrentImageComponent', () => {
         // checkArrows(index === 0, index === IMAGES.length - 1);
         tick(defaultInterval + 100);
         if (index < IMAGES.length - 1) {
-          comp.currentImage = IMAGES[index + 1];
+          fixture.componentRef.setInput('currentImage', IMAGES[index + 1]);
           comp.ngOnChanges({
             currentImage: {
               previousValue: IMAGES[index],
@@ -1258,10 +1258,10 @@ describe('CurrentImageComponent', () => {
     it(`cannot navigate from the last image to the first one if infinite sliding is disabled`, () => {
       const index: number = IMAGES.length - 1;
       const infiniteSliding = false;
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.currentImage = IMAGES[index];
-      comp.isOpen = true;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('currentImage', IMAGES[index]);
+      fixture.componentRef.setInput('isOpen', true);
 
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {
@@ -1295,10 +1295,10 @@ describe('CurrentImageComponent', () => {
     it(`cannot navigate from the first image to the last one if infinite sliding is disabled`, () => {
       const index = 0;
       const infiniteSliding = false;
-      comp.id = GALLERY_ID;
-      comp.images = IMAGES;
-      comp.currentImage = IMAGES[index];
-      comp.isOpen = true;
+      fixture.componentRef.setInput('id', GALLERY_ID);
+      fixture.componentRef.setInput('images', IMAGES);
+      fixture.componentRef.setInput('currentImage', IMAGES[index]);
+      fixture.componentRef.setInput('isOpen', true);
 
       const configService = fixture.debugElement.injector.get(ConfigService);
       configService.setConfig(GALLERY_ID, {

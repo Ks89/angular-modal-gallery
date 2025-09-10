@@ -53,7 +53,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   /**
    * Object of type `ButtonsConfig` to show/hide buttons.
    */
-  buttonsConfig: ButtonsConfig | undefined;
+  buttonsConfig!: ButtonsConfig;
   /**
    * Boolean to enable modal-gallery close behaviour when clicking
    * on the semi-transparent background. Enabled by default.
@@ -135,13 +135,13 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     this.downloadImage();
   }
 
-  constructor(
-    private modalGalleryService: ModalGalleryService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private idValidatorService: IdValidatorService,
-    private configService: ConfigService,
-    private sanitizer: DomSanitizer
-  ) {
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
+  private changeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+  private idValidatorService: IdValidatorService = inject(IdValidatorService);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  private configService: ConfigService = inject(ConfigService);
+
+  constructor() {
     this.id = (this.dialogContent as ModalGalleryConfig).id;
     this.images = (this.dialogContent as ModalGalleryConfig).images as InternalLibImage[];
     this.currentImage = (this.dialogContent as ModalGalleryConfig).currentImage as InternalLibImage;
@@ -184,8 +184,8 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     if (!libConfig || !libConfig.dotsConfig) {
       throw new Error('Internal library error - libConfig and dotsConfig must be defined');
     }
-
     this.dotsConfig = libConfig.dotsConfig;
+    this.buttonsConfig = libConfig.buttonsConfig!;
 
     setTimeout(() => {
       this.initImages();

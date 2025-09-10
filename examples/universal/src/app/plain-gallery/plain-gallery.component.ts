@@ -36,8 +36,6 @@ import {
   imports: [GalleryModule]
 })
 export class PlainGalleryExampleComponent {
-  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
-
   plainGalleryRow: PlainGalleryConfig = {
     strategy: PlainGalleryStrategy.ROW,
     layout: new LineLayout({ width: '80px', height: '80px' }, { length: 2, wrap: true }, 'flex-start')
@@ -230,6 +228,8 @@ export class PlainGalleryExampleComponent {
   libConfigPlainGalleryGrid: PlainLibConfig = {
     plainGalleryConfig: this.plainGalleryGrid
   };
+
+  private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
 
   openImageModalRow(id: number, image: Image): void {
     console.log('Opening modal gallery from custom plain gallery row, with image: ', image);
