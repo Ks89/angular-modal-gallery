@@ -128,7 +128,7 @@ Despite its name, this library is more than for modal galleries, because I'm int
 - configurable side-previews (visible only on bigger screen)
 - configurable dots navigation (visible only on bigger screen)
 - configurable previews (visible only on bigger screen)
-- and many more... (check the official documentation [HERE](https://ks89.github.io/angular-modal-gallery-2025-v14.github.io/))
+- and many more... (check the official documentation [HERE](https://ks89.github.io/angular-modal-gallery-2025-v15.github.io/))
 
 <br>
 
@@ -138,7 +138,7 @@ Despite its name, this library is more than for modal galleries, because I'm int
 - `npm install --save @angular/cdk`
 
 From version @ks89/angular-modal-gallery >= 5.0.0, **font-awesome isn't a mandatory dependency**.
-You can use all default features without font-awesome. For more info, check official [documentation website](https://ks89.github.io/angular-modal-gallery-2025-v14.github.io/).
+You can use all default features without font-awesome. For more info, check official [documentation website](https://ks89.github.io/angular-modal-gallery-2025-v15.github.io/).
 From version @ks89/angular-modal-gallery >= 11.0.0, **mousetrap and hammerjs have been removed as dependencies**.
 
 <br>
@@ -147,7 +147,7 @@ From version @ks89/angular-modal-gallery >= 11.0.0, **mousetrap and hammerjs hav
 
 *Image loading could be slow, because this website is hosted on Github pages*
 
-[OFFICIAL DOCUMENTATION WEBSITE](https://ks89.github.io/angular-modal-gallery-2025-v14.github.io/)
+[OFFICIAL DOCUMENTATION WEBSITE](https://ks89.github.io/angular-modal-gallery-2025-v15.github.io/)
 
 <br>
 
@@ -224,7 +224,7 @@ From version @ks89/angular-modal-gallery >= 11.0.0, **mousetrap and hammerjs hav
 1. Question: **How can I remove images using DELETE button without issues?**<br>
    **Answer**: **You cannot change the input image array. Instead, you should reassign it with a newer array** without the deleted element.
    In other words, **you must think in a functional way**, without changing the input array of images.
-   For more information check this official demo [HERE](https://ks89.github.io/angular-modal-gallery-2025-v14.github.io/demo/buttons-strategies).
+   For more information check this official demo [HERE](https://ks89.github.io/angular-modal-gallery-2025-v15.github.io/demo/buttons-strategies).
 
 <br>
 
