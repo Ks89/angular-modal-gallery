@@ -98,7 +98,7 @@ export class AppComponent {
   ]
 })
 export class DialogOverviewExampleDialog {
-  private readonly data: DialogData = inject(MAT_DIALOG_DATA);
+  public readonly data: DialogData = inject(MAT_DIALOG_DATA);
   constructor(public dialogRef: MatDialogRef<DialogOverviewExampleDialog>) {
   }
 
