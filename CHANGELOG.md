@@ -1,8 +1,5 @@
 # 15.0.0
 
-Why this major release? Because I want to upgrade/rewrite to code to the latest angular features.
-This requires a lot or refactoring and changes, so I prefer to release the new version as major release.
-
 ### Features
 
 - Angular 21 is required **(BREAKING CHANGE)**
@@ -19,7 +16,7 @@ This requires a lot or refactoring and changes, so I prefer to release the new v
 
 ### Examples
 
-- upgrade all examples to the new syntax and to Angular 20
+- upgrade all examples to the new syntax and to Angular 21
 
 ### Documentation
 
