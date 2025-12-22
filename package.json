@@ -10,7 +10,7 @@
     "url": "git+https://github.com/Ks89/angular-modal-gallery.git"
   },
   "engines": {
-    "node": ">=20.14.0",
+    "node": ">=22.00.0",
     "npm": ">=10.2.4"
   },
   "scripts": {
@@ -31,16 +31,16 @@
     "clean:main": "npm run clean:dist && npm run clean:coverage",
     "clean:dist": "rimraf @ks89 dist",
     "clean:coverage": "rimraf coverage",
-    "clean:angular-cli-20": "rimraf examples/angular-cli-20/node_modules/@ks89 examples/angular-cli-20/dist",
+    "clean:angular-cli-21": "rimraf examples/angular-cli-21/node_modules/@ks89 examples/angular-cli-21/dist",
     "clean:angular-cli-material": "rimraf examples/angular-cli-material/node_modules/@ks89 examples/angular-cli-material/dist",
     "clean:universal": "rimraf examples/universal/node_modules/@ks89 examples/universal/dist",
-    "clean:examples": "npm run clean:angular-cli-20 && npm run clean:angular-cli-material && npm run clean:universal",
+    "clean:examples": "npm run clean:angular-cli-21 && npm run clean:angular-cli-material && npm run clean:universal",
     "clean:all": "npm run clean:main && npm run clean:examples",
     "copy:dist": "npm run copy:dist:examples",
-    "copy:dist:angular-cli-20": "cpr @ks89 examples/angular-cli-20/node_modules/@ks89 -o",
+    "copy:dist:angular-cli-21": "cpr @ks89 examples/angular-cli-21/node_modules/@ks89 -o",
     "copy:dist:angular-cli-material": "cpr @ks89 examples/angular-cli-material/node_modules/@ks89 -o",
     "copy:dist:universal": "cpr @ks89 examples/universal/node_modules/@ks89 -o",
-    "copy:dist:examples": "npm run copy:dist:angular-cli-20 && npm run copy:dist:angular-cli-material && npm run copy:dist:universal",
+    "copy:dist:examples": "npm run copy:dist:angular-cli-21 && npm run copy:dist:angular-cli-material && npm run copy:dist:universal",
     "copy:build": "cpr dist/ks89/angular-modal-gallery @ks89/angular-modal-gallery -o",
     "copy:other": "cpr README.md @ks89/angular-modal-gallery/README.md -o && cpr LICENSE @ks89/angular-modal-gallery/LICENSE -o && cpr CHANGELOG.md @ks89/angular-modal-gallery/CHANGELOG.md -o && cpr CONTRIBUTING.md @ks89/angular-modal-gallery/CONTRIBUTING.md -o",
     "pretest": "npm run clean:coverage && npm run check:circulardeps",
@@ -57,7 +57,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/cdk": "^20.0.6",
+    "@angular/cdk": "^21.0.5",
     "@angular/common": "^21.0.6",
     "@angular/compiler": "^21.0.6",
     "@angular/core": "^21.0.6",

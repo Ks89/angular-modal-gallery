@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2017-2025 Stefano Cappa (Ks89)
+// Copyright (c) 2017-2026 Stefano Cappa (Ks89)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,42 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// You can add global styles to this file, and also import other style files
 
-// *****************************************************************
-// *********** required by @ks89/angular-modal-gallery *************
-// *****************************************************************
-// ATTENTION: You have to install @angular/cdk to be able to use @ks89/angular-modal-gallery properly
-@use "@angular/cdk/overlay-prebuilt.css" as *;
-
-.ks-modal-gallery-backdrop {
-  background: #000 !important;;
-  opacity: 0.85 !important;;
-}
-
-.ks-modal-gallery-panel {
-  z-index: 90000 !important;
-}
-// *****************************************************************
-// *****************************************************************
-// *****************************************************************
-
-body {
-  font-family: "Montserrat", sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-// Not required by angular-modal-gallery. Used only in this demo
-.red-text {
-  color: red;
-}
-
-.title {
+#main-title {
   text-align: center;
-  color: red;
+  width: 100%;
 }
 
-.center-text {
+#menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  > .menu-item {
+    margin-left: 10px;
+  }
+}
+
+.copyright {
   text-align: center;
+}
+
+.margin {
+  margin-left: 15px;
+  margin-right: 15px;
 }

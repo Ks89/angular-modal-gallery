@@ -1,3 +1,31 @@
+# 15.0.0
+
+Why this major release? Because I want to upgrade/rewrite to code to the latest angular features.
+This requires a lot or refactoring and changes, so I prefer to release the new version as major release.
+
+### Features
+
+- Angular 21 is required **(BREAKING CHANGE)**
+
+### Refactor
+
+- migrate to inject() function instead of using the constructor
+- migrate to output<> syntax
+- migrate to input<> syntax
+- migrate to self-closing tags
+- partial migration to signals
+- huge refactor to tests to use the new syntax
+- force 'strictTemplates: true' and 'noPropertyAccessFromIndexSignature: true' in tsconfig (recommended values) and adapt the library code to work with
+
+### Examples
+
+- upgrade all examples to the new syntax and to Angular 20
+
+### Documentation
+
+- upgrade doc website to Angular 21 and migrate to the new syntax
+
+
 # 15.0.0-alpha.1
 
 Why this major release? Because I want to upgrade/rewrite to code to the latest angular features.

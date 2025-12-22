@@ -15,11 +15,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "useDefineForClassFields": false, // to inject sanitizer without errors
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "useDefineForClassFields": false,
     "typeRoots": [
       "node_modules/@types"
     ]

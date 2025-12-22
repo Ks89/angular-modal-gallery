@@ -179,31 +179,26 @@ From version @ks89/angular-modal-gallery >= 11.0.0, **mousetrap and hammerjs hav
 
 ## :fire: News :fire:
 
-**More than 100 releases in two years**, and more to come... :)
+**More than 120 releases**, and more to come... :)
 
-- 12/09/2025 - 15.0.0-alpha.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 20/08/2025 - 14.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 22/12/2024 - 13.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 31/05/2024 - 12.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 31/01/2024 - 11.1.2 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 09/12/2023 - 11.1.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 08/16/2023 - 11.1.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 08/06/2023 - 11.1.0-rc.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 12/22/2025 - 15.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 09/12/2025 - 15.0.0-alpha.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 08/20/2025 - 14.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 12/22/2024 - 13.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 05/31/2024 - 12.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- 01/21/2024 - 11.1.2 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- ... (many 11.x.x versions)
 - 07/08/2023 - 11.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 06/01/2023 - 11.0.0-rc.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 11/18/2022 - 10.0.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 11/17/2022 - 10.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 08/03/2022 - 10.0.0-rc.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 05/10/2022 - 9.1.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 04/23/2022 - 9.1.0-beta.2 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 04/14/2022 - 9.1.0-beta.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- 11/15/2021 - 9.0.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
+- ... (other 9.x.x versions)
 - 11/06/2021 - 9.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 09/27/2021 - 8.0.1 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 07/10/2021 - 8.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- - ... (many beta 8.x.x versions)
+- ... (many beta 8.x.x versions)
 - 12/05/2020 - 7.2.7 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
-- - ... (many minor 7.x.x versions)
+- ... (many minor 7.x.x versions)
 - 12/06/2018 - 7.0.0 - @ks89/angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - 10/11/2018 - 6.3.0 - angular-modal-gallery - [HERE](https://github.com/Ks89/angular-modal-gallery/releases)
 - ... (many minor 6.x.x versions)
@@ -262,7 +257,7 @@ In this way, [prettier](https://prettier.io/) will run using my configuration, a
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2025 Stefano Cappa (Ks89)
+Copyright (c) 2017-2026 Stefano Cappa (Ks89)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

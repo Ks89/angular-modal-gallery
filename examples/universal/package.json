@@ -8,22 +8,21 @@
     "build:dev": "ng build --configuration development",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr": "node dist/universal/server/server.mjs"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.1.7",
-    "@angular/cdk": "^20.0.6",
-    "@angular/common": "^20.1.7",
-    "@angular/compiler": "^20.1.7",
-    "@angular/core": "^20.1.7",
-    "@angular/forms": "^20.1.7",
-    "@angular/platform-browser": "^20.1.7",
-    "@angular/platform-browser-dynamic": "^20.1.7",
-    "@angular/platform-server": "^20.1.7",
-    "@angular/router": "^20.1.7",
-    "@angular/ssr": "^20.1.6",
+    "@angular/animations": "^21.0.6",
+    "@angular/cdk": "^21.0.5",
+    "@angular/common": "^21.0.6",
+    "@angular/compiler": "^21.0.6",
+    "@angular/core": "^21.0.6",
+    "@angular/forms": "^21.0.6",
+    "@angular/platform-browser": "^21.0.6",
+    "@angular/platform-browser-dynamic": "^21.0.6",
+    "@angular/platform-server": "^21.0.6",
+    "@angular/router": "^21.0.6",
+    "@angular/ssr": "^21.0.4",
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "express": "^5.1.0",
@@ -32,9 +31,9 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.1.6",
-    "@angular/cli": "^20.1.6",
-    "@angular/compiler-cli": "^20.1.0",
+    "@angular/build": "^21.0.4",
+    "@angular/cli": "^21.0.4",
+    "@angular/compiler-cli": "^21.0.6",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
@@ -44,6 +43,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.9.3"
   }
 }

@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2017-2025 Stefano Cappa (Ks89)
+// Copyright (c) 2017-2026 Stefano Cappa (Ks89)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -27,6 +27,10 @@
   align-items: flex-start;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+section {
+  width: 100%;
 }
 
 $text-color: #fff;
@@ -162,16 +166,4 @@ button {
 
 .title {
   margin-top: 40px;
-}
-
-.preview-block {
-  margin-right: 10px;
-}
-.preview-description {
-  color: #fff;
-  margin-bottom: 3px;
-}
-.preview-description,
-.preview-default {
-  text-align: center;
 }

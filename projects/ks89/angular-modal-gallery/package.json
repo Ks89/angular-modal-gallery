@@ -1,11 +1,11 @@
 {
   "name": "@ks89/angular-modal-gallery",
-  "version": "15.0.0-alpha.1",
+  "version": "15.0.0",
   "description": "Image gallery for Angular",
   "license": "MIT",
   "author": "Stefano Cappa",
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=22.0.0",
     "npm": ">=10.0.0"
   },
   "homepage": "https://ks89.github.io/angular-modal-gallery-2025-v15.github.io/",
@@ -13,10 +13,10 @@
     "tslib": ">=2.3.0"
   },
   "peerDependencies": {
-    "@angular/platform-browser": ">=20.0.0",
-    "@angular/common": ">=20.0.0",
-    "@angular/core": ">=20.0.0",
-    "@angular/cdk": ">=20.0.0",
+    "@angular/platform-browser": ">=21.0.0",
+    "@angular/common": ">=21.0.0",
+    "@angular/core": ">=21.0.0",
+    "@angular/cdk": ">=21.0.0",
     "rxjs": ">=7.8.0"
   },
   "sideEffects": false,

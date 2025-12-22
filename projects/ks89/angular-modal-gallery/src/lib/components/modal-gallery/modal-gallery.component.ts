@@ -176,7 +176,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     if ((!this.id && this.id !== 0) || this.id < 0) {
       throw new Error(
         `'[id]="a number >= 0"' is a mandatory input in angular-modal-gallery.` +
-        `If you are using multiple instances of this library, please be sure to use different ids`
+          `If you are using multiple instances of this library, please be sure to use different ids`
       );
     }
 
@@ -225,9 +225,9 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
 
     if (fullscreenDisabled) {
       if (docEl.requestFullscreen) {
-        docEl.requestFullscreen()
-          .then(() => {
-          })
+        docEl
+          .requestFullscreen()
+          .then(() => {})
           .catch(() => {
             console.error('Cannot request full screen');
           });
@@ -237,9 +237,9 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       }
     } else {
       if (doc.exitFullscreen) {
-        doc.exitFullscreen()
-          .then(() => {
-          })
+        doc
+          .exitFullscreen()
+          .then(() => {})
           .catch(() => {
             console.error('Cannot request exit full screen');
           });
@@ -472,7 +472,9 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method to convert a base64 to a Blob
+   * Method to convert a base64 to a Blob.
+   * This should be upgraded with Uint8Array.fromBase64() from ES2025,
+   * but first we need to upgrade `tsconfig` config.
    * @param base64Data string with base64 data
    * @param contentType string with the MIME type
    * @return Blob converted from the input base64Data
@@ -493,7 +495,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       }
       byteArrays[sliceIndex] = new Uint8Array(bytes);
     }
-    return new Blob(byteArrays, { type: contentType });
+    return new Blob(byteArrays as BlobPart[], { type: contentType });
   }
 
   /**

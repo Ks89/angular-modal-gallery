@@ -513,6 +513,16 @@ export const LIBCONFIG_613: ModalLibConfig = {
 };
 
 // Examples D
+export const LIBCONFIG_700: ModalLibConfig = {
+  currentImageConfig: {
+    downloadable: true
+  },
+  buttonsConfig: {
+    visible: true,
+    strategy: ButtonsStrategy.SIMPLE
+  }
+};
+
 export const LIBCONFIG_701: ModalLibConfig = {
   currentImageConfig: {
     downloadable: true

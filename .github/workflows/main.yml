@@ -4,7 +4,7 @@ on:
   push:
     paths-ignore:
       - 'node_modules'
-      - '../../examples/angular-cli-20/node_modules'
+      - '../../examples/angular-cli-21/node_modules'
       - 'examples/angular-cli-material/node_modules'
       - 'examples/universal/node_modules'
 
@@ -18,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 22.x ]
+        node-version: [ 24.x ]
 
     steps:
       - uses: actions/checkout@v5
@@ -36,7 +36,7 @@ jobs:
       - name: Installing all deps
         run: |
           npm ci
-          cd examples/angular-cli-20
+          cd examples/angular-cli-21
           npm ci
           cd ../..
           cd examples/angular-cli-material
@@ -54,7 +54,7 @@ jobs:
 
       - name: Building angular-cli example
         run: |
-          cd examples/angular-cli-20
+          cd examples/angular-cli-21
           npm run build:dev
           npm run build:prod
           cd ../..

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2017-2025 Stefano Cappa (Ks89)
+ * Copyright (c) 2017-2026 Stefano Cappa (Ks89)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('karma-mocha-reporter'),
-      
+
     ],
     client: {
       jasmine: {

@@ -1,7 +1,7 @@
 /*
  The MIT License (MIT)
 
- Copyright (c) 2017-2025 Stefano Cappa (Ks89)
+ Copyright (c) 2017-2026 Stefano Cappa (Ks89)
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -45,10 +45,10 @@ import { FormsModule } from '@angular/forms';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
-    selector: 'ks-modal-gallery-page',
-    templateUrl: './modal-gallery.html',
-    styleUrls: ['./modal-gallery.scss'],
-    imports: [FormsModule, NgTemplateOutlet]
+  selector: 'ks-modal-gallery-page',
+  templateUrl: './modal-gallery.html',
+  styleUrls: ['./modal-gallery.scss'],
+  imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {
   private modalGalleryService: ModalGalleryService = inject(ModalGalleryService);
@@ -109,6 +109,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   CONFIG612: ModalLibConfig = libConfigs.LIBCONFIG_612;
   CONFIG613: ModalLibConfig = libConfigs.LIBCONFIG_613;
   // Examples D
+  CONFIG700: ModalLibConfig = libConfigs.LIBCONFIG_700;
   CONFIG701: ModalLibConfig = libConfigs.LIBCONFIG_701;
   CONFIG702: ModalLibConfig = libConfigs.LIBCONFIG_702;
   CONFIG703: ModalLibConfig = libConfigs.LIBCONFIG_703;
@@ -509,11 +510,11 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   }
 
   openModal(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
-    if(imagesArrayToUse.length === 0) {
+    if (imagesArrayToUse.length === 0) {
       console.error('Cannot open modal-gallery because images array cannot be empty');
       return;
     }
-    if(imageIndex > imagesArrayToUse.length - 1) {
+    if (imageIndex > imagesArrayToUse.length - 1) {
       console.error('Cannot open modal-gallery because imageIndex must be valid');
       return;
     }
@@ -522,7 +523,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       id,
       images: imagesArrayToUse,
       currentImage: imageToShow,
-      libConfig,
+      libConfig
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
@@ -720,11 +721,11 @@ export class ModalGalleryExampleComponent implements OnDestroy {
   }
 
   openModalWithPreviewsTemplate(id: number, imagesArrayToUse: Image[], imageIndex: number, libConfig?: ModalLibConfig): void {
-    if(imagesArrayToUse.length === 0) {
+    if (imagesArrayToUse.length === 0) {
       console.error('Cannot open modal-gallery because images array cannot be empty');
       return;
     }
-    if(imageIndex > imagesArrayToUse.length - 1) {
+    if (imageIndex > imagesArrayToUse.length - 1) {
       console.error('Cannot open modal-gallery because imageIndex must be valid');
       return;
     }
@@ -734,7 +735,7 @@ export class ModalGalleryExampleComponent implements OnDestroy {
       images: imagesArrayToUse,
       currentImage: imageToShow,
       libConfig,
-      previewsTemplate: this.previewsTemplate(),
+      previewsTemplate: this.previewsTemplate()
     } as ModalGalleryConfig) as ModalGalleryRef;
   }
 
