@@ -8,7 +8,8 @@
     "build:dev": "ng build --configuration development",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "serve:ssr:universal": "node dist/universal/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -23,12 +24,12 @@
     "@angular/platform-server": "^21.0.6",
     "@angular/router": "^21.0.6",
     "@angular/ssr": "^21.0.4",
-    "@fortawesome/fontawesome-svg-core": "^7.0.0",
-    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.0"
   },
   "devDependencies": {
     "@angular/build": "^21.0.4",

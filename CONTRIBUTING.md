@@ -55,9 +55,9 @@ Every time you'll run `npm install` inside an example's folder, you must rebuild
 1. `cd examples/universal`
 2. `npm start` => if everything is ok (also in browser's console), kill the process and go to the next step
 3. `npm run build:dev`
-4. `npm run serve:ssr` => if everything is ok (also in browser's console), kill the process and go to the next step
+4. `npm run serve:ssr:universal` => if everything is ok (also in browser's console), kill the process and go to the next step
 5. `npm run build:prod`
-6. `npm run serve:ssr` => if everything is ok (also in browser's console), kill the process and go to the next step
+6. `npm run serve:ssr:universal` => if everything is ok (also in browser's console), kill the process and go to the next step
 7. `cd ../..`
 
 # H. Create your pull request
