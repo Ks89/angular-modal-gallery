@@ -64,8 +64,6 @@ export class DescriptionDirective implements OnInit, OnChanges {
     if (!description) {
       return;
     }
-    console.log('description ', description);
-
     if (description.style) {
       this.renderer.setStyle(this.el.nativeElement, 'background', description.style.bgColor);
       this.renderer.setStyle(this.el.nativeElement, 'color', description.style.textColor);

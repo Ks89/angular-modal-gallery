@@ -1,3 +1,10 @@
+# 15.0.1
+
+### Chores
+
+- remove useless console.log in description directive #276 (reported by @VK93YQ9)
+
+
 # 15.0.0
 
 ### Features
