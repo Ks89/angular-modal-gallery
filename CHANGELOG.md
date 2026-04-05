@@ -26,6 +26,12 @@ Please read `Security fixes` section carefully to understand what has changed an
 
 - replace `trackById` with `btn.id` in `upper-buttons.html` component to fix warning: 'NG0955: The provided track expression resulted in duplicated keys for a given collection'
 
+### Documentation
+
+- upgrade doc website to Angular 22
+- fix security issues
+- rewrite all texts in a better form with AI support
+
 
 # 15.0.1
 
