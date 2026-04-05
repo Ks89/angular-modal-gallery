@@ -144,7 +144,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
     // @ts-ignore
   start: number;
   /**
-   * End index (non-inclusive) of the input images used to display previews.
+   * End index (exclusive) of the input images used to display previews.
    */
     // @ts-ignore
   end: number;
@@ -153,8 +153,6 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   private ref: ChangeDetectorRef = inject(ChangeDetectorRef);
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver);
-  // sanitizer is used only to sanitize style before add it to background property when legacyIE11Mode is enabled
-  private sanitizer: DomSanitizer = inject(DomSanitizer);
   private configService: ConfigService = inject(ConfigService);
 
   constructor() {
@@ -187,19 +185,19 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
    */
   private updateHeight(configBreakpointHeight: number): void {
     if (this.previewConfig && this.previewConfig.maxHeight) {
-      const heightNum: number = +this.previewConfig.maxHeight.replace('/px/g', '').replace('/%/g', '');
+      const heightNum: number = +this.previewConfig.maxHeight.replace(/px/g, '').replace(/%/g, '');
       this.previewMaxHeight = Math.min(configBreakpointHeight, heightNum) + 'px';
     } else {
-      const heightNum: number = +DEFAULT_MAX_HEIGHT.replace('/px/g', '').replace('/%/g', '');
+      const heightNum: number = +DEFAULT_MAX_HEIGHT.replace(/px/g, '').replace(/%/g, '');
       this.previewMaxHeight = Math.min(configBreakpointHeight, heightNum) + 'px';
     }
     this.ref.markForCheck();
   }
 
   /**
-   * Method ´ngOnInit´ to build `configPreview` applying a default value and also to
+   * Method `ngOnInit` to build `configPreview` applying a default value and also to
    * init the `previews` array.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -258,9 +256,9 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   }
 
   /**
-   * Method ´ngOnChanges´ to update `previews` array.
+   * Method `ngOnChanges` to update `previews` array.
    * Also, both `start` and `end` local variables will be updated accordingly.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -396,23 +394,6 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
   }
 
   /**
-   * Method used in template to sanitize an url when you need legacyIE11Mode.
-   * In this way you can set an url as background of a div.
-   * @param unsafeStyle is a string or a SafeResourceUrl that represents the url to sanitize.
-   * @param unsafeStyleFallback is a string or a SafeResourceUrl that represents the fallback url to sanitize.
-   * @returns a SafeStyle object that can be used in template without problems.
-   */
-  sanitizeUrlBgStyle(unsafeStyle: string | SafeResourceUrl, unsafeStyleFallback: string | SafeResourceUrl): SafeStyle {
-    // Method used only to sanitize background-image style before add it to background property when legacyIE11Mode is enabled
-    let bg: string = 'url(' + unsafeStyle + ')';
-    if (!!unsafeStyleFallback) {
-      // if a fallback image is defined, append it. In this way, it will be used by the browser as fallback.
-      bg += ', ' + 'url(' + unsafeStyleFallback + ')';
-    }
-    return this.sanitizer.bypassSecurityTrustStyle(bg);
-  }
-
-  /**
    * Method to cleanup resources. In fact, it cleans breakpointSubscription.
    * This is an angular lifecycle hook that is called when this component is destroyed.
    */
@@ -424,7 +405,7 @@ export class CarouselPreviewsComponent extends AccessibleComponent implements On
 
   /**
    * Private method to init previews based on the currentImage and the full array of images.
-   * The current image in mandatory to show always the current preview (as highlighted).
+   * The current image is mandatory to always show the current preview highlighted.
    * @param currentImage Image to decide how to show previews, because I always want to see the current image as highlighted
    * @param images Image[] is the array of all images.
    */

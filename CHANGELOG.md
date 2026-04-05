@@ -1,3 +1,32 @@
+# 16.0.0
+
+Attention: this release could contain breaking changes if you were using relative paths like '../' or other dangerous things that are now validated and blocked.
+Please read `Security fixes` section carefully to understand what has changed and check your app if everthing is ok.
+
+### Features
+
+- **IMPORTANT**: `img` and `fallbackImg` paths are now validated, so relative paths like '../' are now blocked. Please use only either absolute paths, '/' or './' **(BREAKING CHANGE)**
+- Angular 22 is required **(BREAKING CHANGE)**
+
+### Security fixes
+
+- fallback-image.directive.ts: ../ relative paths allowed in fallback image src enabled unintended same-origin requests via path traversal. Fixed by removing ../ from the URL allowlist while keeping / and ./ prefixes.
+- carousel-previews.component.ts: Height parsing used string literals instead of regex — .replace('/px/g', '') was a no-op. Fixed by using proper regex literals for removing px and % units.
+- modal-gallery.component.ts: No URL protocol validation on extUrl allowed javascript: and data: schemes. Fixed by adding /^https?:///i allowlist check before window.open or window.location.href.
+- carousel.component.ts + carousel.html: [innerHTML] bound to raw image.modal.description caused XSS via HTML injection. Fixed by sanitizing return value of getDescriptionToDisplay() via DomSanitizer.sanitize(SecurityContext.HTML, ...).
+- current-image.component.ts + current-image.html: Same [innerHTML] XSS issue in the modal view. Fixed with same DomSanitizer.sanitize(SecurityContext.HTML, ...) applied in getDescriptionToDisplay().
+- a-tag-bg-image.directive.ts: imgPath interpolated directly into CSS url("...") allowed a quote in the path to break out of the CSS string. Fixed by encoding " to %22 in both primary and fallback image paths before CSS interpolation.
+- description.directive.ts: CSS property values applied without validation allowed expression(), javascript:, and context-break characters. Fixed by adding sanitizeCssValue() to blacklist expression(, javascript:, and ;{} plus sanitizePosition() with strict allowlist.
+- modal-gallery.component.ts: TOCTOU issue: safeUrl was validated but the original eventToEmit.image.modal.extUrl was still passed to window.open and updateLocationHref. Fixed by changing both call sites to use the validated safeUrl variable.
+- modal-gallery.component.ts: MIME type extracted from data: URI without validation allowed svg+xml, text/html, etc. Fixed by adding allowlist accepting only png, jpeg, jpg, gif, webp, and bmp.
+- plain-gallery.component.ts: No bounds check on size values produced nonsensical layout with extremely large pixels or breakConfig.length. Fixed by adding isFinite and range guards: pixels <= 10,000 and length <= 1,000.
+- modal-gallery.component.ts: atob() called without try/catch threw DOMException on malformed base64 and crashed the UI. Fixed by wrapping in try/catch and returning empty Blob on failure.
+
+### Bugfixes
+
+- replace `trackById` with `btn.id` in `upper-buttons.html` component to fix warning: 'NG0955: The provided track expression resulted in duplicated keys for a given collection'
+
+
 # 15.0.1
 
 ### Chores

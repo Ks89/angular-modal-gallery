@@ -1,7 +1,7 @@
 <header class="buttons-container">
 
   @if (!buttonsConfig() || buttonsConfig()?.visible) {
-    @for (btn of buttons; track trackById) {
+    @for (btn of buttons; track btn.id) {
       <a class="upper-button"
          ksSize [sizeConfig]="{width: btn.size?.width!, height: btn.size?.height!}"
          [ngStyle]="{'font-size': btn.fontSize}"

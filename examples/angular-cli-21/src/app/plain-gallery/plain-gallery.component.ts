@@ -100,36 +100,36 @@ export class PlainGalleryExampleComponent {
       // this file is not available so the browser returns an error
       img: '../assets/images/gallery/UNEXISTING_IMG1.jpg',
       // because the img above doesn't exists, the library will use this file
-      fallbackImg: '../assets/images/gallery/fallback1.jpg'
+      fallbackImg: '/assets/images/gallery/fallback1.jpg'
     }),
     new Image(1, {
       img: '../assets/images/gallery/UNEXISTING_IMG2.jpg',
-      fallbackImg: '../assets/images/gallery/fallback2.jpg'
+      fallbackImg: '/assets/images/gallery/fallback2.jpg'
     }),
     new Image(
       2,
       {
         img: '../assets/images/gallery/UNEXISTING_IMG3.jpg',
-        fallbackImg: '../assets/images/gallery/fallback3.jpg'
+        fallbackImg: '/assets/images/gallery/fallback3.jpg'
       },
       {
         img: '../assets/images/gallery/thumbs/UNEXISTING_IMG3.png',
-        fallbackImg: '../assets/images/gallery/fallback3.jpg'
+        fallbackImg: '/assets/images/gallery/fallback3.jpg'
       }
     ),
     new Image(3, {
       img: '../assets/images/gallery/UNEXISTING_IMG4.jpg',
-      fallbackImg: '../assets/images/gallery/fallback4.jpg'
+      fallbackImg: '/assets/images/gallery/fallback4.jpg'
     }),
     new Image(
       4,
       {
         img: '../assets/images/gallery/UNEXISTING_IMG5.jpg',
-        fallbackImg: '../assets/images/gallery/fallback5.jpg'
+        fallbackImg: '/assets/images/gallery/fallback5.jpg'
       },
       {
         img: '../assets/images/gallery/thumbs/UNEXISTING_IMG5.jpg',
-        fallbackImg: '../assets/images/gallery/fallback5.jpg'
+        fallbackImg: '/assets/images/gallery/fallback5.jpg'
       }
     )
   ];

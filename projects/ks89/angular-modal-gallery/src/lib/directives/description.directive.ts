@@ -39,8 +39,8 @@ export class DescriptionDirective implements OnInit, OnChanges {
   private el: ElementRef = inject(ElementRef);
 
   /**
-   * Method ´ngOnInit´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnInit` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class DescriptionDirective implements OnInit, OnChanges {
   }
 
   /**
-   * Method ´ngOnChanges´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnChanges` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(): void {
@@ -65,35 +65,67 @@ export class DescriptionDirective implements OnInit, OnChanges {
       return;
     }
     if (description.style) {
-      this.renderer.setStyle(this.el.nativeElement, 'background', description.style.bgColor);
-      this.renderer.setStyle(this.el.nativeElement, 'color', description.style.textColor);
-
-      if (description.style.width) {
-        this.renderer.setStyle(this.el.nativeElement, 'width', description.style.width);
+      const bgColor = this.sanitizeCssValue(description.style.bgColor);
+      if (bgColor) {
+        this.renderer.setStyle(this.el.nativeElement, 'background', bgColor);
       }
-      if (description.style.height) {
-        this.renderer.setStyle(this.el.nativeElement, 'height', description.style.height);
-      }
-      if (description.style.position) {
-        this.renderer.setStyle(this.el.nativeElement, 'position', description.style.position);
-      }
-      if (description.style.top) {
-        this.renderer.setStyle(this.el.nativeElement, 'top', description.style.top);
-      }
-      if (description.style.bottom) {
-        this.renderer.setStyle(this.el.nativeElement, 'bottom', description.style.bottom);
-      }
-      if (description.style.left) {
-        this.renderer.setStyle(this.el.nativeElement, 'left', description.style.left);
-      }
-      if (description.style.right) {
-        this.renderer.setStyle(this.el.nativeElement, 'right', description.style.right);
+      const textColor = this.sanitizeCssValue(description.style.textColor);
+      if (textColor) {
+        this.renderer.setStyle(this.el.nativeElement, 'color', textColor);
       }
 
-      this.renderer.setStyle(this.el.nativeElement, 'margin-top', description.style.marginTop ? description.style.marginTop : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', description.style.marginBottom ? description.style.marginBottom : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-left', description.style.marginLeft ? description.style.marginLeft : '0px');
-      this.renderer.setStyle(this.el.nativeElement, 'margin-right', description.style.marginRight ? description.style.marginRight : '0px');
+      const width = this.sanitizeCssValue(description.style.width);
+      if (width) {
+        this.renderer.setStyle(this.el.nativeElement, 'width', width);
+      }
+      const height = this.sanitizeCssValue(description.style.height);
+      if (height) {
+        this.renderer.setStyle(this.el.nativeElement, 'height', height);
+      }
+      const position = this.sanitizePosition(description.style.position);
+      if (position) {
+        this.renderer.setStyle(this.el.nativeElement, 'position', position);
+      }
+
+      const top = this.sanitizeCssValue(description.style.top);
+      if (top) {
+        this.renderer.setStyle(this.el.nativeElement, 'top', top);
+      }
+      const bottom = this.sanitizeCssValue(description.style.bottom);
+      if (bottom) {
+        this.renderer.setStyle(this.el.nativeElement, 'bottom', bottom);
+      }
+      const left = this.sanitizeCssValue(description.style.left);
+      if (left) {
+        this.renderer.setStyle(this.el.nativeElement, 'left', left);
+      }
+      const right = this.sanitizeCssValue(description.style.right);
+      if (right) {
+        this.renderer.setStyle(this.el.nativeElement, 'right', right);
+      }
+
+      this.renderer.setStyle(this.el.nativeElement, 'margin-top', this.sanitizeCssValue(description.style.marginTop) ?? '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-bottom', this.sanitizeCssValue(description.style.marginBottom) ?? '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-left', this.sanitizeCssValue(description.style.marginLeft) ?? '0px');
+      this.renderer.setStyle(this.el.nativeElement, 'margin-right', this.sanitizeCssValue(description.style.marginRight) ?? '0px');
     }
+  }
+
+  private sanitizeCssValue(value: string | undefined): string | undefined {
+    if (!value) {
+      return value;
+    }
+    if (/expression\s*\(/i.test(value) || /javascript\s*:/i.test(value) || /[;{}]/.test(value)) {
+      return undefined;
+    }
+    return value;
+  }
+
+  private sanitizePosition(value: string | undefined): string | undefined {
+    if (!value) {
+      return value;
+    }
+    const allowed = ['static', 'relative', 'absolute', 'fixed', 'sticky'];
+    return allowed.includes(value.toLowerCase().trim()) ? value : undefined;
   }
 }

@@ -124,9 +124,9 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   private configService: ConfigService = inject(ConfigService);
 
   /**
-   * Method ´ngOnInit´ to build `configPreview` applying a default value and also to
+   * Method `ngOnInit` to build `configPreview` applying a default value and also to
    * init the `previews` array.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -153,7 +153,7 @@ export class PreviewsComponent extends AccessibleComponent implements OnInit, On
   }
 
   /**
-   * Method ´ngOnChanges´ to update `previews` array.
+   * Method `ngOnChanges` to update `previews` array.
    * Also, both `start` and `end` local variables will be updated accordingly.
    * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!

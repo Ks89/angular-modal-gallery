@@ -40,6 +40,8 @@ import {
   input
 } from '@angular/core';
 import { isPlatformBrowser, NgClass } from '@angular/common';
+import { SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -102,7 +104,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   images = input.required<InternalLibImage[]>();
   /**
-   * Boolean that it is true if the modal gallery is visible.
+   * Boolean that is true if the modal gallery is visible.
    * If yes, also this component should be visible.
    */
   isOpen = input<boolean>(false);
@@ -163,17 +165,17 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   keyboardAction: Action = Action.KEYBOARD;
   /**
-   * Boolean that it's true when you are watching the first image (currently visible).
+   * Boolean that is true when you are viewing the first image (currently visible).
    * False by default
    */
   isFirstImage = false;
   /**
-   * Boolean that it's true when you are watching the last image (currently visible).
+   * Boolean that is true when you are viewing the last image (currently visible).
    * False by default
    */
   isLastImage = false;
   /**
-   * Boolean that it's true if an image of the modal gallery is still loading.
+   * Boolean that is true if an image of the modal gallery is still loading.
    * True by default
    */
   loading = true;
@@ -181,6 +183,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   private readonly platformId: Object = inject(PLATFORM_ID);
   private ngZone: NgZone = inject(NgZone);
   private configService: ConfigService = inject(ConfigService);
+  private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
   // this must be public for testing purposes
   ref: ChangeDetectorRef = inject(ChangeDetectorRef);
 
@@ -215,8 +218,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method ´ngOnInit´ to init configuration.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnInit` to init configuration.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -231,9 +234,9 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method ´ngOnChanges´ to update `loading` status and emit events.
+   * Method `ngOnChanges` to update `loading` status and emit events.
    * If the gallery is open, then it will also manage boundary arrows and sliding.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -257,7 +260,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    */
   ngAfterContentInit(): void {
     // interval doesn't play well with SSR and protractor,
@@ -316,7 +319,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    * @returns String description of the image (or the current image if not provided)
    * @throws an Error if description isn't available
    */
-  getDescriptionToDisplay(image: Image = this.currentImage()): string {
+  getDescriptionToDisplay(image: Image = this.currentImage()): SafeHtml {
     if (!this.currentImageConfig || !this.currentImageConfig.description) {
       throw new Error('Description input must be a valid object implementing the Description interface');
     }
@@ -325,12 +328,12 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
 
     switch (this.currentImageConfig.description.strategy) {
       case DescriptionStrategy.HIDE_IF_EMPTY:
-        return imageWithoutDescription ? '' : image.modal.description + '';
+        return this.sanitizer.sanitize(SecurityContext.HTML, imageWithoutDescription ? '' : image.modal.description + '') ?? '';
       case DescriptionStrategy.ALWAYS_HIDDEN:
         return '';
       default:
         // ----------- DescriptionStrategy.ALWAYS_VISIBLE -----------------
-        return this.buildTextDescription(image, imageWithoutDescription);
+        return this.sanitizer.sanitize(SecurityContext.HTML, this.buildTextDescription(image, imageWithoutDescription)) ?? '';
     }
   }
 
@@ -480,7 +483,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method to emit an event as loadImage output to say that the requested image if loaded.
+   * Method to emit an event as loadImage output to indicate that the requested image is loaded.
    * This method is invoked by the javascript's 'load' event on an img tag.
    * @param event event that triggered the load
    */
@@ -600,7 +603,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   /**
    * Private method to check if next/prev actions should be blocked.
    * It checks if slideConfig.infinite === false and if the image index is equals to the input parameter.
-   * If yes, it returns true to say that sliding should be blocked, otherwise not.
+   * If yes, it returns true to indicate that sliding should be blocked, otherwise false.
    * @param boundaryIndex number that could be either the beginning index (0) or the last index
    *  of images (this.images.length - 1).
    * @returns boolean true if slideConfig.infinite === false and the current index is

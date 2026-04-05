@@ -43,6 +43,8 @@ import {
   input
 } from '@angular/core';
 import { isPlatformBrowser, NgTemplateOutlet } from '@angular/common';
+import { SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
@@ -158,12 +160,12 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    */
   currentImage: InternalLibImage | undefined;
   /**
-   * Boolean that it's true when you are watching the first image (currently visible).
+   * Boolean that is true when you are viewing the first image (currently visible).
    * False by default
    */
   isFirstImage = false;
   /**
-   * Boolean that it's true when you are watching the last image (currently visible).
+   * Boolean that is true when you are viewing the last image (currently visible).
    * False by default
    */
   isLastImage = false;
@@ -178,6 +180,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   private stop$ = new Subject<void>();
 
   private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
 
   /**
    * Listener to stop the gallery when the mouse pointer is over the current image.
@@ -430,7 +433,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    * @returns String description of the image (or the current image if not provided)
    * @throws an Error if description isn't available
    */
-  getDescriptionToDisplay(image: Image | undefined = this.currentImage): string {
+  getDescriptionToDisplay(image: Image | undefined = this.currentImage): SafeHtml {
     const id = this.id();
     if (id === null || id === undefined) {
       throw new Error('Internal library error - id must be defined');
@@ -450,12 +453,12 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
     switch (configCurrentImageCarousel.description.strategy) {
       case DescriptionStrategy.HIDE_IF_EMPTY:
-        return imageWithoutDescription ? '' : image.modal.description + '';
+        return this.sanitizer.sanitize(SecurityContext.HTML, imageWithoutDescription ? '' : image.modal.description + '') ?? '';
       case DescriptionStrategy.ALWAYS_HIDDEN:
         return '';
       default:
         // ----------- DescriptionStrategy.ALWAYS_VISIBLE -----------------
-        return this.buildTextDescription(image, imageWithoutDescription);
+        return this.sanitizer.sanitize(SecurityContext.HTML, this.buildTextDescription(image, imageWithoutDescription)) ?? '';
     }
   }
 
@@ -641,7 +644,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
 
   /**
    * Private method to get the next index.
-   * This is necessary because at the end, when you call next again, you'll go to the first image.
+   * This is necessary because at the end, when you call next again, you will return to the first image.
    * That happens because all modal images are shown like in a circle.
    */
   private getNextImage(): InternalLibImage {

@@ -46,8 +46,8 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
   private el: ElementRef = inject(ElementRef);
 
   /**
-   * Method ´ngOnInit´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnInit` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -55,8 +55,8 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
   }
 
   /**
-   * Method ´ngOnChanges´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnChanges` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(): void {
@@ -73,12 +73,16 @@ export class ATagBgImageDirective implements OnInit, OnChanges {
     }
 
     const imgPath: string | SafeResourceUrl = image.plain && image.plain.img ? image.plain.img : image.modal.img;
-    let bg = `url("${imgPath}") ${this.style()}`;
+    // Encode double quotes to prevent breaking out of the CSS url("...") context (CSS injection)
+    const safeImgPath = imgPath.toString().replace(/"/g, '%22');
+    let bg = `url("${safeImgPath}") ${this.style()}`;
 
     const fallbackImgPath: string | SafeResourceUrl | undefined =
       image.plain && image.plain.fallbackImg ? image.plain.fallbackImg : image.modal.fallbackImg;
     if (!!fallbackImgPath) {
-      bg += `, url("${fallbackImgPath}") ${this.style()}`;
+      // Same encoding applied to fallback path for the same reason
+      const safeFallbackPath = fallbackImgPath.toString().replace(/"/g, '%22');
+      bg += `, url("${safeFallbackPath}") ${this.style()}`;
     }
 
     this.renderer.setStyle(this.el.nativeElement, 'background', bg);

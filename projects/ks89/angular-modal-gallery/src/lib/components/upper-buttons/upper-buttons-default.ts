@@ -77,6 +77,6 @@ export const KS_DEFAULT_BTN_FULL_SCREEN: ButtonConfig = {
 //   className: 'rotate-image',
 //   size: KS_DEFAULT_SIZE,
 //   type: ButtonType.ROTATE,
-//   title: 'Rotate clockwise of 90 degrees the current image',
-//   ariaLabel: 'Rotate clockwise of 90 degrees the current image'
+//   title: 'Rotate the current image clockwise 90 degrees',
+//   ariaLabel: 'Rotate the current image clockwise 90 degrees'
 // };

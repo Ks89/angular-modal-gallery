@@ -43,7 +43,12 @@ export class FallbackImageDirective {
       this.fallbackApplied.emit(false);
       return;
     }
-    this.renderer.setAttribute(this.el.nativeElement, 'src', fallbackImg.toString());
+    const fallbackUrl = fallbackImg.toString();
+    if (!/^https?:\/\//i.test(fallbackUrl) && !fallbackUrl.startsWith('/') && !fallbackUrl.startsWith('./')) {
+      this.fallbackApplied.emit(false);
+      return;
+    }
+    this.renderer.setAttribute(this.el.nativeElement, 'src', fallbackUrl);
     this.fallbackApplied.emit(true);
   }
 }

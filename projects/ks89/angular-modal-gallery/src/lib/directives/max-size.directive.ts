@@ -39,8 +39,8 @@ export class MaxSizeDirective implements OnInit, OnChanges {
   private el: ElementRef = inject(ElementRef);
 
   /**
-   * Method ´ngOnInit´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnInit` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class MaxSizeDirective implements OnInit, OnChanges {
   }
 
   /**
-   * Method ´ngOnChanges´ to apply the style of this directive.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnChanges` to apply the style of this directive.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(): void {

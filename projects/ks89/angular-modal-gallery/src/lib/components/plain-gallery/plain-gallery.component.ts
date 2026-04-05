@@ -119,9 +119,9 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   private configService: ConfigService = inject(ConfigService);
 
   /**
-   * Method ´ngOnInit´ to init both `configPlainGallery` calling `initPlainGalleryConfig()`
+   * Method `ngOnInit` to init both `configPlainGallery` calling `initPlainGalleryConfig()`
    * and `imageGrid invoking `initImageGrid()`.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -141,8 +141,8 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Method ´ngOnChanges´ to update both `imageGrid` and`plainGalleryConfig`.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnChanges` to update both `imageGrid` and `plainGalleryConfig`.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called when any data-bound property of a directive changes!!!
    */
   ngOnChanges(changes: SimpleChanges): void {
@@ -289,7 +289,9 @@ export class PlainGalleryComponent extends AccessibleComponent implements OnInit
 
       if (layout.size.width) {
         const pixels: number = +(layout.size.width).replace('px', '');
-        this.widthStyle = pixels * layout.breakConfig.length + pixels / 2 + 'px';
+        if (isFinite(pixels) && pixels > 0 && pixels <= 10000 && layout.breakConfig.length > 0 && layout.breakConfig.length <= 1000) {
+          this.widthStyle = pixels * layout.breakConfig.length + pixels / 2 + 'px';
+        }
       }
       this.wrapStyle = layout.breakConfig.wrap;
 

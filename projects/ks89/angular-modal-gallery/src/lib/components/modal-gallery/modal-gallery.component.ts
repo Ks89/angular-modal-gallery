@@ -165,8 +165,8 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Method ´ngOnInit´ to init images calling `initImages()`.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * Method `ngOnInit` to init images calling `initImages()`.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {
@@ -290,6 +290,10 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     // To support SSR
     if (isPlatformBrowser(this.platformId)) {
       if (eventToEmit.image && eventToEmit.image.modal.extUrl) {
+        const safeUrl: string = eventToEmit.image.modal.extUrl;
+        if (!/^https?:\/\//i.test(safeUrl)) {
+          return;
+        }
         // where I should open this link? The current tab or another one?
         if (eventToEmit.button && eventToEmit.button.extUrlInNewTab) {
           // in this case I should use target _blank to open the url in a new tab, however these is a security issue.
@@ -298,7 +302,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
           // - https://www.owasp.org/index.php/HTML5_Security_Cheat_Sheet#Tabnabbing
           // - https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
           // - https://developer.mozilla.org/en-US/docs/Web/API/Window/open
-          const newWindow: Window | null = window.open(eventToEmit.image.modal.extUrl, 'noopener,noreferrer,');
+          const newWindow: Window | null = window.open(safeUrl, 'noopener,noreferrer,');
           // it returns null if the call failed, so I have to do this check
           if (newWindow) {
             newWindow.opener = null; // required to prevent security issues
@@ -306,7 +310,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
             this.modalGalleryService.emitButtonAfterHook(eventToEmit);
           }
         } else {
-          this.updateLocationHref(eventToEmit.image.modal.extUrl);
+          this.updateLocationHref(safeUrl);
           // emit only in case of success
           this.modalGalleryService.emitButtonAfterHook(eventToEmit);
         }
@@ -482,7 +486,13 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    */
   private base64toBlob(base64Data: string, contentType: string = ''): Blob {
     const sliceSize = 1024;
-    const byteCharacters: string = atob(base64Data);
+    // atob() throws a DOMException on invalid base64 input — guard to prevent uncaught crash
+    let byteCharacters: string;
+    try {
+      byteCharacters = atob(base64Data);
+    } catch {
+      return new Blob([], { type: contentType });
+    }
     const bytesLength: number = byteCharacters.length;
     const slicesCount: number = Math.ceil(bytesLength / sliceSize);
     const byteArrays: Array<Uint8Array> = new Array(slicesCount);
@@ -513,8 +523,13 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       // if it's a SafeResourceUrl
       img = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, this.currentImage.modal.img) as string;
     }
-    if (img.includes('data:image/') || img.includes(';base64,')) {
+    if (img.startsWith('data:image/') && img.includes(';base64,')) {
       const extension: string = img.replace('data:image/', '').split(';base64,')[0];
+      // Allowlist safe image MIME types to block data:image/svg+xml and data:text/html payloads
+      const allowedExtensions = ['png', 'jpeg', 'jpg', 'gif', 'webp', 'bmp'];
+      if (!allowedExtensions.includes(extension.toLowerCase())) {
+        return;
+      }
       const pureBase64: string = img.split(';base64,')[1];
       const blob: Blob = this.base64toBlob(pureBase64, 'image/' + extension);
       link.href = URL.createObjectURL(blob);

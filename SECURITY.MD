@@ -21,7 +21,8 @@ Only these versions are supported with security updates:
 | 12.x.x  | :x:                |
 | 13.x.x  | :x:                |
 | 14.x.x  | :x:                |
-| 15.x.x  | :white_check_mark: |
+| 15.x.x  | :x:                |
+| 16.x.x  | :white_check_mark: |
 
 
 ## Reporting a Vulnerability

@@ -132,9 +132,9 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   ];
 
   /**
-   * Method ´ngOnInit´ to build `configButtons` applying a default value and also to
+   * Method `ngOnInit` to build `configButtons` applying a default value and also to
    * init the `buttons` array.
-   * This is an angular lifecycle hook, so its called automatically by Angular itself.
+   * This is an angular lifecycle hook, so it's called automatically by Angular itself.
    * In particular, it's called only one time!!!
    */
   ngOnInit(): void {

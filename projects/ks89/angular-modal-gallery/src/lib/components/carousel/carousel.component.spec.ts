@@ -742,7 +742,6 @@ describe('CarouselComponent', () => {
     //     objectFit: 'cover',
     //     keyboardEnable: true,
     //     modalGalleryEnable: true, // modalGalleryEnable is required in this test
-    //     legacyIE11Mode: false
     //   };
     //   comp.ngOnInit();
     //   fixture.detectChanges();
