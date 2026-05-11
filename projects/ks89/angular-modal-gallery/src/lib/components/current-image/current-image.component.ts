@@ -27,6 +27,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   HostListener,
   inject,
   NgZone,
@@ -45,6 +46,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AccessibleComponent } from '../accessible.component';
 import { AccessibilityConfig } from '../../model/accessibility.interface';
@@ -181,6 +183,7 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
   loading = true;
 
   private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private ngZone: NgZone = inject(NgZone);
   private configService: ConfigService = inject(ConfigService);
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
@@ -272,7 +275,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
             map(() => this.slideConfig && this.slideConfig.playConfig && this.slideConfig.playConfig.autoPlay && this.slideConfig.playConfig.interval),
             // tslint:disable-next-line:no-any
             filter((interval: any) => interval > 0),
-            switchMap(interval => timer(interval).pipe(takeUntil(this.stop$)))
+            switchMap(interval => timer(interval).pipe(takeUntil(this.stop$))),
+            takeUntilDestroyed(this.destroyRef)
           )
           .subscribe(() =>
             this.ngZone.run(() => {
@@ -558,6 +562,8 @@ export class CurrentImageComponent extends AccessibleComponent implements OnInit
    */
   ngOnDestroy(): void {
     this.stopCarousel();
+    this.start$.complete();
+    this.stop$.complete();
   }
 
   /**

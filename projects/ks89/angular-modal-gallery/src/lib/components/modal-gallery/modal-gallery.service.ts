@@ -1,8 +1,10 @@
-import { EventEmitter, inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { GlobalPositionStrategy, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs';
+import { Subject, take } from 'rxjs';
 
 import { ModalGalleryRef } from './modal-gallery-ref';
+import { DIALOG_DATA, MODAL_GALLERY_COMPONENT } from './modal-gallery.tokens';
 import { Image, ImageModalEvent } from '../../model/image.class';
 import { ConfigService } from '../../services/config.service';
 import { ButtonEvent } from '../../model/buttons-config.interface';
@@ -14,26 +16,6 @@ interface ModalDialogConfig {
   panelClass: string;
   hasBackdrop: boolean;
   backdropClass: string;
-}
-
-/**
- * Payload to be emitted via {@link triggerAttachToOverlay} to enable {@link AttachToOverlayService}
- * to attach the {@link ModalGalleryComponent} to the overlay
- */
-export interface AttachToOverlayPayload {
-  /**
-   * Overlay object created using Angular CDK APIs
-   */
-  overlayRef: OverlayRef;
-  /**
-   * Dialog data to be injected into the {@link ModalGalleryComponent}
-   * contains: id, array of images, current image and optionally the configuration object
-   */
-  config: ModalGalleryConfig;
-  /**
-   * Object to control the dialog instance
-   */
-  dialogRef: ModalGalleryRef;
 }
 
 const DEFAULT_DIALOG_CONFIG: ModalDialogConfig = {
@@ -49,9 +31,9 @@ export class ModalGalleryService {
 
   private dialogRef: ModalGalleryRef | undefined;
 
-  public triggerAttachToOverlay = new EventEmitter<AttachToOverlayPayload>();
-
   private overlay: Overlay = inject(Overlay);
+  private injector: Injector = inject(Injector);
+  private modalGalleryComponent = inject(MODAL_GALLERY_COMPONENT);
   private configService: ConfigService = inject(ConfigService);
 
   /**
@@ -65,12 +47,15 @@ export class ModalGalleryService {
     // Instantiate a reference to the dialog
     this.dialogRef = new ModalGalleryRef(overlayRef);
     // Attach dialog container
-    this.triggerAttachToOverlay.emit({
-      overlayRef,
-      config,
-      dialogRef: this.dialogRef
+    const injector: Injector = Injector.create({
+      parent: this.injector,
+      providers: [
+        { provide: ModalGalleryRef, useValue: this.dialogRef },
+        { provide: DIALOG_DATA, useValue: config }
+      ]
     });
-    overlayRef.backdropClick().subscribe(() => {
+    overlayRef.attach(new ComponentPortal(this.modalGalleryComponent, null, injector));
+    overlayRef.backdropClick().pipe(take(1)).subscribe(() => {
       if (this.dialogRef) {
         this.dialogRef.closeModal();
       }

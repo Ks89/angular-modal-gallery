@@ -40,7 +40,7 @@ import { ConfigService } from '../../services/config.service';
 import { ModalGalleryService } from './modal-gallery.service';
 import { IdValidatorService } from '../../services/id-validator.service';
 import { ModalGalleryConfig } from '../../model/modal-gallery-config.interface';
-import { DIALOG_DATA } from './modal-gallery.tokens';
+import { DIALOG_DATA, MODAL_GALLERY_COMPONENT } from './modal-gallery.tokens';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { LibConfig } from '../../model/lib-config.interface';
 import { UpperButtonsComponent } from '../upper-buttons/upper-buttons.component';
@@ -174,6 +174,10 @@ function initTestBed(): void {
         {
           provide: ModalGalleryService,
           useClass: ModalGalleryService
+        },
+        {
+          provide: MODAL_GALLERY_COMPONENT,
+          useValue: ModalGalleryComponent
         },
         {
           provide: IdValidatorService,
@@ -409,6 +413,36 @@ describe('ModalGalleryComponent', () => {
         galleryId: GALLERY_ID
       };
       comp.onNavigate(EVENT);
+    });
+
+    it(`should open external URL in a new tab with noopener and noreferrer`, () => {
+      const modalGalleryService = fixture.debugElement.injector.get(ModalGalleryService);
+      const configService = fixture.debugElement.injector.get(ConfigService);
+
+      configService.setConfig(GALLERY_ID, {accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG});
+      comp.id = GALLERY_ID;
+      comp.images = IMAGES;
+      comp.currentImage = IMAGES[0];
+      fixture.detectChanges();
+
+      const openedWindow = { opener: window } as Window;
+      const windowOpenSpy: Spy<any> = spyOn(window, 'open').and.returnValue(openedWindow);
+      const afterHookSpy: Spy<any> = spyOn<any>(modalGalleryService, 'emitButtonAfterHook');
+
+      const EVENT: ButtonEvent = {
+        button: {
+          type: ButtonType.EXTURL,
+          extUrlInNewTab: true
+        } as ButtonConfig,
+        image: IMAGES[0] as InternalLibImage,
+        action: Action.NORMAL,
+        galleryId: GALLERY_ID
+      };
+      comp.onNavigate(EVENT);
+
+      expect(windowOpenSpy).toHaveBeenCalledOnceWith('http://www.google.com', '_blank', 'noopener,noreferrer');
+      expect(openedWindow.opener).toBeNull();
+      expect(afterHookSpy).toHaveBeenCalled();
     });
 
     it(`should display modal gallery and call onDownload with downloadable = true`, () => {

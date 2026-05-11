@@ -49,6 +49,7 @@ export class ModalGalleryRef {
   buttonAfterHook$ = this.buttonAfterHook.asObservable();
 
   private overlayRef: OverlayRef;
+  private closed = false;
 
   constructor(overlayRef: OverlayRef) {
     this.overlayRef = overlayRef;
@@ -58,7 +59,12 @@ export class ModalGalleryRef {
    * Close modal dialog, disposing the Overlay.
    */
   closeModal(): void {
+    if (this.closed) {
+      return;
+    }
+    this.closed = true;
     this.overlayRef.dispose();
+    this.completeSubjects();
   }
 
   /**
@@ -115,5 +121,15 @@ export class ModalGalleryRef {
    */
   emitButtonAfterHook(event: ButtonEvent): void {
     this.buttonAfterHook.next(event);
+  }
+
+  private completeSubjects(): void {
+    this.close.complete();
+    this.show.complete();
+    this.firstImage.complete();
+    this.lastImage.complete();
+    this.hasData.complete();
+    this.buttonBeforeHook.complete();
+    this.buttonAfterHook.complete();
   }
 }

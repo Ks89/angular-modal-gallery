@@ -22,8 +22,9 @@
  SOFTWARE.
  */
 
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, Type } from '@angular/core';
 
 import { ModalGalleryConfig } from '../../model/modal-gallery-config.interface';
 
 export const DIALOG_DATA = new InjectionToken<ModalGalleryConfig>('DIALOG_DATA');
+export const MODAL_GALLERY_COMPONENT = new InjectionToken<Type<unknown>>('MODAL_GALLERY_COMPONENT');

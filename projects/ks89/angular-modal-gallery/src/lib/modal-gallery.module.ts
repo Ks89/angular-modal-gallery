@@ -22,14 +22,15 @@
  SOFTWARE.
  */
 
-import { inject, NgModule, provideAppInitializer } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import { COMPONENTS, CarouselComponent } from './components/components';
 import { PlainGalleryComponent } from './components/plain-gallery/plain-gallery.component';
 import { DIRECTIVES } from './directives/directives';
-import { AttachToOverlayService } from './components/modal-gallery/attach-to-overlay.service';
+import { MODAL_GALLERY_COMPONENT } from './components/modal-gallery/modal-gallery.tokens';
+import { ModalGalleryComponent } from './components/modal-gallery/modal-gallery.component';
 
 /**
  * Module to import it in the root module of your application.
@@ -37,10 +38,7 @@ import { AttachToOverlayService } from './components/modal-gallery/attach-to-ove
 @NgModule({
   imports: [CommonModule, OverlayModule, COMPONENTS, DIRECTIVES],
   providers: [
-    provideAppInitializer(() => {
-      const service = inject(AttachToOverlayService);
-      service.initialize();
-    })
+    { provide: MODAL_GALLERY_COMPONENT, useValue: ModalGalleryComponent }
   ],
   exports: [PlainGalleryComponent, CarouselComponent]
 })

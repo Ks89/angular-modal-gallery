@@ -8,6 +8,18 @@ Please read `Security fixes` section carefully to understand what has changed an
 - **IMPORTANT**: `img` and `fallbackImg` paths are now validated, so relative paths like '../' are now blocked. Please use only either absolute paths, '/' or './' **(BREAKING CHANGE)**
 - Angular 22 is required **(BREAKING CHANGE)**
 
+- Removed the internal modal attach bridge based on EventEmitter and provideAppInitializer()
+- ModalGalleryService.open() now attaches the modal ComponentPortal directly using the MODAL_GALLERY_COMPONENT injection token
+- Fixed carousel timer cleanup in CurrentImageComponent with DestroyRef, takeUntilDestroyed(), and completed start$ / stop$ streams
+- Applied the same timer cleanup fix to CarouselComponent
+- Made ModalGalleryRef.closeModal() idempotent and complete all public modal streams when closing
+- Replaced direct window / global document access with injected Angular DOCUMENT and browser guards
+- Replaced setTimeout(..., 0) modal image initialization with Angular afterNextRender()
+- Fixed external new-tab navigation to use window.open(url, '_blank', 'noopener,noreferrer')
+- Updated modal-gallery specs for the new direct overlay attach flow
+- Removed obsolete attach-to-overlay service specs
+- Added modal ref stream completion coverage
+
 ### Security fixes
 
 - fallback-image.directive.ts: ../ relative paths allowed in fallback image src enabled unintended same-origin requests via path traversal. Fixed by removing ../ from the URL allowlist while keeping / and ./ prefixes.
@@ -25,6 +37,12 @@ Please read `Security fixes` section carefully to understand what has changed an
 ### Bugfixes
 
 - replace `trackById` with `btn.id` in `upper-buttons.html` component to fix warning: 'NG0955: The provided track expression resulted in duplicated keys for a given collection'
+
+### Tests
+
+- new test for `directives/swipe.directive.spec.ts`
+- Add tests in `components/carousel/carousel.component.spec.ts` for `onMouseEnter`, `onMouseLeave`, `onKeyDownLeft`, `onKeyDownLRight`, `onClickDot`, `onNavigationEvent`, `onClickCurrentImage`, `swipe`, inverted swipe, `prevImage`, and `onClickPreview`
+- Add tests in `components/current-image/current-image.component.spec.ts` for `onKeyPress`, `onMouseEnter`, `onMouseLeave`, `onImageLoad`, and `playCarousel` autoplay behavior
 
 ### Documentation
 

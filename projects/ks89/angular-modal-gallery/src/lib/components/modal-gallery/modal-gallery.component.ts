@@ -1,9 +1,10 @@
 import {
+  afterNextRender,
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   HostListener, OnDestroy, OnInit, PLATFORM_ID, SecurityContext, TemplateRef, inject,
   viewChild
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 
 import { Subscription } from 'rxjs';
@@ -113,6 +114,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
 
   private readonly dialogContent: ModalGalleryConfig = inject(DIALOG_DATA);
   private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly document: Document = inject(DOCUMENT);
 
   /**
    * HostListener to catch the browser back button and destroy the gallery.
@@ -162,6 +164,11 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       });
       this.changeDetectorRef.markForCheck();
     });
+
+    afterNextRender(() => {
+      this.initImages();
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   /**
@@ -187,9 +194,6 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     this.dotsConfig = libConfig.dotsConfig;
     this.buttonsConfig = libConfig.buttonsConfig!;
 
-    setTimeout(() => {
-      this.initImages();
-    }, 0);
   }
 
   /**
@@ -209,11 +213,14 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
   onFullScreen(event: ButtonEvent): void {
     const eventToEmit: ButtonEvent = this.getButtonEventToEmit(event);
     this.modalGalleryService.emitButtonBeforeHook(eventToEmit);
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
 
     // tslint:disable-next-line:no-any
-    const doc: any = document as any;
+    const doc: any = this.document as any;
     // tslint:disable-next-line:no-any
-    const docEl: any = document.documentElement as any;
+    const docEl: any = this.document.documentElement as any;
 
     const fullscreenDisabled: boolean = !doc.fullscreenElement && !doc.webkitFullscreenElement;
 
@@ -290,6 +297,10 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
     // To support SSR
     if (isPlatformBrowser(this.platformId)) {
       if (eventToEmit.image && eventToEmit.image.modal.extUrl) {
+        const browserWindow = this.document.defaultView;
+        if (!browserWindow) {
+          return;
+        }
         const safeUrl: string = eventToEmit.image.modal.extUrl;
         if (!/^https?:\/\//i.test(safeUrl)) {
           return;
@@ -302,7 +313,7 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
           // - https://www.owasp.org/index.php/HTML5_Security_Cheat_Sheet#Tabnabbing
           // - https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c
           // - https://developer.mozilla.org/en-US/docs/Web/API/Window/open
-          const newWindow: Window | null = window.open(safeUrl, 'noopener,noreferrer,');
+          const newWindow: Window | null = browserWindow.open(safeUrl, '_blank', 'noopener,noreferrer');
           // it returns null if the call failed, so I have to do this check
           if (newWindow) {
             newWindow.opener = null; // required to prevent security issues
@@ -324,7 +335,11 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    * @param newHref string new url
    */
   updateLocationHref(newHref: string) {
-    window.location.href = newHref;
+    const browserWindow = this.document.defaultView;
+    if (!browserWindow) {
+      return;
+    }
+    browserWindow.location.href = newHref;
   }
 
   /**
@@ -513,7 +528,10 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
    * @private
    */
   private downloadImageAllBrowsers(): void {
-    const link = document.createElement('a');
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const link = this.document.createElement('a');
     let isBase64 = false;
     let img: string;
     // convert a SafeResourceUrl to a string
@@ -539,9 +557,9 @@ export class ModalGalleryComponent implements OnInit, OnDestroy {
       link.href = img;
       link.setAttribute('download', this.getFileName(this.currentImage, isBase64));
     }
-    document.body.appendChild(link);
+    this.document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    this.document.body.removeChild(link);
   }
 
   /**

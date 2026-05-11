@@ -46,6 +46,7 @@ import { SizeDirective } from '../../directives/size.directive';
 import { WrapDirective } from '../../directives/wrap.directive';
 import { DirectionDirective } from '../../directives/direction.directive';
 import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive';
+import { MODAL_GALLERY_COMPONENT } from './modal-gallery.tokens';
 
 const IMAGES: Image[] = [
   new Image(0, {
@@ -100,8 +101,11 @@ describe('ModalGalleryService', () => {
     imports: [OverlayModule, ModalGalleryComponent,
         UpperButtonsComponent, CurrentImageComponent, DotsComponent, PreviewsComponent, LoadingSpinnerComponent,
         FallbackImageDirective, ClickOutsideDirective, DescriptionDirective, KeyboardNavigationDirective,
-        SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective]
-}).overrideComponent(ModalGalleryComponent, {
+        SizeDirective, WrapDirective, DirectionDirective, ATagBgImageDirective],
+    providers: [
+        { provide: MODAL_GALLERY_COMPONENT, useValue: ModalGalleryComponent }
+    ]
+	}).overrideComponent(ModalGalleryComponent, {
         set: {
           providers: [
             {
@@ -142,23 +146,15 @@ describe('ModalGalleryService', () => {
         })
       );
 
-      it('should trigger attachment of the component to the overlay', inject([ModalGalleryService], (service: ModalGalleryService) => {
-        const ID: number = 1;
-        const config = {
-          id: ID,
+      it('should attach the component to the overlay', inject([ModalGalleryService], (service: ModalGalleryService) => {
+        const ref: ModalGalleryRef | undefined = service.open({
+          id: 1,
           images: IMAGES,
           currentImage: IMAGES[0]
-        };
-        let hasEmitted = false;
-
-        service.triggerAttachToOverlay.subscribe(payload => {
-          expect(payload.config).toEqual(config);
-          hasEmitted = true;
         });
 
-        service.open(config);
-
-        expect(hasEmitted).toBeTrue();
+        expect(ref).toBeDefined();
+        expect(ref instanceof ModalGalleryRef).toBeTrue();
       }));
     });
   });

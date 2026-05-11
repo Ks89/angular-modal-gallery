@@ -37,6 +37,20 @@ npm run test:watch
 
 Tests use Karma + Jasmine. Test files are co-located with source files in `projects/ks89/angular-modal-gallery/src/lib/`. Coverage output goes to `coverage/ks89/angular-modal-gallery/`.
 
+Recent coverage additions under `projects/ks89/angular-modal-gallery/src/lib/`:
+
+- `directives/swipe.directive.spec.ts` covers `SwipeDirective.handleTouch()` for all directions and invalid swipe thresholds.
+- `components/carousel/carousel.component.spec.ts` covers public carousel interaction handlers, including mouse hover, keyboard navigation, dot/preview clicks, swipe, and previous-image navigation.
+- `components/current-image/current-image.component.spec.ts` covers public current-image interaction handlers, including keyboard handling, hover pause/play, image-load output, and autoplay restart via `playCarousel()`.
+
+For a fast compile-level check of library specs, use:
+
+```bash
+npx tsc -p projects/ks89/angular-modal-gallery/tsconfig.spec.json --noEmit
+```
+
+Note: local `npm test` has been observed to stop at Angular's `Building...` phase under odd-numbered Node v25.9.0 after pretest succeeds. Prefer the supported Node range from `package.json`/CI when running Karma.
+
 ## Code Formatting
 
 Prettier is enforced via a Husky pre-commit hook (`pretty-quick --staged`). Key settings: single quotes, no trailing commas, 155 char print width, 2-space indent, arrow parens "avoid".
@@ -70,7 +84,7 @@ examples/            # Three example projects (angular-cli-21, angular-cli-mater
 
 ## Key Dependencies
 
-- Angular 21, @angular/cdk (Overlay), RxJS 7.8, zone.js 0.16
+- Angular 22, @angular/cdk (Overlay), RxJS 7.8, zone.js 0.16
 - Node >=22.0.0, npm >=10.2.4
 - Optional: @fortawesome/fontawesome for icon support
 

@@ -37,7 +37,7 @@ import { ATagBgImageDirective } from '../../directives/a-tag-bg-image.directive'
 import { WrapDirective } from '../../directives/wrap.directive';
 import { DirectionDirective } from '../../directives/direction.directive';
 import { IdValidatorService } from '../../services/id-validator.service';
-import { Image } from '../../model/image.class';
+import { Image, ImageEvent } from '../../model/image.class';
 import { CarouselConfig } from '../../model/carousel-config.interface';
 import { PlayConfig } from '../../model/play-config.interface';
 import { KS_DEFAULT_ACCESSIBILITY_CONFIG } from '../accessibility-default';
@@ -50,6 +50,8 @@ import { ConfigService } from '../../services/config.service';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ModalGalleryService } from '../modal-gallery/modal-gallery.service';
+import { Action } from '../../model/action.enum';
+import { CarouselLibConfig } from '../../model/lib-config.interface';
 
 const GALLERY_ID = 1;
 
@@ -234,6 +236,18 @@ function initTestBed(): void {
       ]
     }
   });
+}
+
+function setupCarousel(config: CarouselLibConfig = {}): void {
+  const configService = fixture.debugElement.injector.get(ConfigService);
+
+  configService.setConfig(GALLERY_ID, {
+    carouselPlayConfig: {autoPlay: false, interval: 1000, pauseOnHover: true},
+    ...config
+  });
+  fixture.componentRef.setInput('id', GALLERY_ID);
+  fixture.componentRef.setInput('images', IMAGES);
+  fixture.detectChanges();
 }
 
 function checkMainContainer(maxWidth: string = '100%', accessibilityConfig: AccessibilityConfig = KS_DEFAULT_ACCESSIBILITY_CONFIG): void {
@@ -729,6 +743,132 @@ describe('CarouselComponent', () => {
       checkMainContainer('100%', CUSTOM_ACCESSIBILITY);
       checkCurrentImage(IMAGES[0], TEST_MODEL[0], true, true, CUSTOM_ACCESSIBILITY);
       checkArrows(false, false, CUSTOM_ACCESSIBILITY);
+    });
+
+    describe('interaction handlers', () => {
+      it(`should stop carousel on mouse enter when pauseOnHover is enabled.`, () => {
+        setupCarousel({
+          carouselPlayConfig: {autoPlay: true, interval: 1000, pauseOnHover: true}
+        });
+        const stopCarouselSpy = spyOn(comp, 'stopCarousel');
+
+        comp.onMouseEnter();
+
+        expect(stopCarouselSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should play carousel on mouse leave when pauseOnHover and autoPlay are enabled.`, () => {
+        setupCarousel({
+          carouselPlayConfig: {autoPlay: true, interval: 1000, pauseOnHover: true}
+        });
+        const playCarouselSpy = spyOn(comp, 'playCarousel');
+
+        comp.onMouseLeave();
+
+        expect(playCarouselSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should navigate to the previous image on left keyboard event when keyboard navigation is enabled.`, () => {
+        setupCarousel({
+          carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {keyboardEnable: true})
+        });
+        const prevImageSpy = spyOn(comp, 'prevImage');
+
+        comp.onKeyDownLeft();
+
+        expect(prevImageSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should navigate to the next image on right keyboard event when keyboard navigation is enabled.`, () => {
+        setupCarousel({
+          carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {keyboardEnable: true})
+        });
+        const nextImageSpy = spyOn(comp, 'nextImage');
+
+        comp.onKeyDownLRight();
+
+        expect(nextImageSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should change current image when clicking a dot.`, () => {
+        setupCarousel();
+
+        comp.onClickDot(2);
+
+        expect(comp.currentImage?.id).toBe(IMAGES[2].id);
+      });
+
+      it(`should navigate using mouse navigation events.`, () => {
+        setupCarousel();
+
+        comp.onNavigationEvent('right', new MouseEvent('click', {button: 0}), Action.CLICK);
+        expect(comp.currentImage?.id).toBe(IMAGES[1].id);
+
+        comp.onNavigationEvent('left', new MouseEvent('click', {button: 0}), Action.CLICK);
+        expect(comp.currentImage?.id).toBe(IMAGES[0].id);
+      });
+
+      it(`should emit the current image index when clicking the current image and modal gallery is enabled.`, () => {
+        setupCarousel({
+          carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {modalGalleryEnable: true})
+        });
+        const clickImageSpy = spyOn(comp.clickImage, 'emit');
+
+        comp.onClickCurrentImage();
+
+        expect(clickImageSpy).toHaveBeenCalledOnceWith(0);
+      });
+
+      it(`should not emit when clicking the current image and modal gallery is disabled.`, () => {
+        setupCarousel({
+          carouselConfig: Object.assign({}, DEFAULT_CAROUSEL_CONFIG, {modalGalleryEnable: false})
+        });
+        const clickImageSpy = spyOn(comp.clickImage, 'emit');
+
+        comp.onClickCurrentImage();
+
+        expect(clickImageSpy).not.toHaveBeenCalled();
+      });
+
+      it(`should navigate with swipe gestures using the default swipe direction.`, () => {
+        setupCarousel({
+          carouselImageConfig: {invertSwipe: false}
+        });
+
+        comp.swipe('swiperight');
+        expect(comp.currentImage?.id).toBe(IMAGES[1].id);
+
+        comp.swipe('swipeleft');
+        expect(comp.currentImage?.id).toBe(IMAGES[0].id);
+      });
+
+      it(`should navigate with swipe gestures using inverted swipe direction.`, () => {
+        setupCarousel({
+          carouselImageConfig: {invertSwipe: true}
+        });
+
+        comp.swipe('swipeleft');
+        expect(comp.currentImage?.id).toBe(IMAGES[1].id);
+
+        comp.swipe('swiperight');
+        expect(comp.currentImage?.id).toBe(IMAGES[0].id);
+      });
+
+      it(`should move to the previous image.`, () => {
+        setupCarousel();
+
+        comp.prevImage(Action.NORMAL);
+
+        expect(comp.currentImage?.id).toBe(IMAGES[IMAGES.length - 1].id);
+      });
+
+      it(`should change current image when clicking a preview.`, () => {
+        setupCarousel();
+
+        comp.onClickPreview(new ImageEvent(GALLERY_ID, Action.CLICK, 3));
+
+        expect(comp.currentImage?.id).toBe(IMAGES[3].id);
+      });
     });
 
     // // TODO not working, why???

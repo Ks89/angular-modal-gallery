@@ -220,8 +220,8 @@ export class UpperButtonsComponent extends AccessibleComponent implements OnInit
   }
 
   /**
-   * Private method to emit an event using the specified output as an `EventEmitter`.
-   * @param emitter EventEmitter<ButtonEvent> is the output to emit the `ButtonEvent`
+   * Private method to emit an event using the specified output emitter.
+   * @param emitter OutputEmitterRef<ButtonEvent> is the output to emit the `ButtonEvent`
    * @param event KeyboardEvent | MouseEvent is the source that triggered this method
    * @param dataToEmit ButtonEvent payload to emit
    */

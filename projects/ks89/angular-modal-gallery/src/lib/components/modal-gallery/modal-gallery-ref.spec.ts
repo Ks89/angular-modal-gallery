@@ -95,12 +95,28 @@ class OverlayRefMock {
   }
 }
 
-let ref: ModalGalleryRef = new ModalGalleryRef(new OverlayRefMock() as OverlayRef);
+let ref: ModalGalleryRef;
 
 describe('ModalGalleryRef', () => {
+  beforeEach(() => {
+    ref = new ModalGalleryRef(new OverlayRefMock() as OverlayRef);
+  });
+
   describe('#closeModal()', () => {
     it(`should call closeModal`, () => {
       ref.closeModal();
+    });
+
+    it(`should complete streams`, () => {
+      const closeCompleteSpy = jasmine.createSpy('closeCompleteSpy');
+      const showCompleteSpy = jasmine.createSpy('showCompleteSpy');
+
+      ref.close$.subscribe({ complete: closeCompleteSpy });
+      ref.show$.subscribe({ complete: showCompleteSpy });
+      ref.closeModal();
+
+      expect(closeCompleteSpy).toHaveBeenCalled();
+      expect(showCompleteSpy).toHaveBeenCalled();
     });
   });
 

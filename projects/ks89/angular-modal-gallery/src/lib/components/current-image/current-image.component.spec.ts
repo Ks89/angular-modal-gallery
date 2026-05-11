@@ -33,6 +33,8 @@ import { Action } from '../../model/action.enum';
 import { DescriptionDirective } from '../../directives/description.directive';
 import { ConfigService } from '../../services/config.service';
 import { FallbackImageDirective } from '../../directives/fallback-image.directive';
+import { LibConfig } from '../../model/lib-config.interface';
+import { Keyboard } from '../../model/keyboard.enum';
 
 let comp: CurrentImageComponent;
 let fixture: ComponentFixture<CurrentImageComponent>;
@@ -411,6 +413,30 @@ function initTestBed(): void {
   });
 }
 
+function setupCurrentImage(config: LibConfig = {}, currentImage: InternalLibImage = IMAGES[0]): void {
+  const configService = fixture.debugElement.injector.get(ConfigService);
+
+  configService.setConfig(GALLERY_ID, {
+    currentImageConfig: {
+      loadingConfig: {enable: true, type: LoadingType.STANDARD} as LoadingConfig,
+      description: {strategy: DescriptionStrategy.ALWAYS_VISIBLE} as Description
+    },
+    slideConfig: {
+      infinite: true,
+      playConfig: {autoPlay: false, interval: 1000, pauseOnHover: true},
+      sidePreviews: {show: true, size: DEFAULT_SIZE}
+    } as SlideConfig,
+    accessibilityConfig: KS_DEFAULT_ACCESSIBILITY_CONFIG,
+    ...config
+  });
+  fixture.componentRef.setInput('id', GALLERY_ID);
+  fixture.componentRef.setInput('images', IMAGES);
+  fixture.componentRef.setInput('currentImage', currentImage);
+  fixture.componentRef.setInput('isOpen', true);
+  fixture.detectChanges();
+  comp.ref.detectChanges();
+}
+
 describe('CurrentImageComponent', () => {
   beforeEach(() => {
     initTestBed();
@@ -421,6 +447,107 @@ describe('CurrentImageComponent', () => {
   it('should instantiate it', () => expect(comp).not.toBeNull());
 
   describe('---YES---', () => {
+    describe('interaction handlers', () => {
+      it(`should close the gallery on ESC key press.`, () => {
+        setupCurrentImage();
+        const closeGallerySpy = spyOn(comp.closeGallery, 'emit');
+
+        comp.onKeyPress(Keyboard.ESC);
+
+        expect(closeGallerySpy).toHaveBeenCalledOnceWith(jasmine.objectContaining({
+          galleryId: GALLERY_ID,
+          action: Action.KEYBOARD,
+          result: true
+        }));
+      });
+
+      it(`should navigate to the next image on right key press.`, () => {
+        setupCurrentImage();
+        const nextImageSpy = spyOn(comp, 'nextImage');
+
+        comp.onKeyPress(Keyboard.RIGHT_ARROW);
+
+        expect(nextImageSpy).toHaveBeenCalledOnceWith(Action.KEYBOARD);
+      });
+
+      it(`should navigate to the previous image on left key press.`, () => {
+        setupCurrentImage();
+        const prevImageSpy = spyOn(comp, 'prevImage');
+
+        comp.onKeyPress(Keyboard.LEFT_ARROW);
+
+        expect(prevImageSpy).toHaveBeenCalledOnceWith(Action.KEYBOARD);
+      });
+
+      it(`should stop carousel on mouse enter when pauseOnHover is enabled.`, () => {
+        setupCurrentImage({
+          slideConfig: {
+            infinite: true,
+            playConfig: {autoPlay: true, interval: 1000, pauseOnHover: true},
+            sidePreviews: {show: true, size: DEFAULT_SIZE}
+          } as SlideConfig
+        });
+        const stopCarouselSpy = spyOn(comp, 'stopCarousel');
+
+        comp.onMouseEnter();
+
+        expect(stopCarouselSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should play carousel on mouse leave when pauseOnHover and autoPlay are enabled.`, () => {
+        setupCurrentImage({
+          slideConfig: {
+            infinite: true,
+            playConfig: {autoPlay: true, interval: 1000, pauseOnHover: true},
+            sidePreviews: {show: true, size: DEFAULT_SIZE}
+          } as SlideConfig
+        });
+        const playCarouselSpy = spyOn(comp, 'playCarousel');
+
+        comp.onMouseLeave();
+
+        expect(playCarouselSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it(`should emit loadImage and clear loading on image load.`, () => {
+        setupCurrentImage({}, IMAGES[2]);
+        comp.loading = true;
+        const loadImageSpy = spyOn(comp.loadImage, 'emit');
+
+        comp.onImageLoad(new Event('load'));
+
+        expect(loadImageSpy).toHaveBeenCalledOnceWith({
+          status: true,
+          index: 2,
+          id: IMAGES[2].id
+        });
+        expect(comp.loading).toBeFalse();
+      });
+
+      it(`should start autoplay navigation when playCarousel is called.`, fakeAsync(() => {
+        setupCurrentImage({
+          slideConfig: {
+            infinite: true,
+            playConfig: {autoPlay: true, interval: 10, pauseOnHover: true},
+            sidePreviews: {show: true, size: DEFAULT_SIZE}
+          } as SlideConfig
+        });
+        const changeImageSpy = spyOn(comp.changeImage, 'emit');
+
+        comp.stopCarousel();
+        comp.playCarousel();
+        tick(11);
+
+        expect(changeImageSpy).toHaveBeenCalledOnceWith(jasmine.objectContaining({
+          galleryId: GALLERY_ID,
+          action: Action.AUTOPLAY,
+          result: 1
+        }));
+
+        flush();
+        discardPeriodicTasks();
+      }));
+    });
 
     TEST_MODEL.forEach((val: TestModel, index: number) => {
       it(`should display current image with arrows and side previews. Test i=${index}`, () => {

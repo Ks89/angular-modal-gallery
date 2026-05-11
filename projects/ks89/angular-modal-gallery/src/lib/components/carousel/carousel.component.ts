@@ -30,6 +30,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  DestroyRef,
   HostBinding,
   HostListener, inject,
   NgZone,
@@ -48,6 +49,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { Subject, timer } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AccessibleComponent } from '../accessible.component';
 
@@ -180,6 +182,7 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
   private stop$ = new Subject<void>();
 
   private readonly platformId: Object = inject(PLATFORM_ID);
+  private readonly destroyRef: DestroyRef = inject(DestroyRef);
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
 
   /**
@@ -366,7 +369,8 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
             map(() => libConfig?.carouselPlayConfig?.interval),
             // tslint:disable-next-line:no-any
             filter((interval: any) => interval > 0),
-            switchMap(interval => timer(interval).pipe(takeUntil(this.stop$)))
+            switchMap(interval => timer(interval).pipe(takeUntil(this.stop$))),
+            takeUntilDestroyed(this.destroyRef)
           )
           .subscribe(() =>
             this.ngZone.run(() => {
@@ -620,6 +624,8 @@ export class CarouselComponent extends AccessibleComponent implements OnInit, Af
    */
   ngOnDestroy(): void {
     this.stopCarousel();
+    this.start$.complete();
+    this.stop$.complete();
   }
 
   /**
