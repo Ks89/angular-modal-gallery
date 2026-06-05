@@ -1,10 +1,10 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI agents when working with code in this repository.
 
 ## Project Overview
 
-@ks89/angular-modal-gallery is an Angular 21 library for creating image galleries (modal, plain/thumbnail grid, carousel). It's SSR-compatible, accessible, and published to npm. The library lives in a monorepo alongside a demo app and three example projects.
+@ks89/angular-modal-gallery is an Angular 22 library for creating image galleries (modal, plain/thumbnail grid, carousel). It's SSR-compatible, accessible, and published to npm. The library lives in a monorepo alongside a demo app and three example projects.
 
 ## Build Commands
 
@@ -70,7 +70,7 @@ projects/ks89/angular-modal-gallery/   # THE LIBRARY (published to npm)
   src/public-api.ts  # Public exports — all library API surfaces
 
 src/                 # Demo application (showcases the library)
-examples/            # Three example projects (angular-cli-21, angular-cli-material, universal)
+examples/            # Three example projects (angular-cli-22, angular-cli-material, universal)
 ```
 
 ## Architecture

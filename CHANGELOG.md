@@ -7,7 +7,7 @@ Please read `Security fixes` section carefully to understand what has changed an
 
 - **IMPORTANT**: `img` and `fallbackImg` paths are now validated, so relative paths like '../' are now blocked. Please use only either absolute paths, '/' or './' **(BREAKING CHANGE)**
 - Angular 22 is required **(BREAKING CHANGE)**
-
+- 
 - Removed the internal modal attach bridge based on EventEmitter and provideAppInitializer()
 - ModalGalleryService.open() now attaches the modal ComponentPortal directly using the MODAL_GALLERY_COMPONENT injection token
 - Fixed carousel timer cleanup in CurrentImageComponent with DestroyRef, takeUntilDestroyed(), and completed start$ / stop$ streams
