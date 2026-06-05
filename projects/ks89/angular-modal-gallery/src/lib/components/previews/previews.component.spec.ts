@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, DebugElement, SimpleChanges, TemplateRef, viewChild } from '@angular/core';
+import { Component, DebugElement, SimpleChanges, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -241,6 +241,7 @@ function checkPreviewStateAfterClick(previews: DebugElement[], prevValue: Intern
  * A template-providing component to test the template-driven previews customization.
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
       <div class="my-own-template">example</div>
@@ -258,6 +259,7 @@ class PreviewsTemplateComponent0 {
   imports: [
     NgTemplateOutlet
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <ng-template #template let-preview="preview" let-defaultTemplate="defaultTemplate">
       <div>

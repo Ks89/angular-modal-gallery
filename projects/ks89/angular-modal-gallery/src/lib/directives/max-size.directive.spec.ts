@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MaxSizeDirective } from './max-size.directive';
@@ -39,6 +39,7 @@ const expected: MaxSize[] = [
 @Component({
   selector: 'ks-test-max-size',
   imports: [MaxSizeDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '100px', maxHeight: '80px'}"></div>
     <div ksMaxSize [maxSizeConfig]="{maxWidth: '50px', maxHeight: '20px'}"></div>

@@ -22,7 +22,7 @@
 //  SOFTWARE.
 //  */
 
-import { Component, DebugElement, input, output } from '@angular/core';
+import { Component, DebugElement, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { By } from '@angular/platform-browser';
@@ -30,6 +30,7 @@ import { By } from '@angular/platform-browser';
 @Component({
   selector: 'ks-test-click-outside',
   imports: [ClickOutsideDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div id="modal-gallery-wrapper"
          ksClickOutside [clickOutsideEnable]="true"

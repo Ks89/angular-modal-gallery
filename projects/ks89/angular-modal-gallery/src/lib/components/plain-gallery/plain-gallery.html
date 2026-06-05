@@ -2,7 +2,7 @@
      ksWrap [wrap]="wrapStyle" [width]="widthStyle"
      ksDirection [direction]="directionStyle" [justify]="justifyStyle"
      [attr.aria-label]="accessibilityConfig?.plainGalleryContentAriaLabel"
-     [title]="accessibilityConfig?.plainGalleryContentTitle">
+     [title]="$safeNavigationMigration(accessibilityConfig?.plainGalleryContentTitle)">
 
   @for (imgRow of imageGrid; let i = $index; track i) {
     @for (imgCol of imgRow; let j = $index; track j) {
@@ -10,12 +10,12 @@
         @if (imgCol?.modal?.img) {
           <img loading="{{imgCol.loading}}"
                [attr.fetchpriority]="imgCol.fetchpriority"
-               [src]="imgCol.plain?.img! ? imgCol.plain?.img! : imgCol.modal.img"
-               ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? imgCol.plain?.fallbackImg : imgCol.modal.fallbackImg"
+               [src]="imgCol.plain?.img! ? $safeNavigationMigration(imgCol.plain?.img)! : imgCol.modal.img"
+               ksFallbackImage [fallbackImg]="imgCol.plain?.fallbackImg ? $safeNavigationMigration(imgCol.plain?.fallbackImg) : imgCol.modal.fallbackImg"
                class="image"
-               ksSize [sizeConfig]="{width: size?.width!, height: size?.height!}"
+               ksSize [sizeConfig]="{width: $safeNavigationMigration(size?.width)!, height: $safeNavigationMigration(size?.height)!}"
                [attr.aria-label]="imgCol.plain?.ariaLabel"
-               [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? imgCol.plain?.title : getTitleDisplay(imgCol)"
+               [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? $safeNavigationMigration(imgCol.plain?.title) : getTitleDisplay(imgCol)"
                alt="{{imgCol.plain?.alt! ? imgCol.plain?.alt! : getAltPlainDescriptionByImage(imgCol)}}"
                [tabIndex]="0" role="img"
                (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)" />
@@ -26,9 +26,9 @@
         @if (imgCol?.modal?.img) {
           <a class="a-tag-image"
              ksATagBgImage [image]="imgCol" [style]="plainGalleryConfig?.advanced?.additionalBackground"
-             ksSize [sizeConfig]="{width: size?.width!, height: size?.height!}"
+             ksSize [sizeConfig]="{width: $safeNavigationMigration(size?.width)!, height: $safeNavigationMigration(size?.height)!}"
              [attr.aria-label]="imgCol.plain?.ariaLabel"
-             [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? imgCol.plain?.title : getTitleDisplay(imgCol)"
+             [title]="(imgCol.plain?.title || imgCol.plain?.title === '') ? $safeNavigationMigration(imgCol.plain?.title) : getTitleDisplay(imgCol)"
              [tabIndex]="0"
              (click)="showModalGalleryByImage(imgCol)" (keyup)="onNavigationEvent($event, imgCol)"></a>
         }

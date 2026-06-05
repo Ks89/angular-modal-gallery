@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { inject, TemplateRef, viewChild } from '@angular/core';
+import { inject, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { Component, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -48,6 +48,7 @@ import { NgTemplateOutlet } from '@angular/common';
   selector: 'ks-modal-gallery-page',
   templateUrl: './modal-gallery.html',
   styleUrls: ['./modal-gallery.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, NgTemplateOutlet]
 })
 export class ModalGalleryExampleComponent implements OnDestroy {

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -32,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   selector: 'ks-navbar',
   templateUrl: 'navbar.html',
   styleUrls: ['navbar.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule, ReactiveFormsModule, NgOptimizedImage]
 })
 export class NavbarComponent {

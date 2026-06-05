@@ -1,7 +1,7 @@
 <main class="main-image-container"
       ksKeyboardNavigation [isOpen]="isOpen()" (keyboardNavigation)="onKeyPress($event)"
       [attr.aria-label]="accessibilityConfig?.mainContainerAriaLabel"
-      [title]="accessibilityConfig?.mainContainerTitle">
+      [title]="$safeNavigationMigration(accessibilityConfig?.mainContainerTitle)">
 
   <div class="left-sub-container">
     <a class="nav-left {{isFirstImage ? 'no-pointer' : ''}}"
@@ -10,7 +10,7 @@
        (click)="onNavigationEvent('left', $event)" (keyup)="onNavigationEvent('left', $event)">
       <div class="inside {{isFirstImage ? 'empty-arrow-image' : 'left-arrow-image'}}"
            aria-hidden="true"
-           [title]="isFirstImage ? '' : accessibilityConfig?.mainPrevImageTitle"></div>
+           [title]="isFirstImage ? '' : $safeNavigationMigration(accessibilityConfig?.mainPrevImageTitle)"></div>
     </a>
 
     @let leftPreview = getLeftPreviewImage();
@@ -19,10 +19,10 @@
         <img class="inside current-image-previous"
              loading="{{ leftPreview.loading }}"
              [attr.fetchpriority]="leftPreview.fetchpriority"
-             [src]="leftPreview.plain?.img ? leftPreview.plain?.img : leftPreview.modal.img"
-             ksFallbackImage [fallbackImg]="leftPreview.plain?.fallbackImg ? leftPreview.plain?.fallbackImg : leftPreview.modal.fallbackImg"
+             [src]="leftPreview.plain?.img ? $safeNavigationMigration(leftPreview.plain?.img) : leftPreview.modal.img"
+             ksFallbackImage [fallbackImg]="leftPreview.plain?.fallbackImg ? $safeNavigationMigration(leftPreview.plain?.fallbackImg) : leftPreview.modal.fallbackImg"
              [hidden]="loading"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"
+             ksSize [sizeConfig]="{width: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.width), height: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.height)}"
              [attr.aria-label]="leftPreview.modal.ariaLabel"
              [title]="(leftPreview.modal.title || leftPreview.modal.title === '') ? leftPreview.modal.title : getDescriptionToDisplay(leftPreview)"
              alt="{{leftPreview.modal.alt ? leftPreview.modal.alt : getAltDescriptionByImage(leftPreview)}}"
@@ -30,7 +30,7 @@
              (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)" />
       } @else {
         <div class="current-image-previous hidden"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"></div>
+             ksSize [sizeConfig]="{width: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.width), height: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.height)}"></div>
       }
     }
   </div>
@@ -60,7 +60,7 @@
     </picture>
     @if (getDescriptionToDisplay() !== '') {
       <figcaption class="inside description"
-                  ksDescription [description]="currentImageConfig?.description"
+                  ksDescription [description]="$safeNavigationMigration(currentImageConfig?.description)"
                   [innerHTML]="getDescriptionToDisplay()">
       </figcaption>
     }
@@ -73,10 +73,10 @@
         <img class="inside current-image-next"
              loading="{{ rightPreview.loading }}"
              [attr.fetchpriority]="rightPreview.fetchpriority"
-             [src]="rightPreview.plain?.img ? rightPreview.plain?.img : rightPreview.modal.img"
-             ksFallbackImage [fallbackImg]="rightPreview.plain?.fallbackImg ? rightPreview.plain?.fallbackImg : rightPreview.modal.fallbackImg"
+             [src]="rightPreview.plain?.img ? $safeNavigationMigration(rightPreview.plain?.img) : rightPreview.modal.img"
+             ksFallbackImage [fallbackImg]="rightPreview.plain?.fallbackImg ? $safeNavigationMigration(rightPreview.plain?.fallbackImg) : rightPreview.modal.fallbackImg"
              [hidden]="loading"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"
+             ksSize [sizeConfig]="{width: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.width), height: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.height)}"
              [attr.aria-label]="rightPreview.modal.ariaLabel"
              [title]="(rightPreview.modal.title || rightPreview.modal.title === '') ? rightPreview.modal.title : getDescriptionToDisplay(rightPreview)"
              alt="{{rightPreview.modal.alt ? rightPreview.modal.alt : getAltDescriptionByImage(rightPreview)}}"
@@ -84,12 +84,12 @@
              (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)" />
       } @else {
         <div class="current-image-next hidden"
-             ksSize [sizeConfig]="{width: slideConfig?.sidePreviews?.size?.width, height: slideConfig?.sidePreviews?.size?.height}"></div>
+             ksSize [sizeConfig]="{width: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.width), height: $safeNavigationMigration(slideConfig?.sidePreviews?.size?.height)}"></div>
       }
     }
 
     @if (loading && currentImageConfig?.loadingConfig?.enable) {
-      <ks-loading-spinner [loadingConfig]="currentImageConfig?.loadingConfig"
+      <ks-loading-spinner [loadingConfig]="$safeNavigationMigration(currentImageConfig?.loadingConfig)"
                           [accessibilityConfig]="accessibilityConfig" />
     }
 
@@ -99,7 +99,7 @@
        (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
       <div class="inside {{isLastImage ? 'empty-arrow-image' : 'right-arrow-image'}}"
            aria-hidden="true"
-           [title]="isLastImage ? '' : accessibilityConfig?.mainNextImageTitle"></div>
+           [title]="isLastImage ? '' : $safeNavigationMigration(accessibilityConfig?.mainNextImageTitle)"></div>
     </a>
   </div>
 </main>

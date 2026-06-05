@@ -22,17 +22,24 @@
  SOFTWARE.
  */
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import {
-  AccessibilityConfig, CarouselLibConfig, Image, ImageEvent,
-  ModalGalleryConfig, ModalGalleryRef, ModalGalleryService, GalleryModule
+  AccessibilityConfig,
+  CarouselLibConfig,
+  Image,
+  ImageEvent,
+  ModalGalleryConfig,
+  ModalGalleryRef,
+  ModalGalleryService,
+  GalleryModule
 } from '@ks89/angular-modal-gallery';
 
 @Component({
   selector: 'ks-carousel-page',
   templateUrl: './carousel.html',
   styleUrls: ['./carousel.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [GalleryModule]
 })
 export class CarouselExampleComponent {
@@ -308,14 +315,18 @@ export class CarouselExampleComponent {
         ariaLabel: 'First image aria-label'
       }
     ),
-    new Image(1, {
-      img: '/assets/images/gallery/pexels-photo-47223.jpeg',
-      sources: [
-        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-47223-480w.jpeg' },
-        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-47223-768w.jpeg' },
-        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-47223-1024w.jpeg' }
-      ]
-    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-47223.jpg' }),
+    new Image(
+      1,
+      {
+        img: '/assets/images/gallery/pexels-photo-47223.jpeg',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-47223-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-47223-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-47223-1024w.jpeg' }
+        ]
+      },
+      { img: '/assets/images/gallery/thumbs/t-pexels-photo-47223.jpg' }
+    ),
     new Image(
       2,
       {
@@ -356,14 +367,18 @@ export class CarouselExampleComponent {
         ariaLabel: 'Fourth image aria-label (plain obj)'
       }
     ),
-    new Image(4, {
-      img: '/assets/images/gallery/pexels-photo-93750.jpeg',
-      sources: [
-        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-93750-480w.jpeg' },
-        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-93750-768w.jpeg' },
-        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-93750-1024w.jpeg' }
-      ]
-    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-93750.jpg' }),
+    new Image(
+      4,
+      {
+        img: '/assets/images/gallery/pexels-photo-93750.jpeg',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-93750-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-93750-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-93750-1024w.jpeg' }
+        ]
+      },
+      { img: '/assets/images/gallery/thumbs/t-pexels-photo-93750.jpg' }
+    ),
     new Image(
       5,
       {
@@ -377,14 +392,18 @@ export class CarouselExampleComponent {
       },
       { img: '/assets/images/gallery/thumbs/t-pexels-photo-94420.jpg' }
     ),
-    new Image(6, {
-      img: '/assets/images/gallery/pexels-photo-96947.jpeg',
-      sources: [
-        { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-96947-480w.jpeg' },
-        { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-96947-768w.jpeg' },
-        { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-96947-1024w.jpeg' }
-      ]
-    }, { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' })
+    new Image(
+      6,
+      {
+        img: '/assets/images/gallery/pexels-photo-96947.jpeg',
+        sources: [
+          { media: '(max-width: 480px)', srcset: '/assets/images/gallery/pexels-photo-96947-480w.jpeg' },
+          { media: '(max-width: 768px)', srcset: '/assets/images/gallery/pexels-photo-96947-768w.jpeg' },
+          { media: '(max-width: 1024px)', srcset: '/assets/images/gallery/pexels-photo-96947-1024w.jpeg' }
+        ]
+      },
+      { img: '/assets/images/gallery/thumbs/t-pexels-photo-96947.jpg' }
+    )
   ];
 
   emptyImagesArray: Image[] = [];

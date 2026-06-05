@@ -22,7 +22,7 @@
 //  SOFTWARE.
 //  */
 //
-import { Component, DebugElement, input, output, signal } from '@angular/core';
+import { Component, DebugElement, input, output, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -31,6 +31,7 @@ import { KeyboardNavigationDirective } from './keyboard-navigation.directive';
 @Component({
   selector: 'ks-test-keyboard-navigation',
   imports: [KeyboardNavigationDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <main ksKeyboardNavigation [isOpen]="true" (keyboardNavigation)="onKeyPress($event)"></main>
   `

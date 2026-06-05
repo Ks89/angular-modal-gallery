@@ -20,9 +20,7 @@
             "outputPath": "dist/angular-modal-gallery",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -33,10 +31,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "src/styles.scss"
-            ],
+            "styles": ["node_modules/@fortawesome/fontawesome-free/css/all.css", "src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -59,6 +54,12 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "testing": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "polyfills": ["zone.js", "zone.js/testing"]
             }
           },
           "defaultConfiguration": "production"
@@ -79,27 +80,11 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.png",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": [
-              "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "src/styles.scss"
-            ],
-            "scripts": []
+            "buildTarget": ":build:testing",
+            "runner": "vitest"
           }
         }
       }
@@ -131,10 +116,7 @@
             "karmaConfig": "projects/ks89/angular-modal-gallery/karma.conf.js",
             "codeCoverage": true,
             "tsConfig": "projects/ks89/angular-modal-gallery/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }

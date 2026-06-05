@@ -21,7 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { WrapDirective } from './wrap.directive';
@@ -35,6 +35,7 @@ interface TestModel {
 @Component({
   selector: 'ks-test-wrap',
   imports: [WrapDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksWrap [wrap]="true" [width]="'100px'"></div>
     <div ksWrap [wrap]="false" [width]="'100px'"></div>

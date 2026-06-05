@@ -22,15 +22,14 @@
  * SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'ks-intro-header',
   templateUrl: 'intro-header.html',
-  imports: [
-    NgOptimizedImage
-  ],
+  imports: [NgOptimizedImage],
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['intro-header.scss']
 })
 export class IntroHeaderComponent {}

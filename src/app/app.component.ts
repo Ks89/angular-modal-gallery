@@ -22,14 +22,15 @@
  SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-    selector: 'ks-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [NavbarComponent, RouterOutlet]
+  selector: 'ks-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [NavbarComponent, RouterOutlet]
 })
 export class AppComponent {}

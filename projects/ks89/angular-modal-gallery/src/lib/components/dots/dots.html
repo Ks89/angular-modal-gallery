@@ -1,7 +1,7 @@
 @let accessibilityConf = accessibilityConfig();
 @let dotsConf = dotsConfig();
 <nav class="dots-container" [attr.aria-label]="accessibilityConf?.dotsContainerAriaLabel"
-     [title]="accessibilityConf?.dotsContainerTitle">
+     [title]="$safeNavigationMigration(accessibilityConf?.dotsContainerTitle)">
   @if (!dotsConf || dotsConf?.visible) {
     @for (img of images(); let index = $index; track img.id) {
       <div class="inside dot"

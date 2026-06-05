@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, SafeResourceUrl } from '@angular/platform-browser';
 import { ATagBgImageDirective } from './a-tag-bg-image.directive';
@@ -80,6 +80,7 @@ const length: number = expectedModal.length + expectedPlain.length + expectedWro
 @Component({
   selector: 'ks-test-atagbgimage',
   imports: [ATagBgImageDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksATagBgImage [image]="images[0]" [style]="'50% 50% / cover'"></div>
     <div ksATagBgImage [image]="images[0]" [style]="''"></div>

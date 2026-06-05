@@ -1,7 +1,7 @@
 <nav class="previews-container"
      [class.mobile-visible]="previewConfig?.mobileVisible"
      [attr.aria-label]="accessibilityConfig?.previewsContainerAriaLabel"
-     [title]="accessibilityConfig?.previewsContainerTitle">
+     [title]="$safeNavigationMigration(accessibilityConfig?.previewsContainerTitle)">
 
   @if (previewConfig?.visible) {
     <a class="nav-left"
@@ -10,7 +10,7 @@
        (click)="onNavigationEvent('left', $event)" (keyup)="onNavigationEvent('left', $event)">
       <div class="inside {{ isDisplayLeftPreviewsArrow() ? 'left-arrow-preview-image' : 'empty-arrow-preview-image'}}"
            aria-hidden="true"
-           [title]="accessibilityConfig?.previewScrollPrevTitle"></div>
+           [title]="$safeNavigationMigration(accessibilityConfig?.previewScrollPrevTitle)"></div>
     </a>
 
     @for (preview of previews; track preview.id) {
@@ -24,10 +24,10 @@
             <img class="inside preview-image {{isActive(preview) ? 'active' : ''}}"
                  loading="{{preview.loading}}"
                  [attr.fetchpriority]="preview.fetchpriority"
-                 [src]="preview.plain?.img ? preview.plain?.img! : preview.modal.img"
-                 ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? preview.plain?.fallbackImg : preview.modal.fallbackImg"
-                 ksSize [sizeConfig]="{width: previewConfig?.size ? previewConfig?.size?.width! : defaultPreviewSize.width,
-                                      height: previewConfig?.size ? previewConfig?.size?.height! : defaultPreviewSize.height}"
+                 [src]="preview.plain?.img ? $safeNavigationMigration(preview.plain?.img)! : preview.modal.img"
+                 ksFallbackImage [fallbackImg]="preview.plain?.fallbackImg ? $safeNavigationMigration(preview.plain?.fallbackImg) : preview.modal.fallbackImg"
+                 ksSize [sizeConfig]="{width: previewConfig?.size ? $safeNavigationMigration(previewConfig?.size?.width)! : defaultPreviewSize.width,
+                                      height: previewConfig?.size ? $safeNavigationMigration(previewConfig?.size?.height)! : defaultPreviewSize.height}"
                  [attr.aria-label]="preview.modal.ariaLabel ? preview.modal.ariaLabel : ''"
                  [title]="(preview.modal.title || preview.modal.title === '') ? preview.modal.title : ''"
                  alt="{{preview.modal.alt ? preview.modal.alt : ''}}"
@@ -45,7 +45,7 @@
        (click)="onNavigationEvent('right', $event)" (keyup)="onNavigationEvent('right', $event)">
       <div class="inside {{ isDisplayRightPreviewsArrow() ? 'right-arrow-preview-image' : 'empty-arrow-preview-image'}}"
            aria-hidden="true"
-           [title]="accessibilityConfig?.previewScrollNextTitle"></div>
+           [title]="$safeNavigationMigration(accessibilityConfig?.previewScrollNextTitle)"></div>
     </a>
   }
 </nav>

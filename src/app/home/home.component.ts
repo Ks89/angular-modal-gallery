@@ -22,13 +22,14 @@
  SOFTWARE.
  */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { IntroHeaderComponent } from '../intro-header/intro-header.component';
 
 @Component({
-    selector: 'ks-home-page',
-    templateUrl: './home.html',
-    styleUrls: ['./home.scss'],
-    imports: [IntroHeaderComponent]
+  selector: 'ks-home-page',
+  templateUrl: './home.html',
+  styleUrls: ['./home.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [IntroHeaderComponent]
 })
 export class HomeComponent {}

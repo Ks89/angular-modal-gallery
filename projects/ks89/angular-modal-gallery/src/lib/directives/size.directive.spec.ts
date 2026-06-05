@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SizeDirective } from './size.directive';
@@ -42,6 +42,7 @@ const expected: Size[] = [
 @Component({
   selector: 'ks-test-size',
   imports: [SizeDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksSize [sizeConfig]="{width: '100px', height: '80px'}"></div>
     <div ksSize [sizeConfig]="{width: '50px', height: '20px'}"></div>

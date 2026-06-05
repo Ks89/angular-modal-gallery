@@ -3,7 +3,7 @@
   @if (!buttonsConfig() || buttonsConfig()?.visible) {
     @for (btn of buttons; track btn.id) {
       <a class="upper-button"
-         ksSize [sizeConfig]="{width: btn.size?.width!, height: btn.size?.height!}"
+         ksSize [sizeConfig]="{width: $safeNavigationMigration(btn.size?.width)!, height: $safeNavigationMigration(btn.size?.height)!}"
          [ngStyle]="{'font-size': btn.fontSize}"
          [attr.aria-label]="btn.ariaLabel"
          [tabIndex]="0" role="button"

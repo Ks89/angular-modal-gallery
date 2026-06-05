@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DescriptionDirective } from './description.directive';
@@ -61,6 +61,7 @@ const expected: Description[] | undefined[] = [
 @Component({
   selector: 'ks-test-description',
   imports: [DescriptionDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <figure>
       <figcaption ksDescription [description]="descriptions[0]"></figcaption>

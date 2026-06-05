@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MarginDirective } from './margin.directive';
@@ -53,6 +53,7 @@ const expected: Margin[] = [
 @Component({
   selector: 'ks-test-margin',
   imports: [MarginDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksMargin [marginLeft]="'2px'" [marginRight]="'2px'"></div>
     <div ksMargin [marginLeft]="'4px'" [marginRight]="'0px'"></div>

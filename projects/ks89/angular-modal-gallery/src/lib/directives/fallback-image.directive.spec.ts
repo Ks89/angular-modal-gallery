@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement, output } from '@angular/core';
+import { Component, DebugElement, output, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By, SafeResourceUrl } from '@angular/platform-browser';
 import { FallbackImageDirective } from './fallback-image.directive';
@@ -30,6 +30,7 @@ import { FallbackImageDirective } from './fallback-image.directive';
 @Component({
   selector: 'ks-test-fallback-image',
   imports: [FallbackImageDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="imgPath" (fallbackApplied)="onError(true)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="base64" (fallbackApplied)="onError(true)">
@@ -52,6 +53,7 @@ class TestFallbackImageComponent {
 @Component({
   selector: 'ks-test-fallback-image-wrong',
   imports: [FallbackImageDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">
     <img src="wrong-img-path.jpg" ksFallbackImage [fallbackImg]="undefined" (fallbackApplied)="onError(false)">

@@ -1,7 +1,7 @@
 <main id="carousel-container"
       [attr.aria-label]="accessibilityConfig?.carouselContainerAriaLabel"
-      [title]="accessibilityConfig?.carouselContainerTitle"
-      ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
+      [title]="$safeNavigationMigration(accessibilityConfig?.carouselContainerTitle)"
+      ksMaxSize [maxSizeConfig]="{maxWidth: $safeNavigationMigration(carouselConfig?.maxWidth),
                                maxHeight: ''}">
 
 
@@ -13,7 +13,7 @@
 
   @if (currentImage && currentImage.modal) {
     <figure class="current-figure"
-            ksSize [sizeConfig]="{width: carouselConfig?.maxWidth, height: ''}">
+            ksSize [sizeConfig]="{width: $safeNavigationMigration(carouselConfig?.maxWidth), height: ''}">
 
       @if (carouselConfig?.showArrows) {
         <a class="nav-left"
@@ -22,13 +22,13 @@
            (click)="onNavigationEvent('left', $event, clickAction)" (keyup)="onNavigationEvent('left', $event, keyboardAction)">
           <div class="inside {{(isFirstImage && !carouselSlideInfinite) || !carouselConfig?.showArrows ? 'empty-arrow-image' : 'left-arrow-image'}}"
                aria-hidden="true"
-               [title]="accessibilityConfig?.carouselPrevImageTitle"></div>
+               [title]="$safeNavigationMigration(accessibilityConfig?.carouselPrevImageTitle)"></div>
         </a>
       }
 
       <ng-container *ngTemplateOutlet="content" />
-      <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
-        maxHeight: carouselConfig?.maxHeight}">
+      <picture class="current-image" ksMaxSize [maxSizeConfig]="{maxWidth: $safeNavigationMigration(carouselConfig?.maxWidth),
+        maxHeight: $safeNavigationMigration(carouselConfig?.maxHeight)}">
         @for (source of currentImage.modal?.sources; let i = $index; track i) {
           <source [media]="source.media" [srcset]="source.srcset">
         }
@@ -36,8 +36,8 @@
              loading="{{ currentImage.loading }}"
              [attr.fetchpriority]="currentImage.fetchpriority"
              [style.object-fit]="carouselConfig?.objectFit"
-             ksMaxSize [maxSizeConfig]="{maxWidth: carouselConfig?.maxWidth,
-                                      maxHeight: carouselConfig?.maxHeight}"
+             ksMaxSize [maxSizeConfig]="{maxWidth: $safeNavigationMigration(carouselConfig?.maxWidth),
+                                      maxHeight: $safeNavigationMigration(carouselConfig?.maxHeight)}"
              [src]="currentImage.modal.img"
              ksFallbackImage [fallbackImg]="currentImage.modal.fallbackImg"
              [attr.aria-label]="currentImage.modal.ariaLabel"
@@ -50,7 +50,7 @@
       </picture>
       @if (getDescriptionToDisplay() !== '') {
         <figcaption class="description"
-                    ksDescription [description]="carouselImageConfig?.description"
+                    ksDescription [description]="$safeNavigationMigration(carouselImageConfig?.description)"
                     [innerHTML]="getDescriptionToDisplay()"></figcaption>
       }
 
@@ -61,7 +61,7 @@
            (click)="onNavigationEvent('right', $event, clickAction)" (keyup)="onNavigationEvent('right', $event, keyboardAction)">
           <div class="inside {{(isLastImage && !carouselSlideInfinite) || !carouselConfig?.showArrows ? 'empty-arrow-image' : 'right-arrow-image'}}"
                aria-hidden="true"
-               [title]="accessibilityConfig?.carouselNextImageTitle"></div>
+               [title]="$safeNavigationMigration(accessibilityConfig?.carouselNextImageTitle)"></div>
         </a>
       }
 

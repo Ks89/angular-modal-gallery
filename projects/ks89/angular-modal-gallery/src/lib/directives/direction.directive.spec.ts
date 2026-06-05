@@ -22,7 +22,7 @@
  SOFTWARE.
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DirectionDirective } from './direction.directive';
@@ -49,6 +49,7 @@ const expected: TestModel[] = [
 @Component({
   selector: 'ks-test-direction',
   imports: [DirectionDirective],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div ksDirection [direction]="'row'" [justify]="'flex-start'"></div>
     <div ksDirection [direction]="'row-reverse'" [justify]="'flex-end'"></div>

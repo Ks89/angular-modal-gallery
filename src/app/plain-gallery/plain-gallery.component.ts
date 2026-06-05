@@ -22,17 +22,25 @@
  SOFTWARE.
  */
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 
 import {
-  GridLayout, Image, LineLayout, PlainGalleryConfig, PlainGalleryStrategy,
-  ModalGalleryService, ModalGalleryRef, PlainLibConfig, GalleryModule
+  GridLayout,
+  Image,
+  LineLayout,
+  PlainGalleryConfig,
+  PlainGalleryStrategy,
+  ModalGalleryService,
+  ModalGalleryRef,
+  PlainLibConfig,
+  GalleryModule
 } from '@ks89/angular-modal-gallery';
 
 @Component({
   selector: 'ks-plain-gallery-page',
   templateUrl: './plain-gallery.html',
   styleUrls: ['./plain-gallery.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [GalleryModule]
 })
 export class PlainGalleryExampleComponent {
