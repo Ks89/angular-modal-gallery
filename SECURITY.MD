@@ -3,26 +3,12 @@
 
 ## Supported Versions
 
-Only these versions are supported with security updates:
+Only the latest version is supported with security updates:
 
 | Version | Supported          |
 |---------|--------------------|
-| 1.x.x   | :x:                |
-| 2.x.x   | :x:                |
-| 3.x.x   | :x:                |
-| 4.x.x   | :x:                |
-| 5.x.x   | :x:                |
-| 6.x.x   | :x:                |
-| 7.x.x   | :x:                |
-| 8.x.x   | :x:                |
-| 9.x.x   | :x:                |
-| 10.x.x  | :x:                |
-| 11.x.x  | :x:                |
-| 12.x.x  | :x:                |
-| 13.x.x  | :x:                |
-| 14.x.x  | :x:                |
-| 15.x.x  | :x:                |
-| 16.x.x  | :white_check_mark: |
+| 1 - 15  | :x:                |
+| 16      | :white_check_mark: |
 
 
 ## Reporting a Vulnerability
